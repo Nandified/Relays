@@ -1,0 +1,196 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relays — Apple-ish v7 (Pending Tracker Home + Thumbtack Marketplace, embedded demo humans)</title>
+<style>
+:root{
+  --p:#111827;--a:#3B82F6;--bg:#F5F7FB;--text:#0F172A;--muted:#6B7280;
+  --border:rgba(15,23,42,.10);--sh:0 18px 45px rgba(2,6,23,.10);
+  --s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;
+  --r2:16px;--r3:20px;--r4:24px;--r5:30px;
+  --t0:11px;--t1:12px;--t2:13px;--t3:14px;--t4:16px;--t5:18px;
+  --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+
+  /* Embedded demo “fake humans” + photo tiles (no external loading) */
+  --AV1: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0Y1RjdGQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+CiAgPGNpcmNsZSBjeD0iODAiIGN5PSI2MiIgcj0iMzAiIGZpbGw9IiNGMkM5QTAiLz4KICA8cGF0aCBkPSJNNTAgNjJjOC0yNCA1Mi0yNCA2MCAwIDAtMzItNjAtMzItNjAgMHoiIGZpbGw9IiMxMTE4MjciIG9wYWNpdHk9Ii45MiIvPgogIDxjaXJjbGUgY3g9IjY5IiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxjaXJjbGUgY3g9IjkxIiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik03MCA3OGM2IDYgMTQgNiAyMCAwIiBzdHJva2U9IiMwRjE3MkEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIuMzUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMjggMTUyYzEwLTM2IDM2LTUyIDUyLTUyczQyIDE2IDUyIDUyIiBmaWxsPSIjM0I4MkY2IiBvcGFjaXR5PSIuOTUiLz4KICA8cGF0aCBkPSJNNjQgMTA0bDE2IDEwIDE2LTEwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNTUiLz4KPC9zdmc+');
+  --AV2: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0Y1RjdGQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+CiAgPGNpcmNsZSBjeD0iODAiIGN5PSI2MiIgcj0iMzAiIGZpbGw9IiNGMkM5QTAiLz4KICA8cGF0aCBkPSJNNTAgNjJjOC0yNCA1Mi0yNCA2MCAwIDAtMzItNjAtMzItNjAgMHoiIGZpbGw9IiMxMTE4MjciIG9wYWNpdHk9Ii45MiIvPgogIDxjaXJjbGUgY3g9IjY5IiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxjaXJjbGUgY3g9IjkxIiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik03MCA3OGM2IDYgMTQgNiAyMCAwIiBzdHJva2U9IiMwRjE3MkEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIuMzUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMjggMTUyYzEwLTM2IDM2LTUyIDUyLTUyczQyIDE2IDUyIDUyIiBmaWxsPSIjMTRCOEE2IiBvcGFjaXR5PSIuOTUiLz4KICA8cGF0aCBkPSJNNjQgMTA0bDE2IDEwIDE2LTEwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNTUiLz4KPC9zdmc+');
+  --AV6: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0Y1RjdGQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+CiAgPGNpcmNsZSBjeD0iODAiIGN5PSI2MiIgcj0iMzAiIGZpbGw9IiNGMkM5QTAiLz4KICA8cGF0aCBkPSJNNTAgNjJjOC0yNCA1Mi0yNCA2MCAwIDAtMzItNjAtMzItNjAgMHoiIGZpbGw9IiMxMTE4MjciIG9wYWNpdHk9Ii45MiIvPgogIDxjaXJjbGUgY3g9IjY5IiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxjaXJjbGUgY3g9IjkxIiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik03MCA3OGM2IDYgMTQgNiAyMCAwIiBzdHJva2U9IiMwRjE3MkEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIuMzUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMjggMTUyYzEwLTM2IDM2LTUyIDUyLTUyczQyIDE2IDUyIDUyIiBmaWxsPSIjQTg1NUY3IiBvcGFjaXR5PSIuOTUiLz4KICA8cGF0aCBkPSJNNjQgMTA0bDE2IDEwIDE2LTEwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNTUiLz4KPC9zdmc+');
+  --T1: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjQzdEMkZFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzkzQzVGRCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic2hpbmUiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9Ii4zMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyOCIgZmlsbD0idXJsKCNnKSIvPgogIDxwYXRoIGQ9Ik0tMjAgNjAgQyA4MCAxMCwgMTQwIDEyMCwgMzIwIDQwIiBzdHJva2U9InVybCgjc2hpbmUpIiBzdHJva2Utd2lkdGg9IjI2IiBmaWxsPSJub25lIiBvcGFjaXR5PSIuNTUiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSI1MiIgcj0iMjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii4xOCIvPgogIDxyZWN0IHg9IjIyIiB5PSIxNDIiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuMjgiLz4KICA8dGV4dCB4PSIyMiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSI+SE9VU0U8L3RleHQ+Cjwvc3ZnPg==');
+  --T2: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjQkFFNkZEIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzk5RjZFNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic2hpbmUiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9Ii4zMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyOCIgZmlsbD0idXJsKCNnKSIvPgogIDxwYXRoIGQ9Ik0tMjAgNjAgQyA4MCAxMCwgMTQwIDEyMCwgMzIwIDQwIiBzdHJva2U9InVybCgjc2hpbmUpIiBzdHJva2Utd2lkdGg9IjI2IiBmaWxsPSJub25lIiBvcGFjaXR5PSIuNTUiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSI1MiIgcj0iMjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii4xOCIvPgogIDxyZWN0IHg9IjIyIiB5PSIxNDIiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuMjgiLz4KICA8dGV4dCB4PSIyMiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSI+SU5TUEVDVElPTjwvdGV4dD4KPC9zdmc+');
+  --T3: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjQkJGN0QwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzg2RUZBQyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic2hpbmUiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9Ii4zMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyOCIgZmlsbD0idXJsKCNnKSIvPgogIDxwYXRoIGQ9Ik0tMjAgNjAgQyA4MCAxMCwgMTQwIDEyMCwgMzIwIDQwIiBzdHJva2U9InVybCgjc2hpbmUpIiBzdHJva2Utd2lkdGg9IjI2IiBmaWxsPSJub25lIiBvcGFjaXR5PSIuNTUiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSI1MiIgcj0iMjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii4xOCIvPgogIDxyZWN0IHg9IjIyIiB5PSIxNDIiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuMjgiLz4KICA8dGV4dCB4PSIyMiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSI+VE9PTFM8L3RleHQ+Cjwvc3ZnPg==');
+  --T4: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRkVEN0FBIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZEQkE3NCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic2hpbmUiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9Ii4zMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyOCIgZmlsbD0idXJsKCNnKSIvPgogIDxwYXRoIGQ9Ik0tMjAgNjAgQyA4MCAxMCwgMTQwIDEyMCwgMzIwIDQwIiBzdHJva2U9InVybCgjc2hpbmUpIiBzdHJva2Utd2lkdGg9IjI2IiBmaWxsPSJub25lIiBvcGFjaXR5PSIuNTUiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSI1MiIgcj0iMjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii4xOCIvPgogIDxyZWN0IHg9IjIyIiB5PSIxNDIiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuMjgiLz4KICA8dGV4dCB4PSIyMiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSI+Q09OVFJBQ1Q8L3RleHQ+Cjwvc3ZnPg==');
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--text);background:linear-gradient(180deg,var(--bg),#fff 35%)}
+header{padding:22px 24px;border-bottom:1px solid rgba(15,23,42,.08);position:sticky;top:0;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);z-index:10}
+h1{margin:0 0 6px;font-size:var(--t5);letter-spacing:-.02em}
+p{margin:0;color:var(--muted);font-size:var(--t1);line-height:1.45}
+
+.wrap{padding:var(--s5) 24px 44px;display:grid;gap:var(--s5)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);align-items:start}
+.panel{border:1px solid rgba(15,23,42,.10);border-radius:var(--r4);background:rgba(255,255,255,.70);box-shadow:0 10px 25px rgba(2,6,23,.06);overflow:hidden}
+.ph{padding:var(--s4) var(--s4) var(--s3);border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between;gap:10px}
+.ph b{font-size:var(--t1)} .ph span{color:var(--muted);font-size:var(--t0)}
+.frame{border:1px solid rgba(15,23,42,.10);border-radius:var(--r5);background:linear-gradient(180deg,var(--bg),#fff);box-shadow:var(--sh);overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:var(--s4) var(--s4);border-bottom:1px solid rgba(15,23,42,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:900;letter-spacing:-.02em}
+.logo{width:30px;height:30px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--a));box-shadow:0 12px 20px rgba(2,6,23,.14)}
+.pill{padding:7px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.10);color:var(--muted);font-size:var(--t1);background:rgba(255,255,255,.82)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:10px 14px;font-size:var(--t1);font-weight:900;border:1px solid transparent;cursor:default;user-select:none;line-height:1}
+.btnPrimary{background:var(--a);color:#fff;box-shadow:0 10px 18px rgba(59,130,246,.18)}
+.btnSecondary{background:rgba(255,255,255,.85);border:1px solid rgba(15,23,42,.12);color:var(--text)}
+.btnTertiary{background:transparent;border:1px solid rgba(15,23,42,.12);color:var(--muted)}
+.content{padding:var(--s4)}
+
+/* Embedded images */
+.avatar{width:44px;height:44px;border-radius:18px;border:1px solid rgba(15,23,42,.10);background:#fff;background-image:var(--AV1);background-size:cover;background-position:center}
+.t{height:42px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:#fff;background-image:var(--T1);background-size:cover;background-position:center}
+
+/* Home: pending tracker */
+.hero{border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.10);border-radius:22px;padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.hero b{font-size:14px;letter-spacing:-.02em}
+.hero small{display:block;color:var(--muted);font-size:11px;margin-top:3px;max-width:520px}
+
+.board{margin-top:12px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.92);border-radius:22px;overflow:hidden}
+.row{display:grid;grid-template-columns:1.2fr .7fr .6fr;gap:12px;align-items:center;padding:12px 12px;border-top:1px solid rgba(15,23,42,.08)}
+.row:first-child{border-top:0}
+.task{display:flex;gap:12px;align-items:center}
+.icon{width:44px;height:44px;border-radius:18px;border:1px solid rgba(15,23,42,.10);background:#fff;background-image:var(--T2);background-size:cover;background-position:center}
+.task b{font-size:12px}
+.task .m{font-size:10px;color:var(--muted);margin-top:2px}
+.owner{display:flex;gap:10px;align-items:center;justify-content:flex-start}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;padding:6px 9px;border-radius:999px;border:1px solid rgba(245,158,11,.40);background:rgba(245,158,11,.12);color:rgba(146,64,14,.95);justify-self:start}
+.badge.ok{border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.10);color:rgba(21,128,61,.95)}
+
+/* Marketplace: Thumbtack-like list + preview */
+.search{border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.92);border-radius:999px;padding:11px 12px;font-size:var(--t1);color:var(--muted);flex:1;min-width:260px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:10px;padding:6px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.12);background:rgba(2,6,23,.03);color:rgba(15,23,42,.70)}
+.chip.on{border-color:rgba(59,130,246,.30);background:rgba(59,130,246,.10);color:rgba(30,64,175,.95);font-weight:900}
+
+.market{display:grid;grid-template-columns:1fr 360px;gap:12px;margin-top:12px}
+.list{display:grid;gap:10px}
+.li{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.92);border-radius:22px;padding:12px;display:grid;gap:10px}
+.liTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.title{font-weight:980;font-size:13px}
+.sub{font-size:10px;color:var(--muted);margin-top:2px}
+.logoChip{width:42px;height:42px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:11px;color:rgba(15,23,42,.70)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.people{display:flex;gap:8px;flex-wrap:wrap}
+.person{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:18px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.88)}
+.person b{font-size:11px}
+.person small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
+
+.preview{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.92);border-radius:22px;padding:12px;position:sticky;top:92px;height:fit-content}
+.preview .heroImg{height:120px;border-radius:18px;border:1px solid rgba(15,23,42,.10);background:#fff;background-image:var(--T1);background-size:cover}
+
+@media(max-width:980px){.grid{grid-template-columns:1fr}.market{grid-template-columns:1fr}.preview{position:static}}
+</style></head>
+<body>
+<header>
+  <h1>Relays — Apple‑ish (v7)</h1>
+  <p>Home is now a <b>Pending Items Tracker</b> (no closing date dependency). Marketplace is <b>Thumbtack-like</b> on desktop (list + sticky preview). Demo humans/images are embedded so they always show.</p>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="panel">
+      <div class="ph"><div><b>Desktop — Home (Pending Tracker)</b><br><span>OS for what’s pending</span></div><span>Web</span></div>
+      <div style="padding:14px"><div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Home</div><div class="pill">Buying • Under contract</div></div>
+        <div class="content">
+          <div class="hero">
+            <div>
+              <b>Pending items (3)</b>
+              <small>This replaces “% to close.” It’s the operational truth: what’s needed next (inspection, insurance, attorney review, appraisal, title…).</small>
+            </div>
+            <button class="btn btnPrimary">Resolve next</button>
+          </div>
+
+          <div class="board">
+            <div class="row">
+              <div class="task">
+                <div class="icon" style="background-image:var(--T2)"></div>
+                <div><b>Inspection needed</b><div class="m">Pick date → see windows (2h hold)</div></div>
+              </div>
+              <div class="owner"><div class="avatar" style="background-image:var(--AV1)"></div><div><b style="font-size:11px">Top Choice</b><div class="m">Inspector</div></div></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge">Needed</span><button class="btn btnPrimary" style="padding:9px 12px">Pick date</button></div>
+            </div>
+            <div class="row">
+              <div class="task">
+                <div class="icon" style="background-image:var(--T4)"></div>
+                <div><b>Attorney review period</b><div class="m">Start + end dates optional; track status</div></div>
+              </div>
+              <div class="owner"><div class="avatar" style="background-image:var(--AV6)"></div><div><b style="font-size:11px">River North Law</b><div class="m">Attorney</div></div></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge">Needed</span><button class="btn btnSecondary" style="padding:9px 12px">Request</button></div>
+            </div>
+            <div class="row">
+              <div class="task">
+                <div class="icon" style="background-image:var(--T3)"></div>
+                <div><b>Insurance needed</b><div class="m">Request quote • bind policy</div></div>
+              </div>
+              <div class="owner"><div class="avatar" style="background-image:var(--AV2)"></div><div><b style="font-size:11px">Neighborhood</b><div class="m">Lender</div></div></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge">Needed</span><button class="btn btnPrimary" style="padding:9px 12px">Request quote</button></div>
+            </div>
+            <div class="row">
+              <div class="task">
+                <div class="icon" style="background-image:var(--T1)"></div>
+                <div><b>Earnest money received</b><div class="m">Receipt uploaded</div></div>
+              </div>
+              <div class="owner"><div class="avatar" style="background-image:var(--AV1)"></div><div><b style="font-size:11px">FRJ Group</b><div class="m">Realtor</div></div></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge ok">Done</span><button class="btn btnTertiary" style="padding:9px 12px">View</button></div>
+            </div>
+          </div>
+
+        </div>
+      </div></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div><b>Desktop — Marketplace (Thumbtack-like)</b><br><span>List + sticky preview</span></div><span>Web</span></div>
+      <div style="padding:14px"><div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Marketplace</div><div class="pill">Chicago</div></div>
+        <div class="content">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <input class="search" value="Search a service: home inspector"/>
+            <button class="btn btnPrimary" style="padding:10px 12px">Search</button>
+          </div>
+          <div class="chips"><span class="chip on">Verified</span><span class="chip">Spanish</span><span class="chip">Weekend</span><span class="chip">Fast response</span><span class="chip">Companies</span><span class="chip">Individuals</span></div>
+
+          <div class="market">
+            <div class="list">
+              <div class="li">
+                <div class="liTop"><div><div class="title">Top Choice Inspections</div><div class="sub">4.9★ (312) • Responds ~1h • Verified</div></div><div class="logoChip">TC</div></div>
+                <div class="gallery"><div class="t" style="background-image:var(--T2)"></div><div class="t" style="background-image:var(--T1)"></div><div class="t" style="background-image:var(--T3)"></div><div class="t" style="background-image:var(--T6)"></div></div>
+                <div class="people">
+                  <div class="person"><div class="avatar" style="background-image:var(--AV1)"></div><div><b>Alberto</b><small>Lead inspector</small></div></div>
+                  <div class="person"><div class="avatar" style="background-image:var(--AV2)"></div><div><b>Jamie</b><small>Radon + sewer</small></div></div>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btnSecondary">View</button><button class="btn btnPrimary">Request (2h)</button></div>
+              </div>
+
+              <div class="li">
+                <div class="liTop"><div><div class="title">Independent Inspector — Maria</div><div class="sub">4.8★ (98) • Same-day • Spanish</div></div><div class="logoChip">MI</div></div>
+                <div class="gallery"><div class="t" style="background-image:var(--T2)"></div><div class="t" style="background-image:var(--T6)"></div><div class="t" style="background-image:var(--T1)"></div><div class="t" style="background-image:var(--T4)"></div></div>
+                <div class="people"><div class="person"><div class="avatar" style="background-image:var(--AV6)"></div><div><b>Maria</b><small>Owner/operator</small></div></div></div>
+                <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btnSecondary">View</button><button class="btn btnPrimary">Request (2h)</button></div>
+              </div>
+            </div>
+
+            <div class="preview">
+              <div class="heroImg" style="background-image:var(--T2)"></div>
+              <div style="margin-top:10px"><b style="font-size:13px">Top Choice Inspections</b><div class="sub">What you get: inspection report + photos + same-day summary.</div></div>
+              <div style="margin-top:10px;border-top:1px solid rgba(15,23,42,.08);padding-top:10px;display:grid;gap:8px">
+                <div class="sub"><b>Hold duration:</b> 2 hours (inspections)</div>
+                <div class="sub"><b>Response:</b> ~1 hour median</div>
+                <div class="sub"><b>Company logo:</b> supported + required in RE</div>
+              </div>
+              <div style="display:flex;gap:10px;margin-top:12px"><button class="btn btnSecondary" style="flex:1">Message</button><button class="btn btnPrimary" style="flex:1">Request</button></div>
+            </div>
+          </div>
+
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+</body></html>

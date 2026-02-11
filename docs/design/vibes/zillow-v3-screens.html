@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relays — Zillow-ish v3 (Thumbtack-inspired)</title>
+<style>
+:root{--p:#0052FF;--a:#00A86B;--bg:#F3F7FF;--text:#0F172A;--muted:#64748B;--border:rgba(15,23,42,.10);--sh:0 16px 40px rgba(2,6,23,.10);
+--s2:8px;--s3:12px;--s4:16px;--s5:20px;--r3:16px;--r4:18px;--r5:22px;--t0:11px;--t1:12px;--t2:13px;--font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font);color:var(--text);background:linear-gradient(180deg,var(--bg),#fff 35%)}
+header{padding:22px 24px;border-bottom:1px solid rgba(15,23,42,.08);position:sticky;top:0;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);z-index:10}
+h1{margin:0 0 6px;font-size:18px;letter-spacing:-.02em}p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.hrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.sw{display:flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.78);font-size:var(--t0);color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:999px;background:var(--p)}.dot.a{background:var(--a)}.dot.bg{background:var(--bg);border:1px solid rgba(15,23,42,.12)}
+.wrap{padding:20px 24px 40px;display:grid;gap:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border:1px solid rgba(15,23,42,.10);border-radius:18px;background:rgba(255,255,255,.70);box-shadow:0 10px 25px rgba(2,6,23,.06);overflow:hidden}
+.ph{padding:14px;border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between}.ph b{font-size:12px}.ph span{font-size:11px;color:var(--muted)}
+.frame{border:1px solid rgba(15,23,42,.10);border-radius:18px;background:#fff;box-shadow:var(--sh);overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(15,23,42,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:950;letter-spacing:-.02em}
+.logo{width:28px;height:28px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--a));box-shadow:0 12px 20px rgba(2,6,23,.12)}
+.pill{padding:7px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.10);color:var(--muted);font-size:12px;background:rgba(255,255,255,.85)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:900;border:1px solid transparent;cursor:default}
+.btnP{background:var(--p);color:#fff}
+.btnA{background:var(--a);color:#fff}
+.btnS{background:#fff;border-color:rgba(15,23,42,.12);color:var(--text)}
+.btnT{background:transparent;border-color:rgba(15,23,42,.12);color:var(--muted)}
+.content{padding:14px}
+
+.photo{border-radius:14px;position:relative;overflow:hidden;border:1px solid rgba(15,23,42,.10);background:
+radial-gradient(circle at 20% 20%, rgba(255,255,255,.40), rgba(255,255,255,0) 45%),
+linear-gradient(135deg, rgba(0,82,255,.22), rgba(0,168,107,.18)),
+linear-gradient(0deg, rgba(2,6,23,.06), rgba(2,6,23,.06));}
+.logoBadge{position:absolute;right:8px;bottom:8px;width:26px;height:26px;border-radius:10px;background:#fff;border:1px solid rgba(15,23,42,.12);box-shadow:0 8px 18px rgba(2,6,23,.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:rgba(15,23,42,.70)}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.card{border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:16px;padding:10px}
+.row{display:flex;gap:10px;align-items:center}.pic{width:58px;height:58px}
+.name{font-size:13px;font-weight:950}.sub{font-size:11px;color:var(--muted);margin-top:2px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.badge{font-size:10px;padding:6px 9px;border-radius:999px;border:1px solid rgba(15,23,42,.10);background:rgba(243,247,255,.75);color:rgba(15,23,42,.74)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.g{height:40px;border-radius:14px}
+.heroBand{border-radius:16px;border:1px solid rgba(0,82,255,.22);background:rgba(0,82,255,.07);padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:10px}
+
+.vthumb{width:150px;height:84px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:linear-gradient(135deg, rgba(0,82,255,.14), rgba(0,168,107,.10));display:flex;align-items:center;justify-content:center;color:rgba(15,23,42,.72);font-size:12px}
+.section{margin-top:12px;border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:16px;padding:12px}
+.section h4{margin:0;font-size:12px}.li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(15,23,42,.08);font-size:11px;color:var(--muted)}.li:first-of-type{border-top:0}
+
+.bookGrid{display:grid;grid-template-columns:320px 1fr;gap:12px;margin-top:12px}
+.mini{border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:18px;overflow:hidden}
+.mh{padding:12px;border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between;align-items:center}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:10px;color:var(--muted)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:12px}
+.d{height:30px;border-radius:12px;border:1px solid rgba(15,23,42,.10);background:rgba(2,6,23,.02);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(15,23,42,.72)}
+.d.on{border-color:rgba(0,168,107,.40);background:rgba(0,168,107,.10);color:rgba(15,23,42,.92);font-weight:900}
+.right{border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:18px;padding:12px}
+.tab{padding:8px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.12);background:#fff;font-size:11px;color:var(--muted)}
+.tab.on{border-color:rgba(0,168,107,.40);background:rgba(0,168,107,.10);color:rgba(15,23,42,.92);font-weight:900}
+.hold{margin-top:10px;border-radius:16px;border:1px solid rgba(0,82,255,.20);background:rgba(0,82,255,.06);padding:10px;font-size:11px;color:rgba(15,23,42,.76)}
+.slot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:16px;border:1px solid rgba(15,23,42,.12);background:#fff;margin-top:8px}
+
+.phone{max-width:390px;margin:0 auto;border-radius:28px;overflow:hidden;border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 50px rgba(2,6,23,.14)}
+.phone .frame{border:0;border-radius:0}.phone .cards{grid-template-columns:1fr}
+@media(max-width:980px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bookGrid{grid-template-columns:1fr}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><h1>Relays — Zillow‑ish (v3) • Thumbtack-inspired improvements</h1><p>Improved marketplace cards + profile promo landing + modern scheduling (compact calendar + holds).</p>
+<div class="hrow"><div class="sw"><span class="dot"></span> #0052FF</div><div class="sw"><span class="dot a"></span> #00A86B</div><div class="sw"><span class="dot bg"></span> #F3F7FF</div></div></header>
+<div class="wrap">
+  <div class="grid">
+    <div class="panel"><div class="ph"><div><b>Desktop — Marketplace</b><br><span>Gallery + badges</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Marketplace</div><button class="btn btnP">Create team</button></div><div class="content">
+      <div class="heroBand"><div><b>Build your dream team</b><div style="font-size:11px;color:var(--muted);margin-top:2px">See photos + reviews before you request</div></div><button class="btn btnA">Start</button></div>
+      <div class="cards">
+        <div class="card"><div class="row"><div class="photo pic"><div class="logoBadge">TC</div></div><div><div class="name">Top Choice</div><div class="sub">4.9★ • ~1h</div><div class="badges"><span class="badge">Verified</span><span class="badge">Weekend</span></div></div></div><div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div><div class="hrow" style="margin-top:10px"><button class="btn btnS">View</button><button class="btn btnA">Request</button></div></div>
+        <div class="card"><div class="row"><div class="photo pic"><div class="logoBadge">RMX</div></div><div><div class="name">FRJ Group</div><div class="sub">4.9★ (1,200)</div><div class="badges"><span class="badge">Top 1%</span><span class="badge">Bilingual</span></div></div></div><div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div><div class="hrow" style="margin-top:10px"><button class="btn btnS">View</button><button class="btn btnA">Add</button></div></div>
+        <div class="card"><div class="row"><div class="photo pic"><div class="logoBadge">NL</div></div><div><div class="name">Neighborhood</div><div class="sub">Fast close • Spanish</div><div class="badges"><span class="badge">Pre-approve</span><span class="badge">Verified</span></div></div></div><div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div><div class="hrow" style="margin-top:10px"><button class="btn btnS">View</button><button class="btn btnA">Request</button></div></div>
+      </div>
+    </div></div></div></div></div>
+
+    <div class="panel"><div class="ph"><div><b>Desktop — Pro Profile</b><br><span>Promo landing</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Pro profile</div><div class="hrow" style="gap:8px"><button class="btn btnS">Share</button><button class="btn btnA">Request quote</button></div></div><div class="content">
+      <div class="row" style="align-items:flex-start;gap:12px">
+        <div class="photo" style="width:88px;height:88px;border-radius:20px"><div class="logoBadge">RMX</div></div>
+        <div style="flex:1">
+          <div class="name">FRJ Group @ RE/MAX</div><div class="sub">Chicago • Response ~1h • 4.9★</div>
+          <div class="hrow" style="margin-top:10px"><button class="btn btnA">Request quote</button><button class="btn btnS">Add to team</button><button class="btn btnT">Message</button></div>
+          <div class="hrow" style="margin-top:10px"><div class="vthumb">Video (tap to expand)</div><div style="font-size:11px;color:var(--muted);max-width:260px">Small by default. Expanded/fullscreen on demand.</div></div>
+          <div class="gallery" style="grid-template-columns:repeat(6,1fr);margin-top:12px"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div>
+        </div>
+      </div>
+      <div class="section"><h4>Reviews</h4><div class="li"><span>“Smooth process.”</span><span class="pill">Verified</span></div><div class="li"><span>“Great communication.”</span><span class="pill">Verified</span></div></div>
+    </div></div></div></div></div>
+  </div>
+
+  <div class="panel"><div class="ph"><div><b>Desktop — Scheduling</b><br><span>Compact calendar + holds</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Schedule</div><div class="pill">Inspection</div></div><div class="content">
+    <div class="bookGrid">
+      <div class="mini"><div class="mh"><b>Pick date</b><div class="pill">Feb 2026</div></div><div class="wk" style="padding:12px"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div><div class="days">
+        <div class="d">16</div><div class="d">17</div><div class="d on">18</div><div class="d">19</div><div class="d">20</div><div class="d">21</div><div class="d">22</div>
+        <div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div><div class="d">29</div>
+      </div></div>
+      <div class="right">
+        <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:13px">Wed, Feb 18</b><div class="pill">Pro confirms</div></div>
+        <div class="hrow" style="margin-top:10px"><span class="tab on">2h hold</span><span class="tab">60m</span><span class="tab">30m</span></div>
+        <div class="hold">Inspections hold 2 hours. Trades are 30–60 minutes. Pro confirms → calendar event.</div>
+        <div class="slot"><div><b>8:00–10:00</b><div style="font-size:10px;color:var(--muted)">Earliest</div></div><button class="btn btnA">Hold</button></div>
+        <div class="slot"><div><b>10:00–12:00</b><div style="font-size:10px;color:var(--muted)">Popular</div></div><button class="btn btnS">Hold</button></div>
+        <div class="hrow" style="margin-top:12px"><button class="btn btnA">Send request</button><button class="btn btnS">Already scheduled</button></div>
+      </div>
+    </div>
+  </div></div></div></div>
+
+  <div class="panel"><div class="ph"><div><b>Mobile — Pro Card</b><br><span>Alive</span></div><span>Later native</span></div><div style="padding:14px"><div class="phone"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Pros</div><button class="btn btnP">Team</button></div><div class="content"><div class="card"><div class="row"><div class="photo pic"><div class="logoBadge">TC</div></div><div><div class="name">Top Choice</div><div class="sub">4.9★ • ~1h</div></div></div><div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div><div class="hrow" style="margin-top:10px"><button class="btn btnS">View</button><button class="btn btnA">Request</button></div></div></div></div></div></div></div>
+</div>
+</body></html>

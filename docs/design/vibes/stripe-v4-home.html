@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relays — Stripe/Linear v4 (Home + Company-first Marketplace)</title>
+<style>
+:root{--p:#0B1F3B;--a:#14B8A6;--bg:#F8FAFC;--text:#0F172A;--muted:#64748B;--border:rgba(15,23,42,.10);--sh:0 14px 34px rgba(2,6,23,.08);
+--s2:8px;--s3:12px;--s4:16px;--s5:20px;--r3:16px;--r4:18px;--r5:22px;--t0:11px;--t1:12px;--t2:13px;--font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font);color:var(--text);background:linear-gradient(180deg,var(--bg),#fff 30%)}
+header{padding:22px 24px;border-bottom:1px solid rgba(15,23,42,.08);position:sticky;top:0;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);z-index:10}
+h1{margin:0 0 6px;font-size:18px;letter-spacing:-.02em}p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+
+.wrap{padding:20px 24px 40px;display:grid;gap:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border:1px solid rgba(15,23,42,.10);border-radius:18px;background:rgba(255,255,255,.70);box-shadow:0 10px 25px rgba(2,6,23,.06);overflow:hidden}
+.ph{padding:14px;border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between}.ph b{font-size:12px}.ph span{font-size:11px;color:var(--muted)}
+.frame{border:1px solid rgba(15,23,42,.10);border-radius:18px;background:linear-gradient(180deg,rgba(248,250,252,.9),#fff);box-shadow:var(--sh);overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(15,23,42,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:950;letter-spacing:-.02em}
+.logo{width:28px;height:28px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--a));box-shadow:0 10px 18px rgba(2,6,23,.12)}
+.pill{padding:7px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.10);color:var(--muted);font-size:12px;background:rgba(255,255,255,.75)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:900;border:1px solid transparent;cursor:default}
+.btnP{background:var(--a);color:#fff}
+.btnS{background:rgba(255,255,255,.85);border:1px solid rgba(15,23,42,.12);color:var(--text)}
+.content{padding:14px}
+
+.img{background-size:cover;background-position:center}
+.avatar{width:50px;height:50px;border-radius:16px;border:1px solid rgba(15,23,42,.10);box-shadow:0 10px 18px rgba(2,6,23,.08)}
+.coLogo{width:40px;height:40px;border-radius:14px;border:1px solid rgba(15,23,42,.10);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:10px;color:rgba(15,23,42,.70);box-shadow:0 10px 16px rgba(2,6,23,.08)}
+
+.hero{border:1px solid rgba(20,184,166,.22);background:rgba(20,184,166,.08);border-radius:18px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.hero b{font-size:13px} .hero small{display:block;color:var(--muted);margin-top:2px}
+
+.cols{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:12px}
+.card{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.86);border-radius:18px;padding:12px}
+.card h3{margin:0;font-size:12px}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-top:1px solid rgba(15,23,42,.08)}
+.item:first-of-type{border-top:0}
+.meta{color:var(--muted);font-size:10px;margin-top:2px}
+
+.search{border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.88);border-radius:999px;padding:10px 12px;font-size:12px;color:var(--muted)}
+.coGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.coCard{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.90);border-radius:18px;padding:12px}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.coName{font-weight:950;font-size:13px}
+.coSub{font-size:10px;color:var(--muted);margin-top:2px}
+.people{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.person{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.86)}
+.person b{font-size:11px}.person small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.g{height:40px;border-radius:14px;border:1px solid rgba(15,23,42,.08)}
+
+@media(max-width:980px){.grid{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.coGrid{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><h1>Relays — Stripe/Linear (v4)</h1><p>True consumer home + company-first marketplace + real demo images (remote).</p></header>
+<div class="wrap">
+  <div class="grid">
+    <div class="panel"><div class="ph"><div><b>Desktop — Consumer Home</b><br><span>Landing</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Home</div><div class="pill">Under contract</div></div><div class="content">
+      <div class="hero"><div><b>Book inspection</b><small>Pick date → show windows (2h)</small></div><button class="btn btnP">Pick date</button></div>
+      <div class="cols">
+        <div class="card"><h3>Your team</h3>
+          <div class="item"><div style="display:flex;gap:10px;align-items:center"><div class="avatar img" style="background-image:url('https://source.unsplash.com/featured/200x200?headshot&sig=51')"></div><div><b style="font-size:12px">Realtor</b><div class="meta">FRJ Group</div></div></div><span class="pill">Assigned</span></div>
+          <div class="item"><div style="display:flex;gap:10px;align-items:center"><div class="avatar img" style="background-image:url('https://source.unsplash.com/featured/200x200?portrait&sig=52')"></div><div><b style="font-size:12px">Lender</b><div class="meta">Neighborhood</div></div></div><span class="pill">Assigned</span></div>
+          <div class="item"><div style="display:flex;gap:10px;align-items:center"><div class="avatar img" style="background-image:url('https://source.unsplash.com/featured/200x200?person&sig=53')"></div><div><b style="font-size:12px">Inspector</b><div class="meta">Needs booking</div></div></div><button class="btn btnP">Request</button></div>
+        </div>
+        <div class="card"><h3>Today</h3>
+          <div class="item"><div><b style="font-size:12px">2 tasks due</b><div class="meta">Inspection + insurance</div></div><span class="pill">Action</span></div>
+          <div class="item"><div><b style="font-size:12px">1 message</b><div class="meta">Lender thread</div></div><span class="pill">New</span></div>
+        </div>
+      </div>
+    </div></div></div></div></div>
+
+    <div class="panel"><div class="ph"><div><b>Desktop — Marketplace (Company-first)</b><br><span>Brand + team</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Marketplace</div><div class="pill">Chicago</div></div><div class="content">
+      <input class="search" value="Search: Home inspector" />
+      <div class="coGrid">
+        <div class="coCard"><div class="top"><div><div class="coName">Top Choice Inspections</div><div class="coSub">4.9★ • Verified • ~1h</div></div><div class="coLogo">TC</div></div>
+          <div class="gallery"><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?tools&sig=61')"></div><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?house&sig=62')"></div><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?interior&sig=63')"></div><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?home&sig=64')"></div></div>
+          <div class="people"><div class="person"><div class="avatar img" style="width:36px;height:36px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?man&sig=65')"></div><div><b>Alberto</b><small>Lead</small></div></div><div class="person"><div class="avatar img" style="width:36px;height:36px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?woman&sig=66')"></div><div><b>Jamie</b><small>Radon</small></div></div></div>
+          <div class="hrow" style="margin-top:10px"><button class="btn btnS">View</button><button class="btn btnP">Request</button></div>
+        </div>
+        <div class="coCard"><div class="top"><div><div class="coName">FRJ Group @ RE/MAX</div><div class="coSub">4.9★ • Top 1% • Bilingual</div></div><div class="coLogo">RMX</div></div>
+          <div class="gallery"><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?city&sig=67')"></div><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?condo&sig=68')"></div><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?apartment&sig=69')"></div><div class="g img" style="background-image:url('https://source.unsplash.com/featured/400x300?neighborhood&sig=70')"></div></div>
+          <div class="people"><div class="person"><div class="avatar img" style="width:36px;height:36px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?headshot&sig=71')"></div><div><b>Frank</b><small>Lead</small></div></div><div class="person"><div class="avatar img" style="width:36px;height:36px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?portrait&sig=72')"></div><div><b>Mia</b><small>Agent</small></div></div></div>
+          <div class="hrow" style="margin-top:10px"><button class="btn btnS">View</button><button class="btn btnP">Add</button></div>
+        </div>
+      </div>
+    </div></div></div></div></div>
+  </div>
+</div>
+</body></html>

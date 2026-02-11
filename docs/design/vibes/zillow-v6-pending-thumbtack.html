@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relays — Zillow-ish v6 (Pending Tracker + Thumbtack Marketplace, embedded demo humans)</title>
+<style>
+:root{
+  --p:#0052FF;--a:#00A86B;--bg:#F3F7FF;--text:#0F172A;--muted:#64748B;
+  --border:rgba(15,23,42,.10);--sh:0 16px 40px rgba(2,6,23,.10);
+  --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+
+  --AV3: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0Y1RjdGQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+CiAgPGNpcmNsZSBjeD0iODAiIGN5PSI2MiIgcj0iMzAiIGZpbGw9IiNGMkM5QTAiLz4KICA8cGF0aCBkPSJNNTAgNjJjOC0yNCA1Mi0yNCA2MCAwIDAtMzItNjAtMzItNjAgMHoiIGZpbGw9IiMxMTE4MjciIG9wYWNpdHk9Ii45MiIvPgogIDxjaXJjbGUgY3g9IjY5IiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxjaXJjbGUgY3g9IjkxIiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik03MCA3OGM2IDYgMTQgNiAyMCAwIiBzdHJva2U9IiMwRjE3MkEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIuMzUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMjggMTUyYzEwLTM2IDM2LTUyIDUyLTUyczQyIDE2IDUyIDUyIiBmaWxsPSIjMDA1MkZGIiBvcGFjaXR5PSIuOTUiLz4KICA8cGF0aCBkPSJNNjQgMTA0bDE2IDEwIDE2LTEwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNTUiLz4KPC9zdmc+');
+  --AV4: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCIgeDI9IjEiIHkxPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0Y1RjdGQiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+CiAgPGNpcmNsZSBjeD0iODAiIGN5PSI2MiIgcj0iMzAiIGZpbGw9IiNGMkM5QTAiLz4KICA8cGF0aCBkPSJNNTAgNjJjOC0yNCA1Mi0yNCA2MCAwIDAtMzItNjAtMzItNjAgMHoiIGZpbGw9IiMxMTE4MjciIG9wYWNpdHk9Ii45MiIvPgogIDxjaXJjbGUgY3g9IjY5IiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxjaXJjbGUgY3g9IjkxIiBjeT0iNjIiIHI9IjQiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSIvPgogIDxwYXRoIGQ9Ik03MCA3OGM2IDYgMTQgNiAyMCAwIiBzdHJva2U9IiMwRjE3MkEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBvcGFjaXR5PSIuMzUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMjggMTUyYzEwLTM2IDM2LTUyIDUyLTUyczQyIDE2IDUyIDUyIiBmaWxsPSIjMDBBODZCIiBvcGFjaXR5PSIuOTUiLz4KICA8cGF0aCBkPSJNNjQgMTA0bDE2IDEwIDE2LTEwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNTUiLz4KPC9zdmc+');
+  --T1: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjQzdEMkZFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzkzQzVGRCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic2hpbmUiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9Ii4zMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyOCIgZmlsbD0idXJsKCNnKSIvPgogIDxwYXRoIGQ9Ik0tMjAgNjAgQyA4MCAxMCwgMTQwIDEyMCwgMzIwIDQwIiBzdHJva2U9InVybCgjc2hpbmUpIiBzdHJva2Utd2lkdGg9IjI2IiBmaWxsPSJub25lIiBvcGFjaXR5PSIuNTUiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSI1MiIgcj0iMjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii4xOCIvPgogIDxyZWN0IHg9IjIyIiB5PSIxNDIiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuMjgiLz4KICA8dGV4dCB4PSIyMiIgeT0iNDgiIGZvbnQtZmFtaWx5PSJ1aS1zYW5zLXNlcmlmLCBzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiMwRjE3MkEiIG9wYWNpdHk9Ii41NSI+SE9VU0U8L3RleHQ+Cjwvc3ZnPg==');
+}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font);color:var(--text);background:linear-gradient(180deg,var(--bg),#fff 35%)}
+header{padding:22px 24px;border-bottom:1px solid rgba(15,23,42,.08);position:sticky;top:0;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);z-index:10}
+h1{margin:0 0 6px;font-size:18px;letter-spacing:-.02em}p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.wrap{padding:20px 24px 44px;display:grid;gap:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border:1px solid rgba(15,23,42,.10);border-radius:18px;background:rgba(255,255,255,.70);box-shadow:0 10px 25px rgba(2,6,23,.06);overflow:hidden}
+.ph{padding:14px;border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between}.ph b{font-size:12px}.ph span{font-size:11px;color:var(--muted)}
+.frame{border:1px solid rgba(15,23,42,.10);border-radius:18px;background:#fff;box-shadow:var(--sh);overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(15,23,42,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:950;letter-spacing:-.02em}
+.logo{width:28px;height:28px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--a));box-shadow:0 12px 20px rgba(2,6,23,.12)}
+.pill{padding:7px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.10);color:var(--muted);font-size:12px;background:rgba(255,255,255,.85)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:950;border:1px solid transparent;cursor:default}
+.btnP{background:var(--p);color:#fff}.btnA{background:var(--a);color:#fff}.btnS{background:#fff;border:1px solid rgba(15,23,42,.12);color:var(--text)}
+.content{padding:14px}
+.avatar{width:42px;height:42px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:#fff;background-image:var(--AV3);background-size:cover}
+.t{height:40px;border-radius:14px;border:1px solid rgba(15,23,42,.10);background:#fff;background-image:var(--T1);background-size:cover}
+.hero{border:1px solid rgba(0,82,255,.22);background:rgba(0,82,255,.07);border-radius:18px;padding:12px;display:flex;justify-content:space-between;gap:12px}
+.board{margin-top:12px;border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:18px;overflow:hidden}
+.row{display:grid;grid-template-columns:1.2fr .8fr .6fr;gap:12px;align-items:center;padding:12px;border-top:1px solid rgba(15,23,42,.08)}.row:first-child{border-top:0}
+.badge{font-size:10px;padding:6px 9px;border-radius:999px;border:1px solid rgba(245,158,11,.40);background:rgba(245,158,11,.12);color:rgba(146,64,14,.95)}
+.market{display:grid;grid-template-columns:1fr 340px;gap:12px;margin-top:12px}
+.li{border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:18px;padding:12px;display:grid;gap:10px}
+.preview{border:1px solid rgba(15,23,42,.10);background:#fff;border-radius:18px;padding:12px;position:sticky;top:92px;height:fit-content}
+@media(max-width:980px){.grid{grid-template-columns:1fr}.market{grid-template-columns:1fr}.preview{position:static}}
+</style></head>
+<body>
+<header><h1>Relays — Zillow‑ish (v6)</h1><p>Pending tracker home + Thumbtack-style marketplace on desktop. Embedded demo avatars (always render).</p></header>
+<div class="wrap"><div class="grid">
+  <div class="panel"><div class="ph"><div><b>Home — Pending</b><br><span>Track what’s needed</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Home</div><div class="pill">Under contract</div></div><div class="content">
+    <div class="hero"><div><b>Pending items (3)</b><div style="margin-top:3px;color:var(--muted);font-size:11px">No closing date required to be useful.</div></div><button class="btn btnP">Resolve next</button></div>
+    <div class="board">
+      <div class="row"><div><b style="font-size:12px">Inspection needed</b><div style="font-size:10px;color:var(--muted);margin-top:2px">Pick date → windows (2h)</div></div><div style="display:flex;gap:10px;align-items:center"><div class="avatar"></div><div><b style="font-size:11px">Top Choice</b><div style="font-size:10px;color:var(--muted)">Inspector</div></div></div><div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge">Needed</span><button class="btn btnP">Pick date</button></div></div>
+      <div class="row"><div><b style="font-size:12px">Attorney review</b><div style="font-size:10px;color:var(--muted);margin-top:2px">Status</div></div><div style="display:flex;gap:10px;align-items:center"><div class="avatar" style="background-image:var(--AV4)"></div><div><b style="font-size:11px">River North Law</b><div style="font-size:10px;color:var(--muted)">Attorney</div></div></div><div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge">Needed</span><button class="btn btnS">Request</button></div></div>
+      <div class="row"><div><b style="font-size:12px">Insurance needed</b><div style="font-size:10px;color:var(--muted);margin-top:2px">Request quote</div></div><div style="display:flex;gap:10px;align-items:center"><div class="avatar"></div><div><b style="font-size:11px">Neighborhood</b><div style="font-size:10px;color:var(--muted)">Lender</div></div></div><div style="display:flex;gap:8px;justify-content:flex-end"><span class="badge">Needed</span><button class="btn btnA">Request</button></div></div>
+    </div>
+  </div></div></div></div></div>
+
+  <div class="panel"><div class="ph"><div><b>Marketplace — Thumbtack</b><br><span>List + preview</span></div><span>Web</span></div><div style="padding:14px"><div class="frame"><div class="nav"><div class="brand"><div class="logo"></div>Marketplace</div><div class="pill">Chicago</div></div><div class="content">
+    <div class="market">
+      <div>
+        <div class="li"><div style="display:flex;justify-content:space-between;gap:12px"><div><b style="font-size:13px">Top Choice Inspections</b><div style="font-size:10px;color:var(--muted);margin-top:2px">4.9★ • Verified • ~1h</div></div><div class="pill">TC</div></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><div class="t"></div><div class="t"></div><div class="t"></div><div class="t"></div></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btnS">View</button><button class="btn btnA">Request (2h)</button></div>
+        </div>
+      </div>
+      <div class="preview"><div class="t" style="height:120px;border-radius:16px"></div><div style="margin-top:10px"><b>Top Choice Inspections</b><div style="font-size:10px;color:var(--muted);margin-top:2px">Sticky preview panel.</div></div><div style="display:flex;gap:10px;margin-top:12px"><button class="btn btnS" style="flex:1">Message</button><button class="btn btnA" style="flex:1">Request</button></div></div>
+    </div>
+  </div></div></div></div></div>
+</div></div>
+</body></html>

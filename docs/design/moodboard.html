@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Relays — Moodboard & UI Direction Demos</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --card: #ffffff;
+      --border: rgba(15,23,42,.10);
+      --shadow: 0 12px 30px rgba(2,6,23,.08);
+      --radius: 16px;
+      --radius2: 22px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 30%, #ffffff 100%);
+    }
+
+    header {
+      padding: 28px 28px 18px;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.75);
+      border-bottom: 1px solid rgba(15,23,42,.08);
+      z-index: 10;
+    }
+
+    h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); font-size: 13px; line-height: 1.4; }
+
+    .wrap { padding: 22px 28px 40px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(320px, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .theme {
+      background: rgba(255,255,255,.7);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(2,6,23,.06);
+    }
+
+    .themeHead {
+      padding: 16px 16px 14px;
+      border-bottom: 1px solid rgba(15,23,42,.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .themeTitle { font-size: 15px; font-weight: 750; letter-spacing: -0.02em; }
+    .themeNote { font-size: 12px; color: var(--muted); }
+
+    .section { padding: 14px 16px 18px; }
+    .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 10px; }
+
+    .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .sw {
+      border: 1px solid rgba(15,23,42,.10);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .chip { height: 44px; }
+    .meta { padding: 10px; font-size: 11px; color: var(--muted); line-height: 1.35; }
+    .meta b { color: var(--text); font-weight: 650; }
+
+    .ui {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .frame {
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.10);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* Shared component primitives */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(15,23,42,.08);
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 760;
+      letter-spacing: -0.02em;
+    }
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--p) 0%, var(--a) 100%);
+      box-shadow: 0 10px 18px rgba(2,6,23,.12);
+    }
+    .navRight { display: flex; gap: 8px; align-items: center; }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.10);
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(255,255,255,.7);
+    }
+
+    .cta {
+      background: var(--p);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .content { padding: 14px; }
+
+    .nbA {
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.65));
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: rgba(20,184,166,.14);
+      border: 1px solid rgba(20,184,166,.35);
+    }
+    .nbA h3 { margin: 0; font-size: 13px; letter-spacing: -0.02em; }
+    .nbA p { margin: 3px 0 10px; font-size: 12px; color: var(--muted); }
+
+    .roster { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+    .tile {
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.75);
+      border-radius: 14px;
+      padding: 10px;
+    }
+    .tileTop { display: flex; justify-content: space-between; align-items: center; }
+    .role { font-size: 12px; font-weight: 700; letter-spacing: -0.01em; }
+    .badge { font-size: 10px; padding: 4px 8px; border-radius: 999px; background: rgba(2,6,23,.06); color: var(--muted); border: 1px solid rgba(15,23,42,.08); }
+    .tileMid { margin-top: 8px; display: flex; gap: 10px; align-items: center; }
+    .avatar { width: 28px; height: 28px; border-radius: 10px; background: linear-gradient(135deg, rgba(2,6,23,.10), rgba(2,6,23,.04)); border: 1px solid rgba(15,23,42,.10); }
+    .who { font-size: 11px; color: var(--muted); line-height: 1.3; }
+
+    .timeline {
+      margin-top: 12px;
+      border-top: 1px solid rgba(15,23,42,.08);
+      padding-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+    .step { display: grid; grid-template-columns: 18px 1fr; gap: 10px; align-items: start; }
+    .dot { width: 12px; height: 12px; margin-top: 3px; border-radius: 999px; background: rgba(15,23,42,.18); border: 2px solid rgba(255,255,255,.9); box-shadow: 0 0 0 1px rgba(15,23,42,.10); }
+    .dot.now { background: var(--a); }
+    .step h4 { margin: 0; font-size: 12px; }
+    .step p { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
+
+    .profile {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .headshot {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(2,6,23,.12), rgba(2,6,23,.03));
+      border: 1px solid rgba(15,23,42,.10);
+    }
+    .pTitle { margin: 0; font-size: 13px; }
+    .pSub { margin: 2px 0 8px; font-size: 11px; color: var(--muted); }
+    .links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .lnk { font-size: 10px; padding: 5px 8px; border-radius: 999px; border: 1px solid rgba(15,23,42,.10); color: var(--muted); background: rgba(255,255,255,.75); }
+    .video {
+      margin-top: 8px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(20,184,166,.16), rgba(67,56,202,.12));
+      border: 1px solid rgba(15,23,42,.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(15,23,42,.70);
+      font-size: 11px;
+    }
+
+    .dash {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .card {
+      border: 1px solid rgba(15,23,42,.10);
+      border-radius: 14px;
+      background: rgba(255,255,255,.75);
+      padding: 10px;
+    }
+    .kpi { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+    .kpiLabel { font-size: 11px; color: var(--muted); }
+    .alert { margin-top: 10px; border-radius: 12px; padding: 9px; border: 1px solid rgba(245,158,11,.35); background: rgba(245,158,11,.10); font-size: 11px; color: rgba(15,23,42,.86); }
+
+    /* THEME TOKENS (per vibe) */
+    .stripe { --p:#0B1F3B; --a:#14B8A6; --bg2:#F8FAFC; --card: #ffffff; }
+    .apple  { --p:#111827; --a:#3B82F6; --bg2:#F5F7FB; --card: rgba(255,255,255,.92); }
+    .zillow { --p:#0052FF; --a:#00A86B; --bg2:#F3F7FF; --card: #ffffff; }
+
+    .stripe .frame { background: linear-gradient(180deg, rgba(248,250,252,.9), rgba(255,255,255,1)); }
+    .apple  .frame { background: linear-gradient(180deg, rgba(245,247,251,1), rgba(255,255,255,1)); border-radius: 22px; }
+    .zillow .frame { background: linear-gradient(180deg, rgba(243,247,255,1), rgba(255,255,255,1)); }
+
+    .apple .nav { padding: 14px 16px; }
+    .apple .content { padding: 16px; }
+    .apple .nbA { border-radius: 18px; }
+
+    .zillow .logo { border-radius: 8px; }
+    .zillow .tile { border-radius: 12px; }
+
+    footer {
+      padding: 18px 28px 28px;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(15,23,42,.08);
+    }
+
+    @media (max-width: 1080px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* Print-friendly */
+    @media print {
+      header { position: static; }
+      body { background: #fff; }
+      .theme { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Relays — Moodboard + UI Direction Demos</h1>
+    <div class="subtitle">
+      Three visual directions (Stripe/Linear vs Apple‑ish vs Zillow‑ish) + modern color palettes rendered as swatches and component mockups.
+      <br/>Note: these are lightweight UI mockups (not final design comps). Video is optional and shown on profile header.
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- Stripe/Linear vibe -->
+      <div class="theme stripe">
+        <div class="themeHead">
+          <div>
+            <div class="themeTitle">A) Stripe / Linear vibe</div>
+            <div class="themeNote">Minimal premium SaaS • calm • trust-first</div>
+          </div>
+          <div class="themeNote"><span style="font-family:var(--mono)">#0B1F3B</span> + <span style="font-family:var(--mono)">#14B8A6</span></div>
+        </div>
+
+        <div class="section">
+          <div class="label">Palette</div>
+          <div class="swatches">
+            <div class="sw"><div class="chip" style="background:#0B1F3B"></div><div class="meta"><b>Primary</b><br/><span style="font-family:var(--mono)">#0B1F3B</span></div></div>
+            <div class="sw"><div class="chip" style="background:#14B8A6"></div><div class="meta"><b>Accent</b><br/><span style="font-family:var(--mono)">#14B8A6</span></div></div>
+            <div class="sw"><div class="chip" style="background:#F8FAFC"></div><div class="meta"><b>Background</b><br/><span style="font-family:var(--mono)">#F8FAFC</span></div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="label">UI demo (Hybrid: consumer timeline + roster)</div>
+          <div class="ui">
+            <div class="frame">
+              <div class="nav">
+                <div class="brand"><div class="logo"></div>Relays</div>
+                <div class="navRight">
+                  <div class="pill">Buying • Under contract</div>
+                  <div class="cta">Request inspection</div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="nbA">
+                  <div class="icon"></div>
+                  <div>
+                    <h3>Next best action: schedule the inspection</h3>
+                    <p>Pick 2–3 time windows. Inspector confirms. Realtor stays in the loop.</p>
+                    <button class="cta" style="cursor:default">Request windows</button>
+                  </div>
+                </div>
+
+                <div class="roster">
+                  <div class="tile">
+                    <div class="tileTop"><div class="role">Realtor</div><div class="badge">Owner</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">Frank R.<br/>Team Lead</div></div>
+                  </div>
+                  <div class="tile">
+                    <div class="tileTop"><div class="role">Lender</div><div class="badge">Assigned</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">Neighborhood Loans<br/>Justin R.</div></div>
+                  </div>
+                  <div class="tile">
+                    <div class="tileTop"><div class="role">Inspector</div><div class="badge">Pending</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">Top Choice Inspections<br/>Response: 2h</div></div>
+                  </div>
+                </div>
+
+                <div class="timeline">
+                  <div class="step"><div class="dot"></div><div><h4>Offer accepted</h4><p>Milestone complete</p></div></div>
+                  <div class="step"><div class="dot now"></div><div><h4>Inspection window</h4><p>Request booking → confirm → upload report</p></div></div>
+                  <div class="step"><div class="dot"></div><div><h4>Insurance bound</h4><p>Book call / request quote</p></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="frame">
+              <div class="nav">
+                <div class="brand"><div class="logo"></div>Professional profile</div>
+                <div class="navRight">
+                  <div class="pill">Request to connect</div>
+                  <div class="cta">Add to team</div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="profile">
+                  <div class="headshot"></div>
+                  <div>
+                    <p class="pTitle"><b>Top Choice Inspections</b></p>
+                    <p class="pSub">Chicago • 4.9★ (312) • Licensed • Insured</p>
+                    <div class="links">
+                      <span class="lnk">Website</span><span class="lnk">Google</span><span class="lnk">Instagram</span>
+                    </div>
+                    <div class="video">Optional 15–30s intro video</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Apple-ish vibe -->
+      <div class="theme apple">
+        <div class="themeHead">
+          <div>
+            <div class="themeTitle">B) Apple‑ish consumer vibe</div>
+            <div class="themeNote">Soft cards • bigger type • friendly clarity</div>
+          </div>
+          <div class="themeNote"><span style="font-family:var(--mono)">#111827</span> + <span style="font-family:var(--mono)">#3B82F6</span></div>
+        </div>
+
+        <div class="section">
+          <div class="label">Palette</div>
+          <div class="swatches">
+            <div class="sw"><div class="chip" style="background:#111827"></div><div class="meta"><b>Primary</b><br/><span style="font-family:var(--mono)">#111827</span></div></div>
+            <div class="sw"><div class="chip" style="background:#3B82F6"></div><div class="meta"><b>Accent</b><br/><span style="font-family:var(--mono)">#3B82F6</span></div></div>
+            <div class="sw"><div class="chip" style="background:#F5F7FB"></div><div class="meta"><b>Background</b><br/><span style="font-family:var(--mono)">#F5F7FB</span></div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="label">UI demo (Timeline OS: gentle guidance)</div>
+          <div class="ui">
+            <div class="frame">
+              <div class="nav">
+                <div class="brand"><div class="logo"></div>Relays</div>
+                <div class="navRight">
+                  <div class="pill">Today</div>
+                  <div class="cta" style="background:var(--a)">Continue</div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="nbA" style="background: rgba(59,130,246,.08); border-color: rgba(59,130,246,.18)">
+                  <div class="icon" style="background: rgba(59,130,246,.14); border-color: rgba(59,130,246,.35)"></div>
+                  <div>
+                    <h3>Next step: choose your insurance agent</h3>
+                    <p>Quick call booking. Your lender needs proof before closing.</p>
+                    <button class="cta" style="background:var(--a); cursor:default">Request a call</button>
+                  </div>
+                </div>
+
+                <div class="roster" style="grid-template-columns: repeat(2, 1fr)">
+                  <div class="tile" style="padding: 12px">
+                    <div class="tileTop"><div class="role">Lender</div><div class="badge">Assigned</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">Guaranteed Rate<br/>Treto Brothers</div></div>
+                  </div>
+                  <div class="tile" style="padding: 12px">
+                    <div class="tileTop"><div class="role">Insurance</div><div class="badge">Needed</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">Pick from Top 3<br/>Call request</div></div>
+                  </div>
+                </div>
+
+                <div class="timeline">
+                  <div class="step"><div class="dot"></div><div><h4>Pre-approval</h4><p>Completed</p></div></div>
+                  <div class="step"><div class="dot now"></div><div><h4>Under contract</h4><p>Inspection + insurance + appraisal</p></div></div>
+                  <div class="step"><div class="dot"></div><div><h4>Closing</h4><p>Final walkthrough + funds</p></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="frame">
+              <div class="nav">
+                <div class="brand"><div class="logo"></div>Brokerage / TC view</div>
+                <div class="navRight">
+                  <div class="pill">Alerts</div>
+                  <div class="cta" style="background:var(--a)">View all</div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="dash">
+                  <div class="card"><div class="kpi">12</div><div class="kpiLabel">Active journeys</div></div>
+                  <div class="card"><div class="kpi">4</div><div class="kpiLabel">Pending bookings</div></div>
+                  <div class="card"><div class="kpi">9</div><div class="kpiLabel">Referrals sent (7d)</div></div>
+                  <div class="card"><div class="kpi">1h</div><div class="kpiLabel">Median pro response</div></div>
+                </div>
+                <div class="alert">Overdue: inspection window ends in 2 days for 3 journeys.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Zillow-ish vibe -->
+      <div class="theme zillow">
+        <div class="themeHead">
+          <div>
+            <div class="themeTitle">C) Zillow‑ish marketplace vibe</div>
+            <div class="themeNote">Imagery + browsing • discovery-forward • profile marketing</div>
+          </div>
+          <div class="themeNote"><span style="font-family:var(--mono)">#0052FF</span> + <span style="font-family:var(--mono)">#00A86B</span></div>
+        </div>
+
+        <div class="section">
+          <div class="label">Palette</div>
+          <div class="swatches">
+            <div class="sw"><div class="chip" style="background:#0052FF"></div><div class="meta"><b>Primary</b><br/><span style="font-family:var(--mono)">#0052FF</span></div></div>
+            <div class="sw"><div class="chip" style="background:#00A86B"></div><div class="meta"><b>Accent</b><br/><span style="font-family:var(--mono)">#00A86B</span></div></div>
+            <div class="sw"><div class="chip" style="background:#F3F7FF"></div><div class="meta"><b>Background</b><br/><span style="font-family:var(--mono)">#F3F7FF</span></div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="label">UI demo (Marketplace + pro profiles)</div>
+          <div class="ui">
+            <div class="frame">
+              <div class="nav">
+                <div class="brand"><div class="logo"></div>Marketplace</div>
+                <div class="navRight">
+                  <div class="pill">Chicago</div>
+                  <div class="cta" style="background:var(--p)">Create team</div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="nbA" style="background: rgba(0,82,255,.07); border-color: rgba(0,82,255,.18)">
+                  <div class="icon" style="background: rgba(0,82,255,.14); border-color: rgba(0,82,255,.35)"></div>
+                  <div>
+                    <h3>Build your dream team</h3>
+                    <p>Browse pros. Add to your team. Booking requires an account + journey context.</p>
+                    <button class="cta" style="background:var(--p); cursor:default">Start</button>
+                  </div>
+                </div>
+
+                <div class="roster" style="grid-template-columns: repeat(2, 1fr)">
+                  <div class="tile">
+                    <div class="tileTop"><div class="role">Realtor</div><div class="badge">4.8★</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">FRJ Group<br/>Chicago</div></div>
+                  </div>
+                  <div class="tile">
+                    <div class="tileTop"><div class="role">Lender</div><div class="badge">Fast close</div></div>
+                    <div class="tileMid"><div class="avatar"></div><div class="who">Neighborhood Loans<br/>Spanish</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="frame">
+              <div class="nav">
+                <div class="brand"><div class="logo"></div>Pro profile</div>
+                <div class="navRight">
+                  <div class="pill">Share link</div>
+                  <div class="cta" style="background:var(--a)">Add to team</div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="profile">
+                  <div class="headshot"></div>
+                  <div>
+                    <p class="pTitle"><b>FRJ Group @ RE/MAX</b></p>
+                    <p class="pSub">Chicago • Buyer/Seller • 4.9★ (1,200)</p>
+                    <div class="links">
+                      <span class="lnk">Website</span><span class="lnk">YouTube</span><span class="lnk">Instagram</span>
+                    </div>
+                    <div class="video" style="background: linear-gradient(135deg, rgba(0,168,107,.18), rgba(0,82,255,.14))">Optional intro video</div>
+                  </div>
+                </div>
+                <div class="alert" style="border-color: rgba(0,168,107,.30); background: rgba(0,168,107,.09)">Pro Free Tier: leads come as “Request to Connect” (accept to share details).</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    Deliverable: Moodboard + UI direction demos. Next step: pick a primary vibe to design components (web app first), then apply the same tokens to iOS/Android.
+  </footer>
+</body>
+</html>

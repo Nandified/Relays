@@ -1,0 +1,239 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relays — Apple-ish v6 (Progress-first Home + Search-first Marketplace)</title>
+<style>
+:root{--p:#111827;--a:#3B82F6;--bg:#F5F7FB;--text:#0F172A;--muted:#6B7280;--border:rgba(15,23,42,.10);--sh:0 18px 45px rgba(2,6,23,.10);
+--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--r2:16px;--r3:20px;--r4:24px;--r5:30px;--t0:11px;--t1:12px;--t2:13px;--t3:14px;--t4:16px;--t5:18px;--font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--text);background:linear-gradient(180deg,var(--bg),#fff 35%)}
+header{padding:22px 24px;border-bottom:1px solid rgba(15,23,42,.08);position:sticky;top:0;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);z-index:10}
+h1{margin:0 0 6px;font-size:var(--t5);letter-spacing:-.02em}
+p{margin:0;color:var(--muted);font-size:var(--t1);line-height:1.45}
+
+.wrap{padding:var(--s5) 24px 40px;display:grid;gap:var(--s5)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);align-items:start}
+.panel{border:1px solid rgba(15,23,42,.10);border-radius:var(--r4);background:rgba(255,255,255,.70);box-shadow:0 10px 25px rgba(2,6,23,.06);overflow:hidden}
+.ph{padding:var(--s4) var(--s4) var(--s3);border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between;gap:10px}
+.ph b{font-size:var(--t1)} .ph span{color:var(--muted);font-size:var(--t0)}
+
+.frame{border:1px solid rgba(15,23,42,.10);border-radius:var(--r5);background:linear-gradient(180deg,var(--bg),#fff);box-shadow:var(--sh);overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:var(--s4) var(--s4);border-bottom:1px solid rgba(15,23,42,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:900;letter-spacing:-.02em}
+.logo{width:30px;height:30px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--a));box-shadow:0 12px 20px rgba(2,6,23,.14)}
+.pill{padding:7px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.10);color:var(--muted);font-size:var(--t1);background:rgba(255,255,255,.82)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:10px 14px;font-size:var(--t1);font-weight:900;border:1px solid transparent;cursor:default;user-select:none;line-height:1}
+.btnPrimary{background:var(--a);color:#fff;box-shadow:0 10px 18px rgba(59,130,246,.18)}
+.btnSecondary{background:rgba(255,255,255,.85);border:1px solid rgba(15,23,42,.12);color:var(--text)}
+.btnTertiary{background:transparent;border:1px solid rgba(15,23,42,.12);color:var(--muted)}
+.content{padding:var(--s4)}
+
+/* Images */
+.img{background-size:cover;background-position:center}
+.avatar{width:52px;height:52px;border-radius:18px;border:1px solid rgba(15,23,42,.10);box-shadow:0 10px 18px rgba(2,6,23,.08)}
+.thumb{height:44px;border-radius:16px;border:1px solid rgba(15,23,42,.08)}
+
+/* Progress-first Home */
+.hero{border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.10);border-radius:22px;padding:14px}
+.hTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.hTitle{font-size:14px;font-weight:980;letter-spacing:-.02em}
+.hMeta{margin-top:3px;font-size:11px;color:var(--muted)}
+.progress{margin-top:10px;display:grid;gap:8px}
+.bar{height:10px;border-radius:999px;background:rgba(15,23,42,.08);overflow:hidden}
+.fill{height:100%;width:56%;background:linear-gradient(90deg,var(--a),rgba(59,130,246,.65))}
+.steps{display:flex;gap:10px;flex-wrap:wrap}
+.step{font-size:10px;color:var(--muted);padding:6px 8px;border:1px solid rgba(15,23,42,.10);border-radius:999px;background:rgba(255,255,255,.70)}
+.step.on{border-color:rgba(59,130,246,.30);background:rgba(59,130,246,.10);color:rgba(30,64,175,.95);font-weight:900}
+
+.next{margin-top:12px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.90);border-radius:22px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.next b{font-size:12px}
+.next small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+
+.cols{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:12px}
+.card{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.90);border-radius:22px;padding:12px}
+.card h3{margin:0;font-size:12px}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-top:1px solid rgba(15,23,42,.08)}
+.item:first-of-type{border-top:0}
+.meta{color:var(--muted);font-size:10px;margin-top:2px}
+
+/* Search-first Marketplace */
+.searchRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1;min-width:240px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.88);border-radius:999px;padding:10px 12px;font-size:var(--t1);color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:10px;padding:6px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.12);background:rgba(2,6,23,.03);color:rgba(15,23,42,.70)}
+.chip.on{border-color:rgba(59,130,246,.30);background:rgba(59,130,246,.10);color:rgba(30,64,175,.95);font-weight:900}
+
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.rCard{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.92);border-radius:22px;padding:12px}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.name{font-weight:980;font-size:13px}
+.sub{font-size:10px;color:var(--muted);margin-top:2px}
+.logoChip{width:42px;height:42px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:980;font-size:11px;color:rgba(15,23,42,.70);box-shadow:0 10px 16px rgba(2,6,23,.08)}
+.people{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.person{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:18px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.88)}
+.person b{font-size:11px}
+.person small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+
+.empty{margin-top:12px;border:1px dashed rgba(15,23,42,.18);border-radius:22px;padding:14px;background:rgba(255,255,255,.70);color:var(--muted);font-size:11px}
+.sugs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sug{padding:8px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.85);font-size:11px;color:rgba(15,23,42,.72)}
+
+.phone{max-width:390px;margin:0 auto;border-radius:30px;overflow:hidden;border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 55px rgba(2,6,23,.16)}
+.phone .frame{border:0;border-radius:0}
+.phone .nav{padding:12px}
+.phone .content{padding:12px}
+
+@media(max-width:980px){.grid{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.results{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header>
+  <h1>Relays — Apple‑ish (v6)</h1>
+  <p><b>Progress + What’s Next</b> now dominates Home. Marketplace defaults to <b>search-first</b> (not Companies). All squares are filled with real demo images (stock, remote).</p>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="panel">
+      <div class="ph"><div><b>Desktop — Consumer Home (Progress-first)</b><br><span>Show progress + next action up top</span></div><span>Web</span></div>
+      <div style="padding:14px"><div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Home</div><div class="pill">Buying • Under contract</div></div>
+        <div class="content">
+          <div class="hero">
+            <div class="hTop">
+              <div>
+                <div class="hTitle">You’re 56% to closing</div>
+                <div class="hMeta">14 days left • 3 items due this week • 1 pending confirmation</div>
+              </div>
+              <div class="pill">Closing: Mar 4</div>
+            </div>
+            <div class="progress">
+              <div class="bar"><div class="fill"></div></div>
+              <div class="steps">
+                <span class="step">Offer accepted</span>
+                <span class="step on">Under contract</span>
+                <span class="step">Inspection</span>
+                <span class="step">Appraisal</span>
+                <span class="step">Closing</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="next">
+            <div>
+              <b>What’s next: book inspection window</b>
+              <small>Pick a date first → see time slots (2h hold) • keeps timeline safe</small>
+            </div>
+            <button class="btn btnPrimary">Pick date</button>
+          </div>
+
+          <div class="cols">
+            <div class="card"><h3>Your team</h3>
+              <div class="item"><div style="display:flex;gap:10px;align-items:center"><div class="avatar img" style="background-image:url('https://source.unsplash.com/featured/200x200?business-headshot&sig=601')"></div><div><b style="font-size:12px">Frank (Realtor)</b><div class="meta">FRJ Group @ RE/MAX • response ~1h</div></div></div><span class="pill">Assigned</span></div>
+              <div class="item"><div style="display:flex;gap:10px;align-items:center"><div class="avatar img" style="background-image:url('https://source.unsplash.com/featured/200x200?professional-portrait&sig=602')"></div><div><b style="font-size:12px">Alex (Lender)</b><div class="meta">Neighborhood Loans • pre-approval ready</div></div></div><span class="pill">Assigned</span></div>
+              <div class="item"><div style="display:flex;gap:10px;align-items:center"><div class="avatar img" style="background-image:url('https://source.unsplash.com/featured/200x200?portrait&sig=603')"></div><div><b style="font-size:12px">Taylor (Inspector)</b><div class="meta">Top Choice • needs booking</div></div></div><button class="btn btnPrimary" style="padding:9px 12px">Request</button></div>
+            </div>
+            <div class="card"><h3>Inbox</h3>
+              <div class="item"><div><b style="font-size:12px">Inspection windows available</b><div class="meta">Wed/Thu morning</div></div><span class="pill">New</span></div>
+              <div class="item"><div><b style="font-size:12px">Insurance quote ready</b><div class="meta">Choose carrier</div></div><span class="pill">Action</span></div>
+              <div class="item"><div><b style="font-size:12px">Appraisal ordered</b><div class="meta">Tracking in lender thread</div></div><span class="pill">FYI</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px"><h3>Suggested pros (near you)</h3>
+            <div class="gallery" style="grid-template-columns:repeat(6,1fr);margin-top:10px">
+              <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?house&sig=611')"></div>
+              <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?inspection&sig=612')"></div>
+              <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?tools&sig=613')"></div>
+              <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?interior&sig=614')"></div>
+              <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?contract&sig=615')"></div>
+              <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?city&sig=616')"></div>
+            </div>
+          </div>
+
+        </div>
+      </div></div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div><b>Desktop — Marketplace (Search-first)</b><br><span>Default: type service → results + filters</span></div><span>Web</span></div>
+      <div style="padding:14px"><div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Marketplace</div><div class="pill">Chicago</div></div>
+        <div class="content">
+          <div class="searchRow">
+            <input class="search" value="Search for a service: inspector, lender, attorney…" />
+            <button class="btn btnPrimary" style="padding:10px 12px">Search</button>
+          </div>
+          <div class="chips">
+            <span class="chip">Companies</span>
+            <span class="chip">Individuals</span>
+            <span class="chip on">Verified</span>
+            <span class="chip">Spanish</span>
+            <span class="chip">Weekend</span>
+            <span class="chip">Fast response</span>
+          </div>
+
+          <div class="empty">
+            <b>Start with a service</b> (not a company). Example: <i>“home inspector”</i>.
+            <div class="sugs">
+              <span class="sug">Home inspector</span>
+              <span class="sug">Mortgage lender</span>
+              <span class="sug">Real estate attorney</span>
+              <span class="sug">Insurance</span>
+              <span class="sug">HVAC</span>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="rCard">
+              <div class="top"><div><div class="name">Top Choice Inspections</div><div class="sub">4.9★ (312) • Response ~1h • Verified</div></div><div class="logoChip">TC</div></div>
+              <div class="gallery">
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?home-inspection&sig=621')"></div>
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?house&sig=622')"></div>
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?tools&sig=623')"></div>
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?interior&sig=624')"></div>
+              </div>
+              <div class="people">
+                <div class="person"><div class="avatar img" style="width:38px;height:38px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?man&sig=625')"></div><div><b>Alberto</b><small>Lead inspector</small></div></div>
+                <div class="person"><div class="avatar img" style="width:38px;height:38px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?woman&sig=626')"></div><div><b>Jamie</b><small>Radon + sewer</small></div></div>
+              </div>
+              <div class="searchRow" style="margin-top:10px"><button class="btn btnSecondary">View</button><button class="btn btnPrimary">Request (2h)</button></div>
+            </div>
+
+            <div class="rCard">
+              <div class="top"><div><div class="name">Independent Inspector — Maria</div><div class="sub">4.8★ (98) • Same-day • Spanish</div></div><div class="logoChip">MI</div></div>
+              <div class="gallery">
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?inspection&sig=631')"></div>
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?roof&sig=632')"></div>
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?basement&sig=633')"></div>
+                <div class="thumb img" style="background-image:url('https://source.unsplash.com/featured/400x300?kitchen&sig=634')"></div>
+              </div>
+              <div class="people">
+                <div class="person"><div class="avatar img" style="width:38px;height:38px;border-radius:14px;background-image:url('https://source.unsplash.com/featured/200x200?woman-portrait&sig=635')"></div><div><b>Maria</b><small>Owner/operator</small></div></div>
+              </div>
+              <div class="searchRow" style="margin-top:10px"><button class="btn btnSecondary">View</button><button class="btn btnPrimary">Request (2h)</button></div>
+            </div>
+          </div>
+
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><div><b>Mobile — Home (Progress-first)</b><br><span>Same emphasis</span></div><span>Later native</span></div>
+    <div style="padding:14px">
+      <div class="phone"><div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Home</div><button class="btn btnPrimary" style="padding:9px 12px">Next</button></div>
+        <div class="content">
+          <div class="hero">
+            <div class="hTitle">56% to closing</div>
+            <div class="hMeta">14 days left</div>
+            <div class="bar" style="margin-top:10px"><div class="fill"></div></div>
+            <div class="steps" style="margin-top:8px"><span class="step on">Under contract</span><span class="step">Inspection</span><span class="step">Closing</span></div>
+          </div>
+          <div class="next"><div><b>Book inspection</b><small>Pick date → slots (2h)</small></div><button class="btn btnPrimary" style="padding:9px 12px">Pick</button></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+</body></html>

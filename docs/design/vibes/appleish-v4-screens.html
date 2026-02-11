@@ -1,0 +1,254 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Relays — Apple-ish v4 (Thumbtack-inspired)</title>
+<style>
+:root{--p:#111827;--a:#3B82F6;--bg:#F5F7FB;--text:#0F172A;--muted:#6B7280;--border:rgba(15,23,42,.10);--sh:0 18px 45px rgba(2,6,23,.10);
+--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--r2:16px;--r3:20px;--r4:24px;--r5:30px;--t0:11px;--t1:12px;--t2:13px;--t3:14px;--t4:16px;--t5:18px;--font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--text);background:linear-gradient(180deg,var(--bg),#fff 35%)}
+header{padding:22px 24px;border-bottom:1px solid rgba(15,23,42,.08);position:sticky;top:0;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);z-index:10}
+h1{margin:0 0 6px;font-size:var(--t5);letter-spacing:-.02em}
+p{margin:0;color:var(--muted);font-size:var(--t1);line-height:1.45}
+.hrow{display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center;margin-top:10px}
+.sw{display:flex;gap:var(--s2);align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.78);font-size:var(--t0);color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:999px;background:var(--p)}.dot.a{background:var(--a)}.dot.bg{background:var(--bg);border:1px solid rgba(15,23,42,.12)}
+
+.wrap{padding:var(--s5) 24px 40px;display:grid;gap:var(--s5)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);align-items:start}
+.panel{border:1px solid rgba(15,23,42,.10);border-radius:var(--r4);background:rgba(255,255,255,.70);box-shadow:0 10px 25px rgba(2,6,23,.06);overflow:hidden}
+.ph{padding:var(--s4) var(--s4) var(--s3);border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between;gap:10px}
+.ph b{font-size:var(--t1)} .ph span{color:var(--muted);font-size:var(--t0)}
+
+.frame{border:1px solid rgba(15,23,42,.10);border-radius:var(--r5);background:linear-gradient(180deg,var(--bg),#fff);box-shadow:var(--sh);overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:var(--s4) var(--s4);border-bottom:1px solid rgba(15,23,42,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:850;letter-spacing:-.02em}
+.logo{width:30px;height:30px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--a));box-shadow:0 12px 20px rgba(2,6,23,.14)}
+.pill{padding:7px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.10);color:var(--muted);font-size:var(--t1);background:rgba(255,255,255,.82)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:10px 14px;font-size:var(--t1);font-weight:750;border:1px solid transparent;cursor:default;user-select:none;line-height:1}
+.btnPrimary{background:var(--a);color:#fff;border-color:rgba(255,255,255,.16);box-shadow:0 10px 18px rgba(59,130,246,.18)}
+.btnSecondary{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.12);color:var(--text)}
+.btnTertiary{background:transparent;border-color:rgba(15,23,42,.12);color:var(--muted)}
+.content{padding:var(--s4)}
+
+/* “Alive” thumbnails + logo */
+.photo{border-radius:16px;position:relative;overflow:hidden;border:1px solid rgba(15,23,42,.10);background:
+  radial-gradient(circle at 20% 20%, rgba(255,255,255,.35), rgba(255,255,255,0) 45%),
+  linear-gradient(135deg, rgba(59,130,246,.22), rgba(17,24,39,.08)),
+  linear-gradient(0deg, rgba(2,6,23,.06), rgba(2,6,23,.06));
+}
+.logoBadge{position:absolute;right:8px;bottom:8px;width:28px;height:28px;border-radius:10px;background:#fff;border:1px solid rgba(15,23,42,.12);box-shadow:0 8px 18px rgba(2,6,23,.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:rgba(15,23,42,.70)}
+
+/* Marketplace (Thumbtack-ish: photo + trust + CTA) */
+.searchRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1;min-width:240px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.88);border-radius:999px;padding:10px 12px;font-size:var(--t1);color:var(--muted)}
+.chip{font-size:10px;padding:6px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.12);background:rgba(2,6,23,.03);color:rgba(15,23,42,.70)}
+.chip.on{border-color:rgba(59,130,246,.30);background:rgba(59,130,246,.10);color:rgba(30,64,175,.95)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.card{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.90);border-radius:var(--r4);padding:12px}
+.row{display:flex;gap:12px;align-items:center}
+.pic{width:60px;height:60px}
+.cname{font-weight:950;font-size:var(--t2)}
+.csub{font-size:var(--t0);color:var(--muted);margin-top:2px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.badge{font-size:10px;padding:6px 9px;border-radius:999px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.86);color:rgba(15,23,42,.72)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.g{height:44px;border-radius:14px}
+
+/* Profile (promotional landing) */
+.hero{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:start}
+.hs{width:88px;height:88px;border-radius:22px}
+.hTitle{font-size:var(--t4);font-weight:980;letter-spacing:-.02em}
+.hMeta{font-size:var(--t1);color:var(--muted);margin-top:2px}
+.ctaBar{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.smallVideo{margin-top:10px;display:flex;gap:10px;align-items:center}
+.vthumb{width:160px;height:90px;border-radius:18px;border:1px solid rgba(15,23,42,.10);background:linear-gradient(135deg, rgba(59,130,246,.16), rgba(17,24,39,.06));display:flex;align-items:center;justify-content:center;color:rgba(15,23,42,.70);font-size:var(--t1)}
+.vtxt{font-size:var(--t0);color:var(--muted);line-height:1.3}
+.section{margin-top:12px;border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.88);border-radius:18px;padding:12px}
+.section h4{margin:0;font-size:var(--t1)}
+.li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(15,23,42,.08);font-size:var(--t0);color:var(--muted)}
+.li:first-of-type{border-top:0}
+
+/* Booking (modern: compact calendar + duration + holds) */
+.bookGrid{display:grid;grid-template-columns:340px 1fr;gap:12px;margin-top:12px}
+.mini{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.92);border-radius:22px;overflow:hidden}
+.mh{padding:12px 12px 10px;border-bottom:1px solid rgba(15,23,42,.08);display:flex;justify-content:space-between;align-items:center}
+.mh b{font-size:var(--t2)}
+.cal{padding:12px;display:grid;gap:8px}
+.calHead{display:flex;justify-content:space-between;align-items:center}
+.mon{font-weight:900;font-size:var(--t1)}
+.ar{display:flex;gap:8px}
+.ic{width:30px;height:30px;border-radius:12px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.90)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:10px;color:var(--muted)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.d{height:32px;border-radius:12px;border:1px solid rgba(15,23,42,.10);background:rgba(2,6,23,.02);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(15,23,42,.72)}
+.d.on{border-color:rgba(59,130,246,.35);background:rgba(59,130,246,.10);color:rgba(30,64,175,.95);font-weight:900}
+.d.off{opacity:.35}
+
+.right{border:1px solid rgba(15,23,42,.10);background:rgba(255,255,255,.92);border-radius:22px;padding:12px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{padding:8px 10px;border-radius:999px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.90);font-size:11px;color:var(--muted)}
+.tab.on{border-color:rgba(59,130,246,.35);background:rgba(59,130,246,.10);color:rgba(30,64,175,.95);font-weight:900}
+.hold{margin-top:10px;border-radius:18px;border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.10);padding:10px;font-size:11px;color:rgba(15,23,42,.76)}
+.slots{margin-top:10px;display:grid;gap:8px}
+.slot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:18px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.92)}
+.slot b{font-size:12px}
+.slot small{font-size:10px;color:var(--muted)}
+
+.phone{max-width:390px;margin:0 auto;border-radius:30px;overflow:hidden;border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 55px rgba(2,6,23,.16)}
+.phone .frame{border:0;border-radius:0}
+.phone .nav{padding:12px 12px}
+.phone .content{padding:12px}
+.phone .cards{grid-template-columns:1fr}
+@media (max-width: 980px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bookGrid{grid-template-columns:1fr}}
+@media (max-width: 560px){.cards{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header>
+  <h1>Relays — Apple‑ish (v4) • Thumbtack-inspired improvements</h1>
+  <p>Improved: booking (compact calendar + duration holds), profile (promo landing w/ smaller video + gallery + reviews), marketplace (photo gallery previews + trust badges).</p>
+  <div class="hrow">
+    <div class="sw"><span class="dot"></span> Primary #111827</div>
+    <div class="sw"><span class="dot a"></span> Accent #3B82F6</div>
+    <div class="sw"><span class="dot bg"></span> Background #F5F7FB</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="panel">
+      <div class="ph"><div><b>Desktop — Marketplace (more alive)</b><br><span>Thumbtack-style cards + gallery previews</span></div><span>Web</span></div>
+      <div style="padding:14px">
+        <div class="frame">
+          <div class="nav"><div class="brand"><div class="logo"></div>Marketplace</div><div class="hrow" style="gap:8px"><div class="pill">Chicago</div><button class="btn btnPrimary">Create team</button></div></div>
+          <div class="content">
+            <div class="searchRow">
+              <input class="search" value="Search: Home inspector" />
+              <span class="chip on">Inspector</span><span class="chip">Realtor</span><span class="chip">Lender</span><span class="chip">Insurance</span><span class="chip">Fast response</span>
+            </div>
+            <div class="cards">
+              <div class="card">
+                <div class="row"><div class="photo pic"><div class="logoBadge">TC</div></div><div><div class="cname">Top Choice Inspections</div><div class="csub">4.9★ (312) • Responds ~1h</div><div class="badges"><span class="badge">Verified</span><span class="badge">Licensed</span><span class="badge">Weekend</span></div></div></div>
+                <div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div>
+                <div class="hrow" style="margin-top:10px"><button class="btn btnSecondary">View profile</button><button class="btn btnPrimary">Request</button></div>
+              </div>
+              <div class="card">
+                <div class="row"><div class="photo pic"><div class="logoBadge">RMX</div></div><div><div class="cname">FRJ Group @ RE/MAX</div><div class="csub">4.9★ (1,200) • Buyer/Seller</div><div class="badges"><span class="badge">Top 1%</span><span class="badge">Bilingual</span></div></div></div>
+                <div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div>
+                <div class="hrow" style="margin-top:10px"><button class="btn btnSecondary">View profile</button><button class="btn btnPrimary">Add to team</button></div>
+              </div>
+              <div class="card">
+                <div class="row"><div class="photo pic"><div class="logoBadge">NL</div></div><div><div class="cname">Neighborhood Loans</div><div class="csub">4.8★ (540) • Fast close</div><div class="badges"><span class="badge">Pre-approve</span><span class="badge">Spanish</span></div></div></div>
+                <div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div>
+                <div class="hrow" style="margin-top:10px"><button class="btn btnSecondary">View profile</button><button class="btn btnPrimary">Request</button></div>
+              </div>
+            </div>
+            <div style="margin-top:10px;font-size:var(--t0);color:var(--muted)">Cards show *proof* (photos, verified, reviews) — feels alive vs empty tiles.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><div><b>Desktop — Pro Profile (promo landing)</b><br><span>Small video, expand-on-tap</span></div><span>Web</span></div>
+      <div style="padding:14px">
+        <div class="frame">
+          <div class="nav"><div class="brand"><div class="logo"></div>Pro profile</div><div class="hrow" style="gap:8px"><div class="pill">4.9★ (1,200)</div><button class="btn btnSecondary">Share</button><button class="btn btnPrimary">Request quote</button></div></div>
+          <div class="content">
+            <div class="hero">
+              <div class="photo hs"><div class="logoBadge">RMX</div></div>
+              <div>
+                <div class="hTitle">FRJ Group @ RE/MAX Loyalty</div>
+                <div class="hMeta">Chicago • Buyer/Seller • “Worked together” 12 deals • Response ~1h</div>
+                <div class="ctaBar"><button class="btn btnPrimary">Request quote</button><button class="btn btnSecondary">Add to team</button><button class="btn btnTertiary">Message</button></div>
+                <div class="smallVideo">
+                  <div class="vthumb">Video (tap to expand)</div>
+                  <div class="vtxt">Keep it small by default. Fullscreen / expanded mode on demand.</div>
+                </div>
+                <div class="gallery" style="grid-template-columns:repeat(6,1fr);margin-top:12px">
+                  <div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section"><h4>Highlights</h4>
+              <div class="li"><span>Specialties</span><span class="pill">First-time buyers • Investors</span></div>
+              <div class="li"><span>Verified</span><span class="pill">License • Insurance</span></div>
+              <div class="li"><span>Company branding</span><span class="pill">Logo required</span></div>
+            </div>
+
+            <div class="section"><h4>Reviews</h4>
+              <div class="li"><span>“Fast, clear, proactive.”</span><span class="pill">Verified</span></div>
+              <div class="li"><span>“Made closing painless.”</span><span class="pill">Verified</span></div>
+              <div class="li"><span>See all</span><span class="pill">1,200</span></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><div><b>Desktop — Scheduling (modern)</b><br><span>Compact calendar + duration holds</span></div><span>Web</span></div>
+    <div style="padding:14px">
+      <div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Schedule</div><div class="hrow" style="gap:8px"><div class="pill">Service: Inspection</div><button class="btn btnSecondary">Cancel</button></div></div>
+        <div class="content">
+          <div class="bookGrid">
+            <div class="mini">
+              <div class="mh"><b>Pick a date</b><div class="pill">Feb 2026</div></div>
+              <div class="cal">
+                <div class="calHead"><div class="mon">February</div><div class="ar"><button class="ic"></button><button class="ic"></button></div></div>
+                <div class="wk"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div>
+                <div class="days">
+                  <div class="d off">1</div><div class="d">2</div><div class="d">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div><div class="d">7</div>
+                  <div class="d">8</div><div class="d">9</div><div class="d">10</div><div class="d">11</div><div class="d">12</div><div class="d">13</div><div class="d">14</div>
+                  <div class="d">15</div><div class="d">16</div><div class="d">17</div><div class="d on">18</div><div class="d">19</div><div class="d">20</div><div class="d">21</div>
+                  <div class="d">22</div><div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="right">
+              <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+                <div><b style="font-size:13px">Wed, Feb 18</b><div style="font-size:11px;color:var(--muted);margin-top:2px">Choose duration + time window</div></div>
+                <div class="pill">Pro confirms</div>
+              </div>
+
+              <div class="tabs" style="margin-top:10px">
+                <span class="tab on">Inspection (2h hold)</span>
+                <span class="tab">Walkthrough (60m)</span>
+                <span class="tab">Repair visit (30m)</span>
+              </div>
+
+              <div class="hold">We place a temporary hold on the pro’s calendar: <b>2 hours</b> for inspections; <b>30–60 mins</b> for most trades. Pro confirms → we create the calendar event.</div>
+
+              <div class="slots">
+                <div class="slot"><div><b>8:00–10:00</b><br><small>Earliest available</small></div><button class="btn btnPrimary" style="padding:9px 12px">Hold</button></div>
+                <div class="slot"><div><b>10:00–12:00</b><br><small>Works for most buyers</small></div><button class="btn btnSecondary" style="padding:9px 12px">Hold</button></div>
+                <div class="slot"><div><b>12:00–2:00</b><br><small>Limited</small></div><button class="btn btnSecondary" style="padding:9px 12px">Hold</button></div>
+                <div class="slot"><div><b>4:00–6:00</b><br><small>Evening</small></div><button class="btn btnSecondary" style="padding:9px 12px">Hold</button></div>
+              </div>
+
+              <div class="hrow" style="margin-top:12px"><button class="btn btnPrimary">Send request</button><button class="btn btnSecondary">I already scheduled</button><button class="btn btnTertiary">Message first</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><div><b>Mobile — Pro Card (alive)</b><br><span>Thumbtack-ish compact</span></div><span>Later native</span></div>
+    <div style="padding:14px">
+      <div class="phone"><div class="frame">
+        <div class="nav"><div class="brand"><div class="logo"></div>Pros</div><button class="btn btnPrimary" style="padding:9px 12px">Team</button></div>
+        <div class="content">
+          <div class="card"><div class="row"><div class="photo pic"><div class="logoBadge">TC</div></div><div><div class="cname">Top Choice</div><div class="csub">4.9★ • Responds ~1h</div><div class="badges"><span class="badge">Verified</span><span class="badge">Weekend</span></div></div></div>
+          <div class="gallery"><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div><div class="photo g"></div></div>
+          <div class="hrow" style="margin-top:10px"><button class="btn btnSecondary" style="padding:9px 12px">View</button><button class="btn btnPrimary" style="padding:9px 12px">Request</button></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+</body></html>
