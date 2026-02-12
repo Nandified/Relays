@@ -11,20 +11,54 @@ import { FilterChips } from "@/components/marketplace/FilterChips";
 function MarketplaceContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") ?? "";
+  const initialCategories = searchParams.get("categories") ?? "";
+
   const [query, setQuery] = React.useState(initialQuery);
-  const [categoryFilter, setCategoryFilter] = React.useState<string | null>(null);
+  const [categoryFilter, setCategoryFilter] = React.useState<string | null>(() => {
+    // If categories param has a single category, pre-select it
+    // If multiple, we pick the first one (FilterChips is single-select currently)
+    if (initialCategories) {
+      const cats = initialCategories.split(",").map((c) => c.trim()).filter(Boolean);
+      if (cats.length === 1) return cats[0];
+      // For multiple, we'll use the first one as filter
+      if (cats.length > 1) return cats[0];
+    }
+    return null;
+  });
   const [selectedSlug, setSelectedSlug] = React.useState(mockPros[0]?.slug ?? "");
+
+  // Additional categories from URL (for multi-category filtering)
+  const urlCategories = React.useMemo(() => {
+    if (!initialCategories) return null;
+    const cats = initialCategories.split(",").map((c) => c.trim()).filter(Boolean);
+    return cats.length > 0 ? cats : null;
+  }, [initialCategories]);
 
   // Sync if URL changes (e.g. user navigates from homepage search)
   React.useEffect(() => {
     const q = searchParams.get("q") ?? "";
     if (q) setQuery(q);
+
+    const cats = searchParams.get("categories") ?? "";
+    if (cats) {
+      const parsed = cats.split(",").map((c) => c.trim()).filter(Boolean);
+      if (parsed.length === 1) {
+        setCategoryFilter(parsed[0]);
+      } else if (parsed.length > 1) {
+        setCategoryFilter(parsed[0]);
+      }
+    }
   }, [searchParams]);
 
   const filtered = React.useMemo(() => {
     let results = mockPros;
 
-    if (categoryFilter) {
+    // If we have URL categories (multi-select from homepage) and no manual filter override
+    if (urlCategories && urlCategories.length > 1 && categoryFilter === urlCategories[0]) {
+      results = results.filter((p) =>
+        p.categories.some((c) => urlCategories.includes(c))
+      );
+    } else if (categoryFilter) {
       results = results.filter((p) => p.categories.includes(categoryFilter as never));
     }
 
@@ -39,7 +73,7 @@ function MarketplaceContent() {
     }
 
     return results;
-  }, [query, categoryFilter]);
+  }, [query, categoryFilter, urlCategories]);
 
   const selected = filtered.find((p) => p.slug === selectedSlug) ?? filtered[0] ?? null;
 

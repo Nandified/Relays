@@ -184,3 +184,26 @@ html {
 .hover-scale:active {
   transform: scale(0.98);
 }
+
+/* Staggered chip entrance animation */
+@keyframes chipEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.chip-stagger-enter {
+  animation: chipEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Emerald glow for Pro section */
+.glow-emerald {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.1), 0 0 80px rgba(16, 185, 129, 0.05);
+}
+.glow-emerald:hover {
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.15), 0 0 100px rgba(16, 185, 129, 0.08);
+}

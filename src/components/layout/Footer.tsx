@@ -14,13 +14,13 @@ export function Footer() {
               <span className="text-base font-semibold text-slate-100">Relays</span>
             </div>
             <p className="mt-3 text-sm text-slate-500">
-              The referral OS for real estate professionals. Build your dream team, book with confidence.
+              Your guide through the home journey. Find verified pros, build your team, and stay on track — buying or selling.
             </p>
           </div>
 
-          {/* For Buyers */}
+          {/* For Buyers & Sellers */}
           <div>
-            <h4 className="text-sm font-semibold text-slate-300">For Buyers</h4>
+            <h4 className="text-sm font-semibold text-slate-300">For Buyers & Sellers</h4>
             <nav className="mt-3 flex flex-col gap-2">
               <Link href="/marketplace" className="text-sm text-slate-500 hover:text-slate-300 transition-colors">Browse Marketplace</Link>
               <Link href="/signup" className="text-sm text-slate-500 hover:text-slate-300 transition-colors">Create Account</Link>
