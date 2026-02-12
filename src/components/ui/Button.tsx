@@ -12,17 +12,17 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function Button({ className = "", variant = "primary", size = "md", ...props }: Props) {
   const base =
-    "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:opacity-50 disabled:pointer-events-none cursor-pointer";
 
   const variants: Record<Variant, string> = {
     primary:
-      "bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] focus-visible:ring-[var(--accent)] shadow-sm",
+      "bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] focus-visible:ring-[var(--accent)] shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
     secondary:
-      "bg-white text-slate-900 border border-[var(--border)] hover:bg-slate-50 focus-visible:ring-slate-300",
+      "bg-[var(--bg-card)] text-slate-200 border border-[var(--border)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)] focus-visible:ring-slate-500",
     ghost:
-      "bg-transparent text-slate-700 hover:bg-slate-100 focus-visible:ring-slate-300",
+      "bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200 focus-visible:ring-slate-500",
     danger:
-      "bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-400",
+      "bg-red-500/90 text-white hover:bg-red-500 focus-visible:ring-red-400 shadow-[0_0_20px_rgba(239,68,68,0.15)]",
   };
 
   const sizes: Record<Size, string> = {

@@ -16,9 +16,9 @@ export default function ProProfilePage() {
   if (!pro) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <h1 className="text-xl font-semibold text-slate-900">Professional not found</h1>
-        <p className="mt-2 text-sm text-slate-600">This profile doesn&apos;t exist or has been removed.</p>
-        <Link href="/marketplace" className="mt-4 inline-block text-sm text-[var(--accent)] hover:underline">
+        <h1 className="text-xl font-semibold text-slate-100">Professional not found</h1>
+        <p className="mt-2 text-sm text-slate-400">This profile doesn&apos;t exist or has been removed.</p>
+        <Link href="/marketplace" className="mt-4 inline-block text-sm text-blue-400 hover:underline">
           ← Back to Marketplace
         </Link>
       </main>
@@ -36,7 +36,7 @@ export default function ProProfilePage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
       {/* Back link */}
-      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 mb-6">
+      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
@@ -44,20 +44,27 @@ export default function ProProfilePage() {
       </Link>
 
       {/* Profile header card */}
-      <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
+      <Card padding="lg" className="shadow-[var(--shadow-elevated)] glow-hover">
         <div className="flex items-start gap-4">
           {/* Headshot */}
-          <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-3xl border border-[var(--border)] bg-slate-50">
+          <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)]">
             <Image src={pro.headshotUrl} alt={pro.name} width={80} height={80} />
           </div>
 
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h1 className="text-xl font-bold text-slate-900">{pro.name}</h1>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl font-bold text-slate-100">{pro.name}</h1>
+                  {pro.verified && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
+                      ✓ Verified
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-slate-500">{pro.companyName}</p>
               </div>
-              <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-white">
+              <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                 <Image src={pro.companyLogoUrl} alt={pro.companyName} width={48} height={48} />
               </div>
             </div>
@@ -66,12 +73,12 @@ export default function ProProfilePage() {
             <div className="mt-2 flex items-center gap-2">
               <div className="flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <svg key={star} width="16" height="16" fill={star <= Math.round(pro.rating) ? "#f59e0b" : "#e5e7eb"} viewBox="0 0 20 20">
+                  <svg key={star} width="16" height="16" fill={star <= Math.round(pro.rating) ? "#f59e0b" : "#334155"} viewBox="0 0 20 20">
                     <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                   </svg>
                 ))}
               </div>
-              <span className="text-sm font-semibold text-slate-700">{pro.rating.toFixed(1)}</span>
+              <span className="text-sm font-semibold text-slate-300">{pro.rating.toFixed(1)}</span>
               <span className="text-sm text-slate-500">({pro.reviewCount} reviews)</span>
             </div>
           </div>
@@ -92,23 +99,40 @@ export default function ProProfilePage() {
           )}
         </div>
 
-        {/* Bio */}
-        <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-900 mb-2">About</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">{pro.bio}</p>
-        </div>
-
-        {/* Video placeholder */}
+        {/* Video placeholder — ABOVE bio per Frank's feedback */}
         {pro.videoUrl === null && (
           <div className="mt-6">
-            <div className="aspect-video rounded-2xl bg-slate-100 border border-[var(--border)] flex items-center justify-center">
+            <div className="aspect-video rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center">
               <div className="text-center">
-                <div className="mx-auto h-12 w-12 rounded-full bg-white shadow-sm flex items-center justify-center">
-                  <svg width="20" height="20" fill="none" stroke="#94a3b8" strokeWidth="2" viewBox="0 0 24 24">
+                <div className="mx-auto h-12 w-12 rounded-full bg-white/5 border border-[var(--border)] shadow-sm flex items-center justify-center">
+                  <svg width="20" height="20" fill="none" stroke="#64748b" strokeWidth="2" viewBox="0 0 24 24">
                     <polygon points="5,3 19,12 5,21" />
                   </svg>
                 </div>
-                <p className="mt-2 text-xs text-slate-400">Intro video coming soon</p>
+                <p className="mt-2 text-xs text-slate-500">Intro video coming soon</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Bio — now below video */}
+        <div className="mt-6">
+          <h2 className="text-sm font-semibold text-slate-200 mb-2">About</h2>
+          <p className="text-sm text-slate-400 leading-relaxed">{pro.bio}</p>
+        </div>
+
+        {/* Not verified CTA */}
+        {!pro.verified && (
+          <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+            <div className="flex items-start gap-3">
+              <div className="h-8 w-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg width="16" height="16" fill="none" stroke="#f59e0b" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-amber-400">Not yet verified</div>
+                <div className="text-xs text-slate-400 mt-0.5">This professional hasn&apos;t submitted their credentials yet.</div>
               </div>
             </div>
           </div>
@@ -116,7 +140,7 @@ export default function ProProfilePage() {
 
         {/* Services */}
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-900 mb-2">Services</h2>
+          <h2 className="text-sm font-semibold text-slate-200 mb-2">Services</h2>
           <div className="flex flex-wrap gap-2">
             {pro.categories.map((cat) => (
               <Badge key={cat} variant="outline">{cat}</Badge>
@@ -126,12 +150,12 @@ export default function ProProfilePage() {
 
         {/* Service Areas */}
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-900 mb-2">Service Areas</h2>
+          <h2 className="text-sm font-semibold text-slate-200 mb-2">Service Areas</h2>
           <div className="flex flex-wrap gap-2">
             {pro.serviceAreas.map((area) => (
-              <span key={area} className="text-sm text-slate-600">{area}</span>
+              <span key={area} className="text-sm text-slate-400">{area}</span>
             )).reduce((acc: React.ReactNode[], el, i) => {
-              if (i > 0) acc.push(<span key={`sep-${i}`} className="text-slate-300">•</span>);
+              if (i > 0) acc.push(<span key={`sep-${i}`} className="text-slate-600">•</span>);
               acc.push(el);
               return acc;
             }, [])}
@@ -161,7 +185,7 @@ export default function ProProfilePage() {
 
       {/* Reviews placeholder */}
       <Card padding="lg" className="mt-6">
-        <h2 className="text-sm font-semibold text-slate-900 mb-4">Reviews</h2>
+        <h2 className="text-sm font-semibold text-slate-200 mb-4">Reviews</h2>
         <div className="space-y-4">
           {[
             { name: "Michael T.", rating: 5, text: "Thorough inspection and great communication. Highly recommend!", date: "2 weeks ago" },
@@ -171,23 +195,23 @@ export default function ProProfilePage() {
             <div key={review.name} className="border-b border-[var(--border)] pb-4 last:border-0 last:pb-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-medium text-slate-500">
+                  <div className="h-8 w-8 rounded-full bg-white/5 border border-[var(--border)] flex items-center justify-center text-xs font-medium text-slate-500">
                     {review.name.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-slate-900">{review.name}</div>
+                    <div className="text-sm font-medium text-slate-200">{review.name}</div>
                     <div className="flex items-center gap-0.5">
                       {[1, 2, 3, 4, 5].map((s) => (
-                        <svg key={s} width="10" height="10" fill={s <= review.rating ? "#f59e0b" : "#e5e7eb"} viewBox="0 0 20 20">
+                        <svg key={s} width="10" height="10" fill={s <= review.rating ? "#f59e0b" : "#334155"} viewBox="0 0 20 20">
                           <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                         </svg>
                       ))}
                     </div>
                   </div>
                 </div>
-                <span className="text-xs text-slate-400">{review.date}</span>
+                <span className="text-xs text-slate-600">{review.date}</span>
               </div>
-              <p className="mt-2 text-sm text-slate-600">{review.text}</p>
+              <p className="mt-2 text-sm text-slate-400">{review.text}</p>
             </div>
           ))}
         </div>

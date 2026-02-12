@@ -21,7 +21,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
-      <h1 className="text-xl font-semibold text-slate-900 mb-6">{title}</h1>
+      <h1 className="text-xl font-semibold text-slate-100 mb-6">{title}</h1>
       <div className="flex gap-6">
         {/* Desktop sidebar */}
         <aside className="hidden md:block w-56 flex-shrink-0">
@@ -35,8 +35,8 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
                   className={`
                     flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors
                     ${active
-                      ? "bg-[var(--accent-light)] text-[var(--accent)]"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                      ? "bg-[var(--accent-light)] text-blue-400 border border-blue-500/10"
+                      : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
                     }
                   `}
                 >
@@ -49,7 +49,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
         </aside>
 
         {/* Mobile nav (horizontal scroll) */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 border-t border-[var(--border)] bg-white/90 backdrop-blur-xl px-2 py-2">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 border-t border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-xl px-2 py-2">
           <nav className="flex justify-around">
             {navItems.map((item) => {
               const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
@@ -58,7 +58,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
                   key={item.href}
                   href={item.href}
                   className={`flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-medium ${
-                    active ? "text-[var(--accent)]" : "text-slate-500"
+                    active ? "text-blue-400" : "text-slate-500"
                   }`}
                 >
                   {item.icon}

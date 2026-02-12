@@ -13,43 +13,43 @@ export function SiteHeader() {
   const isPro = isAuthed && state.user.role === "pro";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-white/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--accent)] text-sm font-bold text-white">
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--accent)] text-sm font-bold text-white shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-shadow group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]">
             R
           </div>
-          <span className="text-base font-semibold text-slate-900">Relays</span>
+          <span className="text-base font-semibold text-slate-100">Relays</span>
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
-          <Link href="/marketplace" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+          <Link href="/marketplace" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
             Marketplace
           </Link>
           {isAuthed && !isPro && (
             <>
-              <Link href="/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+              <Link href="/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Dashboard
               </Link>
-              <Link href="/team" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+              <Link href="/team" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 My Team
               </Link>
-              <Link href="/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+              <Link href="/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Requests
               </Link>
             </>
           )}
           {isPro && (
             <>
-              <Link href="/pro/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+              <Link href="/pro/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Dashboard
               </Link>
-              <Link href="/pro/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+              <Link href="/pro/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Requests
               </Link>
-              <Link href="/pro/profile" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+              <Link href="/pro/profile" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Profile
               </Link>
             </>
@@ -79,7 +79,7 @@ export function SiteHeader() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 md:hidden"
           >
             {mobileOpen ? (
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@ export function SiteHeader() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-t border-[var(--border)] bg-white p-4 md:hidden">
+        <div className="border-t border-[var(--border)] bg-[var(--bg-card)] p-4 md:hidden">
           <nav className="flex flex-col gap-1">
             <MobileLink href="/marketplace" onClick={() => setMobileOpen(false)}>Marketplace</MobileLink>
             {isAuthed && !isPro && (
@@ -117,7 +117,7 @@ export function SiteHeader() {
               {isAuthed ? (
                 <>
                   <div className="px-3 py-1.5 text-xs text-slate-500">{state.user.email}</div>
-                  <button onClick={() => { logout(); setMobileOpen(false); }} className="w-full rounded-xl px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50">
+                  <button onClick={() => { logout(); setMobileOpen(false); }} className="w-full rounded-xl px-3 py-2 text-left text-sm text-red-400 hover:bg-red-500/10">
                     Log out
                   </button>
                 </>
@@ -141,7 +141,7 @@ export function SiteHeader() {
 
 function MobileLink({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void }) {
   return (
-    <Link href={href} onClick={onClick} className="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+    <Link href={href} onClick={onClick} className="rounded-xl px-3 py-2 text-sm font-medium text-slate-300 hover:bg-white/5">
       {children}
     </Link>
   );

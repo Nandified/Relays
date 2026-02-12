@@ -18,7 +18,11 @@ export default function SignupPage() {
 
   React.useEffect(() => {
     if (state.status === "authed") {
-      router.push(state.user.role === "pro" ? "/pro/dashboard" : "/dashboard");
+      if (state.user.role === "pro" && !state.user.proOnboarding?.onboardingComplete) {
+        router.push("/pro/onboarding");
+      } else {
+        router.push(state.user.role === "pro" ? "/pro/dashboard" : "/dashboard");
+      }
     }
   }, [state, router]);
 
@@ -30,11 +34,11 @@ export default function SignupPage() {
   return (
     <main className="mx-auto max-w-md px-4 py-16">
       <div className="text-center mb-8">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-lg font-bold text-white mb-4">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-lg font-bold text-white shadow-[0_0_25px_rgba(59,130,246,0.3)] mb-4">
           R
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">Create your account</h1>
-        <p className="mt-2 text-sm text-slate-600">Join Relays and build your dream team</p>
+        <h1 className="text-2xl font-bold text-slate-100">Create your account</h1>
+        <p className="mt-2 text-sm text-slate-400">Join Relays and build your dream team</p>
       </div>
 
       {step === "role" ? (
@@ -43,16 +47,16 @@ export default function SignupPage() {
             onClick={() => { setRole("consumer"); setStep("auth"); }}
             className="w-full"
           >
-            <Card hover padding="lg" className="text-left transition-all hover:border-[var(--accent)]">
+            <Card hover padding="lg" className="text-left transition-all hover:border-[var(--accent)]/30 glow-hover">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-blue-50">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 border border-blue-500/10">
                   <svg width="24" height="24" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
                     <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-slate-900">I&apos;m buying a home</h3>
-                  <p className="mt-1 text-sm text-slate-600">
+                  <h3 className="text-base font-semibold text-slate-100">I&apos;m buying a home</h3>
+                  <p className="mt-1 text-sm text-slate-400">
                     Browse marketplace, build your dream team, and book with confidence.
                   </p>
                 </div>
@@ -64,16 +68,16 @@ export default function SignupPage() {
             onClick={() => { setRole("pro"); setStep("auth"); }}
             className="w-full"
           >
-            <Card hover padding="lg" className="text-left transition-all hover:border-[var(--accent)]">
+            <Card hover padding="lg" className="text-left transition-all hover:border-emerald-500/30 glow-hover">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-50">
-                  <svg width="24" height="24" fill="none" stroke="#059669" strokeWidth="1.5" viewBox="0 0 24 24">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/10">
+                  <svg width="24" height="24" fill="none" stroke="#10b981" strokeWidth="1.5" viewBox="0 0 24 24">
                     <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-slate-900">I&apos;m a real estate pro</h3>
-                  <p className="mt-1 text-sm text-slate-600">
+                  <h3 className="text-base font-semibold text-slate-100">I&apos;m a real estate pro</h3>
+                  <p className="mt-1 text-sm text-slate-400">
                     List your business, receive leads, and manage bookings. Free to start.
                   </p>
                 </div>
@@ -85,7 +89,7 @@ export default function SignupPage() {
         <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
           <button
             onClick={() => setStep("role")}
-            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 mb-4"
+            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-4"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -93,8 +97,8 @@ export default function SignupPage() {
             Change role
           </button>
 
-          <div className="mb-4 rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600">
-            Signing up as: <span className="font-semibold text-slate-900">{role === "consumer" ? "Home Buyer" : "Professional"}</span>
+          <div className="mb-4 rounded-xl bg-white/5 border border-[var(--border)] px-3 py-2 text-sm text-slate-400">
+            Signing up as: <span className="font-semibold text-slate-200">{role === "consumer" ? "Home Buyer" : "Professional"}</span>
           </div>
 
           <div className="space-y-4">
@@ -116,7 +120,7 @@ export default function SignupPage() {
                 <div className="w-full border-t border-[var(--border)]" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-white px-3 text-xs text-slate-400">or continue with</span>
+                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-500">or continue with</span>
               </div>
             </div>
 
@@ -151,7 +155,7 @@ export default function SignupPage() {
 
       <p className="mt-6 text-center text-sm text-slate-500">
         Already have an account?{" "}
-        <Link href="/login" className="text-[var(--accent)] hover:underline font-medium">
+        <Link href="/login" className="text-blue-400 hover:underline font-medium">
           Log in
         </Link>
       </p>

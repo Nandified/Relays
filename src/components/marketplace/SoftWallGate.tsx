@@ -54,7 +54,7 @@ export function SoftWallGate({
 
       <Modal open={open} title="Create an account to continue" onClose={() => setOpen(false)}>
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-slate-400">
             Sign in to add pros to your team, request bookings, and track your journey.
           </p>
 
@@ -70,7 +70,7 @@ export function SoftWallGate({
 
           <div className="relative py-2">
             <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[var(--border)]" /></div>
-            <div className="relative flex justify-center"><span className="bg-white px-3 text-xs text-slate-400">or</span></div>
+            <div className="relative flex justify-center"><span className="bg-[var(--bg-card)] px-3 text-xs text-slate-500">or</span></div>
           </div>
 
           <Button variant="secondary" className="w-full" onClick={completeSignup}>
@@ -90,7 +90,7 @@ export function SoftWallGate({
             Continue with Apple
           </Button>
 
-          <p className="text-[11px] text-slate-400 text-center">
+          <p className="text-[11px] text-slate-600 text-center">
             By continuing, you agree to our Terms and Privacy Policy.
           </p>
         </div>

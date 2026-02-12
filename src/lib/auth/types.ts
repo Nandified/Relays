@@ -1,3 +1,5 @@
+import type { ProOnboardingData } from "@/lib/types";
+
 export type UserRole = "consumer" | "pro";
 
 export interface SessionUser {
@@ -5,4 +7,5 @@ export interface SessionUser {
   email: string;
   name: string;
   role: UserRole;
+  proOnboarding?: ProOnboardingData;
 }

@@ -44,8 +44,8 @@ export default function MarketplacePage() {
     <main className="mx-auto max-w-6xl px-4 py-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Marketplace</h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <h1 className="text-2xl font-bold text-slate-100">Marketplace</h1>
+        <p className="mt-1 text-sm text-slate-400">
           Find verified professionals for your home journey. Browse freely — actions require an account.
         </p>
       </div>
@@ -82,8 +82,8 @@ export default function MarketplacePage() {
             />
           ))}
           {filtered.length === 0 && (
-            <div className="rounded-2xl border border-[var(--border)] bg-white p-8 text-center">
-              <div className="text-sm font-medium text-slate-700">No results found</div>
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+              <div className="text-sm font-medium text-slate-300">No results found</div>
               <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
             </div>
           )}

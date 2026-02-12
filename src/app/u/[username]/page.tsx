@@ -16,9 +16,9 @@ export default function SharePage() {
   if (!pro) {
     return (
       <main className="mx-auto max-w-lg px-4 py-16 text-center">
-        <h1 className="text-xl font-semibold text-slate-900">Professional not found</h1>
-        <p className="mt-2 text-sm text-slate-600">This profile link doesn&apos;t exist.</p>
-        <Link href="/marketplace" className="mt-4 inline-block text-sm text-[var(--accent)] hover:underline">
+        <h1 className="text-xl font-semibold text-slate-100">Professional not found</h1>
+        <p className="mt-2 text-sm text-slate-400">This profile link doesn&apos;t exist.</p>
+        <Link href="/marketplace" className="mt-4 inline-block text-sm text-blue-400 hover:underline">
           Browse Marketplace →
         </Link>
       </main>
@@ -30,39 +30,40 @@ export default function SharePage() {
   return (
     <main className="mx-auto max-w-lg px-4 py-8">
       {/* Pro header */}
-      <Card padding="lg" className="text-center shadow-[var(--shadow-elevated)] mb-6">
+      <Card padding="lg" className="text-center shadow-[var(--shadow-elevated)] mb-6 glow-hover">
         <div className="flex justify-center mb-4">
           <div className="relative">
-            <div className="h-24 w-24 overflow-hidden rounded-3xl border-2 border-white shadow-md bg-slate-50">
+            <div className="h-24 w-24 overflow-hidden rounded-3xl border-2 border-[var(--bg-card)] shadow-md bg-[var(--bg-elevated)]">
               <Image src={pro.headshotUrl} alt={pro.name} width={96} height={96} />
             </div>
-            <div className="absolute -bottom-2 -right-2 h-10 w-10 overflow-hidden rounded-xl border-2 border-white bg-white shadow-sm">
+            <div className="absolute -bottom-2 -right-2 h-10 w-10 overflow-hidden rounded-xl border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)] shadow-sm">
               <Image src={pro.companyLogoUrl} alt={pro.companyName} width={40} height={40} />
             </div>
           </div>
         </div>
 
-        <h1 className="text-xl font-bold text-slate-900">{pro.name}</h1>
+        <h1 className="text-xl font-bold text-slate-100">{pro.name}</h1>
         <p className="text-sm text-slate-500">{pro.companyName}</p>
 
         <div className="mt-2 flex items-center justify-center gap-2">
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4, 5].map((star) => (
-              <svg key={star} width="14" height="14" fill={star <= Math.round(pro.rating) ? "#f59e0b" : "#e5e7eb"} viewBox="0 0 20 20">
+              <svg key={star} width="14" height="14" fill={star <= Math.round(pro.rating) ? "#f59e0b" : "#334155"} viewBox="0 0 20 20">
                 <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
               </svg>
             ))}
           </div>
-          <span className="text-sm text-slate-600">{pro.rating.toFixed(1)} ({pro.reviewCount})</span>
+          <span className="text-sm text-slate-400">{pro.rating.toFixed(1)} ({pro.reviewCount})</span>
         </div>
 
         <div className="mt-3 flex flex-wrap justify-center gap-1.5">
           {pro.categories.map((cat) => (
             <Badge key={cat} variant="outline">{cat}</Badge>
           ))}
+          {pro.verified && <Badge variant="success">✓ Verified</Badge>}
         </div>
 
-        <p className="mt-4 text-sm text-slate-600">{pro.blurb}</p>
+        <p className="mt-4 text-sm text-slate-400">{pro.blurb}</p>
 
         <div className="mt-4 flex flex-wrap justify-center gap-1.5 text-xs text-slate-500">
           {pro.serviceAreas.map((area, i) => (
@@ -99,11 +100,11 @@ export default function SharePage() {
                 <Link key={recPro.id} href={`/pros/${recPro.slug}`}>
                   <Card hover padding="none" className="p-4 mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-slate-50">
+                      <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                         <Image src={recPro.headshotUrl} alt={recPro.name} width={48} height={48} />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-sm font-semibold text-slate-900">{recPro.name}</div>
+                        <div className="text-sm font-semibold text-slate-100">{recPro.name}</div>
                         <div className="text-xs text-slate-500">{recPro.companyName}</div>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {recPro.categories.map((c) => (
@@ -111,7 +112,7 @@ export default function SharePage() {
                           ))}
                         </div>
                       </div>
-                      <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-white">
+                      <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                         <Image src={recPro.companyLogoUrl} alt={recPro.companyName} width={36} height={36} />
                       </div>
                     </div>
@@ -125,8 +126,8 @@ export default function SharePage() {
 
       {/* Powered by Relays */}
       <div className="mt-10 text-center">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors">
-          <div className="flex h-5 w-5 items-center justify-center rounded-md bg-[var(--accent)] text-[8px] font-bold text-white">R</div>
+        <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-400 transition-colors">
+          <div className="flex h-5 w-5 items-center justify-center rounded-md bg-[var(--accent)] text-[8px] font-bold text-white shadow-[0_0_10px_rgba(59,130,246,0.2)]">R</div>
           Powered by Relays
         </Link>
       </div>

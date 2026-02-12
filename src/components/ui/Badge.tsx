@@ -10,12 +10,12 @@ interface BadgeProps {
 
 export function Badge({ children, variant = "default", className = "" }: BadgeProps) {
   const variants: Record<BadgeVariant, string> = {
-    default: "bg-slate-100 text-slate-700",
-    accent: "bg-[var(--accent-light)] text-[var(--accent)]",
-    success: "bg-[var(--success-light)] text-emerald-700",
-    warning: "bg-[var(--warning-light)] text-amber-700",
-    danger: "bg-[var(--danger-light)] text-red-700",
-    outline: "bg-white border border-[var(--border)] text-slate-600",
+    default: "bg-white/5 text-slate-400 border border-white/5",
+    accent: "bg-[var(--accent-light)] text-blue-400 border border-blue-500/10",
+    success: "bg-[var(--success-light)] text-emerald-400 border border-emerald-500/10",
+    warning: "bg-[var(--warning-light)] text-amber-400 border border-amber-500/10",
+    danger: "bg-[var(--danger-light)] text-red-400 border border-red-500/10",
+    outline: "bg-transparent border border-[var(--border)] text-slate-400",
   };
 
   return (

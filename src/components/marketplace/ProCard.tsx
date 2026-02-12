@@ -23,10 +23,10 @@ export function ProCard({
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-slate-900">{pro.name}</div>
+                <div className="truncate text-sm font-semibold text-slate-100">{pro.name}</div>
                 <div className="truncate text-xs text-slate-500">{pro.companyName}</div>
               </div>
-              <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-white">
+              <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                 <Image src={pro.companyLogoUrl} alt={pro.companyName} width={36} height={36} />
               </div>
             </div>

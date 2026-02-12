@@ -14,8 +14,8 @@ export function FilterChips({ categories, selected, onSelect }: FilterChipsProps
         className={`
           flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all
           ${selected === null
-            ? "bg-[var(--accent)] text-white shadow-sm"
-            : "bg-white border border-[var(--border)] text-slate-600 hover:border-slate-300"
+            ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+            : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-300"
           }
         `}
       >
@@ -28,8 +28,8 @@ export function FilterChips({ categories, selected, onSelect }: FilterChipsProps
           className={`
             flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap
             ${selected === cat
-              ? "bg-[var(--accent)] text-white shadow-sm"
-              : "bg-white border border-[var(--border)] text-slate-600 hover:border-slate-300"
+              ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+              : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-300"
             }
           `}
         >

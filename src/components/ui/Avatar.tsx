@@ -17,7 +17,7 @@ export function Avatar({ src, alt, size = 44, rounded = "xl" }: AvatarProps) {
 
   return (
     <div
-      className={`overflow-hidden border border-[var(--border)] bg-slate-50 flex-shrink-0 ${roundedMap[rounded]}`}
+      className={`overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] flex-shrink-0 ${roundedMap[rounded]}`}
       style={{ width: size, height: size }}
     >
       <Image src={src} alt={alt} width={size} height={size} className="object-cover" />

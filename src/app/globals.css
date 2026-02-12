@@ -1,31 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  /* Palette — HR-5: calm neutrals + single strong accent */
-  --bg: #f6f7fb;
-  --bg-subtle: #f5f7fb;
-  --bg-page: #f8fafc;
-  --bg-card: #ffffff;
-  --text: #0f172a;
-  --text-muted: #6b7280;
-  --text-secondary: #475569;
+  /* Dark palette — rich dark, NOT pure black */
+  --bg: #0a0a0f;
+  --bg-subtle: #0e0e15;
+  --bg-page: #0a0a0f;
+  --bg-card: #141419;
+  --bg-card-hover: #1a1a22;
+  --bg-elevated: #1c1c26;
+  --bg-surface: rgba(20, 20, 25, 0.8);
+
+  /* Text */
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-secondary: #64748b;
+  --text-dim: #475569;
+
+  /* Accent */
   --accent: #3b82f6;
   --accent-hover: #2563eb;
-  --accent-light: rgba(59, 130, 246, 0.08);
-  --success: #00a86b;
-  --success-light: rgba(0, 168, 107, 0.08);
-  --warning: #f59e0b;
-  --warning-light: rgba(245, 158, 11, 0.08);
-  --danger: #ef4444;
-  --danger-light: rgba(239, 68, 68, 0.08);
-  --border: #e5e7eb;
-  --border-subtle: #f1f5f9;
+  --accent-light: rgba(59, 130, 246, 0.12);
+  --accent-glow: rgba(59, 130, 246, 0.15);
 
-  /* Shadows */
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
-  --shadow-card-hover: 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-elevated: 0 16px 40px rgba(15, 23, 42, 0.08);
-  --shadow-modal: 0 24px 60px rgba(15, 23, 42, 0.12);
+  /* Status */
+  --success: #10b981;
+  --success-light: rgba(16, 185, 129, 0.12);
+  --warning: #f59e0b;
+  --warning-light: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-light: rgba(239, 68, 68, 0.12);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-hover: rgba(255, 255, 255, 0.14);
+  --border-glow: rgba(59, 130, 246, 0.25);
+
+  /* Shadows & Glows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-elevated: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.6);
+  --glow-accent: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05);
+  --glow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
 
   /* Radii */
   --radius-sm: 8px;
@@ -45,13 +62,24 @@ body {
 }
 
 body {
-  background: radial-gradient(1200px 600px at 30% -10%, rgba(59, 130, 246, 0.06), transparent),
-    radial-gradient(900px 500px at 90% 0%, rgba(99, 102, 241, 0.04), transparent),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle background gradient mesh — very subtle ambient glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(59, 130, 246, 0.06), transparent),
+    radial-gradient(900px 500px at 80% 10%, rgba(99, 102, 241, 0.04), transparent),
+    radial-gradient(600px 600px at 50% 90%, rgba(59, 130, 246, 0.03), transparent);
+  pointer-events: none;
 }
 
 /* Smooth scroll */
@@ -63,4 +91,48 @@ html {
 *:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Hide scrollbar for filter chips */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subtle animation for cards */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Glow hover effect class */
+.glow-hover {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.glow-hover:hover {
+  box-shadow: var(--glow-accent);
+  border-color: var(--border-glow);
 }

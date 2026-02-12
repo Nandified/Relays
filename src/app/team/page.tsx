@@ -14,20 +14,15 @@ const roleOrder: ProServiceCategory[] = [
   "Home Inspector",
   "Attorney",
   "Insurance Agent",
-  "Title Company",
-  "Handyman",
-  "Contractor",
 ];
 
 export default function TeamPage() {
-  // Group by role
   const byRole = roleOrder.reduce((acc, role) => {
     const members = mockTeam.filter((m) => m.role === role);
     if (members.length > 0) acc.push({ role, members });
     return acc;
   }, [] as { role: ProServiceCategory; members: typeof mockTeam }[]);
 
-  // Roles not yet filled
   const filledRoles = new Set(mockTeam.map((m) => m.role));
   const emptyRoles = roleOrder.filter((r) => !filledRoles.has(r));
 
@@ -35,8 +30,8 @@ export default function TeamPage() {
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">My Dream Team</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <h1 className="text-2xl font-bold text-slate-100">My Dream Team</h1>
+          <p className="mt-1 text-sm text-slate-400">
             {mockTeam.length} professional{mockTeam.length !== 1 ? "s" : ""} on your team
           </p>
         </div>
@@ -65,12 +60,12 @@ export default function TeamPage() {
                   <Link key={member.proId} href={`/pros/${pro.slug}`}>
                     <Card hover padding="none" className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-slate-50">
+                        <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                           <Image src={pro.headshotUrl} alt={pro.name} width={48} height={48} />
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="truncate text-sm font-semibold text-slate-900">{pro.name}</span>
+                            <span className="truncate text-sm font-semibold text-slate-100">{pro.name}</span>
                             {pro.verified && <Badge variant="success" className="text-[10px]">✓</Badge>}
                           </div>
                           <div className="truncate text-xs text-slate-500">{pro.companyName}</div>
@@ -81,10 +76,10 @@ export default function TeamPage() {
                               </svg>
                               {pro.rating.toFixed(1)}
                             </span>
-                            <span className="text-xs text-slate-400">{pro.reviewCount} reviews</span>
+                            <span className="text-xs text-slate-600">{pro.reviewCount} reviews</span>
                           </div>
                         </div>
-                        <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-white">
+                        <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                           <Image src={pro.companyLogoUrl} alt={pro.companyName} width={36} height={36} />
                         </div>
                       </div>
@@ -108,14 +103,14 @@ export default function TeamPage() {
               <Link key={role} href={`/marketplace`}>
                 <Card hover padding="none" className="p-4 border-dashed">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center">
-                      <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" viewBox="0 0 24 24">
+                    <div className="h-10 w-10 rounded-xl bg-white/5 border border-dashed border-[var(--border)] flex items-center justify-center">
+                      <svg width="16" height="16" fill="none" stroke="#64748b" strokeWidth="2" viewBox="0 0 24 24">
                         <path d="M12 4v16m8-8H4" />
                       </svg>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-slate-700">{role}</div>
-                      <div className="text-xs text-slate-400">Find a {role.toLowerCase()}</div>
+                      <div className="text-sm font-medium text-slate-300">{role}</div>
+                      <div className="text-xs text-slate-600">Find a {role.toLowerCase()}</div>
                     </div>
                   </div>
                 </Card>

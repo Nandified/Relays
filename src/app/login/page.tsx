@@ -23,7 +23,6 @@ export default function LoginPage() {
   const handleMagicLink = () => {
     if (!email.trim()) return;
     setSent(true);
-    // Simulate magic link — auto-login after 1s
     setTimeout(() => {
       loginFake({ email: email.trim(), role: "consumer" });
     }, 1000);
@@ -32,26 +31,26 @@ export default function LoginPage() {
   return (
     <main className="mx-auto max-w-md px-4 py-16">
       <div className="text-center mb-8">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-lg font-bold text-white mb-4">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-lg font-bold text-white shadow-[0_0_25px_rgba(59,130,246,0.3)] mb-4">
           R
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-        <p className="mt-2 text-sm text-slate-600">Sign in to your Relays account</p>
+        <h1 className="text-2xl font-bold text-slate-100">Welcome back</h1>
+        <p className="mt-2 text-sm text-slate-400">Sign in to your Relays account</p>
       </div>
 
       <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
         {sent ? (
           <div className="text-center py-4">
-            <div className="mx-auto h-12 w-12 rounded-full bg-emerald-50 flex items-center justify-center mb-3">
-              <svg width="24" height="24" fill="none" stroke="#059669" strokeWidth="2" viewBox="0 0 24 24">
+            <div className="mx-auto h-12 w-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-3">
+              <svg width="24" height="24" fill="none" stroke="#10b981" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M20 6L9 17l-5-5" />
               </svg>
             </div>
-            <h2 className="text-base font-semibold text-slate-900">Check your email</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              We sent a magic link to <strong>{email}</strong>. Click it to sign in.
+            <h2 className="text-base font-semibold text-slate-100">Check your email</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              We sent a magic link to <strong className="text-slate-200">{email}</strong>. Click it to sign in.
             </p>
-            <p className="mt-3 text-xs text-slate-400">(Demo: auto-signing you in...)</p>
+            <p className="mt-3 text-xs text-slate-600">(Demo: auto-signing you in...)</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -73,7 +72,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-[var(--border)]" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-white px-3 text-xs text-slate-400">or continue with</span>
+                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-500">or continue with</span>
               </div>
             </div>
 
@@ -108,7 +107,7 @@ export default function LoginPage() {
 
       <p className="mt-6 text-center text-sm text-slate-500">
         Don&apos;t have an account?{" "}
-        <Link href="/signup" className="text-[var(--accent)] hover:underline font-medium">
+        <Link href="/signup" className="text-blue-400 hover:underline font-medium">
           Sign up
         </Link>
       </p>

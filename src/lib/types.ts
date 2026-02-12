@@ -6,10 +6,7 @@ export type ProServiceCategory =
   | "Mortgage Lender"
   | "Insurance Agent"
   | "Attorney"
-  | "Handyman"
-  | "Title Company"
-  | "Realtor"
-  | "Contractor";
+  | "Realtor";
 
 // ── Pro (public profile) ──
 export interface ProBadge {
@@ -42,12 +39,23 @@ export interface Pro {
 // ── Auth / User ──
 export type UserRole = "consumer" | "pro";
 
+export interface ProOnboardingData {
+  category: ProServiceCategory | null;
+  companyName: string;
+  fullName: string;
+  serviceArea: string;
+  headshotUploaded: boolean;
+  logoUploaded: boolean;
+  onboardingComplete: boolean;
+}
+
 export interface SessionUser {
   id: string;
   email: string;
   name: string;
   role: UserRole;
   avatarUrl: string | null;
+  proOnboarding?: ProOnboardingData;
 }
 
 // ── Requests ──
