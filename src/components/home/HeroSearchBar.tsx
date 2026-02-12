@@ -2,6 +2,9 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import { SearchSuggestions } from "@/components/search/SearchSuggestions";
+import { type Pro } from "@/lib/types";
+import { type PlacesResult } from "@/lib/google-places";
 
 const PLACEHOLDER_SERVICES = [
   "Realtor",
@@ -40,6 +43,17 @@ export function HeroSearchBar() {
   const hasSelectedPros = !selectedCategories.has("All") && selectedCategories.size > 0;
   // Show pills if user has interacted with chips at all (even if back to "All")
   const showPills = hasInteracted;
+
+  // Show suggestions when user has typed text AND the bar is open
+  const showSuggestions = isOpen && query.trim().length > 0;
+  // Show chip dropdown only when open, no typed text, and no pills selected
+  const showChipDropdown = isOpen && query.trim().length === 0;
+
+  // Categories array for the search suggestions
+  const activeCategoryArray = React.useMemo(() => {
+    if (selectedCategories.has("All") || selectedCategories.size === 0) return [];
+    return Array.from(selectedCategories).filter((c) => c !== "All");
+  }, [selectedCategories]);
 
   // Auto-detect zip from geolocation
   React.useEffect(() => {
@@ -114,6 +128,15 @@ export function HeroSearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Close on Escape
+  React.useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") setIsOpen(false);
+    }
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
   function toggleCategory(cat: string) {
     setHasInteracted(true);
 
@@ -185,6 +208,26 @@ export function HeroSearchBar() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     handleSearch();
+  }
+
+  function handleSelectPro(pro: Pro) {
+    setIsOpen(false);
+    router.push(`/pros/${pro.slug}`);
+  }
+
+  function handleSelectPlace(place: PlacesResult) {
+    setIsOpen(false);
+    router.push(`/marketplace?placeId=${place.placeId}`);
+  }
+
+  function handleSeeAll(q: string) {
+    setIsOpen(false);
+    const params = new URLSearchParams();
+    params.set("q", q);
+    if (!selectedCategories.has("All") && selectedCategories.size > 0) {
+      params.set("categories", Array.from(selectedCategories).join(","));
+    }
+    router.push(`/marketplace?${params.toString()}`);
   }
 
   const showAnimatedPlaceholder = !isOpen && query.length === 0 && !showPills;
@@ -299,8 +342,8 @@ export function HeroSearchBar() {
         )}
       </div>
 
-      {/* Dropdown — liquid glass, relative on mobile (pushes content), absolute on desktop */}
-      {isOpen && (
+      {/* Dropdown — chip selector (when no text typed) */}
+      {showChipDropdown && (
         <div
           className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative z-50 mt-2 rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
           style={{ animation: "dropdownFadeIn 0.15s ease-out" }}
@@ -338,6 +381,19 @@ export function HeroSearchBar() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Dropdown — live search suggestions (when text is typed) */}
+      {showSuggestions && (
+        <SearchSuggestions
+          query={query}
+          categories={activeCategoryArray.length > 0 ? activeCategoryArray : undefined}
+          onSelectPro={handleSelectPro}
+          onSelectPlace={handleSelectPlace}
+          onSeeAll={handleSeeAll}
+          visible={showSuggestions}
+          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative mt-2"
+        />
       )}
     </div>
   );

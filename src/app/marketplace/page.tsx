@@ -4,6 +4,7 @@ import * as React from "react";
 import { useSearchParams } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { getAllPlaces, type PlacesResult } from "@/lib/google-places";
+import { type Pro } from "@/lib/types";
 import { ProCard } from "@/components/marketplace/ProCard";
 import { ProPreviewPanel } from "@/components/marketplace/ProPreviewPanel";
 import { GooglePlacesCard } from "@/components/marketplace/GooglePlacesCard";
@@ -19,6 +20,7 @@ function MarketplaceContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") ?? "";
   const initialCategories = searchParams.get("categories") ?? "";
+  const initialPlaceId = searchParams.get("placeId") ?? "";
 
   const [query, setQuery] = React.useState(initialQuery);
   const [categoryFilter, setCategoryFilter] = React.useState<string | null>(() => {
@@ -28,7 +30,17 @@ function MarketplaceContent() {
     }
     return null;
   });
-  const [selected, setSelected] = React.useState<SelectedItem>({ type: "pro", slug: mockPros[0]?.slug ?? "" });
+  const [selected, setSelected] = React.useState<SelectedItem>(() => {
+    // If placeId in URL, select that place immediately
+    if (initialPlaceId) {
+      return { type: "places", placeId: initialPlaceId };
+    }
+    return { type: "pro", slug: mockPros[0]?.slug ?? "" };
+  });
+  const [highlightedPlaceId, setHighlightedPlaceId] = React.useState<string | null>(initialPlaceId || null);
+
+  // Refs for scrolling to Google Places cards
+  const placeCardRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
 
   // Google Places data
   const placesData = React.useMemo(() => getAllPlaces(), []);
@@ -51,6 +63,12 @@ function MarketplaceContent() {
       if (parsed.length >= 1) {
         setCategoryFilter(parsed[0]);
       }
+    }
+
+    const placeId = searchParams.get("placeId") ?? "";
+    if (placeId) {
+      setSelected({ type: "places", placeId });
+      setHighlightedPlaceId(placeId);
     }
   }, [searchParams]);
 
@@ -115,6 +133,40 @@ function MarketplaceContent() {
     }
   }, [filteredPros, selected]);
 
+  // Scroll to and highlight placeId from URL
+  React.useEffect(() => {
+    if (!highlightedPlaceId) return;
+
+    // Small delay to let cards render
+    const timeout = setTimeout(() => {
+      const el = placeCardRefs.current[highlightedPlaceId];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      // Clear highlight after animation
+      const clearTimeout2 = setTimeout(() => {
+        setHighlightedPlaceId(null);
+      }, 2000);
+
+      return () => clearTimeout(clearTimeout2);
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [highlightedPlaceId]);
+
+  // Handle suggestion selection from search bar
+  const handleSearchSelectPro = React.useCallback((pro: Pro) => {
+    setSelected({ type: "pro", slug: pro.slug });
+    // Scroll to the pro card area
+    window.scrollTo({ top: 300, behavior: "smooth" });
+  }, []);
+
+  const handleSearchSelectPlace = React.useCallback((place: PlacesResult) => {
+    setSelected({ type: "places", placeId: place.placeId });
+    setHighlightedPlaceId(place.placeId);
+  }, []);
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
       {/* Header */}
@@ -127,7 +179,13 @@ function MarketplaceContent() {
 
       {/* Search */}
       <div className="mb-4">
-        <SearchBar value={query} onChange={setQuery} />
+        <SearchBar
+          value={query}
+          onChange={setQuery}
+          onSelectPro={handleSearchSelectPro}
+          onSelectPlace={handleSearchSelectPlace}
+          categoryFilter={categoryFilter}
+        />
       </div>
 
       {/* Filters */}
@@ -185,12 +243,17 @@ function MarketplaceContent() {
               </div>
 
               {filteredPlaces.map((place) => (
-                <GooglePlacesCard
+                <div
                   key={place.placeId}
-                  place={place}
-                  selected={selected.type === "places" && (selected as { type: "places"; placeId: string }).placeId === place.placeId}
-                  onSelect={() => setSelected({ type: "places", placeId: place.placeId })}
-                />
+                  ref={(el) => { placeCardRefs.current[place.placeId] = el; }}
+                  className={highlightedPlaceId === place.placeId ? "animate-highlight-pulse rounded-2xl" : ""}
+                >
+                  <GooglePlacesCard
+                    place={place}
+                    selected={selected.type === "places" && (selected as { type: "places"; placeId: string }).placeId === place.placeId}
+                    onSelect={() => setSelected({ type: "places", placeId: place.placeId })}
+                  />
+                </div>
               ))}
             </>
           )}
