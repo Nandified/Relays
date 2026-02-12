@@ -37,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const user: SessionUser = {
       id: `user_${Math.random().toString(36).slice(2, 10)}`,
       email: opts.email,
+      name: opts.email.split("@")[0],
       role: opts.role ?? "consumer",
     };
     localStorage.setItem(LS_KEY, JSON.stringify(user));

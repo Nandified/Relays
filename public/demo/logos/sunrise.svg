@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
-  <rect width="256" height="256" rx="56" fill="#fff7ed"/>
-  <circle cx="128" cy="132" r="44" fill="#fb923c"/>
-  <path d="M48 168h160" stroke="#fdba74" stroke-width="16" stroke-linecap="round"/>
+  <rect width="256" height="256" rx="40" fill="#fffbeb"/>
+  <circle cx="128" cy="128" r="48" fill="#f59e0b" opacity="0.8"/>
+  <path d="M80 176 L128 80 L176 176" fill="none" stroke="#d97706" stroke-width="6"/>
+  <text x="128" y="226" text-anchor="middle" fill="#92400e" font-size="20" font-family="system-ui" font-weight="700">Sunrise</text>
 </svg>

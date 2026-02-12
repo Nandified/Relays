@@ -4,64 +4,80 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { type Pro } from "@/lib/types";
 import { SoftWallGate } from "@/components/marketplace/SoftWallGate";
 
 export function ProPreviewPanel({ pro }: { pro: Pro }) {
   return (
-    <Card className="p-4">
+    <Card padding="lg">
+      {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="h-12 w-12 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-          <Image src={pro.headshotUrl} alt={pro.name} width={48} height={48} />
+        <div className="h-14 w-14 overflow-hidden rounded-2xl border border-[var(--border)] bg-slate-50">
+          <Image src={pro.headshotUrl} alt={pro.name} width={56} height={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-semibold text-slate-900">{pro.name}</div>
-          <div className="truncate text-xs text-slate-600">{pro.companyName}</div>
+          <div className="truncate text-base font-semibold text-slate-900">{pro.name}</div>
+          <div className="truncate text-sm text-slate-500">{pro.companyName}</div>
         </div>
-        <div className="h-10 w-10 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-white">
           <Image src={pro.companyLogoUrl} alt={pro.companyName} width={40} height={40} />
         </div>
       </div>
 
-      <div className="mt-3 text-sm text-slate-700">{pro.blurb}</div>
+      {/* Rating */}
+      <div className="mt-3 flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <svg key={star} width="14" height="14" fill={star <= Math.round(pro.rating) ? "#f59e0b" : "#e5e7eb"} viewBox="0 0 20 20">
+              <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
+            </svg>
+          ))}
+        </div>
+        <span className="text-sm font-medium text-slate-700">{pro.rating.toFixed(1)}</span>
+        <span className="text-xs text-slate-500">({pro.reviewCount} reviews)</span>
+      </div>
 
-      <div className="mt-3 flex flex-wrap gap-1">
+      {/* Blurb */}
+      <p className="mt-3 text-sm text-slate-600 leading-relaxed">{pro.blurb}</p>
+
+      {/* Categories & badges */}
+      <div className="mt-3 flex flex-wrap gap-1.5">
         {pro.categories.map((c) => (
-          <span
-            key={c}
-            className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[11px] text-slate-700"
-          >
-            {c}
-          </span>
+          <Badge key={c} variant="outline">{c}</Badge>
+        ))}
+        {pro.badges.slice(0, 2).map((b) => (
+          <Badge key={b.label} variant="accent">{b.label}</Badge>
         ))}
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-2">
-        <Link href={`/pros/${pro.slug}`} className="col-span-2">
-          <Button variant="secondary" className="w-full">
-            View profile
-          </Button>
-        </Link>
-
-        <SoftWallGate action="add_to_team" context={{ proSlug: pro.slug, from: "marketplace" }}>
-          {(authed, begin) => (
-            <Button className="w-full" onClick={begin}>
-              Add to team
-            </Button>
-          )}
-        </SoftWallGate>
-
-        <SoftWallGate action="request_booking" context={{ proSlug: pro.slug, from: "marketplace" }}>
-          {(authed, begin) => (
-            <Button variant="secondary" className="w-full" onClick={begin}>
-              Request booking
-            </Button>
-          )}
-        </SoftWallGate>
+      {/* Service areas */}
+      <div className="mt-3 text-xs text-slate-500">
+        <span className="font-medium text-slate-600">Service areas: </span>
+        {pro.serviceAreas.join(", ")}
       </div>
 
-      <div className="mt-3 text-xs text-slate-500">
-        {pro.rating.toFixed(1)} • {pro.reviewCount} reviews • {pro.serviceAreas.join(", ")}
+      {/* CTAs */}
+      <div className="mt-4 grid gap-2">
+        <Link href={`/pros/${pro.slug}`}>
+          <Button variant="secondary" className="w-full">View Full Profile</Button>
+        </Link>
+        <div className="grid grid-cols-2 gap-2">
+          <SoftWallGate action="add_to_team" context={{ proSlug: pro.slug, from: "marketplace" }}>
+            {(_authed, begin) => (
+              <Button className="w-full" onClick={begin}>
+                Add to Team
+              </Button>
+            )}
+          </SoftWallGate>
+          <SoftWallGate action="request_booking" context={{ proSlug: pro.slug, from: "marketplace" }}>
+            {(_authed, begin) => (
+              <Button variant="secondary" className="w-full" onClick={begin}>
+                Book
+              </Button>
+            )}
+          </SoftWallGate>
+        </div>
       </div>
     </Card>
   );

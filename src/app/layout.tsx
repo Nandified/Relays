@@ -4,17 +4,24 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 
 export const metadata: Metadata = {
-  title: "Relays",
-  description: "Referral OS for real estate pros — marketplace + journey tracking.",
+  title: "Relays — Build Your Dream Team",
+  description: "The referral OS for real estate. Browse verified pros, build your team, book with confidence.",
+  openGraph: {
+    title: "Relays — Build Your Dream Team",
+    description: "The referral OS for real estate. Browse verified pros, build your team, book with confidence.",
+    siteName: "Relays",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen">
         <AuthProvider>
           <SiteHeader />
-          {children}
+          <div className="min-h-[calc(100vh-57px)]">
+            {children}
+          </div>
         </AuthProvider>
       </body>
     </html>

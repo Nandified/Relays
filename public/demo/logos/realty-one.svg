@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="40" fill="#f0fdf4"/>
+  <rect x="80" y="80" width="96" height="80" rx="12" fill="#16a34a" opacity="0.15"/>
+  <path d="M128 72 L180 112 L180 168 L76 168 L76 112 Z" fill="#16a34a" opacity="0.3"/>
+  <rect x="112" y="128" width="32" height="40" rx="4" fill="#16a34a" opacity="0.5"/>
+  <text x="128" y="226" text-anchor="middle" fill="#15803d" font-size="17" font-family="system-ui" font-weight="700">Realty One</text>
+</svg>

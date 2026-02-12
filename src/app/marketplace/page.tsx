@@ -1,48 +1,77 @@
 "use client";
 
 import * as React from "react";
-import { mockPros } from "@/lib/mock-data";
+import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { ProCard } from "@/components/marketplace/ProCard";
 import { ProPreviewPanel } from "@/components/marketplace/ProPreviewPanel";
+import { SearchBar } from "@/components/marketplace/SearchBar";
+import { FilterChips } from "@/components/marketplace/FilterChips";
 
 export default function MarketplacePage() {
   const [query, setQuery] = React.useState("");
+  const [categoryFilter, setCategoryFilter] = React.useState<string | null>(null);
   const [selectedSlug, setSelectedSlug] = React.useState(mockPros[0]?.slug ?? "");
 
   const filtered = React.useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return mockPros;
-    return mockPros.filter((p) =>
-      [p.name, p.companyName, p.categories.join(" ")].join(" ").toLowerCase().includes(q)
-    );
-  }, [query]);
+    let results = mockPros;
 
-  const selected = filtered.find((p) => p.slug === selectedSlug) ?? filtered[0];
+    if (categoryFilter) {
+      results = results.filter((p) => p.categories.includes(categoryFilter as never));
+    }
+
+    const q = query.trim().toLowerCase();
+    if (q) {
+      results = results.filter((p) =>
+        [p.name, p.companyName, ...p.categories, ...p.serviceAreas]
+          .join(" ")
+          .toLowerCase()
+          .includes(q)
+      );
+    }
+
+    return results;
+  }, [query, categoryFilter]);
+
+  const selected = filtered.find((p) => p.slug === selectedSlug) ?? filtered[0] ?? null;
 
   React.useEffect(() => {
-    if (selected && selected.slug !== selectedSlug) setSelectedSlug(selected.slug);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtered.length]);
+    if (filtered.length > 0 && !filtered.find(p => p.slug === selectedSlug)) {
+      setSelectedSlug(filtered[0].slug);
+    }
+  }, [filtered, selectedSlug]);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
-      <div className="mb-4">
-        <div className="text-sm font-semibold text-slate-900">Marketplace</div>
-        <div className="mt-1 text-sm text-slate-600">
-          Search by the service you need. Browse is public — actions prompt account.
-        </div>
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-slate-900">Marketplace</h1>
+        <p className="mt-1 text-sm text-slate-600">
+          Find verified professionals for your home journey. Browse freely — actions require an account.
+        </p>
       </div>
 
+      {/* Search */}
       <div className="mb-4">
-        <input
-          className="w-full rounded-3xl border border-slate-200 bg-white/80 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="What service do you need? (inspection, lender, insurance…)"
+        <SearchBar value={query} onChange={setQuery} />
+      </div>
+
+      {/* Filters */}
+      <div className="mb-6">
+        <FilterChips
+          categories={[...serviceCategories]}
+          selected={categoryFilter}
+          onSelect={setCategoryFilter}
         />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-[1fr_360px]">
+      {/* Results count */}
+      <div className="mb-4 text-sm text-slate-500">
+        {filtered.length} professional{filtered.length !== 1 ? "s" : ""} found
+      </div>
+
+      {/* Two-column layout (Thumbtack-style) */}
+      <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
+        {/* Results list */}
         <section className="space-y-3">
           {filtered.map((pro) => (
             <ProCard
@@ -52,17 +81,28 @@ export default function MarketplacePage() {
               onSelect={() => setSelectedSlug(pro.slug)}
             />
           ))}
-          {filtered.length === 0 ? (
-            <div className="rounded-2xl border border-slate-200 bg-white/70 p-4 text-sm text-slate-600">
-              No results yet — try a different service.
+          {filtered.length === 0 && (
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-8 text-center">
+              <div className="text-sm font-medium text-slate-700">No results found</div>
+              <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
             </div>
-          ) : null}
+          )}
         </section>
 
-        <aside className="md:sticky md:top-24 md:h-fit">
-          {selected ? <ProPreviewPanel pro={selected} /> : null}
+        {/* Sticky preview panel (desktop) */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-20">
+            {selected ? <ProPreviewPanel pro={selected} /> : null}
+          </div>
         </aside>
       </div>
+
+      {/* Mobile: show preview panel below results */}
+      {selected && (
+        <div className="mt-6 lg:hidden">
+          <ProPreviewPanel pro={selected} />
+        </div>
+      )}
     </main>
   );
 }

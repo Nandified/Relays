@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="40" fill="#eef2ff"/>
+  <circle cx="128" cy="116" r="40" fill="#6366f1" opacity="0.2"/>
+  <path d="M128 76 L148 116 L128 156 L108 116 Z" fill="#6366f1" opacity="0.5"/>
+  <text x="128" y="226" text-anchor="middle" fill="#4338ca" font-size="15" font-family="system-ui" font-weight="700">Safe Harbor</text>
+</svg>

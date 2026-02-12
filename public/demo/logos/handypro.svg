@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="40" fill="#fef2f2"/>
+  <rect x="88" y="80" width="80" height="80" rx="16" fill="#ef4444" opacity="0.3"/>
+  <rect x="108" y="72" width="12" height="96" rx="4" fill="#ef4444" opacity="0.6" transform="rotate(45 128 120)"/>
+  <rect x="108" y="72" width="12" height="96" rx="4" fill="#ef4444" opacity="0.6" transform="rotate(-45 128 120)"/>
+  <text x="128" y="226" text-anchor="middle" fill="#b91c1c" font-size="18" font-family="system-ui" font-weight="700">HandyPro</text>
+</svg>
