@@ -185,6 +185,12 @@ html {
   transform: scale(0.98);
 }
 
+/* Dropdown fade-in — clean, no layout shift */
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Staggered chip entrance animation */
 @keyframes chipEnter {
   from {

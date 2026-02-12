@@ -36,34 +36,27 @@ export function HeroSearchBar() {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const geoAttempted = React.useRef(false);
 
-  // Auto-detect zip code from browser geolocation on mount
+  // Auto-detect zip from geolocation
   React.useEffect(() => {
     if (geoAttempted.current) return;
     geoAttempted.current = true;
-
     if (!navigator.geolocation) return;
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         try {
           const { latitude, longitude } = position.coords;
-          // Use free reverse geocoding to get zip code
           const res = await fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
           );
           if (!res.ok) return;
           const data = await res.json();
-          const postcode = data.postcode;
-          if (postcode && /^\d{5}/.test(postcode)) {
-            setZip(postcode.slice(0, 5));
+          if (data.postcode && /^\d{5}/.test(data.postcode)) {
+            setZip(data.postcode.slice(0, 5));
           }
-        } catch {
-          // Silent fail — zip stays empty
-        }
+        } catch { /* silent */ }
       },
-      () => {
-        // User denied or error — silent fail
-      },
+      () => {},
       { timeout: 5000, maximumAge: 300000 }
     );
   }, []);
@@ -79,11 +72,9 @@ export function HeroSearchBar() {
 
     function tick() {
       const currentWord = PLACEHOLDER_SERVICES[currentIndex];
-
       if (!isDeleting) {
         currentChar++;
         setAnimatedText(currentWord.slice(0, currentChar));
-
         if (currentChar === currentWord.length) {
           isDeleting = true;
           timeout = setTimeout(tick, PAUSE_AFTER_TYPING);
@@ -93,7 +84,6 @@ export function HeroSearchBar() {
       } else {
         currentChar--;
         setAnimatedText(currentWord.slice(0, currentChar));
-
         if (currentChar === 0) {
           isDeleting = false;
           currentIndex = (currentIndex + 1) % PLACEHOLDER_SERVICES.length;
@@ -121,8 +111,8 @@ export function HeroSearchBar() {
 
   function toggleCategory(cat: string) {
     if (cat === "All") {
+      // Just highlight "All" chip — DON'T clear the search text
       setSelectedCategories(new Set(["All"]));
-      setQuery("");
       return;
     }
 
@@ -132,21 +122,17 @@ export function HeroSearchBar() {
 
       if (next.has(cat)) {
         next.delete(cat);
-        if (next.size === 0) {
-          setQuery("");
-          return new Set(["All"]);
-        }
+        if (next.size === 0) return new Set(["All"]);
       } else {
         next.add(cat);
       }
 
       const individualCategories = CATEGORY_CHIPS.filter((c) => c !== "All");
       if (individualCategories.every((c) => next.has(c))) {
-        setQuery("");
         return new Set(["All"]);
       }
 
-      // Populate the input with selected categories
+      // Put selected categories in the search input
       setQuery(Array.from(next).join(", "));
       return next;
     });
@@ -155,13 +141,11 @@ export function HeroSearchBar() {
   function handleSearch() {
     const params = new URLSearchParams();
     const q = query.trim();
-
     if (q) params.set("q", q);
     if (!selectedCategories.has("All")) {
       params.set("categories", Array.from(selectedCategories).join(","));
     }
     if (zip.trim()) params.set("zip", zip.trim());
-
     const qs = params.toString();
     router.push(`/marketplace${qs ? `?${qs}` : ""}`);
     setIsOpen(false);
@@ -178,26 +162,14 @@ export function HeroSearchBar() {
     <div ref={containerRef} className="relative mx-auto w-full max-w-lg">
       {/* Glow backdrop */}
       <div
-        className={`absolute -inset-2 bg-gradient-to-r from-blue-500/20 via-blue-400/10 to-indigo-500/20 blur-xl transition-all duration-500 ${
-          isOpen ? "opacity-100 rounded-[32px]" : "opacity-50 rounded-[28px]"
+        className={`absolute -inset-2 bg-gradient-to-r from-blue-500/20 via-blue-400/10 to-indigo-500/20 blur-xl transition-opacity duration-500 rounded-[28px] ${
+          isOpen ? "opacity-100" : "opacity-50"
         }`}
       />
 
-      {/* Unified container — search bar + dropdown as one connected piece */}
-      <div
-        className={`relative border backdrop-blur-2xl transition-all duration-300 overflow-hidden ${
-          isOpen
-            ? "rounded-[22px] border-white/[0.12] bg-white/[0.06] shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
-            : "rounded-full border-[var(--border)] bg-[var(--bg-card)]/90 shadow-[0_0_30px_rgba(59,130,246,0.08)]"
-        }`}
-      >
-        {/* Top edge highlight for glass effect */}
-        {isOpen && (
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
-        )}
-
-        {/* Search bar row */}
-        <form onSubmit={handleSubmit} className="relative flex items-center">
+      {/* Search bar — always solid, rounded pill, never changes shape */}
+      <form onSubmit={handleSubmit} className="relative">
+        <div className="relative flex items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.08)] transition-shadow duration-300 hover:shadow-[0_0_35px_rgba(59,130,246,0.12)]">
           {/* Search icon */}
           <div className="flex items-center pl-4 text-slate-500">
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -225,10 +197,7 @@ export function HeroSearchBar() {
 
             {/* Animated typewriter */}
             {showAnimatedPlaceholder && (
-              <div
-                className="pointer-events-none absolute inset-0 flex items-center pl-3 text-sm text-slate-500"
-                aria-hidden="true"
-              >
+              <div className="pointer-events-none absolute inset-0 flex items-center pl-3 text-sm text-slate-500" aria-hidden="true">
                 <span>Search for a </span>
                 <span className="ml-1 text-blue-400/80">{animatedText}</span>
                 <span className="ml-[1px] inline-block h-4 w-[2px] animate-blink bg-blue-400/60" />
@@ -237,10 +206,10 @@ export function HeroSearchBar() {
           </div>
 
           {/* Divider */}
-          <div className="h-6 w-px bg-white/[0.1] flex-shrink-0" />
+          <div className="h-6 w-px bg-[var(--border)] flex-shrink-0" />
 
-          {/* Zip code input */}
-          <div className="relative flex items-center">
+          {/* Zip code */}
+          <div className="flex items-center">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="ml-3 text-slate-500 flex-shrink-0">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
               <circle cx="12" cy="10" r="3" />
@@ -248,10 +217,7 @@ export function HeroSearchBar() {
             <input
               type="text"
               value={zip}
-              onChange={(e) => {
-                const val = e.target.value.replace(/\D/g, "").slice(0, 5);
-                setZip(val);
-              }}
+              onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
               onFocus={() => setIsOpen(true)}
               placeholder="Zip code"
               className="w-20 bg-transparent py-3.5 pl-2 pr-1 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
@@ -260,7 +226,7 @@ export function HeroSearchBar() {
             />
           </div>
 
-          {/* Small round search button */}
+          {/* Search button */}
           <button
             type="button"
             onClick={handleSearch}
@@ -271,11 +237,19 @@ export function HeroSearchBar() {
               <path d="M21 21l-4.35-4.35" />
             </svg>
           </button>
-        </form>
+        </div>
+      </form>
 
-        {/* Dropdown chips area — merged into the same container, no gap */}
-        {isOpen && (
-          <div className="border-t border-white/[0.08] px-4 pt-3 pb-4 animate-in">
+      {/* Dropdown — liquid glass, separate from search bar, appears below */}
+      {isOpen && (
+        <div
+          className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
+          style={{ animation: "dropdownFadeIn 0.15s ease-out" }}
+        >
+          {/* Top edge glass highlight */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
+
+          <div className="relative px-4 pt-3 pb-4">
             {/* Label */}
             <div className="text-center text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-3">
               What are you looking for?
@@ -292,11 +266,10 @@ export function HeroSearchBar() {
                     onClick={() => toggleCategory(cat)}
                     className={`
                       rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200
-                      chip-stagger-enter
                       ${
                         isSelected
                           ? "bg-[var(--accent)] text-white shadow-[0_0_12px_rgba(59,130,246,0.3)]"
-                          : "bg-white/[0.05] border border-white/[0.1] text-slate-400 hover:border-white/[0.2] hover:text-slate-200 hover:bg-white/[0.08]"
+                          : "bg-white/[0.06] border border-white/[0.1] text-slate-400 hover:border-white/[0.2] hover:text-slate-200 hover:bg-white/[0.1]"
                       }
                     `}
                     style={{ animationDelay: `${i * 40}ms` }}
@@ -307,8 +280,8 @@ export function HeroSearchBar() {
               })}
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
