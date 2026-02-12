@@ -118,7 +118,13 @@ export function HeroSearchBar() {
     setHasInteracted(true);
 
     if (cat === "All") {
-      // Highlight "All" + keep all individual categories selected (show all pills)
+      if (selectedCategories.has("All")) {
+        // Already "All" — clicking again clears everything (change your mind)
+        setSelectedCategories(new Set(["All"]));
+        setHasInteracted(false);
+        return;
+      }
+      // Select All + keep all individual categories visible as pills
       const allIndividual = CATEGORY_CHIPS.filter((c) => c !== "All");
       setSelectedCategories(new Set(["All", ...allIndividual]));
       return;
