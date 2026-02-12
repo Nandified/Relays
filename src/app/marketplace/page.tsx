@@ -3,10 +3,17 @@
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
+import { getAllPlaces, type PlacesResult } from "@/lib/google-places";
 import { ProCard } from "@/components/marketplace/ProCard";
 import { ProPreviewPanel } from "@/components/marketplace/ProPreviewPanel";
+import { GooglePlacesCard } from "@/components/marketplace/GooglePlacesCard";
+import { GooglePlacesPreview } from "@/components/marketplace/GooglePlacesPreview";
 import { SearchBar } from "@/components/marketplace/SearchBar";
 import { FilterChips } from "@/components/marketplace/FilterChips";
+
+type SelectedItem =
+  | { type: "pro"; slug: string }
+  | { type: "places"; placeId: string };
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
@@ -15,17 +22,16 @@ function MarketplaceContent() {
 
   const [query, setQuery] = React.useState(initialQuery);
   const [categoryFilter, setCategoryFilter] = React.useState<string | null>(() => {
-    // If categories param has a single category, pre-select it
-    // If multiple, we pick the first one (FilterChips is single-select currently)
     if (initialCategories) {
       const cats = initialCategories.split(",").map((c) => c.trim()).filter(Boolean);
-      if (cats.length === 1) return cats[0];
-      // For multiple, we'll use the first one as filter
-      if (cats.length > 1) return cats[0];
+      if (cats.length >= 1) return cats[0];
     }
     return null;
   });
-  const [selectedSlug, setSelectedSlug] = React.useState(mockPros[0]?.slug ?? "");
+  const [selected, setSelected] = React.useState<SelectedItem>({ type: "pro", slug: mockPros[0]?.slug ?? "" });
+
+  // Google Places data
+  const placesData = React.useMemo(() => getAllPlaces(), []);
 
   // Additional categories from URL (for multi-category filtering)
   const urlCategories = React.useMemo(() => {
@@ -42,18 +48,15 @@ function MarketplaceContent() {
     const cats = searchParams.get("categories") ?? "";
     if (cats) {
       const parsed = cats.split(",").map((c) => c.trim()).filter(Boolean);
-      if (parsed.length === 1) {
-        setCategoryFilter(parsed[0]);
-      } else if (parsed.length > 1) {
+      if (parsed.length >= 1) {
         setCategoryFilter(parsed[0]);
       }
     }
   }, [searchParams]);
 
-  const filtered = React.useMemo(() => {
+  const filteredPros = React.useMemo(() => {
     let results = mockPros;
 
-    // If we have URL categories (multi-select from homepage) and no manual filter override
     if (urlCategories && urlCategories.length > 1 && categoryFilter === urlCategories[0]) {
       results = results.filter((p) =>
         p.categories.some((c) => urlCategories.includes(c))
@@ -75,13 +78,42 @@ function MarketplaceContent() {
     return results;
   }, [query, categoryFilter, urlCategories]);
 
-  const selected = filtered.find((p) => p.slug === selectedSlug) ?? filtered[0] ?? null;
+  const filteredPlaces = React.useMemo(() => {
+    let results = placesData;
 
-  React.useEffect(() => {
-    if (filtered.length > 0 && !filtered.find(p => p.slug === selectedSlug)) {
-      setSelectedSlug(filtered[0].slug);
+    if (categoryFilter) {
+      results = results.filter((p) =>
+        p.categories.some((c) => c.toLowerCase().includes(categoryFilter.toLowerCase()))
+      );
     }
-  }, [filtered, selectedSlug]);
+
+    const q = query.trim().toLowerCase();
+    if (q) {
+      results = results.filter((p) =>
+        [p.name, p.address, ...p.categories]
+          .join(" ")
+          .toLowerCase()
+          .includes(q)
+      );
+    }
+
+    return results;
+  }, [query, categoryFilter, placesData]);
+
+  // Find the selected pro or place
+  const selectedPro = selected.type === "pro"
+    ? (filteredPros.find((p) => p.slug === selected.slug) ?? filteredPros[0] ?? null)
+    : null;
+  const selectedPlace = selected.type === "places"
+    ? (filteredPlaces.find((p) => p.placeId === (selected as { type: "places"; placeId: string }).placeId) ?? null)
+    : null;
+
+  // Auto-select first pro if current selection not found
+  React.useEffect(() => {
+    if (selected.type === "pro" && filteredPros.length > 0 && !filteredPros.find(p => p.slug === (selected as { type: "pro"; slug: string }).slug)) {
+      setSelected({ type: "pro", slug: filteredPros[0].slug });
+    }
+  }, [filteredPros, selected]);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
@@ -109,43 +141,78 @@ function MarketplaceContent() {
 
       {/* Results count */}
       <div className="mb-4 text-sm text-slate-500">
-        {filtered.length} professional{filtered.length !== 1 ? "s" : ""} found
+        {filteredPros.length} professional{filteredPros.length !== 1 ? "s" : ""} on Relays
+        {filteredPlaces.length > 0 && (
+          <span> · {filteredPlaces.length} more found nearby</span>
+        )}
       </div>
 
       {/* Two-column layout (Thumbtack-style) */}
       <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
         {/* Results list */}
         <section className="space-y-3">
-          {filtered.map((pro) => (
+          {/* Relays pros */}
+          {filteredPros.map((pro) => (
             <ProCard
               key={pro.id}
               pro={pro}
-              selected={pro.slug === selectedSlug}
-              onSelect={() => setSelectedSlug(pro.slug)}
+              selected={selected.type === "pro" && (selected as { type: "pro"; slug: string }).slug === pro.slug}
+              onSelect={() => setSelected({ type: "pro", slug: pro.slug })}
             />
           ))}
-          {filtered.length === 0 && (
+          {filteredPros.length === 0 && filteredPlaces.length === 0 && (
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
               <div className="text-sm font-medium text-slate-300">No results found</div>
               <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
             </div>
+          )}
+
+          {/* Google Places divider & results */}
+          {filteredPlaces.length > 0 && (
+            <>
+              <div className="flex items-center gap-3 py-3">
+                <div className="h-px flex-1 bg-[var(--border)]" />
+                <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                  <svg width="14" height="14" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                  </svg>
+                  More professionals in your area
+                </span>
+                <div className="h-px flex-1 bg-[var(--border)]" />
+              </div>
+
+              {filteredPlaces.map((place) => (
+                <GooglePlacesCard
+                  key={place.placeId}
+                  place={place}
+                  selected={selected.type === "places" && (selected as { type: "places"; placeId: string }).placeId === place.placeId}
+                  onSelect={() => setSelected({ type: "places", placeId: place.placeId })}
+                />
+              ))}
+            </>
           )}
         </section>
 
         {/* Sticky preview panel (desktop) */}
         <aside className="hidden lg:block">
           <div className="sticky top-20">
-            {selected ? <ProPreviewPanel pro={selected} /> : null}
+            {selectedPro && <ProPreviewPanel pro={selectedPro} />}
+            {selectedPlace && <GooglePlacesPreview place={selectedPlace} />}
+            {!selectedPro && !selectedPlace && filteredPros.length === 0 && filteredPlaces.length > 0 && (
+              <GooglePlacesPreview place={filteredPlaces[0]} />
+            )}
           </div>
         </aside>
       </div>
 
       {/* Mobile: show preview panel below results */}
-      {selected && (
-        <div className="mt-6 lg:hidden">
-          <ProPreviewPanel pro={selected} />
-        </div>
-      )}
+      <div className="mt-6 lg:hidden">
+        {selectedPro && <ProPreviewPanel pro={selectedPro} />}
+        {selectedPlace && <GooglePlacesPreview place={selectedPlace} />}
+      </div>
     </main>
   );
 }

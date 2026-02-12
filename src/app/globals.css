@@ -207,3 +207,50 @@ html {
 .glow-emerald:hover {
   box-shadow: 0 0 40px rgba(16, 185, 129, 0.15), 0 0 100px rgba(16, 185, 129, 0.08);
 }
+
+/* ── Admin Dashboard Theme ──────────────────────────────────────── */
+
+.admin {
+  --admin-accent: #8b5cf6;
+  --admin-accent-hover: #7c3aed;
+  --admin-accent-light: rgba(139, 92, 246, 0.12);
+  --admin-accent-glow: rgba(139, 92, 246, 0.15);
+  --admin-border-glow: rgba(139, 92, 246, 0.25);
+  --admin-glow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+}
+
+/* Admin sidebar transition */
+.admin-sidebar {
+  transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Admin metric card glow */
+.admin-metric-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.admin-metric-card:hover {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+/* Admin background mesh */
+.admin-bg-mesh::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(139, 92, 246, 0.06), transparent),
+    radial-gradient(900px 500px at 80% 10%, rgba(99, 102, 241, 0.04), transparent),
+    radial-gradient(600px 600px at 50% 90%, rgba(139, 92, 246, 0.03), transparent);
+  pointer-events: none;
+}
+
+/* Violet glow hover for admin cards */
+.glow-violet {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.glow-violet:hover {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+  border-color: rgba(139, 92, 246, 0.25);
+}
