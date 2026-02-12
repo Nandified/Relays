@@ -468,9 +468,9 @@ export function getTimelineForRequest(requestId: string): TimelineEvent[] {
 }
 
 export const serviceCategories = [
-  "Home Inspector",
-  "Mortgage Lender",
-  "Insurance Agent",
-  "Attorney",
   "Realtor",
+  "Mortgage Lender",
+  "Attorney",
+  "Home Inspector",
+  "Insurance Agent",
 ] as const;

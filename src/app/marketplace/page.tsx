@@ -1,16 +1,25 @@
 "use client";
 
 import * as React from "react";
+import { useSearchParams } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { ProCard } from "@/components/marketplace/ProCard";
 import { ProPreviewPanel } from "@/components/marketplace/ProPreviewPanel";
 import { SearchBar } from "@/components/marketplace/SearchBar";
 import { FilterChips } from "@/components/marketplace/FilterChips";
 
-export default function MarketplacePage() {
-  const [query, setQuery] = React.useState("");
+function MarketplaceContent() {
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") ?? "";
+  const [query, setQuery] = React.useState(initialQuery);
   const [categoryFilter, setCategoryFilter] = React.useState<string | null>(null);
   const [selectedSlug, setSelectedSlug] = React.useState(mockPros[0]?.slug ?? "");
+
+  // Sync if URL changes (e.g. user navigates from homepage search)
+  React.useEffect(() => {
+    const q = searchParams.get("q") ?? "";
+    if (q) setQuery(q);
+  }, [searchParams]);
 
   const filtered = React.useMemo(() => {
     let results = mockPros;
@@ -104,5 +113,20 @@ export default function MarketplacePage() {
         </div>
       )}
     </main>
+  );
+}
+
+export default function MarketplacePage() {
+  return (
+    <React.Suspense fallback={
+      <main className="mx-auto max-w-6xl px-4 py-6">
+        <div className="mb-6">
+          <div className="h-8 w-48 rounded-xl bg-[var(--bg-card)] animate-pulse" />
+          <div className="mt-2 h-4 w-80 rounded-lg bg-[var(--bg-card)] animate-pulse" />
+        </div>
+      </main>
+    }>
+      <MarketplaceContent />
+    </React.Suspense>
   );
 }

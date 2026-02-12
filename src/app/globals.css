@@ -136,3 +136,51 @@ html {
   box-shadow: var(--glow-accent);
   border-color: var(--border-glow);
 }
+
+/* Blinking cursor for typewriter */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 0.8s ease-in-out infinite;
+}
+
+/* Floating / breathing animation for hero glow orb */
+@keyframes float-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+  50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+.animate-float-breathe {
+  animation: float-breathe 6s ease-in-out infinite;
+}
+
+/* Shimmer gradient for hero heading */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-shimmer {
+  background-size: 200% 200%;
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+/* Hover lift micro-interaction */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Subtle scale on interactive elements */
+.hover-scale {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+.hover-scale:active {
+  transform: scale(0.98);
+}

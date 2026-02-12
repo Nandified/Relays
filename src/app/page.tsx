@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
+import { HeroSearchBar } from "@/components/home/HeroSearchBar";
+import { AnimatedSection } from "@/components/home/AnimatedSection";
+import { AnimatedCounter } from "@/components/home/AnimatedCounter";
 
 const steps = [
   {
@@ -73,38 +76,57 @@ export default function HomePage() {
       <main>
         {/* Hero */}
         <section className="relative mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-24 md:pb-28">
-          {/* Subtle hero glow orb */}
-          <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-[radial-gradient(ellipse,rgba(59,130,246,0.08),transparent_70%)]" />
+          {/* Subtle hero glow orb — with breathing animation */}
+          <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-[radial-gradient(ellipse,rgba(59,130,246,0.08),transparent_70%)] animate-float-breathe" />
 
           <div className="relative mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-400 shadow-sm mb-6">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Now in Chicago Metro
-            </div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Build your dream team
-              <span className="block bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">for your home journey</span>
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-lg text-slate-400">
-              Browse verified inspectors, lenders, attorneys, and more. Build your team, book with confidence, and track every step — all in one place.
-            </p>
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Link
-                href="/marketplace"
-                className="inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-6 py-3 text-base font-medium text-white shadow-[0_0_25px_rgba(59,130,246,0.25)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-[0_0_35px_rgba(59,130,246,0.35)]"
-              >
-                Browse Marketplace
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="ml-2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-              <Link
-                href="/signup"
-                className="inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-6 py-3 text-base font-medium text-slate-300 transition-all hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)]"
-              >
-                I&apos;m a Real Estate Pro
-              </Link>
-            </div>
+            <AnimatedSection delay={0}>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-400 shadow-sm mb-6">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Now in Chicago Metro
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={80}>
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+                Build your dream team
+                <span className="block bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent animate-shimmer">
+                  for your home journey
+                </span>
+              </h1>
+            </AnimatedSection>
+
+            <AnimatedSection delay={160}>
+              <p className="mx-auto mt-5 max-w-xl text-lg text-slate-400">
+                Browse verified inspectors, lenders, attorneys, and more. Build your team, book with confidence, and track every step — all in one place.
+              </p>
+            </AnimatedSection>
+
+            {/* Search Bar */}
+            <AnimatedSection delay={260} className="mt-8">
+              <HeroSearchBar />
+            </AnimatedSection>
+
+            {/* CTA Buttons */}
+            <AnimatedSection delay={360}>
+              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Link
+                  href="/marketplace"
+                  className="hover-scale inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-6 py-3 text-base font-medium text-white shadow-[0_0_25px_rgba(59,130,246,0.25)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-[0_0_35px_rgba(59,130,246,0.35)]"
+                >
+                  Browse Marketplace
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="ml-2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/signup"
+                  className="hover-scale inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-6 py-3 text-base font-medium text-slate-300 transition-all hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)]"
+                >
+                  I&apos;m a Real Estate Pro
+                </Link>
+              </div>
+            </AnimatedSection>
           </div>
         </section>
 
@@ -112,11 +134,10 @@ export default function HomePage() {
         <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
           <div className="mx-auto max-w-6xl px-4 py-10">
             <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-2xl font-bold text-slate-100">{stat.value}</div>
-                  <div className="mt-1 text-sm text-slate-500">{stat.label}</div>
-                </div>
+              {stats.map((stat, i) => (
+                <AnimatedSection key={stat.label} delay={i * 100}>
+                  <AnimatedCounter value={stat.value} label={stat.label} />
+                </AnimatedSection>
               ))}
             </div>
           </div>
@@ -124,25 +145,26 @@ export default function HomePage() {
 
         {/* How it works */}
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">How Relays Works</h2>
-            <p className="mt-3 text-slate-400">Three steps to your perfect team</p>
-          </div>
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">How Relays Works</h2>
+              <p className="mt-3 text-slate-400">Three steps to your perfect team</p>
+            </div>
+          </AnimatedSection>
           <div className="grid gap-6 md:grid-cols-3">
-            {steps.map((step) => (
-              <div
-                key={step.num}
-                className="group rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--border-hover)] glow-hover"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent-light)] border border-blue-500/10">
-                  {step.icon}
+            {steps.map((step, i) => (
+              <AnimatedSection key={step.num} delay={i * 120}>
+                <div className="group rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--border-hover)] glow-hover hover-lift h-full">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent-light)] border border-blue-500/10">
+                    {step.icon}
+                  </div>
+                  <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-blue-400">
+                    Step {step.num}
+                  </div>
+                  <h3 className="mt-2 text-lg font-semibold text-slate-100">{step.title}</h3>
+                  <p className="mt-2 text-sm text-slate-400 leading-relaxed">{step.desc}</p>
                 </div>
-                <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-blue-400">
-                  Step {step.num}
-                </div>
-                <h3 className="mt-2 text-lg font-semibold text-slate-100">{step.title}</h3>
-                <p className="mt-2 text-sm text-slate-400 leading-relaxed">{step.desc}</p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </section>
@@ -150,22 +172,26 @@ export default function HomePage() {
         {/* Testimonials */}
         <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
           <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">Trusted by Buyers & Pros</h2>
-              <p className="mt-3 text-slate-400">Real people, real experiences</p>
-            </div>
+            <AnimatedSection>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">Trusted by Buyers & Pros</h2>
+                <p className="mt-3 text-slate-400">Real people, real experiences</p>
+              </div>
+            </AnimatedSection>
             <div className="grid gap-6 md:grid-cols-3">
-              {testimonials.map((t) => (
-                <div key={t.name} className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:border-[var(--border-hover)]">
-                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" className="text-blue-400 opacity-40 mb-3">
-                    <path fill="currentColor" d="M11 7H7a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H6a1 1 0 1 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4H6a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 1 0 0-2zm10 0h-4a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a1 1 0 1 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4h-1a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 1 0 0-2z" />
-                  </svg>
-                  <p className="text-sm text-slate-300 leading-relaxed">{t.quote}</p>
-                  <div className="mt-4 border-t border-[var(--border)] pt-3">
-                    <div className="text-sm font-semibold text-slate-200">{t.name}</div>
-                    <div className="text-xs text-slate-500">{t.role}</div>
+              {testimonials.map((t, i) => (
+                <AnimatedSection key={t.name} delay={i * 120}>
+                  <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:border-[var(--border-hover)] hover-lift h-full">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" className="text-blue-400 opacity-40 mb-3">
+                      <path fill="currentColor" d="M11 7H7a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H6a1 1 0 1 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4H6a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 1 0 0-2zm10 0h-4a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a1 1 0 1 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4h-1a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 1 0 0-2z" />
+                    </svg>
+                    <p className="text-sm text-slate-300 leading-relaxed">{t.quote}</p>
+                    <div className="mt-4 border-t border-[var(--border)] pt-3">
+                      <div className="text-sm font-semibold text-slate-200">{t.name}</div>
+                      <div className="text-xs text-slate-500">{t.role}</div>
+                    </div>
                   </div>
-                </div>
+                </AnimatedSection>
               ))}
             </div>
           </div>
@@ -173,32 +199,34 @@ export default function HomePage() {
 
         {/* CTA */}
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-          <div className="relative rounded-3xl overflow-hidden p-8 md:p-12 text-center">
-            {/* Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/20 rounded-3xl" />
-            <div className="absolute inset-0 bg-[var(--bg-card)]/50 backdrop-blur-sm rounded-3xl" />
+          <AnimatedSection>
+            <div className="relative rounded-3xl overflow-hidden p-8 md:p-12 text-center">
+              {/* Gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/20 rounded-3xl" />
+              <div className="absolute inset-0 bg-[var(--bg-card)]/50 backdrop-blur-sm rounded-3xl" />
 
-            <div className="relative">
-              <h2 className="text-2xl font-bold text-white sm:text-3xl">Ready to build your dream team?</h2>
-              <p className="mt-3 text-blue-200/70 max-w-md mx-auto">
-                Join thousands of buyers who found their perfect inspector, lender, and attorney on Relays.
-              </p>
-              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-                <Link
-                  href="/marketplace"
-                  className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-medium text-slate-900 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-slate-100 transition-all"
-                >
-                  Get Started Free
-                </Link>
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center justify-center rounded-2xl border border-white/20 px-6 py-3 text-base font-medium text-white hover:bg-white/10 transition-all"
-                >
-                  List Your Business
-                </Link>
+              <div className="relative">
+                <h2 className="text-2xl font-bold text-white sm:text-3xl">Ready to build your dream team?</h2>
+                <p className="mt-3 text-blue-200/70 max-w-md mx-auto">
+                  Join thousands of buyers who found their perfect inspector, lender, and attorney on Relays.
+                </p>
+                <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                  <Link
+                    href="/marketplace"
+                    className="hover-scale inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-medium text-slate-900 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-slate-100 transition-all"
+                  >
+                    Get Started Free
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="hover-scale inline-flex items-center justify-center rounded-2xl border border-white/20 px-6 py-3 text-base font-medium text-white hover:bg-white/10 transition-all"
+                  >
+                    List Your Business
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </section>
       </main>
 
