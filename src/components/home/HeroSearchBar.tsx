@@ -36,6 +36,8 @@ export function HeroSearchBar() {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const geoAttempted = React.useRef(false);
 
+  const hasSelectedPros = !selectedCategories.has("All") && selectedCategories.size > 0;
+
   // Auto-detect zip from geolocation
   React.useEffect(() => {
     if (geoAttempted.current) return;
@@ -63,7 +65,7 @@ export function HeroSearchBar() {
 
   // Typewriter effect
   React.useEffect(() => {
-    if (isOpen || query.length > 0) return;
+    if (isOpen || query.length > 0 || hasSelectedPros) return;
 
     let currentIndex = 0;
     let currentChar = 0;
@@ -96,7 +98,7 @@ export function HeroSearchBar() {
 
     timeout = setTimeout(tick, PAUSE_AFTER_DELETING);
     return () => clearTimeout(timeout);
-  }, [isOpen, query]);
+  }, [isOpen, query, hasSelectedPros]);
 
   // Close on outside click
   React.useEffect(() => {
@@ -111,8 +113,8 @@ export function HeroSearchBar() {
 
   function toggleCategory(cat: string) {
     if (cat === "All") {
-      // Just highlight "All" chip — DON'T clear the search text
       setSelectedCategories(new Set(["All"]));
+      // Don't clear manual text query — only clear chip-generated selections
       return;
     }
 
@@ -122,7 +124,9 @@ export function HeroSearchBar() {
 
       if (next.has(cat)) {
         next.delete(cat);
-        if (next.size === 0) return new Set(["All"]);
+        if (next.size === 0) {
+          return new Set(["All"]);
+        }
       } else {
         next.add(cat);
       }
@@ -132,8 +136,15 @@ export function HeroSearchBar() {
         return new Set(["All"]);
       }
 
-      // Put selected categories in the search input
-      setQuery(Array.from(next).join(", "));
+      return next;
+    });
+  }
+
+  function removeCategory(cat: string) {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev);
+      next.delete(cat);
+      if (next.size === 0) return new Set(["All"]);
       return next;
     });
   }
@@ -156,7 +167,7 @@ export function HeroSearchBar() {
     handleSearch();
   }
 
-  const showAnimatedPlaceholder = !isOpen && query.length === 0;
+  const showAnimatedPlaceholder = !isOpen && query.length === 0 && !hasSelectedPros;
 
   return (
     <div ref={containerRef} className="relative mx-auto w-full max-w-lg">
@@ -167,9 +178,9 @@ export function HeroSearchBar() {
         }`}
       />
 
-      {/* Search bar — always solid, rounded pill, never changes shape */}
-      <form onSubmit={handleSubmit} className="relative">
-        <div className="relative flex items-center rounded-full border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.08)] transition-shadow duration-300 hover:shadow-[0_0_35px_rgba(59,130,246,0.12)]">
+      {/* Search bar — solid pill */}
+      <div className="relative rounded-[22px] border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.08)] transition-shadow duration-300">
+        <form onSubmit={handleSubmit} className="flex items-center">
           {/* Search icon */}
           <div className="flex items-center pl-4 text-slate-500">
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -186,11 +197,12 @@ export function HeroSearchBar() {
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                setSelectedCategories(new Set(["All"]));
+                // If user types manually, reset chip selection
+                if (hasSelectedPros) setSelectedCategories(new Set(["All"]));
               }}
               onFocus={() => setIsOpen(true)}
               onClick={() => setIsOpen(true)}
-              placeholder={isOpen ? "Search for a professional..." : ""}
+              placeholder={isOpen || hasSelectedPros ? "Search for a professional..." : ""}
               className="w-full bg-transparent py-3.5 pl-3 pr-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
             />
@@ -237,25 +249,46 @@ export function HeroSearchBar() {
               <path d="M21 21l-4.35-4.35" />
             </svg>
           </button>
-        </div>
-      </form>
+        </form>
 
-      {/* Dropdown — liquid glass, separate from search bar, appears below */}
+        {/* Selected category tags — wrapping pills below the input row */}
+        {hasSelectedPros && (
+          <div className="flex flex-wrap gap-1.5 px-4 pb-3 -mt-1">
+            {Array.from(selectedCategories).map((cat) => (
+              <span
+                key={cat}
+                className="inline-flex items-center gap-1 rounded-full bg-[var(--accent)]/15 border border-[var(--accent)]/25 px-2.5 py-0.5 text-xs font-medium text-blue-300"
+              >
+                {cat}
+                <button
+                  type="button"
+                  onClick={() => removeCategory(cat)}
+                  className="ml-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+                >
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Dropdown — liquid glass, separate */}
       {isOpen && (
         <div
           className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
           style={{ animation: "dropdownFadeIn 0.15s ease-out" }}
         >
-          {/* Top edge glass highlight */}
+          {/* Top glass highlight */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
 
           <div className="relative px-4 pt-3 pb-4">
-            {/* Label */}
             <div className="text-center text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-3">
               What are you looking for?
             </div>
 
-            {/* Category chips */}
             <div className="flex flex-wrap justify-center gap-2">
               {CATEGORY_CHIPS.map((cat, i) => {
                 const isSelected = selectedCategories.has(cat);
