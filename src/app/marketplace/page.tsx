@@ -234,19 +234,19 @@ function MarketplaceContent() {
   }, [categoryFilter, urlCategories]);
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-6">
+    <main className="mx-auto max-w-6xl px-3 sm:px-4 py-4 sm:py-6">
       {/* Header */}
-      <div className="mb-6 text-center sm:text-left">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-100">
+      <div className="mb-4 sm:mb-6 text-center sm:text-left">
+        <h1 className="text-xl sm:text-3xl font-bold text-slate-100">
           Find Your Professional
         </h1>
-        <p className="mt-1.5 text-sm text-slate-400 max-w-lg">
-          Browse verified professionals for every step of your home journey. Search by name, company, or specialty.
+        <p className="mt-1 text-xs sm:text-sm text-slate-400 max-w-lg">
+          Browse verified professionals for every step of your home journey.
         </p>
       </div>
 
-      {/* Search — prominent hero-style */}
-      <div className="mb-5 max-w-2xl mx-auto sm:mx-0">
+      {/* Search */}
+      <div className="mb-3 sm:mb-5 max-w-2xl mx-auto sm:mx-0">
         <SearchBar
           value={query}
           onChange={setQuery}
@@ -259,7 +259,7 @@ function MarketplaceContent() {
       </div>
 
       {/* Filters */}
-      <div className="mb-5">
+      <div className="mb-3 sm:mb-5">
         <FilterChips
           categories={[...serviceCategories]}
           selected={categoryFilter}
@@ -275,7 +275,7 @@ function MarketplaceContent() {
       </div>
 
       {/* Results count */}
-      <div className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+      <div className="mb-2 sm:mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-slate-500">
         <span>
           <span className="font-medium text-slate-300">{filteredPros.length}</span>
           {" "}professional{filteredPros.length !== 1 ? "s" : ""} on Relays
@@ -301,11 +301,11 @@ function MarketplaceContent() {
       {/* Two-column layout */}
       <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
         {/* Results list */}
-        <section className="space-y-3">
+        <section className="space-y-2 sm:space-y-3">
           {/* Relays pros */}
           {filteredPros.length > 0 ? (
             filteredPros.map((pro) => (
-              <React.Fragment key={pro.id}>
+              <div key={pro.id}>
                 {/* Desktop: original ProCard */}
                 <div className="hidden lg:block">
                   <ProCard
@@ -322,7 +322,7 @@ function MarketplaceContent() {
                     onToggle={() => handleMobileToggle(pro.id)}
                   />
                 </div>
-              </React.Fragment>
+              </div>
             ))
           ) : filteredPlaces.length === 0 ? (
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
@@ -368,7 +368,6 @@ function MarketplaceContent() {
                   ref={(el) => { placeCardRefs.current[place.placeId] = el; }}
                   className={highlightedPlaceId === place.placeId ? "animate-highlight-pulse rounded-2xl" : ""}
                 >
-                  {/* Desktop: original GooglePlacesCard */}
                   <div className="hidden lg:block">
                     <GooglePlacesCard
                       place={place}
@@ -376,7 +375,6 @@ function MarketplaceContent() {
                       onSelect={() => setSelected({ type: "places", placeId: place.placeId })}
                     />
                   </div>
-                  {/* Mobile: expandable */}
                   <div className="lg:hidden">
                     <ExpandableGooglePlacesCard
                       place={place}

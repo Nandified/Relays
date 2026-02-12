@@ -57,7 +57,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
         hover
         selected={expanded}
         padding="none"
-        className={`p-4 transition-all ${!place.claimed ? "border-dashed" : ""}`}
+        className={`p-3 sm:p-4 transition-all ${!place.claimed ? "border-dashed" : ""}`}
       >
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">

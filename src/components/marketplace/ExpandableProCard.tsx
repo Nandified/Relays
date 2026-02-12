@@ -32,11 +32,11 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
         hover
         selected={expanded}
         padding="none"
-        className="p-4 transition-all"
+        className="p-3 sm:p-4 transition-all"
       >
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">
-          <Avatar src={pro.headshotUrl} alt={pro.name} size={52} rounded="xl" />
+          <Avatar src={pro.headshotUrl} alt={pro.name} size={44} rounded="xl" />
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
