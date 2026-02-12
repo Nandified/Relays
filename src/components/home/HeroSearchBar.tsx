@@ -34,8 +34,41 @@ export function HeroSearchBar() {
   const [selectedCategories, setSelectedCategories] = React.useState<Set<string>>(new Set(["All"]));
   const containerRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const geoAttempted = React.useRef(false);
 
-  // Typewriter effect — only when dropdown closed and no query typed
+  // Auto-detect zip code from browser geolocation on mount
+  React.useEffect(() => {
+    if (geoAttempted.current) return;
+    geoAttempted.current = true;
+
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          // Use free reverse geocoding to get zip code
+          const res = await fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+          );
+          if (!res.ok) return;
+          const data = await res.json();
+          const postcode = data.postcode;
+          if (postcode && /^\d{5}/.test(postcode)) {
+            setZip(postcode.slice(0, 5));
+          }
+        } catch {
+          // Silent fail — zip stays empty
+        }
+      },
+      () => {
+        // User denied or error — silent fail
+      },
+      { timeout: 5000, maximumAge: 300000 }
+    );
+  }, []);
+
+  // Typewriter effect
   React.useEffect(() => {
     if (isOpen || query.length > 0) return;
 
@@ -75,7 +108,7 @@ export function HeroSearchBar() {
     return () => clearTimeout(timeout);
   }, [isOpen, query]);
 
-  // Close dropdown on outside click
+  // Close on outside click
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -86,7 +119,6 @@ export function HeroSearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // When a chip is clicked, update query text in the input (Thumbtack style)
   function toggleCategory(cat: string) {
     if (cat === "All") {
       setSelectedCategories(new Set(["All"]));
@@ -108,17 +140,14 @@ export function HeroSearchBar() {
         next.add(cat);
       }
 
-      // If all individual categories selected, collapse to "All"
       const individualCategories = CATEGORY_CHIPS.filter((c) => c !== "All");
       if (individualCategories.every((c) => next.has(c))) {
         setQuery("");
         return new Set(["All"]);
       }
 
-      // Update the text input with selected categories
-      const text = Array.from(next).join(", ");
-      setQuery(text);
-
+      // Populate the input with selected categories
+      setQuery(Array.from(next).join(", "));
       return next;
     });
   }
@@ -127,17 +156,11 @@ export function HeroSearchBar() {
     const params = new URLSearchParams();
     const q = query.trim();
 
-    if (q) {
-      params.set("q", q);
-    }
-
+    if (q) params.set("q", q);
     if (!selectedCategories.has("All")) {
       params.set("categories", Array.from(selectedCategories).join(","));
     }
-
-    if (zip.trim()) {
-      params.set("zip", zip.trim());
-    }
+    if (zip.trim()) params.set("zip", zip.trim());
 
     const qs = params.toString();
     router.push(`/marketplace${qs ? `?${qs}` : ""}`);
@@ -155,20 +178,26 @@ export function HeroSearchBar() {
     <div ref={containerRef} className="relative mx-auto w-full max-w-lg">
       {/* Glow backdrop */}
       <div
-        className={`absolute -inset-1.5 rounded-[28px] bg-gradient-to-r from-blue-500/20 via-blue-400/10 to-indigo-500/20 blur-xl transition-opacity duration-500 ${
-          isOpen ? "opacity-100" : "opacity-50"
+        className={`absolute -inset-2 bg-gradient-to-r from-blue-500/20 via-blue-400/10 to-indigo-500/20 blur-xl transition-all duration-500 ${
+          isOpen ? "opacity-100 rounded-[32px]" : "opacity-50 rounded-[28px]"
         }`}
       />
 
-      {/* Search bar */}
-      <form onSubmit={handleSubmit} className="relative">
-        <div
-          className={`relative flex items-center rounded-full border bg-[var(--bg-card)]/90 backdrop-blur-md shadow-[0_0_30px_rgba(59,130,246,0.08)] transition-all duration-300 ${
-            isOpen
-              ? "border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.15)]"
-              : "border-[var(--border)]"
-          }`}
-        >
+      {/* Unified container — search bar + dropdown as one connected piece */}
+      <div
+        className={`relative border backdrop-blur-2xl transition-all duration-300 overflow-hidden ${
+          isOpen
+            ? "rounded-[22px] border-white/[0.12] bg-white/[0.06] shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
+            : "rounded-full border-[var(--border)] bg-[var(--bg-card)]/90 shadow-[0_0_30px_rgba(59,130,246,0.08)]"
+        }`}
+      >
+        {/* Top edge highlight for glass effect */}
+        {isOpen && (
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+        )}
+
+        {/* Search bar row */}
+        <form onSubmit={handleSubmit} className="relative flex items-center">
           {/* Search icon */}
           <div className="flex items-center pl-4 text-slate-500">
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -185,7 +214,6 @@ export function HeroSearchBar() {
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                // If user manually types, reset chip selection
                 setSelectedCategories(new Set(["All"]));
               }}
               onFocus={() => setIsOpen(true)}
@@ -195,7 +223,7 @@ export function HeroSearchBar() {
               style={{ outline: "none" }}
             />
 
-            {/* Animated typewriter placeholder */}
+            {/* Animated typewriter */}
             {showAnimatedPlaceholder && (
               <div
                 className="pointer-events-none absolute inset-0 flex items-center pl-3 text-sm text-slate-500"
@@ -209,7 +237,7 @@ export function HeroSearchBar() {
           </div>
 
           {/* Divider */}
-          <div className="h-6 w-px bg-[var(--border)] flex-shrink-0" />
+          <div className="h-6 w-px bg-white/[0.1] flex-shrink-0" />
 
           {/* Zip code input */}
           <div className="relative flex items-center">
@@ -221,7 +249,6 @@ export function HeroSearchBar() {
               type="text"
               value={zip}
               onChange={(e) => {
-                // Only allow digits, max 5
                 const val = e.target.value.replace(/\D/g, "").slice(0, 5);
                 setZip(val);
               }}
@@ -244,44 +271,44 @@ export function HeroSearchBar() {
               <path d="M21 21l-4.35-4.35" />
             </svg>
           </button>
-        </div>
-      </form>
+        </form>
 
-      {/* Chips dropdown — liquid glass border container */}
-      {isOpen && (
-        <div className="mt-3 animate-in rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
-          {/* Label */}
-          <div className="text-center text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-3">
-            What are you looking for?
-          </div>
+        {/* Dropdown chips area — merged into the same container, no gap */}
+        {isOpen && (
+          <div className="border-t border-white/[0.08] px-4 pt-3 pb-4 animate-in">
+            {/* Label */}
+            <div className="text-center text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-3">
+              What are you looking for?
+            </div>
 
-          {/* Category chips */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {CATEGORY_CHIPS.map((cat, i) => {
-              const isSelected = selectedCategories.has(cat);
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => toggleCategory(cat)}
-                  className={`
-                    rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200
-                    chip-stagger-enter
-                    ${
-                      isSelected
-                        ? "bg-[var(--accent)] text-white shadow-[0_0_12px_rgba(59,130,246,0.3)]"
-                        : "bg-[var(--bg-elevated)] border border-[var(--border)] text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-200"
-                    }
-                  `}
-                  style={{ animationDelay: `${i * 40}ms` }}
-                >
-                  {cat}
-                </button>
-              );
-            })}
+            {/* Category chips */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {CATEGORY_CHIPS.map((cat, i) => {
+                const isSelected = selectedCategories.has(cat);
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => toggleCategory(cat)}
+                    className={`
+                      rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200
+                      chip-stagger-enter
+                      ${
+                        isSelected
+                          ? "bg-[var(--accent)] text-white shadow-[0_0_12px_rgba(59,130,246,0.3)]"
+                          : "bg-white/[0.05] border border-white/[0.1] text-slate-400 hover:border-white/[0.2] hover:text-slate-200 hover:bg-white/[0.08]"
+                      }
+                    `}
+                    style={{ animationDelay: `${i * 40}ms` }}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
