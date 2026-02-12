@@ -223,13 +223,13 @@ export function HeroSearchBar() {
               onFocus={() => setIsOpen(true)}
               onClick={() => setIsOpen(true)}
               placeholder={isOpen || showPills ? "Search for a professional..." : ""}
-              className="w-full bg-transparent py-3.5 pl-3 pr-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
+              className="w-full bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
             />
 
             {/* Animated typewriter */}
             {showAnimatedPlaceholder && (
-              <div className="pointer-events-none absolute inset-0 flex items-center pl-3 text-sm text-slate-500" aria-hidden="true">
+              <div className="pointer-events-none absolute inset-0 flex items-center pl-3 text-[16px] sm:text-sm text-slate-500" aria-hidden="true">
                 <span>Search for a </span>
                 <span className="ml-1 text-blue-400/80">{animatedText}</span>
                 <span className="ml-[1px] inline-block h-4 w-[2px] animate-blink bg-blue-400/60" />
@@ -252,7 +252,7 @@ export function HeroSearchBar() {
               onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
               onFocus={() => setIsOpen(true)}
               placeholder="Zip code"
-              className="w-20 bg-transparent py-3.5 pl-2 pr-1 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
+              className="w-20 bg-transparent py-3.5 pl-2 pr-1 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
               inputMode="numeric"
             />
@@ -295,10 +295,10 @@ export function HeroSearchBar() {
         )}
       </div>
 
-      {/* Dropdown — liquid glass, separate */}
+      {/* Dropdown — liquid glass, relative on mobile (pushes content), absolute on desktop */}
       {isOpen && (
         <div
-          className="absolute left-0 right-0 top-full z-50 mt-2 rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
+          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative z-50 mt-2 rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
           style={{ animation: "dropdownFadeIn 0.15s ease-out" }}
         >
           {/* Top glass highlight */}
