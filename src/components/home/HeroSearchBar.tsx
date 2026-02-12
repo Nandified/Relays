@@ -35,8 +35,11 @@ export function HeroSearchBar() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const geoAttempted = React.useRef(false);
+  const [hasInteracted, setHasInteracted] = React.useState(false);
 
   const hasSelectedPros = !selectedCategories.has("All") && selectedCategories.size > 0;
+  // Show pills if user has interacted with chips at all (even if back to "All")
+  const showPills = hasInteracted;
 
   // Auto-detect zip from geolocation
   React.useEffect(() => {
@@ -65,7 +68,7 @@ export function HeroSearchBar() {
 
   // Typewriter effect
   React.useEffect(() => {
-    if (isOpen || query.length > 0 || hasSelectedPros) return;
+    if (isOpen || query.length > 0 || showPills) return;
 
     let currentIndex = 0;
     let currentChar = 0;
@@ -98,7 +101,7 @@ export function HeroSearchBar() {
 
     timeout = setTimeout(tick, PAUSE_AFTER_DELETING);
     return () => clearTimeout(timeout);
-  }, [isOpen, query, hasSelectedPros]);
+  }, [isOpen, query, showPills]);
 
   // Close on outside click
   React.useEffect(() => {
@@ -112,9 +115,12 @@ export function HeroSearchBar() {
   }, []);
 
   function toggleCategory(cat: string) {
+    setHasInteracted(true);
+
     if (cat === "All") {
-      setSelectedCategories(new Set(["All"]));
-      // Don't clear manual text query — only clear chip-generated selections
+      // Highlight "All" + keep all individual categories selected (show all pills)
+      const allIndividual = CATEGORY_CHIPS.filter((c) => c !== "All");
+      setSelectedCategories(new Set(["All", ...allIndividual]));
       return;
     }
 
@@ -131,9 +137,10 @@ export function HeroSearchBar() {
         next.add(cat);
       }
 
+      // If all individual categories are now selected, also highlight "All"
       const individualCategories = CATEGORY_CHIPS.filter((c) => c !== "All");
       if (individualCategories.every((c) => next.has(c))) {
-        return new Set(["All"]);
+        next.add("All");
       }
 
       return next;
@@ -144,7 +151,11 @@ export function HeroSearchBar() {
     setSelectedCategories((prev) => {
       const next = new Set(prev);
       next.delete(cat);
-      if (next.size === 0) return new Set(["All"]);
+      next.delete("All"); // If removing one, it's no longer "All"
+      if (next.size === 0) {
+        setHasInteracted(false);
+        return new Set(["All"]);
+      }
       return next;
     });
   }
@@ -153,7 +164,7 @@ export function HeroSearchBar() {
     const params = new URLSearchParams();
     const q = query.trim();
     if (q) params.set("q", q);
-    if (!selectedCategories.has("All")) {
+    if (!selectedCategories.has("All") && selectedCategories.size > 0) {
       params.set("categories", Array.from(selectedCategories).join(","));
     }
     if (zip.trim()) params.set("zip", zip.trim());
@@ -167,7 +178,7 @@ export function HeroSearchBar() {
     handleSearch();
   }
 
-  const showAnimatedPlaceholder = !isOpen && query.length === 0 && !hasSelectedPros;
+  const showAnimatedPlaceholder = !isOpen && query.length === 0 && !showPills;
 
   return (
     <div ref={containerRef} className="relative mx-auto w-full max-w-lg">
@@ -198,11 +209,14 @@ export function HeroSearchBar() {
               onChange={(e) => {
                 setQuery(e.target.value);
                 // If user types manually, reset chip selection
-                if (hasSelectedPros) setSelectedCategories(new Set(["All"]));
+                if (hasSelectedPros) {
+                  setSelectedCategories(new Set(["All"]));
+                  setHasInteracted(false);
+                }
               }}
               onFocus={() => setIsOpen(true)}
               onClick={() => setIsOpen(true)}
-              placeholder={isOpen || hasSelectedPros ? "Search for a professional..." : ""}
+              placeholder={isOpen || showPills ? "Search for a professional..." : ""}
               className="w-full bg-transparent py-3.5 pl-3 pr-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
             />
@@ -252,9 +266,9 @@ export function HeroSearchBar() {
         </form>
 
         {/* Selected category tags — wrapping pills below the input row */}
-        {hasSelectedPros && (
+        {showPills && (
           <div className="flex flex-wrap gap-1.5 px-4 pb-3 -mt-1">
-            {Array.from(selectedCategories).map((cat) => (
+            {Array.from(selectedCategories).filter((c) => c !== "All").map((cat) => (
               <span
                 key={cat}
                 className="inline-flex items-center gap-1 rounded-full bg-[var(--accent)]/15 border border-[var(--accent)]/25 px-2.5 py-0.5 text-xs font-medium text-blue-300"
