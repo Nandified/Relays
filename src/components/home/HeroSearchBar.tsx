@@ -118,14 +118,17 @@ export function HeroSearchBar() {
     setHasInteracted(true);
 
     if (cat === "All") {
-      if (selectedCategories.has("All")) {
-        // Already "All" — clicking again clears everything (change your mind)
+      const allIndividual = CATEGORY_CHIPS.filter((c) => c !== "All");
+      const hasAllIndividuals = allIndividual.every((c) => selectedCategories.has(c));
+
+      if (hasInteracted && selectedCategories.has("All") && hasAllIndividuals) {
+        // User already has all selected + interacted — clicking again clears (change your mind)
         setSelectedCategories(new Set(["All"]));
         setHasInteracted(false);
         return;
       }
-      // Select All + keep all individual categories visible as pills
-      const allIndividual = CATEGORY_CHIPS.filter((c) => c !== "All");
+
+      // Select All + show all individual categories as pills
       setSelectedCategories(new Set(["All", ...allIndividual]));
       return;
     }
@@ -229,8 +232,9 @@ export function HeroSearchBar() {
 
             {/* Animated typewriter */}
             {showAnimatedPlaceholder && (
-              <div className="pointer-events-none absolute inset-0 flex items-center pl-3 text-[16px] sm:text-sm text-slate-500" aria-hidden="true">
-                <span>Search for a </span>
+              <div className="pointer-events-none absolute inset-0 flex items-center pl-3 text-[16px] sm:text-sm text-slate-500 whitespace-nowrap overflow-hidden" aria-hidden="true">
+                <span className="hidden sm:inline">Search for a </span>
+                <span className="sm:hidden">Find a </span>
                 <span className="ml-1 text-blue-400/80">{animatedText}</span>
                 <span className="ml-[1px] inline-block h-4 w-[2px] animate-blink bg-blue-400/60" />
               </div>
