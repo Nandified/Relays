@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useAuth } from "@/lib/auth/provider";
 import { type ProServiceCategory } from "@/lib/types";
+import { getAllPlaces, claimPlace, type PlacesResult } from "@/lib/google-places";
+import { ClaimProfileBanner } from "@/components/marketplace/ClaimProfileBanner";
 
 const categories: { value: ProServiceCategory; label: string; icon: string }[] = [
   { value: "Realtor", label: "Realtor", icon: "🏠" },
@@ -27,6 +29,9 @@ export default function ProOnboardingPage() {
   const [serviceArea, setServiceArea] = React.useState("");
   const [headshotUploaded, setHeadshotUploaded] = React.useState(false);
   const [logoUploaded, setLogoUploaded] = React.useState(false);
+  const [matchingPlaces, setMatchingPlaces] = React.useState<PlacesResult[]>([]);
+  const [claimedPlace, setClaimedPlace] = React.useState<PlacesResult | null>(null);
+  const [showClaimStep, setShowClaimStep] = React.useState(false);
 
   React.useEffect(() => {
     if (state.status !== "authed" || state.user.role !== "pro") {
@@ -47,6 +52,23 @@ export default function ProOnboardingPage() {
   };
 
   const handleNext = () => {
+    if (step === 2 && !showClaimStep) {
+      // After entering company name, check for matching Google Places
+      const allPlaces = getAllPlaces();
+      const matches = allPlaces.filter(p =>
+        p.categories.includes(selectedCategory!) && !p.claimed
+      );
+      if (matches.length > 0) {
+        setMatchingPlaces(matches);
+        setShowClaimStep(true);
+        return;
+      }
+    }
+
+    if (showClaimStep) {
+      setShowClaimStep(false);
+    }
+
     if (step < 4) {
       setStep(step + 1);
     } else {
@@ -162,6 +184,38 @@ export default function ProOnboardingPage() {
             />
           </div>
         </Card>
+      )}
+
+      {/* Claim step (appears after step 2 if matching places found) */}
+      {step === 2 && showClaimStep && matchingPlaces.length > 0 && (
+        <div className="animate-in space-y-3 mt-4">
+          <div className="text-center mb-2">
+            <p className="text-sm text-slate-400">We found businesses matching your category. Is one of these yours?</p>
+          </div>
+          {matchingPlaces.slice(0, 3).map((place) => (
+            <ClaimProfileBanner
+              key={place.placeId}
+              place={place}
+              onClaim={() => {
+                setClaimedPlace(place);
+                setCompanyName(place.name);
+                setShowClaimStep(false);
+                setStep(3);
+              }}
+              onSkip={() => {
+                setShowClaimStep(false);
+                setStep(3);
+              }}
+            />
+          ))}
+          <Button
+            variant="ghost"
+            className="w-full"
+            onClick={() => { setShowClaimStep(false); setStep(3); }}
+          >
+            None of these — continue manually
+          </Button>
+        </div>
       )}
 
       {/* Step 3: Service Area */}
