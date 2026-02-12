@@ -181,7 +181,8 @@ export function HeroSearchBar() {
               onFocus={() => setIsOpen(true)}
               onClick={() => setIsOpen(true)}
               placeholder={isOpen ? "Search for a professional..." : ""}
-              className="w-full bg-transparent py-3.5 pl-3 pr-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none"
+              className="w-full bg-transparent py-3.5 pl-3 pr-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none [&]:outline-none"
+              style={{ outline: "none" }}
             />
 
             {/* Animated typewriter placeholder */}
