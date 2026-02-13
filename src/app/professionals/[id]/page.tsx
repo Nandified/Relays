@@ -108,7 +108,7 @@ export default function ProfessionalProfilePage() {
               </Badge>
             </div>
 
-            {professional.company && (
+            {professional.company && professional.company.toLowerCase() !== professional.name.toLowerCase() && (
               <p className="mt-1 text-sm text-slate-400">{professional.company}</p>
             )}
 
@@ -140,11 +140,6 @@ export default function ProfessionalProfilePage() {
           {professional.county && (
             <LicenseField label="County" value={professional.county} />
           )}
-          <LicenseField
-            label="Disciplinary Action"
-            value={professional.disciplined ? "Yes" : "None"}
-            alert={professional.disciplined}
-          />
         </div>
       </Card>
 
