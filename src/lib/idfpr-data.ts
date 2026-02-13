@@ -301,8 +301,11 @@ export function searchProfessionals(params: ProfessionalSearchParams): Professio
     filtered = filtered.filter((p) => p.city.toLowerCase().includes(city));
   }
 
-  // Zip filter
-  if (params.zip) {
+  // Zip filter — skip when the query contains a name (letters)
+  // so "Antonio Jaime" + zip 60609 still finds Antonio everywhere.
+  // Zip only narrows results when browsing without a name search.
+  const queryHasName = params.q ? /[a-zA-Z]{2,}/.test(params.q) : false;
+  if (params.zip && !queryHasName) {
     filtered = filtered.filter((p) => p.zip.startsWith(params.zip!));
   }
 

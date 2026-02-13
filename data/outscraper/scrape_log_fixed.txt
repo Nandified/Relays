@@ -100,3 +100,58 @@ Batch 5/6: 15 queries
 [2026-02-13 13:35:23]   Last:  home inspector in Clarendon Hills, IL
 [2026-02-13 13:35:23]   Job started: ab-ac8ce933-785b-4bc3-98ce-fe8f011c283c
 [2026-02-13 13:35:23]   ⏳ Job ab-ac8ce933-785b-4bc3-98ce-fe8f011c283c status=Pending (poll 1)
+[2026-02-13 13:37:43]   ⏳ Job ab-ac8ce933-785b-4bc3-98ce-fe8f011c283c status=Pending (poll 10)
+[2026-02-13 13:38:15]   ✅ Batch complete. Data shape=flat. Added 52 new unique. Total unique now 878.
+[2026-02-13 13:38:16] 
+Batch 6/6: 3 queries
+[2026-02-13 13:38:16]   First: home inspector in Elmhurst, IL
+[2026-02-13 13:38:16]   Last:  home inspector in Mattoon, IL
+[2026-02-13 13:38:17]   Job started: a-938708a7-6af6-4c18-9a31-c705e0c11d37
+[2026-02-13 13:38:18]   ⏳ Job a-938708a7-6af6-4c18-9a31-c705e0c11d37 status=Pending (poll 1)
+[2026-02-13 13:38:49]   ✅ Batch complete. Data shape=flat. Added 10 new unique. Total unique now 888.
+[2026-02-13 13:38:50] 
+✅ Category finished: home inspector. Newly added unique this run: 888. Total on disk: 888
+[2026-02-13 13:38:52] Balance after 'home inspector': $256.26
+[2026-02-13 13:38:52] 
+======================================================================
+[2026-02-13 13:38:52] CATEGORY: real estate attorney
+[2026-02-13 13:38:52] Existing records: 0
+[2026-02-13 13:38:52] Total queries to run now: 78
+[2026-02-13 13:38:52] ======================================================================
+[2026-02-13 13:38:52] 
+Batch 1/6: 15 queries
+[2026-02-13 13:38:52]   First: real estate attorney in Chicago Loop, IL
+[2026-02-13 13:38:52]   Last:  real estate attorney in Naperville, IL
+[2026-02-13 13:38:52]   Job started: ab-6bacae3e-d0e8-41db-9622-fe85f0820f3d
+[2026-02-13 13:38:53]   ⏳ Job ab-6bacae3e-d0e8-41db-9622-fe85f0820f3d status=Pending (poll 1)
+[2026-02-13 13:41:15]   ✅ Batch complete. Data shape=flat. Added 763 new unique. Total unique now 763.
+[2026-02-13 13:41:16] 
+Batch 2/6: 15 queries
+[2026-02-13 13:41:16]   First: real estate attorney in Aurora, IL
+[2026-02-13 13:41:16]   Last:  real estate attorney in Tinley Park, IL
+[2026-02-13 13:41:17]   Job started: ab-cda1264f-09d8-46ea-bb3f-d68a6ceaef7a
+[2026-02-13 13:41:17]   ⏳ Job ab-cda1264f-09d8-46ea-bb3f-d68a6ceaef7a status=Pending (poll 1)
+[2026-02-13 13:43:37]   ⏳ Job ab-cda1264f-09d8-46ea-bb3f-d68a6ceaef7a status=Pending (poll 10)
+[2026-02-13 13:45:44]   ✅ Batch complete. Data shape=flat. Added 818 new unique. Total unique now 1581.
+[2026-02-13 13:45:45] 
+Batch 3/6: 15 queries
+[2026-02-13 13:45:45]   First: real estate attorney in Downers Grove, IL
+[2026-02-13 13:45:45]   Last:  real estate attorney in Carbondale, IL
+[2026-02-13 13:45:47]   Job started: ab-56a8d024-eb18-4a69-a030-2c4c2e7e5c50
+[2026-02-13 13:45:47]   ⏳ Job ab-56a8d024-eb18-4a69-a030-2c4c2e7e5c50 status=Pending (poll 1)
+[2026-02-13 13:48:07]   ⏳ Job ab-56a8d024-eb18-4a69-a030-2c4c2e7e5c50 status=Pending (poll 10)
+[2026-02-13 13:49:58]   ✅ Batch complete. Data shape=flat. Added 341 new unique. Total unique now 1922.
+[2026-02-13 13:49:59] 
+Batch 4/6: 15 queries
+[2026-02-13 13:49:59]   First: real estate attorney in Quincy, IL
+[2026-02-13 13:49:59]   Last:  real estate attorney in Mundelein, IL
+[2026-02-13 13:49:59]   Job started: ab-1a49edad-79ef-4e38-82f4-726dbaf09739
+[2026-02-13 13:50:00]   ⏳ Job ab-1a49edad-79ef-4e38-82f4-726dbaf09739 status=Pending (poll 1)
+[2026-02-13 13:52:20]   ⏳ Job ab-1a49edad-79ef-4e38-82f4-726dbaf09739 status=Pending (poll 10)
+[2026-02-13 13:53:24]   ✅ Batch complete. Data shape=flat. Added 358 new unique. Total unique now 2280.
+[2026-02-13 13:53:25] 
+Batch 5/6: 15 queries
+[2026-02-13 13:53:25]   First: real estate attorney in Wheeling, IL
+[2026-02-13 13:53:25]   Last:  real estate attorney in Clarendon Hills, IL
+[2026-02-13 13:53:26]   Job started: ab-5e2e3c31-4510-4679-a0e2-2a01f6eb7f99
+[2026-02-13 13:53:26]   ⏳ Job ab-5e2e3c31-4510-4679-a0e2-2a01f6eb7f99 status=Pending (poll 1)

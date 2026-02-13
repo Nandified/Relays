@@ -98,3 +98,36 @@ Batch 1/6: 15 queries
 [2026-02-13 13:35:14]   Last:  real estate attorney in Naperville, IL
 [2026-02-13 13:35:14]   Job started: ab-ab6dfe05-905b-4793-bfe3-ac5204dd5a38
 [2026-02-13 13:35:15]   ⏳ Job ab-ab6dfe05-905b-4793-bfe3-ac5204dd5a38 status=Pending (poll 1)
+[2026-02-13 13:37:35]   ⏳ Job ab-ab6dfe05-905b-4793-bfe3-ac5204dd5a38 status=Pending (poll 10)
+[2026-02-13 13:40:10]   ⏳ Job ab-ab6dfe05-905b-4793-bfe3-ac5204dd5a38 status=Pending (poll 20)
+[2026-02-13 13:40:58]   ✅ Batch complete. Data shape=flat. Added 773. Total unique now 773.
+[2026-02-13 13:40:59] 
+Batch 2/6: 15 queries
+[2026-02-13 13:40:59]   First: real estate attorney in Aurora, IL
+[2026-02-13 13:40:59]   Last:  real estate attorney in Tinley Park, IL
+[2026-02-13 13:41:00]   Job started: ab-421a2619-2419-4227-8ce0-66c6f769d89b
+[2026-02-13 13:41:00]   ⏳ Job ab-421a2619-2419-4227-8ce0-66c6f769d89b status=Pending (poll 1)
+[2026-02-13 13:43:21]   ⏳ Job ab-421a2619-2419-4227-8ce0-66c6f769d89b status=Pending (poll 10)
+[2026-02-13 13:44:09]   ✅ Batch complete. Data shape=flat. Added 863. Total unique now 1636.
+[2026-02-13 13:44:10] 
+Batch 3/6: 15 queries
+[2026-02-13 13:44:10]   First: real estate attorney in Downers Grove, IL
+[2026-02-13 13:44:10]   Last:  real estate attorney in Carbondale, IL
+[2026-02-13 13:44:11]   Job started: ab-484266f0-3bf8-4593-938f-4ecc9c596288
+[2026-02-13 13:44:12]   ⏳ Job ab-484266f0-3bf8-4593-938f-4ecc9c596288 status=Pending (poll 1)
+[2026-02-13 13:46:32]   ⏳ Job ab-484266f0-3bf8-4593-938f-4ecc9c596288 status=Pending (poll 10)
+[2026-02-13 13:49:08]   ⏳ Job ab-484266f0-3bf8-4593-938f-4ecc9c596288 status=Pending (poll 20)
+[2026-02-13 13:49:56]   ✅ Batch complete. Data shape=flat. Added 444. Total unique now 2080.
+[2026-02-13 13:49:57] 
+Batch 4/6: 15 queries
+[2026-02-13 13:49:57]   First: real estate attorney in Quincy, IL
+[2026-02-13 13:49:57]   Last:  real estate attorney in Mundelein, IL
+[2026-02-13 13:49:58]   Job started: ab-1a93e61f-7431-4cec-af17-970a9cd5fcbf
+[2026-02-13 13:49:58]   ⏳ Job ab-1a93e61f-7431-4cec-af17-970a9cd5fcbf status=Pending (poll 1)
+[2026-02-13 13:52:20]   ✅ Batch complete. Data shape=flat. Added 397. Total unique now 2477.
+[2026-02-13 13:52:21] 
+Batch 5/6: 15 queries
+[2026-02-13 13:52:21]   First: real estate attorney in Wheeling, IL
+[2026-02-13 13:52:21]   Last:  real estate attorney in Clarendon Hills, IL
+[2026-02-13 13:52:22]   Job started: ab-c05acc37-c726-4c62-afc4-70eb33e11f70
+[2026-02-13 13:52:22]   ⏳ Job ab-c05acc37-c726-4c62-afc4-70eb33e11f70 status=Pending (poll 1)
