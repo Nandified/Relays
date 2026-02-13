@@ -80,3 +80,21 @@ Batch 1/5 | 18 queries
 [2026-02-13 13:06:42] First query: home inspector in Chicago Loop, IL
 [2026-02-13 13:06:42] Last query : home inspector in Wilmette, IL
 [2026-02-13 13:06:42] Job started: ab-24254d78-6b2c-4b38-a29d-c5864974b725
+[2026-02-13 13:35:12] 
+======================================================================
+[2026-02-13 13:35:12] OUTSCRAPER IL SCRAPER (REMAINING CATEGORIES)
+[2026-02-13 13:35:12] Batch size: 15 | Poll interval: 15s | Timeout: 45m
+[2026-02-13 13:35:12] ======================================================================
+[2026-02-13 13:35:14] Starting balance: $258.55
+[2026-02-13 13:35:14] 
+======================================================================
+[2026-02-13 13:35:14] CATEGORY: real estate attorney
+[2026-02-13 13:35:14] Existing records: 0
+[2026-02-13 13:35:14] Total queries: 78
+[2026-02-13 13:35:14] ======================================================================
+[2026-02-13 13:35:14] 
+Batch 1/6: 15 queries
+[2026-02-13 13:35:14]   First: real estate attorney in Chicago Loop, IL
+[2026-02-13 13:35:14]   Last:  real estate attorney in Naperville, IL
+[2026-02-13 13:35:14]   Job started: ab-ab6dfe05-905b-4793-bfe3-ac5204dd5a38
+[2026-02-13 13:35:15]   ⏳ Job ab-ab6dfe05-905b-4793-bfe3-ac5204dd5a38 status=Pending (poll 1)

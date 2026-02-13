@@ -27,10 +27,18 @@ export function IdfprCard({
     <button className="w-full text-left" onClick={onSelect}>
       <Card hover selected={selected} padding="none" className={`p-4 transition-all border-dashed`}>
         <div className="flex items-start gap-3">
-          {/* Avatar placeholder */}
-          <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] text-lg opacity-60">
-            {emoji}
-          </div>
+          {/* Avatar — show photo if enriched, else emoji fallback */}
+          {professional.photoUrl ? (
+            <img
+              src={professional.photoUrl}
+              alt={professional.name}
+              className="h-[52px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
+            />
+          ) : (
+            <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] text-lg opacity-60">
+              {emoji}
+            </div>
+          )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
@@ -53,9 +61,6 @@ export function IdfprCard({
 
             <div className="mt-2 flex flex-wrap gap-1">
               <Badge variant="outline" className="opacity-70">{professional.category}</Badge>
-              <Badge variant="default" className="text-[10px] opacity-60">
-                #{professional.licenseNumber}
-              </Badge>
               {!professional.claimed && (
                 <Badge variant="warning" className="opacity-80">Unclaimed</Badge>
               )}

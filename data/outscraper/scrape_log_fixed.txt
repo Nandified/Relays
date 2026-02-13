@@ -70,3 +70,33 @@ Batch 1/6: 15 queries
 [2026-02-13 13:25:02]   Last:  home inspector in Naperville, IL
 [2026-02-13 13:25:02]   Job started: ab-6e3a1fc7-95ec-4eef-a08e-607726540911
 [2026-02-13 13:25:03]   ⏳ Job ab-6e3a1fc7-95ec-4eef-a08e-607726540911 status=Pending (poll 1)
+[2026-02-13 13:27:23]   ⏳ Job ab-6e3a1fc7-95ec-4eef-a08e-607726540911 status=Pending (poll 10)
+[2026-02-13 13:28:11]   ✅ Batch complete. Data shape=flat. Added 277 new unique. Total unique now 277.
+[2026-02-13 13:28:12] 
+Batch 2/6: 15 queries
+[2026-02-13 13:28:12]   First: home inspector in Aurora, IL
+[2026-02-13 13:28:12]   Last:  home inspector in Tinley Park, IL
+[2026-02-13 13:28:12]   Job started: ab-8b6c80f4-c356-4b92-864f-116f65041b30
+[2026-02-13 13:28:13]   ⏳ Job ab-8b6c80f4-c356-4b92-864f-116f65041b30 status=Pending (poll 1)
+[2026-02-13 13:30:33]   ⏳ Job ab-8b6c80f4-c356-4b92-864f-116f65041b30 status=Pending (poll 10)
+[2026-02-13 13:31:52]   ✅ Batch complete. Data shape=flat. Added 250 new unique. Total unique now 527.
+[2026-02-13 13:31:53] 
+Batch 3/6: 15 queries
+[2026-02-13 13:31:53]   First: home inspector in Downers Grove, IL
+[2026-02-13 13:31:53]   Last:  home inspector in Carbondale, IL
+[2026-02-13 13:31:53]   Job started: ab-a2004a66-4d32-4362-a6da-8a8782e5a55d
+[2026-02-13 13:31:54]   ⏳ Job ab-a2004a66-4d32-4362-a6da-8a8782e5a55d status=Pending (poll 1)
+[2026-02-13 13:33:44]   ✅ Batch complete. Data shape=flat. Added 195 new unique. Total unique now 722.
+[2026-02-13 13:33:45] 
+Batch 4/6: 15 queries
+[2026-02-13 13:33:45]   First: home inspector in Quincy, IL
+[2026-02-13 13:33:45]   Last:  home inspector in Mundelein, IL
+[2026-02-13 13:33:46]   Job started: ab-a9caa793-c3ac-4df2-a088-e6ddcb775c64
+[2026-02-13 13:33:46]   ⏳ Job ab-a9caa793-c3ac-4df2-a088-e6ddcb775c64 status=Pending (poll 1)
+[2026-02-13 13:35:21]   ✅ Batch complete. Data shape=flat. Added 104 new unique. Total unique now 826.
+[2026-02-13 13:35:23] 
+Batch 5/6: 15 queries
+[2026-02-13 13:35:23]   First: home inspector in Wheeling, IL
+[2026-02-13 13:35:23]   Last:  home inspector in Clarendon Hills, IL
+[2026-02-13 13:35:23]   Job started: ab-ac8ce933-785b-4bc3-98ce-fe8f011c283c
+[2026-02-13 13:35:23]   ⏳ Job ab-ac8ce933-785b-4bc3-98ce-fe8f011c283c status=Pending (poll 1)

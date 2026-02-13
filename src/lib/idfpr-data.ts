@@ -217,6 +217,7 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
   const all: UnclaimedProfessional[] = [];
   const slugs = new Set<string>();
   const bySlug = new Map<string, UnclaimedProfessional>();
+  const seenLicenses = new Set<string>(); // dedup by license number
 
   for (const file of files) {
     const filePath = path.join(dataDir, file);
@@ -224,6 +225,10 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
     for (const row of rows) {
       const prof = rowToProfessional(row);
       if (!prof) continue;
+
+      // Skip duplicates — same license number across CSV files
+      if (seenLicenses.has(prof.licenseNumber)) continue;
+      seenLicenses.add(prof.licenseNumber);
 
       const baseSlug = baseSlugForProfessional(prof);
       // If we can't make a useful slug (missing data), fall back to license number.
@@ -307,13 +312,52 @@ export function searchProfessionals(params: ProfessionalSearchParams): Professio
     filtered = filtered.filter((p) => p.county.toLowerCase().includes(county));
   }
 
-  // Text search (name, company, city)
+  // Text search (name, company, city) with relevance scoring
+  let scored: { p: UnclaimedProfessional; score: number }[] | null = null;
+
   if (params.q) {
-    const terms = params.q.toLowerCase().split(/\s+/).filter(Boolean);
-    filtered = filtered.filter((p) => {
+    const qLower = params.q.toLowerCase().trim();
+    const terms = qLower.split(/\s+/).filter(Boolean);
+
+    scored = [];
+    for (const p of filtered) {
+      const nameLower = p.name.toLowerCase();
       const searchable = `${p.name} ${p.company} ${p.city} ${p.county} ${p.licenseNumber}`.toLowerCase();
-      return terms.every((term) => searchable.includes(term));
-    });
+
+      // Must match all terms
+      if (!terms.every((term) => searchable.includes(term))) continue;
+
+      // Relevance scoring: higher = better match
+      let score = 0;
+
+      // Exact full-name match (highest priority)
+      if (nameLower === qLower) {
+        score += 100;
+      }
+      // Name starts with query
+      else if (nameLower.startsWith(qLower)) {
+        score += 80;
+      }
+      // All search terms appear in name (vs. other fields)
+      else if (terms.every((t) => nameLower.includes(t))) {
+        score += 60;
+      }
+      // Partial name match — count how many terms hit the name
+      else {
+        const nameHits = terms.filter((t) => nameLower.includes(t)).length;
+        score += (nameHits / terms.length) * 40;
+      }
+
+      // Bonus: has photo/rating (enriched profiles are higher quality)
+      if (p.photoUrl) score += 3;
+      if (p.rating) score += 2;
+
+      scored.push({ p, score });
+    }
+
+    // Sort by relevance score descending, then name alphabetically for ties
+    scored.sort((a, b) => b.score - a.score || a.p.name.localeCompare(b.p.name));
+    filtered = scored.map((s) => s.p);
   }
 
   const total = filtered.length;
