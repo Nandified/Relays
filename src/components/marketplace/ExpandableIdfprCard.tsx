@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { type UnclaimedProfessional } from "@/lib/types";
 
@@ -39,9 +41,22 @@ function avatarColor(name: string): string {
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
+/* Tiny inline Google "G" logo */
+function GoogleG({ className = "" }: { className?: string }) {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" className={className}>
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>
+  );
+}
+
 export function ExpandableIdfprCard({ professional, expanded, onToggle }: ExpandableIdfprCardProps) {
   const initials = getInitials(professional.name);
   const colorClass = avatarColor(professional.name);
+  const hasRating = typeof professional.rating === "number" && !Number.isNaN(professional.rating);
 
   return (
     <button className="w-full min-w-0 text-left" onClick={onToggle}>
@@ -57,10 +72,10 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
             <img
               src={professional.photoUrl}
               alt={professional.name}
-              className="h-[52px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
+              className="h-[44px] w-[44px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-gradient-to-br ${colorClass} text-base font-semibold`}>
+            <div className={`flex h-[44px] w-[44px] flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-gradient-to-br ${colorClass} text-sm font-semibold`}>
               {initials}
             </div>
           )}
@@ -71,7 +86,6 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
                 <div className="truncate text-xs text-slate-500">
                   {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
                   {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
-                  {professional.state ? `, ${professional.state}` : ""}
                 </div>
               </div>
               <svg
@@ -88,72 +102,37 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
             </div>
 
             <div className="mt-2 flex flex-wrap gap-1">
-              <Badge variant="outline" className="opacity-70">{professional.category}</Badge>
+              <Badge variant="outline">{professional.category}</Badge>
             </div>
 
             <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
-              {professional.city && (
-                <span>{professional.city}, {professional.state}</span>
+              {hasRating && (
+                <>
+                  <span className="flex items-center gap-1">
+                    <svg width="12" height="12" fill="#f59e0b" viewBox="0 0 20 20">
+                      <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
+                    </svg>
+                    {professional.rating!.toFixed(1)}
+                  </span>
+                  {professional.reviewCount && <span>{professional.reviewCount} reviews</span>}
+                  <GoogleG className="opacity-60" />
+                </>
               )}
-              {professional.county && (
-                <span>· {professional.county} Co.</span>
-              )}
-              {professional.rating && (
-                <span className="flex items-center gap-1">
-                  <svg width="12" height="12" fill="#f59e0b" viewBox="0 0 20 20">
-                    <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
-                  </svg>
-                  {professional.rating.toFixed(1)}
-                </span>
-              )}
+              {professional.city && <span>{professional.city}, {professional.state}</span>}
             </div>
           </div>
         </div>
 
-        {/* Expandable content */}
+        {/* Expandable content — matches demo pro layout */}
         <div
           className="grid transition-[grid-template-rows] duration-300 ease-in-out"
           style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}
         >
           <div className="overflow-hidden">
             <div className="mt-4 border-t border-[var(--border)] pt-4">
-              {/* Location */}
-              <div className="flex items-center gap-2 text-xs text-slate-400">
-                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0 opacity-60">
-                  <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z" />
-                </svg>
-                <span className="text-slate-300">
-                  {professional.city}, {professional.state} {professional.zip}
-                  {professional.county ? ` · ${professional.county} County` : ""}
-                </span>
-              </div>
-
-              {/* Contact info (if enriched) */}
-              {(professional.phone || professional.website) && (
-                <div className="mt-3 space-y-1.5">
-                  {professional.phone && (
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0 opacity-60">
-                        <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                      </svg>
-                      <span className="text-slate-300">{professional.phone}</span>
-                    </div>
-                  )}
-                  {professional.website && (
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0 opacity-60">
-                        <path d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                      </svg>
-                      <span className="text-blue-400/80 truncate">{professional.website.replace(/^https?:\/\/(www\.)?/, "")}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Rating (if enriched) */}
-              {professional.rating && (
-                <div className="mt-3 flex items-center gap-2">
+              {/* Rating with Google attribution */}
+              {hasRating && (
+                <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg key={star} width="14" height="14" fill={star <= Math.round(professional.rating!) ? "#f59e0b" : "#334155"} viewBox="0 0 20 20">
@@ -161,15 +140,64 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
                       </svg>
                     ))}
                   </div>
-                  <span className="text-sm font-medium text-slate-300">{professional.rating.toFixed(1)}</span>
+                  <span className="text-sm font-medium text-slate-300">{professional.rating!.toFixed(1)}</span>
                   {professional.reviewCount && (
                     <span className="text-xs text-slate-500">({professional.reviewCount} reviews)</span>
+                  )}
+                  <GoogleG className="opacity-50" />
+                </div>
+              )}
+
+              {/* Bio placeholder */}
+              <p className="mt-3 text-sm text-slate-500 italic leading-relaxed">
+                This professional hasn&apos;t added a bio yet.
+              </p>
+
+              {/* Category badge + location */}
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                <Badge variant="outline">{professional.category}</Badge>
+                {professional.county && (
+                  <Badge variant="default">{professional.county} County</Badge>
+                )}
+              </div>
+
+              {/* Service areas */}
+              <div className="mt-3 text-xs text-slate-500">
+                <span className="font-medium text-slate-400">Service areas: </span>
+                {[professional.city, professional.county ? `${professional.county} County` : null].filter(Boolean).join(", ") || "Not listed"}
+              </div>
+
+              {/* Contact (if enriched) */}
+              {(professional.phone || professional.website) && (
+                <div className="mt-3 flex flex-wrap gap-4 text-xs text-slate-500">
+                  {professional.phone && (
+                    <span className="flex items-center gap-1.5">
+                      <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-50">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                      </svg>
+                      {professional.phone}
+                    </span>
+                  )}
+                  {professional.website && (
+                    <span className="flex items-center gap-1.5 text-blue-400/70">
+                      <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-50">
+                        <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                      </svg>
+                      {professional.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
+                    </span>
                   )}
                 </div>
               )}
 
+              {/* CTAs — matches demo pro layout */}
+              <div className="mt-4 pb-1 grid gap-2" onClick={(e) => e.stopPropagation()}>
+                <Link href={`/pros/${professional.slug}`}>
+                  <Button variant="secondary" className="w-full">View Full Profile</Button>
+                </Link>
+              </div>
+
               {/* Subtle claim link */}
-              <div className="mt-4 pb-1" onClick={(e) => e.stopPropagation()}>
+              <div className="pt-2 pb-1" onClick={(e) => e.stopPropagation()}>
                 <a href="/pro/onboarding" className="text-[11px] text-slate-600 hover:text-slate-400 transition-colors">
                   Are you {professional.name.split(" ")[0]}? <span className="underline underline-offset-2">Claim this profile</span> →
                 </a>
