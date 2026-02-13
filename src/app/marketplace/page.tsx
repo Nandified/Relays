@@ -291,42 +291,111 @@ function MarketplaceContent() {
         )}
       </div>
 
-      {/* Expandable card list — single layout for all screen sizes */}
-      <div className="mx-auto max-w-2xl">
-        <div className="flex flex-col gap-1.5">
-          {/* Relays pros */}
-          {filteredPros.length > 0 ? (
-            filteredPros.map((pro) => (
-              <ExpandableProCard
-                key={pro.id}
-                pro={pro}
-                expanded={mobileExpandedId === pro.id}
-                onToggle={() => handleMobileToggle(pro.id)}
+      {/* Two-column: cards left, sidebar right (desktop) */}
+      <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-6">
+        {/* Card list */}
+        <div className="min-w-0">
+          <div className="flex flex-col gap-1.5">
+            {/* Relays pros */}
+            {filteredPros.length > 0 ? (
+              filteredPros.map((pro) => (
+                <ExpandableProCard
+                  key={pro.id}
+                  pro={pro}
+                  expanded={mobileExpandedId === pro.id}
+                  onToggle={() => handleMobileToggle(pro.id)}
+                />
+              ))
+            ) : !hasAnyResults && !idfprLoading ? (
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
+                <div className="text-sm font-medium text-slate-300">No results found</div>
+                <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
+              </div>
+            ) : null}
+
+            {/* IDFPR cards */}
+            {idfprData.map((prof) => (
+              <ExpandableIdfprCard
+                key={prof.id}
+                professional={prof}
+                expanded={mobileExpandedId === prof.id}
+                onToggle={() => handleMobileToggle(prof.id)}
               />
-            ))
-          ) : !hasAnyResults && !idfprLoading ? (
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
-              <div className="text-sm font-medium text-slate-300">No results found</div>
-              <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
-            </div>
-          ) : null}
+            ))}
 
-          {/* IDFPR cards */}
-          {idfprData.map((prof) => (
-            <ExpandableIdfprCard
-              key={prof.id}
-              professional={prof}
-              expanded={mobileExpandedId === prof.id}
-              onToggle={() => handleMobileToggle(prof.id)}
-            />
-          ))}
+            {/* IDFPR loading */}
+            {idfprLoading && <IdfprLoadingShimmer />}
 
-          {/* IDFPR loading */}
-          {idfprLoading && <IdfprLoadingShimmer />}
-
-          {/* Infinite scroll trigger */}
-          {idfprHasMore && <div ref={loadMoreRef} className="h-4" />}
+            {/* Infinite scroll trigger */}
+            {idfprHasMore && <div ref={loadMoreRef} className="h-4" />}
+          </div>
         </div>
+
+        {/* Sidebar — hidden on mobile, sticky on desktop */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-20 space-y-4">
+            {/* How It Works */}
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-lg p-5">
+              <h3 className="text-sm font-semibold text-slate-200 mb-4">How Relays Works</h3>
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-400">1</div>
+                  <div>
+                    <div className="text-xs font-medium text-slate-300">Browse professionals</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">Find verified realtors, lenders, attorneys, and more.</div>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-400">2</div>
+                  <div>
+                    <div className="text-xs font-medium text-slate-300">Build your team</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">Add pros to your home journey. One place, all your people.</div>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-400">3</div>
+                  <div>
+                    <div className="text-xs font-medium text-slate-300">Get connected</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">Request bookings and communicate directly.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Pro CTA */}
+            <div className="rounded-2xl border border-emerald-500/10 bg-emerald-500/[0.03] p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <svg width="16" height="16" fill="none" stroke="#10b981" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <h3 className="text-sm font-semibold text-emerald-400">Are you a professional?</h3>
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed mb-3">
+                Claim your free profile to appear in search results, receive referrals, and grow your business.
+              </p>
+              <a
+                href="/pro/onboarding"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                Get started free
+                <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Quick tip */}
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm">💡</span>
+                <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Quick Tip</h3>
+              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                Look for professionals with the <span className="text-emerald-400 font-medium">✓ Verified</span> badge — they&apos;ve submitted their credentials for review.
+              </p>
+            </div>
+          </div>
+        </aside>
       </div>
     </main>
   );
