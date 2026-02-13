@@ -11,7 +11,7 @@ import { FilterChips } from "@/components/marketplace/FilterChips";
 
 type SortOption = "rating" | "reviews" | "response" | "newest";
 
-const IDFPR_PAGE_SIZE = 50;
+const IDFPR_PAGE_SIZE = 25;
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
@@ -45,7 +45,6 @@ function MarketplaceContent() {
   const [idfprHasMore, setIdfprHasMore] = React.useState(true);
 
   // Refs
-  const loadMoreRef = React.useRef<HTMLDivElement | null>(null);
   const idfprFetchRef = React.useRef<AbortController | null>(null);
 
   // Multi-category support from URL
@@ -118,8 +117,27 @@ function MarketplaceContent() {
     }
   }, [query, categoryFilter, zip, idfprOffset]);
 
-  // Initial fetch + refetch on filter changes (debounced)
+  // Total professional count (fetch once on mount for display)
+  const [totalProfessionals, setTotalProfessionals] = React.useState(0);
   React.useEffect(() => {
+    fetch("/api/professionals?limit=0").then(r => r.json()).then(d => setTotalProfessionals(d.total)).catch(() => {});
+  }, []);
+
+  // Whether user has an active search or filter (not just browsing empty)
+  const hasActiveFilter = !!(query.trim() || (categoryFilter && categoryFilter !== "All") || zip.trim());
+
+  // Initial fetch + refetch on filter changes (debounced)
+  // Only fetch IDFPR data when user has searched/filtered
+  React.useEffect(() => {
+    if (!hasActiveFilter) {
+      // Clear IDFPR data when no active search — show just demo pros
+      setIdfprData([]);
+      setIdfprTotal(0);
+      setIdfprOffset(0);
+      setIdfprHasMore(false);
+      return;
+    }
+
     const timeout = setTimeout(() => {
       setIdfprOffset(0);
       setIdfprHasMore(true);
@@ -128,24 +146,7 @@ function MarketplaceContent() {
 
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, categoryFilter, zip]);
-
-  // Infinite scroll observer
-  React.useEffect(() => {
-    if (!loadMoreRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && idfprHasMore && !idfprLoading) {
-          fetchIdfpr(false);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(loadMoreRef.current);
-    return () => observer.disconnect();
-  }, [idfprHasMore, idfprLoading, fetchIdfpr]);
+  }, [query, categoryFilter, zip, hasActiveFilter]);
 
   const filteredPros = React.useMemo(() => {
     let results = [...mockPros];
@@ -272,11 +273,22 @@ function MarketplaceContent() {
       {/* Results count */}
       <div className="mb-2 sm:mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-slate-500">
         <span>
-          <span className="font-medium text-slate-300">
-            {(filteredPros.length + idfprTotal).toLocaleString()}
-          </span>
-          {" "}professional{(filteredPros.length + idfprTotal) !== 1 ? "s" : ""}
-          {zip.trim() ? ` near ${zip.trim()}` : ""}
+          {hasActiveFilter ? (
+            <>
+              <span className="font-medium text-slate-300">
+                {(filteredPros.length + idfprTotal).toLocaleString()}
+              </span>
+              {" "}result{(filteredPros.length + idfprTotal) !== 1 ? "s" : ""}
+              {zip.trim() ? ` near ${zip.trim()}` : ""}
+            </>
+          ) : (
+            <>
+              <span className="font-medium text-slate-300">
+                {filteredPros.length}
+              </span>
+              {" "}featured professional{filteredPros.length !== 1 ? "s" : ""}
+            </>
+          )}
         </span>
         {activeFilterLabels.length > 0 && (
           <span>
@@ -326,8 +338,33 @@ function MarketplaceContent() {
             {/* IDFPR loading */}
             {idfprLoading && <IdfprLoadingShimmer />}
 
-            {/* Infinite scroll trigger */}
-            {idfprHasMore && <div ref={loadMoreRef} className="h-4" />}
+            {/* Show more button */}
+            {idfprHasMore && !idfprLoading && (
+              <div className="py-4 text-center">
+                <button
+                  onClick={() => fetchIdfpr(false)}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] backdrop-blur-lg px-6 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/[0.08] hover:border-white/[0.15] hover:text-slate-100 transition-all"
+                >
+                  Show more results
+                  <span className="text-xs text-slate-500">
+                    ({idfprData.length} of {idfprTotal.toLocaleString()})
+                  </span>
+                </button>
+              </div>
+            )}
+
+            {/* Browse prompt when no search is active */}
+            {!hasActiveFilter && !idfprLoading && (
+              <div className="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 text-center">
+                <p className="text-sm text-slate-400">
+                  Search by name or filter by category to browse{" "}
+                  <span className="font-medium text-slate-300">
+                    {totalProfessionals > 0 ? `${totalProfessionals.toLocaleString()}` : "thousands of"}
+                  </span>{" "}
+                  licensed professionals in Illinois
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
