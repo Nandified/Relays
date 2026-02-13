@@ -26,11 +26,10 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
   notFound();
 }
 
-/* ── Unclaimed profile (consumer-friendly) ─────────────────────── */
+/* ── Unclaimed profile — same layout as claimed, with placeholders ── */
 
 function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedProfessional }) {
   const initials = getInitials(professional.name);
-  const location = [professional.city, professional.state].filter(Boolean).join(", ");
 
   const showRating =
     typeof professional.rating === "number" &&
@@ -38,21 +37,23 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
     typeof professional.reviewCount === "number";
 
   const serviceAreaParts = [
-    [professional.city, professional.state].filter(Boolean).join(", "),
+    professional.city,
     professional.county ? `${professional.county} County` : null,
   ].filter(Boolean) as string[];
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <Link href="/marketplace" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-300 mb-6 transition-colors">
+      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
-        ← Back to browsing
+        Marketplace
       </Link>
 
+      {/* Main profile card — matches claimed pro layout */}
       <Card padding="lg" className="shadow-[var(--shadow-elevated)] glow-hover">
         <div className="flex items-start gap-4">
+          {/* Avatar */}
           <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-elevated)]">
             {professional.photoUrl ? (
               <Image
@@ -71,61 +72,111 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <h1 className="truncate text-xl sm:text-2xl font-bold text-slate-100">{professional.name}</h1>
-                <p className="mt-1 text-sm text-slate-500">
+              <div>
+                <h1 className="text-xl font-bold text-slate-100">{professional.name}</h1>
+                <p className="text-sm text-slate-500">
                   {professional.officeName || professional.company || "Independent professional"}
                 </p>
               </div>
-
-              <Link
-                href="/pro/onboarding"
-                className="text-xs text-slate-500 hover:text-slate-300 underline decoration-slate-700 hover:decoration-slate-500 underline-offset-4 whitespace-nowrap"
-              >
-                Are you {professional.name.split(" ")[0]}? Claim →
-              </Link>
             </div>
 
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <Badge variant="accent">{professional.category}</Badge>
-              {location && <span className="text-xs text-slate-500">{location}</span>}
-            </div>
-
-            <div className="mt-3">
+            {/* Rating */}
+            <div className="mt-2 flex items-center gap-2">
               {showRating ? (
-                <div className="flex items-center gap-2">
+                <>
                   <Stars rating={professional.rating ?? 0} />
                   <span className="text-sm font-semibold text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
                   <span className="text-sm text-slate-500">({professional.reviewCount} reviews)</span>
-                </div>
+                </>
               ) : (
-                <div className="text-sm text-slate-500">No reviews yet</div>
+                <span className="text-sm text-slate-500">No reviews yet</span>
               )}
             </div>
           </div>
         </div>
-      </Card>
 
-      <Card padding="lg" className="mt-6">
-        <h2 className="text-sm font-semibold text-slate-200 mb-2">About</h2>
-        <p className="text-sm text-slate-500 italic leading-relaxed">This professional hasn&apos;t added a bio yet.</p>
-      </Card>
+        {/* Category badges */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Badge variant="outline">{professional.category}</Badge>
+          {professional.city && (
+            <Badge variant="default">
+              📍 {professional.city}, {professional.state}
+            </Badge>
+          )}
+        </div>
 
-      <Card padding="lg" className="mt-4">
-        <h2 className="text-sm font-semibold text-slate-200 mb-2">Service areas</h2>
-        {serviceAreaParts.length > 0 ? (
+        {/* About */}
+        <div className="mt-6">
+          <h2 className="text-sm font-semibold text-slate-200 mb-2">About</h2>
+          <p className="text-sm text-slate-500 italic leading-relaxed">This professional hasn&apos;t added a bio yet.</p>
+        </div>
+
+        {/* Services */}
+        <div className="mt-6">
+          <h2 className="text-sm font-semibold text-slate-200 mb-2">Services</h2>
           <div className="flex flex-wrap gap-2">
-            {serviceAreaParts.map((a) => (
-              <Badge key={a} variant="outline">{a}</Badge>
-            ))}
+            <Badge variant="outline">{professional.category}</Badge>
           </div>
-        ) : (
-          <p className="text-sm text-slate-500">Service areas not listed.</p>
+        </div>
+
+        {/* Service Areas */}
+        <div className="mt-6">
+          <h2 className="text-sm font-semibold text-slate-200 mb-2">Service Areas</h2>
+          {serviceAreaParts.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {serviceAreaParts.map((area, i) => (
+                <span key={area}>
+                  <span className="text-sm text-slate-400">{area}</span>
+                  {i < serviceAreaParts.length - 1 && <span className="text-slate-600 ml-2">•</span>}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-slate-500">Service areas not listed.</p>
+          )}
+        </div>
+
+        {/* Contact — inline if available */}
+        {(professional.phone || professional.website) && (
+          <div className="mt-6">
+            <h2 className="text-sm font-semibold text-slate-200 mb-3">Contact</h2>
+            <div className="space-y-2">
+              {professional.phone && (
+                <div className="flex items-center gap-3 text-sm">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                  </svg>
+                  <a href={`tel:${professional.phone}`} className="text-blue-400 hover:underline">{professional.phone}</a>
+                </div>
+              )}
+              {professional.website && (
+                <div className="flex items-center gap-3 text-sm">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                  </svg>
+                  <a href={professional.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">{professional.website}</a>
+                </div>
+              )}
+            </div>
+          </div>
         )}
+
+        {/* Subtle claim — only visible to pros who recognize themselves */}
+        <div className="mt-8 pt-4 border-t border-[var(--border)]">
+          <Link
+            href="/pro/onboarding"
+            className="text-xs text-slate-600 hover:text-slate-400 transition-colors"
+          >
+            Is this your profile? <span className="underline underline-offset-2">Claim it</span> to manage your listing and receive referrals.
+          </Link>
+        </div>
       </Card>
 
-      <Card padding="lg" className="mt-4">
-        <h2 className="text-sm font-semibold text-slate-200 mb-2">Reviews</h2>
+      {/* Reviews card — matches claimed layout */}
+      <Card padding="lg" className="mt-6">
+        <h2 className="text-sm font-semibold text-slate-200 mb-4">Reviews</h2>
         {showRating ? (
           <div className="flex items-center gap-2">
             <Stars rating={professional.rating ?? 0} size={14} />
@@ -136,32 +187,6 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
           <p className="text-sm text-slate-500">No reviews yet</p>
         )}
       </Card>
-
-      {(professional.phone || professional.website) && (
-        <Card padding="lg" className="mt-4">
-          <h2 className="text-sm font-semibold text-slate-200 mb-4">Contact</h2>
-          <div className="space-y-3">
-            {professional.phone && (
-              <div className="flex items-center gap-3 text-sm">
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500">
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                </svg>
-                <a href={`tel:${professional.phone}`} className="text-blue-400 hover:underline">{professional.phone}</a>
-              </div>
-            )}
-            {professional.website && (
-              <div className="flex items-center gap-3 text-sm">
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500">
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="2" y1="12" x2="22" y2="12" />
-                  <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                </svg>
-                <a href={professional.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">{professional.website}</a>
-              </div>
-            )}
-          </div>
-        </Card>
-      )}
     </main>
   );
 }
