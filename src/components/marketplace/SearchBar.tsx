@@ -129,10 +129,17 @@ export function SearchBar({
               value={zip}
               onChange={(e) => onZipChange?.(e.target.value.replace(/\D/g, "").slice(0, 5))}
               onFocus={() => setIsFocused(true)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  (e.target as HTMLInputElement).blur();
+                }
+              }}
               placeholder="Zip code"
               className="w-20 bg-transparent py-3.5 pl-2 pr-3 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
               inputMode="numeric"
+              enterKeyHint="done"
             />
           </div>
         </div>

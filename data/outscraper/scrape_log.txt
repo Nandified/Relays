@@ -1,0 +1,57 @@
+[2026-02-13 11:32:50] 
+============================================================
+[2026-02-13 11:32:50] OUTSCRAPER FULL ILLINOIS SCRAPE
+[2026-02-13 11:32:50] ============================================================
+[2026-02-13 11:32:52] Account balance: $300.26
+[2026-02-13 11:32:52] 
+============================================================
+[2026-02-13 11:32:52] Category: real estate agent
+[2026-02-13 11:32:52] Total queries: 77
+[2026-02-13 11:32:52] ============================================================
+[2026-02-13 11:32:52] 
+  Batch 1/4: 25 queries
+[2026-02-13 11:32:52]   Queries: real estate agent in Chicago Loop, IL ... real estate agent in Libertyville, IL
+[2026-02-13 11:32:53]   Job started: ab-04eb5001-6916-416f-864e-5a63f2940249
+[2026-02-13 11:32:58]   ⏳ Still processing... (poll 1)
+[2026-02-13 11:33:32]   ⏳ Still processing... (poll 7)
+[2026-02-13 11:34:05]   ⏳ Still processing... (poll 13)
+[2026-02-13 11:34:39]   ⏳ Still processing... (poll 19)
+[2026-02-13 11:35:12]   ⏳ Still processing... (poll 25)
+[2026-02-13 11:35:46]   ⏳ Still processing... (poll 31)
+[2026-02-13 11:36:19]   ⏳ Still processing... (poll 37)
+[2026-02-13 11:36:52]   ⏳ Still processing... (poll 43)
+[2026-02-13 11:37:26]   ⏳ Still processing... (poll 49)
+[2026-02-13 11:37:59]   ⏳ Still processing... (poll 55)
+[2026-02-13 11:38:32]   ⏳ Still processing... (poll 61)
+[2026-02-13 11:39:05]   ⏳ Still processing... (poll 67)
+[2026-02-13 11:39:39]   ⏳ Still processing... (poll 73)
+[2026-02-13 11:40:12]   ⏳ Still processing... (poll 79)
+[2026-02-13 11:40:46]   ⏳ Still processing... (poll 85)
+[2026-02-13 11:41:19]   ⏳ Still processing... (poll 91)
+[2026-02-13 11:41:53]   ⏳ Still processing... (poll 97)
+[2026-02-13 11:42:26]   ⏳ Still processing... (poll 103)
+[2026-02-13 11:43:00]   ⏳ Still processing... (poll 109)
+[2026-02-13 11:43:33]   ⏳ Still processing... (poll 115)
+[2026-02-13 11:44:01]   ⚠️ Timed out waiting for batch
+[2026-02-13 11:44:01]   Saved 0 results to il_real_estate_agent_results.json
+[2026-02-13 11:44:03] 
+  Batch 2/4: 25 queries
+[2026-02-13 11:44:03]   Queries: real estate agent in Waukegan, IL ... real estate agent in Oak Lawn, IL
+[2026-02-13 11:44:04]   Job started: ab-15638041-19fb-43eb-ae79-e974d0c96caf
+[2026-02-13 11:44:09]   ⏳ Still processing... (poll 1)
+[2026-02-13 11:44:43]   ⏳ Still processing... (poll 7)
+[2026-02-13 11:45:16]   ⏳ Still processing... (poll 13)
+[2026-02-13 11:45:49]   ⏳ Still processing... (poll 19)
+[2026-02-13 11:46:22]   ⏳ Still processing... (poll 25)
+[2026-02-13 11:46:56]   ⏳ Still processing... (poll 31)
+[2026-02-13 11:47:29]   ⏳ Still processing... (poll 37)
+[2026-02-13 11:48:02]   ⏳ Still processing... (poll 43)
+[2026-02-13 11:48:36]   ⏳ Still processing... (poll 49)
+[2026-02-13 11:49:09]   ⏳ Still processing... (poll 55)
+[2026-02-13 11:49:42]   ⏳ Still processing... (poll 61)
+[2026-02-13 11:50:15]   ⏳ Still processing... (poll 67)
+[2026-02-13 11:50:49]   ⏳ Still processing... (poll 73)
+[2026-02-13 11:51:22]   ⏳ Still processing... (poll 79)
+[2026-02-13 11:51:55]   ⏳ Still processing... (poll 85)
+[2026-02-13 11:52:28]   ⏳ Still processing... (poll 91)
+[2026-02-13 11:53:02]   ⏳ Still processing... (poll 97)
