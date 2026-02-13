@@ -301,7 +301,7 @@ function MarketplaceContent() {
       {/* Two-column layout */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_380px] min-w-0">
         {/* Results list */}
-        <section className="min-w-0 space-y-2 sm:space-y-3">
+        <section className="min-w-0 space-y-1.5 sm:space-y-2">
           {/* Relays pros */}
           {filteredPros.length > 0 ? (
             filteredPros.map((pro) => (
