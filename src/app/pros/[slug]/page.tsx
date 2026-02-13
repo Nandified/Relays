@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { SoftWallGate } from "@/components/marketplace/SoftWallGate";
 
-export default function ProProfilePage({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export default async function ProProfilePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   // 1) Claimed Relays pros
   const claimed = getProBySlug(slug);
