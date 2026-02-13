@@ -22,16 +22,8 @@ const categoryEmoji: Record<string, string> = {
 };
 
 export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: ExpandableGooglePlacesCardProps) {
-  const contentRef = React.useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = React.useState(0);
   const [inviteSent, setInviteSent] = React.useState(false);
   const [sending, setSending] = React.useState(false);
-
-  React.useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-  }, [expanded, place]);
 
   // Log view when expanded
   React.useEffect(() => {
@@ -80,7 +72,6 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
                   </svg>
                   Google
                 </Badge>
-                {/* Expand indicator */}
                 <svg
                   width="16"
                   height="16"
@@ -117,15 +108,12 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
           </div>
         </div>
 
-        {/* Expandable content */}
+        {/* Expandable content — CSS grid animation (no JS height) */}
         <div
-          className="overflow-hidden transition-all duration-300 ease-in-out"
-          style={{
-            maxHeight: expanded ? `${contentHeight}px` : "0px",
-            opacity: expanded ? 1 : 0,
-          }}
+          className="grid transition-[grid-template-rows] duration-300 ease-in-out"
+          style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}
         >
-          <div ref={contentRef}>
+          <div className="overflow-hidden">
             <div className="mt-4 border-t border-[var(--border)] pt-4">
               {/* Unclaimed banner */}
               <div className="mb-3 rounded-xl bg-amber-500/8 border border-amber-500/15 px-3 py-2.5">
@@ -189,7 +177,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
               </div>
 
               {/* CTA */}
-              <div className="mt-4 grid gap-2" onClick={(e) => e.stopPropagation()}>
+              <div className="mt-4 pb-1 grid gap-2" onClick={(e) => e.stopPropagation()}>
                 <Button
                   variant="secondary"
                   className="w-full"

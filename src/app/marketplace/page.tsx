@@ -345,17 +345,12 @@ function MarketplaceContent() {
 
           {/* Google Places cards */}
           {filteredPlaces.map((place) => (
-            <div
+            <ExpandableGooglePlacesCard
               key={place.placeId}
-              ref={(el) => { placeCardRefs.current[place.placeId] = el; }}
-              className={highlightedPlaceId === place.placeId ? "animate-highlight-pulse rounded-2xl" : ""}
-            >
-              <ExpandableGooglePlacesCard
-                place={place}
-                expanded={mobileExpandedId === place.placeId}
-                onToggle={() => handleMobileToggle(place.placeId)}
-              />
-            </div>
+              place={place}
+              expanded={mobileExpandedId === place.placeId}
+              onToggle={() => handleMobileToggle(place.placeId)}
+            />
           ))}
         </div>
       </div>

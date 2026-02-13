@@ -17,15 +17,6 @@ interface ExpandableProCardProps {
 }
 
 export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCardProps) {
-  const contentRef = React.useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = React.useState(0);
-
-  React.useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-  }, [expanded, pro]);
-
   return (
     <button className="w-full min-w-0 text-left" onClick={onToggle}>
       <Card
@@ -47,7 +38,6 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
                 <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
                   <Image src={pro.companyLogoUrl} alt={pro.companyName} width={36} height={36} />
                 </div>
-                {/* Expand indicator */}
                 <svg
                   width="16"
                   height="16"
@@ -84,15 +74,12 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
           </div>
         </div>
 
-        {/* Expandable content — preview panel details */}
+        {/* Expandable content — CSS grid animation (no JS height) */}
         <div
-          className="overflow-hidden transition-all duration-300 ease-in-out"
-          style={{
-            maxHeight: expanded ? `${contentHeight}px` : "0px",
-            opacity: expanded ? 1 : 0,
-          }}
+          className="grid transition-[grid-template-rows] duration-300 ease-in-out"
+          style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}
         >
-          <div ref={contentRef}>
+          <div className="overflow-hidden">
             <div className="mt-4 border-t border-[var(--border)] pt-4">
               {/* Full star rating */}
               <div className="flex items-center gap-2">
@@ -130,7 +117,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
               </div>
 
               {/* CTAs */}
-              <div className="mt-4 grid gap-2" onClick={(e) => e.stopPropagation()}>
+              <div className="mt-4 pb-1 grid gap-2" onClick={(e) => e.stopPropagation()}>
                 <Link href={`/pros/${pro.slug}`}>
                   <Button variant="secondary" className="w-full">View Full Profile</Button>
                 </Link>
