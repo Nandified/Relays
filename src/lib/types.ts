@@ -128,6 +128,32 @@ export interface TimeWindow {
   available: boolean;
 }
 
+// ── Unclaimed Professional (IDFPR data) ──
+export interface UnclaimedProfessional {
+  id: string; // generated from license_number
+  name: string;
+  licenseNumber: string;
+  licenseType: string; // "LICENSED REAL ESTATE BROKER", "LICENSED HOME INSPECTOR", etc.
+  company: string;
+  city: string;
+  state: string;
+  zip: string;
+  county: string;
+  licensedSince: string;
+  expires: string;
+  disciplined: boolean;
+  category: ProServiceCategory; // mapped from licenseType
+  claimed: boolean;
+  claimedByProId: string | null;
+  // Future enrichment fields (from Outscraper)
+  phone: string | null;
+  email: string | null;
+  website: string | null;
+  rating: number | null;
+  reviewCount: number | null;
+  photoUrl: string | null;
+}
+
 // ── Pro-side request ──
 export interface ProIncomingRequest {
   id: string;
