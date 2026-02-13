@@ -155,3 +155,73 @@ Batch 5/6: 15 queries
 [2026-02-13 13:53:25]   Last:  real estate attorney in Clarendon Hills, IL
 [2026-02-13 13:53:26]   Job started: ab-5e2e3c31-4510-4679-a0e2-2a01f6eb7f99
 [2026-02-13 13:53:26]   ⏳ Job ab-5e2e3c31-4510-4679-a0e2-2a01f6eb7f99 status=Pending (poll 1)
+[2026-02-13 13:55:02]   ✅ Batch complete. Data shape=flat. Added 255 new unique. Total unique now 2535.
+[2026-02-13 13:55:03] 
+Batch 6/6: 3 queries
+[2026-02-13 13:55:03]   First: real estate attorney in Elmhurst, IL
+[2026-02-13 13:55:03]   Last:  real estate attorney in Mattoon, IL
+[2026-02-13 13:55:04]   Job started: a-f27b7405-61da-4509-bede-d0f4cdc463a0
+[2026-02-13 13:55:05]   ⏳ Job a-f27b7405-61da-4509-bede-d0f4cdc463a0 status=Pending (poll 1)
+[2026-02-13 13:55:20]   ✅ Batch complete. Data shape=flat. Added 13 new unique. Total unique now 2548.
+[2026-02-13 13:55:22] 
+✅ Category finished: real estate attorney. Newly added unique this run: 2548. Total on disk: 2548
+[2026-02-13 13:55:23] Balance after 'real estate attorney': $235.24
+[2026-02-13 13:55:23] 
+======================================================================
+[2026-02-13 13:55:23] CATEGORY: homeowners insurance agent
+[2026-02-13 13:55:23] Existing records: 0
+[2026-02-13 13:55:23] Total queries to run now: 78
+[2026-02-13 13:55:23] ======================================================================
+[2026-02-13 13:55:23] 
+Batch 1/6: 15 queries
+[2026-02-13 13:55:23]   First: homeowners insurance agent in Chicago Loop, IL
+[2026-02-13 13:55:23]   Last:  homeowners insurance agent in Naperville, IL
+[2026-02-13 13:55:24]   Job started: ab-4f0e7bdb-ed81-4463-b32f-a0be0b3b09dc
+[2026-02-13 13:55:24]   ⏳ Job ab-4f0e7bdb-ed81-4463-b32f-a0be0b3b09dc status=Pending (poll 1)
+[2026-02-13 13:57:44]   ⏳ Job ab-4f0e7bdb-ed81-4463-b32f-a0be0b3b09dc status=Pending (poll 10)
+[2026-02-13 13:59:55]   ✅ Batch complete. Data shape=flat. Added 802 new unique. Total unique now 802.
+[2026-02-13 13:59:56] 
+Batch 2/6: 15 queries
+[2026-02-13 13:59:56]   First: homeowners insurance agent in Aurora, IL
+[2026-02-13 13:59:56]   Last:  homeowners insurance agent in Tinley Park, IL
+[2026-02-13 13:59:56]   Job started: ab-b5f4f7f1-0715-4e1c-9acd-bd632f3a4367
+[2026-02-13 13:59:57]   ⏳ Job ab-b5f4f7f1-0715-4e1c-9acd-bd632f3a4367 status=Pending (poll 1)
+[2026-02-13 14:02:17]   ⏳ Job ab-b5f4f7f1-0715-4e1c-9acd-bd632f3a4367 status=Pending (poll 10)
+[2026-02-13 14:04:41]   ✅ Batch complete. Data shape=flat. Added 1437 new unique. Total unique now 2239.
+[2026-02-13 14:04:42] 
+Batch 3/6: 15 queries
+[2026-02-13 14:04:42]   First: homeowners insurance agent in Downers Grove, IL
+[2026-02-13 14:04:42]   Last:  homeowners insurance agent in Carbondale, IL
+[2026-02-13 14:04:42]   Job started: ab-e1af6eab-7d3b-40aa-8b9a-924d7005ddee
+[2026-02-13 14:04:43]   ⏳ Job ab-e1af6eab-7d3b-40aa-8b9a-924d7005ddee status=Pending (poll 1)
+[2026-02-13 14:07:02]   ⏳ Job ab-e1af6eab-7d3b-40aa-8b9a-924d7005ddee status=Pending (poll 10)
+[2026-02-13 14:07:36]   ✅ Batch complete. Data shape=flat. Added 561 new unique. Total unique now 2800.
+[2026-02-13 14:07:37] 
+Batch 4/6: 15 queries
+[2026-02-13 14:07:37]   First: homeowners insurance agent in Quincy, IL
+[2026-02-13 14:07:37]   Last:  homeowners insurance agent in Mundelein, IL
+[2026-02-13 14:07:38]   Job started: ab-ae3c9989-8e59-4f66-ba37-6315a580b8fe
+[2026-02-13 14:07:39]   ⏳ Job ab-ae3c9989-8e59-4f66-ba37-6315a580b8fe status=Pending (poll 1)
+[2026-02-13 14:09:59]   ⏳ Job ab-ae3c9989-8e59-4f66-ba37-6315a580b8fe status=Pending (poll 10)
+[2026-02-13 14:11:18]   ✅ Batch complete. Data shape=flat. Added 444 new unique. Total unique now 3244.
+[2026-02-13 14:11:19] 
+Batch 5/6: 15 queries
+[2026-02-13 14:11:19]   First: homeowners insurance agent in Wheeling, IL
+[2026-02-13 14:11:19]   Last:  homeowners insurance agent in Clarendon Hills, IL
+[2026-02-13 14:11:21]   Job started: ab-f809ed63-18cb-49e6-98eb-9514a4f15a4b
+[2026-02-13 14:11:21]   ⏳ Job ab-f809ed63-18cb-49e6-98eb-9514a4f15a4b status=Pending (poll 1)
+[2026-02-13 14:13:41]   ⏳ Job ab-f809ed63-18cb-49e6-98eb-9514a4f15a4b status=Pending (poll 10)
+[2026-02-13 14:14:30]   ✅ Batch complete. Data shape=flat. Added 351 new unique. Total unique now 3595.
+[2026-02-13 14:14:31] 
+Batch 6/6: 3 queries
+[2026-02-13 14:14:31]   First: homeowners insurance agent in Elmhurst, IL
+[2026-02-13 14:14:31]   Last:  homeowners insurance agent in Mattoon, IL
+[2026-02-13 14:14:31]   Job started: a-4a79adf1-f4ed-45ec-a6de-947838426cfb
+[2026-02-13 14:14:32]   ⏳ Job a-4a79adf1-f4ed-45ec-a6de-947838426cfb status=Pending (poll 1)
+[2026-02-13 14:15:04]   ✅ Batch complete. Data shape=flat. Added 86 new unique. Total unique now 3681.
+[2026-02-13 14:15:05] 
+✅ Category finished: homeowners insurance agent. Newly added unique this run: 3681. Total on disk: 3681
+[2026-02-13 14:15:06] Balance after 'homeowners insurance agent': $214.66
+[2026-02-13 14:15:06] 
+All requested categories complete.
+[2026-02-13 14:15:08] Final balance: $214.66

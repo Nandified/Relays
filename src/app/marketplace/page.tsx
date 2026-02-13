@@ -428,10 +428,7 @@ function MarketplaceContent() {
             </div>
           ) : null}
 
-          {/* IDFPR divider */}
-          {idfprData.length > 0 && <SectionDivider label="Licensed professionals" />}
-
-          {/* IDFPR cards */}
+          {/* IDFPR cards — seamlessly mixed in, no divider */}
           {idfprData.map((prof) => (
             <ExpandableIdfprCard
               key={prof.id}
@@ -481,10 +478,7 @@ function MarketplaceContent() {
             </div>
           ) : null}
 
-          {/* IDFPR divider */}
-          {idfprData.length > 0 && <SectionDivider label="Licensed professionals" />}
-
-          {/* IDFPR cards */}
+          {/* IDFPR cards — seamlessly mixed in, no divider */}
           {idfprData.map((prof) => (
             <IdfprCard
               key={prof.id}

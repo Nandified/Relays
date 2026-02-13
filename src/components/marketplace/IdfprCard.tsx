@@ -4,13 +4,34 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { type UnclaimedProfessional } from "@/lib/types";
 
-const categoryEmoji: Record<string, string> = {
-  Realtor: "🏠",
-  "Mortgage Lender": "🏦",
-  Attorney: "⚖️",
-  "Home Inspector": "🔍",
-  "Insurance Agent": "🛡️",
-};
+function getInitials(name: string): string {
+  return name
+    .split(/[\s,]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+// Deterministic soft color from name for the initials avatar
+const AVATAR_COLORS = [
+  "from-blue-600/30 to-blue-500/10 text-blue-300",
+  "from-violet-600/30 to-violet-500/10 text-violet-300",
+  "from-emerald-600/30 to-emerald-500/10 text-emerald-300",
+  "from-amber-600/30 to-amber-500/10 text-amber-300",
+  "from-rose-600/30 to-rose-500/10 text-rose-300",
+  "from-cyan-600/30 to-cyan-500/10 text-cyan-300",
+  "from-fuchsia-600/30 to-fuchsia-500/10 text-fuchsia-300",
+  "from-lime-600/30 to-lime-500/10 text-lime-300",
+];
+
+function avatarColor(name: string): string {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}
 
 export function IdfprCard({
   professional,
@@ -21,13 +42,14 @@ export function IdfprCard({
   selected?: boolean;
   onSelect?: () => void;
 }) {
-  const emoji = categoryEmoji[professional.category] ?? "📋";
+  const initials = getInitials(professional.name);
+  const colorClass = avatarColor(professional.name);
 
   return (
     <button className="w-full text-left" onClick={onSelect}>
-      <Card hover selected={selected} padding="none" className={`p-4 transition-all border-dashed`}>
+      <Card hover selected={selected} padding="none" className="p-4 transition-all">
         <div className="flex items-start gap-3">
-          {/* Avatar — show photo if enriched, else emoji fallback */}
+          {/* Avatar — photo if enriched, else initials */}
           {professional.photoUrl ? (
             <img
               src={professional.photoUrl}
@@ -35,35 +57,25 @@ export function IdfprCard({
               className="h-[52px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] text-lg opacity-60">
-              {emoji}
+            <div className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-gradient-to-br ${colorClass} text-base font-semibold`}>
+              {initials}
             </div>
           )}
+
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-slate-100 opacity-80">{professional.name}</div>
+                <div className="truncate text-sm font-semibold text-slate-100">{professional.name}</div>
                 <div className="truncate text-xs text-slate-500">
-                  {(professional.officeName || (professional.company !== professional.name ? professional.company : professional.city))}
+                  {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
+                  {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
                   {professional.state ? `, ${professional.state}` : ""}
                 </div>
-              </div>
-              {/* IDFPR badge */}
-              <div className="flex-shrink-0">
-                <Badge variant="default" className="text-[10px] opacity-70">
-                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-0.5">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  IDFPR
-                </Badge>
               </div>
             </div>
 
             <div className="mt-2 flex flex-wrap gap-1">
               <Badge variant="outline" className="opacity-70">{professional.category}</Badge>
-              {!professional.claimed && (
-                <Badge variant="warning" className="opacity-80">Unclaimed</Badge>
-              )}
             </div>
 
             <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">

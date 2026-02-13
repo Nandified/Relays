@@ -11,16 +11,37 @@ interface ExpandableIdfprCardProps {
   onToggle: () => void;
 }
 
-const categoryEmoji: Record<string, string> = {
-  Realtor: "🏠",
-  "Mortgage Lender": "🏦",
-  Attorney: "⚖️",
-  "Home Inspector": "🔍",
-  "Insurance Agent": "🛡️",
-};
+function getInitials(name: string): string {
+  return name
+    .split(/[\s,]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+const AVATAR_COLORS = [
+  "from-blue-600/30 to-blue-500/10 text-blue-300",
+  "from-violet-600/30 to-violet-500/10 text-violet-300",
+  "from-emerald-600/30 to-emerald-500/10 text-emerald-300",
+  "from-amber-600/30 to-amber-500/10 text-amber-300",
+  "from-rose-600/30 to-rose-500/10 text-rose-300",
+  "from-cyan-600/30 to-cyan-500/10 text-cyan-300",
+  "from-fuchsia-600/30 to-fuchsia-500/10 text-fuchsia-300",
+  "from-lime-600/30 to-lime-500/10 text-lime-300",
+];
+
+function avatarColor(name: string): string {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}
 
 export function ExpandableIdfprCard({ professional, expanded, onToggle }: ExpandableIdfprCardProps) {
-  const emoji = categoryEmoji[professional.category] ?? "📋";
+  const initials = getInitials(professional.name);
+  const colorClass = avatarColor(professional.name);
 
   return (
     <button className="w-full min-w-0 text-left" onClick={onToggle}>
@@ -28,7 +49,7 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
         hover
         selected={expanded}
         padding="none"
-        className="overflow-hidden p-3 sm:p-4 transition-all border-dashed"
+        className="overflow-hidden p-3 sm:p-4 transition-all"
       >
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">
@@ -39,45 +60,35 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
               className="h-[52px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] text-lg opacity-60">
-              {emoji}
+            <div className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-gradient-to-br ${colorClass} text-base font-semibold`}>
+              {initials}
             </div>
           )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-slate-100 opacity-80">{professional.name}</div>
+                <div className="truncate text-sm font-semibold text-slate-100">{professional.name}</div>
                 <div className="truncate text-xs text-slate-500">
-                  {(professional.officeName || (professional.company !== professional.name ? professional.company : professional.city))}
+                  {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
+                  {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
                   {professional.state ? `, ${professional.state}` : ""}
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="default" className="text-[10px] opacity-70">
-                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-0.5">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  IDFPR
-                </Badge>
-                <svg
-                  width="16"
-                  height="16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  className={`text-slate-500 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </div>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                className={`text-slate-500 transition-transform duration-300 flex-shrink-0 ${expanded ? "rotate-180" : ""}`}
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
             </div>
 
             <div className="mt-2 flex flex-wrap gap-1">
               <Badge variant="outline" className="opacity-70">{professional.category}</Badge>
-              {!professional.claimed && (
-                <Badge variant="warning" className="opacity-80">Unclaimed</Badge>
-              )}
             </div>
 
             <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
@@ -106,21 +117,6 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
         >
           <div className="overflow-hidden">
             <div className="mt-4 border-t border-[var(--border)] pt-4">
-              {/* IDFPR licensed banner */}
-              <div className="mb-3 rounded-xl bg-violet-500/8 border border-violet-500/15 px-3 py-2.5">
-                <div className="flex items-start gap-2">
-                  <svg width="16" height="16" fill="none" stroke="#8b5cf6" strokeWidth="2" viewBox="0 0 24 24" className="mt-0.5 flex-shrink-0">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  <div>
-                    <p className="text-xs font-medium text-violet-400">IDFPR Licensed Professional</p>
-                    <p className="text-[11px] text-violet-400/70 mt-0.5">
-                      This professional hasn&apos;t claimed their Relays profile yet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
               {/* Location */}
               <div className="flex items-center gap-2 text-xs text-slate-400">
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0 opacity-60">
