@@ -13,6 +13,7 @@ interface SearchSuggestionsProps {
   categories?: string[];
   onSelectPro: (pro: Pro) => void;
   onSelectPlace: (place: PlacesResult) => void;
+  onSelectIdfpr?: (professional: UnclaimedProfessional) => void;
   onSeeAll?: (query: string) => void;
   visible: boolean;
   className?: string;
@@ -50,6 +51,7 @@ export function SearchSuggestions({
   categories,
   onSelectPro,
   onSelectPlace,
+  onSelectIdfpr,
   onSeeAll,
   visible,
   className = "",
@@ -163,8 +165,8 @@ export function SearchSuggestions({
         if (activeIndex < matchedPros.length) {
           onSelectPro(matchedPros[activeIndex]);
         } else if (activeIndex < matchedPros.length + matchedIdfpr.length) {
-          // IDFPR result — navigate to marketplace with search
-          if (onSeeAll) onSeeAll(query);
+          const prof = matchedIdfpr[activeIndex - matchedPros.length];
+          if (onSelectIdfpr) onSelectIdfpr(prof);
         } else if (activeIndex < matchedPros.length + matchedIdfpr.length + matchedPlaces.length) {
           onSelectPlace(matchedPlaces[activeIndex - matchedPros.length - matchedIdfpr.length]);
         } else if (onSeeAll) {
@@ -174,7 +176,7 @@ export function SearchSuggestions({
         // Parent handles closing
       }
     },
-    [visible, totalItems, activeIndex, matchedPros, matchedIdfpr, matchedPlaces, onSelectPro, onSelectPlace, onSeeAll, query]
+    [visible, totalItems, activeIndex, matchedPros, matchedIdfpr, matchedPlaces, onSelectPro, onSelectIdfpr, onSelectPlace, onSeeAll, query]
   );
 
   React.useEffect(() => {
@@ -303,7 +305,7 @@ export function SearchSuggestions({
                 <button
                   key={prof.id}
                   data-suggestion-item
-                  onClick={() => onSeeAll?.(query)}
+                  onClick={() => onSelectIdfpr?.(prof)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
                     ${isActive ? "bg-white/[0.08]" : "hover:bg-white/[0.05]"}
@@ -404,7 +406,7 @@ export function SearchSuggestions({
                   : "text-slate-500 hover:text-blue-400 hover:bg-white/[0.05]"}
               `}
             >
-              See all results for &ldquo;{query.trim()}&rdquo; →
+              Browse all professionals →
             </button>
           </>
         )}

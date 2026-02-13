@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { SearchSuggestions } from "@/components/search/SearchSuggestions";
-import { type Pro } from "@/lib/types";
+import { type Pro, type UnclaimedProfessional } from "@/lib/types";
 import { type PlacesResult } from "@/lib/google-places";
 
 const PLACEHOLDER_SERVICES = [
@@ -220,6 +220,11 @@ export function HeroSearchBar() {
     router.push(`/marketplace?placeId=${place.placeId}`);
   }
 
+  function handleSelectIdfpr(professional: UnclaimedProfessional) {
+    setIsOpen(false);
+    router.push(`/professionals/${professional.id}`);
+  }
+
   function handleSeeAll(q: string) {
     setIsOpen(false);
     const params = new URLSearchParams();
@@ -390,6 +395,7 @@ export function HeroSearchBar() {
           categories={activeCategoryArray.length > 0 ? activeCategoryArray : undefined}
           onSelectPro={handleSelectPro}
           onSelectPlace={handleSelectPlace}
+          onSelectIdfpr={handleSelectIdfpr}
           onSeeAll={handleSeeAll}
           visible={showSuggestions}
           className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative mt-2"

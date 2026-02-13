@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { getAllPlaces, type PlacesResult } from "@/lib/google-places";
 import { type Pro, type UnclaimedProfessional } from "@/lib/types";
@@ -28,6 +28,7 @@ const IDFPR_PAGE_SIZE = 50;
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const initialQuery = searchParams.get("q") ?? "";
   const initialCategories = searchParams.get("categories") ?? "";
   const initialPlaceId = searchParams.get("placeId") ?? "";
@@ -285,6 +286,10 @@ function MarketplaceContent() {
     window.scrollTo({ top: 300, behavior: "smooth" });
   }, []);
 
+  const handleSearchSelectIdfpr = React.useCallback((professional: UnclaimedProfessional) => {
+    router.push(`/professionals/${professional.id}`);
+  }, [router]);
+
   const handleSearchSelectPlace = React.useCallback((place: PlacesResult) => {
     setSelected({ type: "places", placeId: place.placeId });
     setHighlightedPlaceId(place.placeId);
@@ -362,6 +367,7 @@ function MarketplaceContent() {
           onChange={setQuery}
           onSelectPro={handleSearchSelectPro}
           onSelectPlace={handleSearchSelectPlace}
+          onSelectIdfpr={handleSearchSelectIdfpr}
           categoryFilter={categoryFilter}
           zip={zip}
           onZipChange={setZip}

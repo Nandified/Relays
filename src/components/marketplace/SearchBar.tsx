@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { SearchSuggestions } from "@/components/search/SearchSuggestions";
-import { type Pro } from "@/lib/types";
+import { type Pro, type UnclaimedProfessional } from "@/lib/types";
 import { type PlacesResult } from "@/lib/google-places";
 
 interface SearchBarProps {
@@ -11,6 +11,7 @@ interface SearchBarProps {
   placeholder?: string;
   onSelectPro?: (pro: Pro) => void;
   onSelectPlace?: (place: PlacesResult) => void;
+  onSelectIdfpr?: (professional: UnclaimedProfessional) => void;
   categoryFilter?: string | null;
   zip?: string;
   onZipChange?: (zip: string) => void;
@@ -22,6 +23,7 @@ export function SearchBar({
   placeholder = "Search by name, company, or profession...",
   onSelectPro,
   onSelectPlace,
+  onSelectIdfpr,
   categoryFilter,
   zip = "",
   onZipChange,
@@ -156,6 +158,10 @@ export function SearchBar({
           }}
           onSelectPlace={(place) => {
             onSelectPlace?.(place);
+            setIsFocused(false);
+          }}
+          onSelectIdfpr={(prof) => {
+            onSelectIdfpr?.(prof);
             setIsFocused(false);
           }}
           visible={showSuggestions}
