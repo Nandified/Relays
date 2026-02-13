@@ -1,0 +1,72 @@
+[2026-02-13 13:17:36] 
+======================================================================
+[2026-02-13 13:17:36] OUTSCRAPER FIXED IL SCRAPER
+[2026-02-13 13:17:36] Batch size: 15 | Poll interval: 15s | Timeout: 45m
+[2026-02-13 13:17:36] ======================================================================
+[2026-02-13 13:17:38] Starting balance: $269.54
+[2026-02-13 13:17:38] No covered cities detected for 'mortgage lender' (existing file empty or missing fields). Running all 78 cities.
+[2026-02-13 13:17:38] 
+======================================================================
+[2026-02-13 13:17:38] CATEGORY: mortgage lender
+[2026-02-13 13:17:38] Existing records: 0
+[2026-02-13 13:17:38] Total queries to run now: 78
+[2026-02-13 13:17:38] ======================================================================
+[2026-02-13 13:17:38] 
+Batch 1/6: 15 queries
+[2026-02-13 13:17:38]   First: mortgage lender in Chicago Loop, IL
+[2026-02-13 13:17:38]   Last:  mortgage lender in Naperville, IL
+[2026-02-13 13:17:38]   Job started: ab-5aa80a2f-bb11-4375-89a0-466adf92123e
+[2026-02-13 13:17:39]   ⏳ Job ab-5aa80a2f-bb11-4375-89a0-466adf92123e status=Pending (poll 1)
+[2026-02-13 13:19:58]   ⏳ Job ab-5aa80a2f-bb11-4375-89a0-466adf92123e status=Pending (poll 10)
+[2026-02-13 13:21:03]   ✅ Batch complete. Data shape=flat. Added 835 new unique. Total unique now 835.
+[2026-02-13 13:21:04] 
+Batch 2/6: 15 queries
+[2026-02-13 13:21:04]   First: mortgage lender in Aurora, IL
+[2026-02-13 13:21:04]   Last:  mortgage lender in Tinley Park, IL
+[2026-02-13 13:21:05]   Job started: ab-9c9dd237-8341-4e50-b75e-f81452a6ad3d
+[2026-02-13 13:21:05]   ⏳ Job ab-9c9dd237-8341-4e50-b75e-f81452a6ad3d status=Pending (poll 1)
+[2026-02-13 13:21:22]   ✅ Batch complete. Data shape=flat. Added 806 new unique. Total unique now 1641.
+[2026-02-13 13:21:24] 
+Batch 3/6: 15 queries
+[2026-02-13 13:21:24]   First: mortgage lender in Downers Grove, IL
+[2026-02-13 13:21:24]   Last:  mortgage lender in Carbondale, IL
+[2026-02-13 13:21:24]   Job started: ab-0971aeed-92c0-458d-b78c-0afd15d95968
+[2026-02-13 13:21:24]   ⏳ Job ab-0971aeed-92c0-458d-b78c-0afd15d95968 status=Pending (poll 1)
+[2026-02-13 13:22:13]   ✅ Batch complete. Data shape=flat. Added 450 new unique. Total unique now 2091.
+[2026-02-13 13:22:14] 
+Batch 4/6: 15 queries
+[2026-02-13 13:22:14]   First: mortgage lender in Quincy, IL
+[2026-02-13 13:22:14]   Last:  mortgage lender in Mundelein, IL
+[2026-02-13 13:22:15]   Job started: ab-a14c6d53-0124-489e-bbed-a91b73cf6c4c
+[2026-02-13 13:22:16]   ⏳ Job ab-a14c6d53-0124-489e-bbed-a91b73cf6c4c status=Pending (poll 1)
+[2026-02-13 13:23:04]   ✅ Batch complete. Data shape=flat. Added 339 new unique. Total unique now 2430.
+[2026-02-13 13:23:05] 
+Batch 5/6: 15 queries
+[2026-02-13 13:23:05]   First: mortgage lender in Wheeling, IL
+[2026-02-13 13:23:05]   Last:  mortgage lender in Clarendon Hills, IL
+[2026-02-13 13:23:05]   Job started: ab-412558a6-8d85-44ef-826a-735dc75d7651
+[2026-02-13 13:23:06]   ⏳ Job ab-412558a6-8d85-44ef-826a-735dc75d7651 status=Pending (poll 1)
+[2026-02-13 13:24:40]   ✅ Batch complete. Data shape=flat. Added 286 new unique. Total unique now 2716.
+[2026-02-13 13:24:42] 
+Batch 6/6: 3 queries
+[2026-02-13 13:24:42]   First: mortgage lender in Elmhurst, IL
+[2026-02-13 13:24:42]   Last:  mortgage lender in Mattoon, IL
+[2026-02-13 13:24:43]   Job started: a-b0baf44a-2e0f-4d54-9166-929a620781c9
+[2026-02-13 13:24:43]   ⏳ Job a-b0baf44a-2e0f-4d54-9166-929a620781c9 status=Pending (poll 1)
+[2026-02-13 13:24:59]   ✅ Batch complete. Data shape=flat. Added 48 new unique. Total unique now 2764.
+[2026-02-13 13:25:00] 
+✅ Category finished: mortgage lender. Newly added unique this run: 2764. Total on disk: 2764
+[2026-02-13 13:25:02] Balance after 'mortgage lender': $269.54
+[2026-02-13 13:25:02] No covered cities detected for 'home inspector' (existing file empty or missing fields). Running all 78 cities.
+[2026-02-13 13:25:02] 
+======================================================================
+[2026-02-13 13:25:02] CATEGORY: home inspector
+[2026-02-13 13:25:02] Existing records: 0
+[2026-02-13 13:25:02] Total queries to run now: 78
+[2026-02-13 13:25:02] ======================================================================
+[2026-02-13 13:25:02] 
+Batch 1/6: 15 queries
+[2026-02-13 13:25:02]   First: home inspector in Chicago Loop, IL
+[2026-02-13 13:25:02]   Last:  home inspector in Naperville, IL
+[2026-02-13 13:25:02]   Job started: ab-6e3a1fc7-95ec-4eef-a08e-607726540911
+[2026-02-13 13:25:03]   ⏳ Job ab-6e3a1fc7-95ec-4eef-a08e-607726540911 status=Pending (poll 1)

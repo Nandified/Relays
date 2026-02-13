@@ -365,10 +365,6 @@ function MarketplaceContent() {
         <SearchBar
           value={query}
           onChange={setQuery}
-          onSelectPro={handleSearchSelectPro}
-          onSelectPlace={handleSearchSelectPlace}
-          onSelectIdfpr={handleSearchSelectIdfpr}
-          categoryFilter={categoryFilter}
           zip={zip}
           onZipChange={setZip}
         />

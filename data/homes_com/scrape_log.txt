@@ -1,0 +1,11 @@
+[2026-02-13 13:25:10] Starting Homes.com scrape. Regions: 2
+[2026-02-13 13:25:10] max_pages_per_city=2, fetch_profiles=False
+[2026-02-13 13:25:12] City: Chicago, IL
+[2026-02-13 13:25:12]   Search page 1: https://www.homes.com/real-estate-agents/chicago-il/
+[2026-02-13 13:25:19]     Parsed agents: 48
+[2026-02-13 13:25:25]   Search page 2: https://www.homes.com/real-estate-agents/chicago-il/p2/
+[2026-02-13 13:25:32]     BLOCKED (Access Denied). Stopping.
+[2026-02-13 13:25:38] City: Naperville, IL
+[2026-02-13 13:25:38]   Search page 1: https://www.homes.com/real-estate-agents/naperville-il/
+[2026-02-13 13:25:44]     BLOCKED (Access Denied). Stopping.
+[2026-02-13 13:25:57] DONE. Wrote 48 agents -> /Users/Clawdbot/clawd/Relays/data/homes_com/il_agents.json

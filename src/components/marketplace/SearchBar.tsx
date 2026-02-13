@@ -1,18 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { SearchSuggestions } from "@/components/search/SearchSuggestions";
-import { type Pro, type UnclaimedProfessional } from "@/lib/types";
-import { type PlacesResult } from "@/lib/google-places";
 
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  onSelectPro?: (pro: Pro) => void;
-  onSelectPlace?: (place: PlacesResult) => void;
-  onSelectIdfpr?: (professional: UnclaimedProfessional) => void;
-  categoryFilter?: string | null;
   zip?: string;
   onZipChange?: (zip: string) => void;
 }
@@ -21,24 +14,11 @@ export function SearchBar({
   value,
   onChange,
   placeholder = "Search by name, company, or profession...",
-  onSelectPro,
-  onSelectPlace,
-  onSelectIdfpr,
-  categoryFilter,
   zip = "",
   onZipChange,
 }: SearchBarProps) {
-  const [isFocused, setIsFocused] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const geoAttempted = React.useRef(false);
-
-  const showSuggestions = isFocused && value.trim().length > 0 && (!!onSelectPro || !!onSelectPlace);
-
-  // Category filter as array for SearchSuggestions
-  const categories = React.useMemo(() => {
-    if (!categoryFilter) return undefined;
-    return [categoryFilter];
-  }, [categoryFilter]);
 
   // Auto-detect zip from geolocation
   React.useEffect(() => {
@@ -65,33 +45,13 @@ export function SearchBar({
     );
   }, [onZipChange]);
 
-  // Close on outside click
-  React.useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setIsFocused(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Close on Escape
-  React.useEffect(() => {
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") setIsFocused(false);
-    }
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+  // No dropdown listeners needed — search filters the list directly
 
   return (
     <div ref={containerRef} className="relative">
       {/* Glow backdrop */}
       <div
-        className={`absolute -inset-1.5 bg-gradient-to-r from-blue-500/15 via-blue-400/8 to-indigo-500/15 blur-xl transition-opacity duration-500 rounded-[28px] ${
-          isFocused ? "opacity-100" : "opacity-0"
-        }`}
+        className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/15 via-blue-400/8 to-indigo-500/15 blur-xl transition-opacity duration-500 rounded-[28px] opacity-0 group-focus-within:opacity-100"
       />
 
       {/* Search bar pill */}
@@ -110,8 +70,8 @@ export function SearchBar({
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onClick={() => setIsFocused(true)}
+            
+            
             placeholder={placeholder}
             className="flex-1 min-w-0 bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-200 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
             style={{ outline: "none" }}
@@ -130,7 +90,7 @@ export function SearchBar({
               type="text"
               value={zip}
               onChange={(e) => onZipChange?.(e.target.value.replace(/\D/g, "").slice(0, 5))}
-              onFocus={() => setIsFocused(true)}
+              
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
@@ -147,27 +107,7 @@ export function SearchBar({
         </div>
       </div>
 
-      {/* Live search suggestions dropdown */}
-      {showSuggestions && (
-        <SearchSuggestions
-          query={value}
-          categories={categories}
-          onSelectPro={(pro) => {
-            onSelectPro?.(pro);
-            setIsFocused(false);
-          }}
-          onSelectPlace={(place) => {
-            onSelectPlace?.(place);
-            setIsFocused(false);
-          }}
-          onSelectIdfpr={(prof) => {
-            onSelectIdfpr?.(prof);
-            setIsFocused(false);
-          }}
-          visible={showSuggestions}
-          className="absolute left-0 right-0 top-full mt-2 z-50"
-        />
-      )}
+      {/* No dropdown on marketplace — search filters the list below directly */}
     </div>
   );
 }
