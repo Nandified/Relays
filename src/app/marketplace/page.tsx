@@ -234,7 +234,7 @@ function MarketplaceContent() {
   }, [categoryFilter, urlCategories]);
 
   return (
-    <main className="mx-auto max-w-6xl px-3 sm:px-4 py-4 sm:py-6">
+    <main className="mx-auto max-w-6xl overflow-x-hidden px-3 sm:px-4 py-4 sm:py-6">
       {/* Header */}
       <div className="mb-4 sm:mb-6 text-center sm:text-left">
         <h1 className="text-xl sm:text-3xl font-bold text-slate-100">
@@ -299,9 +299,9 @@ function MarketplaceContent() {
       </div>
 
       {/* Two-column layout */}
-      <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_380px] min-w-0">
         {/* Results list */}
-        <section className="space-y-2 sm:space-y-3">
+        <section className="min-w-0 space-y-2 sm:space-y-3">
           {/* Relays pros */}
           {filteredPros.length > 0 ? (
             filteredPros.map((pro) => (

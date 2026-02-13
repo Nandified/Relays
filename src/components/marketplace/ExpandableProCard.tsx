@@ -27,12 +27,12 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
   }, [expanded, pro]);
 
   return (
-    <button className="w-full text-left" onClick={onToggle}>
+    <button className="w-full min-w-0 text-left" onClick={onToggle}>
       <Card
         hover
         selected={expanded}
         padding="none"
-        className="p-3 sm:p-4 transition-all"
+        className="overflow-hidden p-3 sm:p-4 transition-all"
       >
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">

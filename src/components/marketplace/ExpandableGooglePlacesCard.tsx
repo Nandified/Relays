@@ -52,12 +52,12 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
   const emoji = categoryEmoji[place.categories[0]] ?? "📍";
 
   return (
-    <button className="w-full text-left" onClick={onToggle}>
+    <button className="w-full min-w-0 text-left" onClick={onToggle}>
       <Card
         hover
         selected={expanded}
         padding="none"
-        className={`p-3 sm:p-4 transition-all ${!place.claimed ? "border-dashed" : ""}`}
+        className={`overflow-hidden p-3 sm:p-4 transition-all ${!place.claimed ? "border-dashed" : ""}`}
       >
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">
