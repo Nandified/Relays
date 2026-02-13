@@ -55,3 +55,28 @@
 [2026-02-13 11:51:55]   ⏳ Still processing... (poll 85)
 [2026-02-13 11:52:28]   ⏳ Still processing... (poll 91)
 [2026-02-13 11:53:02]   ⏳ Still processing... (poll 97)
+[2026-02-13 13:04:46] Still processing... elapsed 2.1 min
+[2026-02-13 13:05:51] SUCCESS: +0 new records (0 total)
+[2026-02-13 13:05:51] Saved 0 total records -> il_mortgage_lender_results.json
+[2026-02-13 13:05:53] 
+Batch 5/5 | 5 queries
+[2026-02-13 13:05:53] First query: mortgage lender in Galesburg, IL
+[2026-02-13 13:05:53] Last query : mortgage lender in Mattoon, IL
+[2026-02-13 13:05:54] Job started: ab-8d43a227-6983-457d-b6b4-5d01c1b3604a
+[2026-02-13 13:06:38] SUCCESS: +0 new records (0 total)
+[2026-02-13 13:06:38] Saved 0 total records -> il_mortgage_lender_results.json
+[2026-02-13 13:06:40] 
+DONE category 'mortgage lender': 0 total records saved
+[2026-02-13 13:06:42] Balance after 'mortgage lender': $273.47
+[2026-02-13 13:06:42] 
+================================================================================
+[2026-02-13 13:06:42] CATEGORY: home inspector
+[2026-02-13 13:06:42] Total queries overall: 77 | starting at offset 0 => 77 to run
+[2026-02-13 13:06:42] Batch size: 18 | Poll interval: 10s | Max wait: 45.0 min
+[2026-02-13 13:06:42] ================================================================================
+[2026-02-13 13:06:42] Loaded existing: 0 records (0 with place_id)
+[2026-02-13 13:06:42] 
+Batch 1/5 | 18 queries
+[2026-02-13 13:06:42] First query: home inspector in Chicago Loop, IL
+[2026-02-13 13:06:42] Last query : home inspector in Wilmette, IL
+[2026-02-13 13:06:42] Job started: ab-24254d78-6b2c-4b38-a29d-c5864974b725
