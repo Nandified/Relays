@@ -324,7 +324,9 @@ export function SearchSuggestions({
                       </span>
                     </div>
                     <div className="truncate text-xs text-slate-500">
-                      {prof.category}{prof.city ? ` · ${prof.city}` : ""}{prof.licenseNumber ? ` · #${prof.licenseNumber}` : ""}
+                      {prof.category}
+                      {prof.officeName ? ` · ${prof.officeName}` : (prof.city ? ` · ${prof.city}` : "")}
+                      {prof.licenseNumber ? ` · #${prof.licenseNumber}` : ""}
                     </div>
                   </div>
                 </button>

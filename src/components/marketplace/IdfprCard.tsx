@@ -36,7 +36,8 @@ export function IdfprCard({
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-slate-100 opacity-80">{professional.name}</div>
                 <div className="truncate text-xs text-slate-500">
-                  {professional.company !== professional.name ? professional.company : professional.city}{professional.state ? `, ${professional.state}` : ""}
+                  {(professional.officeName || (professional.company !== professional.name ? professional.company : professional.city))}
+                  {professional.state ? `, ${professional.state}` : ""}
                 </div>
               </div>
               {/* IDFPR badge */}

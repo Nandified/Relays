@@ -108,6 +108,7 @@ function rowToProfessional(row: Record<string, string>): UnclaimedProfessional |
     licenseNumber,
     licenseType: row.type ?? "",
     company: (row.company ?? "").trim(),
+    officeName: null,
     city: (row.city ?? "").trim(),
     state: (row.state ?? "IL").trim(),
     zip: (row.zip ?? "").trim(),
@@ -125,6 +126,51 @@ function rowToProfessional(row: Record<string, string>): UnclaimedProfessional |
     reviewCount: null,
     photoUrl: null,
   };
+}
+
+/* ── Enrichment loading (Outscraper / DBA office name) ───────── */
+
+type IdfprEnrichmentLookupFile = {
+  generatedAt?: string;
+  byLicenseNumber?: Record<
+    string,
+    {
+      phone?: string | null;
+      email?: string | null;
+      website?: string | null;
+      rating?: number | null;
+      reviewCount?: number | null;
+      photoUrl?: string | null;
+      officeName?: string | null;
+      googlePlaceId?: string | null;
+    }
+  >;
+};
+
+let cachedEnrichmentByLicense: Map<string, NonNullable<IdfprEnrichmentLookupFile["byLicenseNumber"]>[string]> | null = null;
+
+function getEnrichmentPath(): string {
+  return path.join(process.cwd(), "data", "idfpr", "idfpr_outscraper_enrichment.json");
+}
+
+function loadEnrichmentByLicense(): Map<string, NonNullable<IdfprEnrichmentLookupFile["byLicenseNumber"]>[string]> {
+  if (cachedEnrichmentByLicense) return cachedEnrichmentByLicense;
+
+  const filePath = getEnrichmentPath();
+  if (!fs.existsSync(filePath)) {
+    cachedEnrichmentByLicense = new Map();
+    return cachedEnrichmentByLicense;
+  }
+
+  try {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8")) as IdfprEnrichmentLookupFile;
+    const obj = parsed.byLicenseNumber ?? {};
+    cachedEnrichmentByLicense = new Map(Object.entries(obj));
+  } catch {
+    cachedEnrichmentByLicense = new Map();
+  }
+
+  return cachedEnrichmentByLicense;
 }
 
 /* ── In-memory cache ─────────────────────────────────────────── */
@@ -157,6 +203,22 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
     for (const row of rows) {
       const prof = rowToProfessional(row);
       if (prof) all.push(prof);
+    }
+  }
+
+  // Apply enrichment lookup (phone/website/rating + officeName)
+  const enrich = loadEnrichmentByLicense();
+  if (enrich.size) {
+    for (const p of all) {
+      const e = enrich.get(p.licenseNumber);
+      if (!e) continue;
+      p.phone = e.phone ?? p.phone;
+      p.email = e.email ?? p.email;
+      p.website = e.website ?? p.website;
+      p.rating = e.rating ?? p.rating;
+      p.reviewCount = e.reviewCount ?? p.reviewCount;
+      p.photoUrl = e.photoUrl ?? p.photoUrl;
+      p.officeName = e.officeName ?? p.officeName;
     }
   }
 
@@ -282,6 +344,7 @@ export function importCSV(filename: string, csvContent: string): number {
   // Invalidate cache so next read picks up new data
   cachedProfessionals = null;
   lastLoadTime = null;
+  cachedEnrichmentByLicense = null;
 
   // Parse and count valid rows
   const rows = parseCSVFile(filePath);
@@ -299,6 +362,7 @@ export function importCSV(filename: string, csvContent: string): number {
 export function reloadData(): void {
   cachedProfessionals = null;
   lastLoadTime = null;
+  cachedEnrichmentByLicense = null;
   loadAllProfessionals();
 }
 

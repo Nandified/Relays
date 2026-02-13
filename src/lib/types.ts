@@ -135,6 +135,11 @@ export interface UnclaimedProfessional {
   licenseNumber: string;
   licenseType: string; // "LICENSED REAL ESTATE BROKER", "LICENSED HOME INSPECTOR", etc.
   company: string;
+  /**
+   * Employing brokerage / office name (IDFPR compliance).
+   * Derived from IDFPR business DBA and/or Google Maps listing name.
+   */
+  officeName: string | null;
   city: string;
   state: string;
   zip: string;
@@ -145,7 +150,7 @@ export interface UnclaimedProfessional {
   category: ProServiceCategory; // mapped from licenseType
   claimed: boolean;
   claimedByProId: string | null;
-  // Future enrichment fields (from Outscraper)
+  // Enrichment fields (from Outscraper)
   phone: string | null;
   email: string | null;
   website: string | null;

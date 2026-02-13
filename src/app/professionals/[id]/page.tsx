@@ -108,8 +108,12 @@ export default function ProfessionalProfilePage() {
               </Badge>
             </div>
 
-            {professional.company && professional.company.toLowerCase() !== professional.name.toLowerCase() && (
-              <p className="mt-1 text-sm text-slate-400">{professional.company}</p>
+            {professional.officeName ? (
+              <p className="mt-1 text-sm text-slate-400">{professional.officeName}</p>
+            ) : (
+              professional.company && professional.company.toLowerCase() !== professional.name.toLowerCase() && (
+                <p className="mt-1 text-sm text-slate-400">{professional.company}</p>
+              )
             )}
 
             <div className="mt-2 flex flex-wrap items-center gap-2">
