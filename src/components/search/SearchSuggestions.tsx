@@ -4,7 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import { mockPros } from "@/lib/mock-data";
 import { searchPlacesByText, type PlacesResult } from "@/lib/google-places";
-import { type Pro } from "@/lib/types";
+import { type Pro, type UnclaimedProfessional } from "@/lib/types";
 
 /* ── Types ─────────────────────────────────────────────────────── */
 
@@ -56,19 +56,22 @@ export function SearchSuggestions({
   maxResults = 4,
 }: SearchSuggestionsProps) {
   const [matchedPros, setMatchedPros] = React.useState<Pro[]>([]);
+  const [matchedIdfpr, setMatchedIdfpr] = React.useState<UnclaimedProfessional[]>([]);
   const [matchedPlaces, setMatchedPlaces] = React.useState<PlacesResult[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const debounceRef = React.useRef<NodeJS.Timeout | null>(null);
+  const idfprAbortRef = React.useRef<AbortController | null>(null);
 
   // Total items for keyboard nav
-  const totalItems = matchedPros.length + matchedPlaces.length + (onSeeAll && query.trim() ? 1 : 0);
+  const totalItems = matchedPros.length + matchedIdfpr.length + matchedPlaces.length + (onSeeAll && query.trim() ? 1 : 0);
 
   // Debounced search
   React.useEffect(() => {
     if (!visible || !query.trim()) {
       setMatchedPros([]);
+      setMatchedIdfpr([]);
       setMatchedPlaces([]);
       setActiveIndex(-1);
       return;
@@ -78,11 +81,12 @@ export function SearchSuggestions({
     setActiveIndex(-1);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (idfprAbortRef.current) idfprAbortRef.current.abort();
 
     debounceRef.current = setTimeout(async () => {
       const q = query.trim().toLowerCase();
 
-      // Search Relays pros
+      // Search Relays pros (client-side)
       let proResults = mockPros.filter((p) => {
         const searchable = [p.name, p.companyName, ...p.categories, ...p.serviceAreas]
           .join(" ")
@@ -99,6 +103,26 @@ export function SearchSuggestions({
         );
       }
 
+      // Search IDFPR licensed professionals (API)
+      const idfprController = new AbortController();
+      idfprAbortRef.current = idfprController;
+      let idfprResults: UnclaimedProfessional[] = [];
+      try {
+        const params = new URLSearchParams({ q: query.trim(), limit: String(maxResults) });
+        if (categories && categories.length > 0 && !categories.includes("All")) {
+          params.set("category", categories[0]);
+        }
+        const res = await fetch(`/api/professionals?${params.toString()}`, {
+          signal: idfprController.signal,
+        });
+        if (res.ok) {
+          const data = await res.json();
+          idfprResults = data.data ?? [];
+        }
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+      }
+
       // Search Google Places
       let placeResults = await searchPlacesByText(query);
 
@@ -112,12 +136,14 @@ export function SearchSuggestions({
       }
 
       setMatchedPros(proResults.slice(0, maxResults));
+      setMatchedIdfpr(idfprResults.slice(0, maxResults));
       setMatchedPlaces(placeResults.slice(0, maxResults));
       setLoading(false);
     }, 300);
 
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (idfprAbortRef.current) idfprAbortRef.current.abort();
     };
   }, [query, categories, visible, maxResults]);
 
@@ -136,8 +162,11 @@ export function SearchSuggestions({
         e.preventDefault();
         if (activeIndex < matchedPros.length) {
           onSelectPro(matchedPros[activeIndex]);
-        } else if (activeIndex < matchedPros.length + matchedPlaces.length) {
-          onSelectPlace(matchedPlaces[activeIndex - matchedPros.length]);
+        } else if (activeIndex < matchedPros.length + matchedIdfpr.length) {
+          // IDFPR result — navigate to marketplace with search
+          if (onSeeAll) onSeeAll(query);
+        } else if (activeIndex < matchedPros.length + matchedIdfpr.length + matchedPlaces.length) {
+          onSelectPlace(matchedPlaces[activeIndex - matchedPros.length - matchedIdfpr.length]);
         } else if (onSeeAll) {
           onSeeAll(query);
         }
@@ -145,7 +174,7 @@ export function SearchSuggestions({
         // Parent handles closing
       }
     },
-    [visible, totalItems, activeIndex, matchedPros, matchedPlaces, onSelectPro, onSelectPlace, onSeeAll, query]
+    [visible, totalItems, activeIndex, matchedPros, matchedIdfpr, matchedPlaces, onSelectPro, onSelectPlace, onSeeAll, query]
   );
 
   React.useEffect(() => {
@@ -162,7 +191,7 @@ export function SearchSuggestions({
 
   if (!visible || !query.trim()) return null;
 
-  const hasResults = matchedPros.length > 0 || matchedPlaces.length > 0;
+  const hasResults = matchedPros.length > 0 || matchedIdfpr.length > 0 || matchedPlaces.length > 0;
   const showNoResults = !loading && !hasResults;
 
   return (
@@ -246,16 +275,72 @@ export function SearchSuggestions({
           </div>
         )}
 
-        {/* Google Places section */}
-        {!loading && matchedPlaces.length > 0 && (
+        {/* IDFPR licensed section */}
+        {!loading && matchedIdfpr.length > 0 && (
           <div className="py-1.5">
-            {/* Divider if both sections exist */}
+            {/* Divider if pros section exists */}
             {matchedPros.length > 0 && (
               <div className="mx-3 mb-1.5 h-px bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                {matchedPros.length === 0 ? "Not on Relays yet — invite them!" : "More from Google"}
+                Licensed Professionals
+              </span>
+              <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-40">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            {matchedIdfpr.map((prof, i) => {
+              const globalIndex = matchedPros.length + i;
+              const isActive = activeIndex === globalIndex;
+              const initials = prof.name
+                .split(/[\s,]+/)
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((w) => w[0]?.toUpperCase() ?? "")
+                .join("");
+              return (
+                <button
+                  key={prof.id}
+                  data-suggestion-item
+                  onClick={() => onSeeAll?.(query)}
+                  className={`
+                    w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
+                    ${isActive ? "bg-white/[0.08]" : "hover:bg-white/[0.05]"}
+                  `}
+                >
+                  {/* Initials avatar */}
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-semibold text-slate-400">
+                    {initials}
+                  </div>
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="truncate text-sm font-medium text-slate-300">{prof.name}</span>
+                      <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 px-1.5 py-0 text-[9px] font-medium text-emerald-400/80">
+                        Licensed
+                      </span>
+                    </div>
+                    <div className="truncate text-xs text-slate-500">
+                      {prof.category}{prof.city ? ` · ${prof.city}` : ""}{prof.licenseNumber ? ` · #${prof.licenseNumber}` : ""}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Google Places section */}
+        {!loading && matchedPlaces.length > 0 && (
+          <div className="py-1.5">
+            {/* Divider if previous sections exist */}
+            {(matchedPros.length > 0 || matchedIdfpr.length > 0) && (
+              <div className="mx-3 mb-1.5 h-px bg-white/[0.06]" />
+            )}
+            <div className="px-3 py-1.5 flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                {matchedPros.length === 0 && matchedIdfpr.length === 0 ? "Not on Relays yet — invite them!" : "More from Google"}
               </span>
               <svg width="12" height="12" viewBox="0 0 24 24" className="opacity-50">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
@@ -265,7 +350,7 @@ export function SearchSuggestions({
               </svg>
             </div>
             {matchedPlaces.map((place, i) => {
-              const globalIndex = matchedPros.length + i;
+              const globalIndex = matchedPros.length + matchedIdfpr.length + i;
               const isActive = activeIndex === globalIndex;
               const emoji = categoryEmoji[place.categories[0]] ?? "📍";
               return (
@@ -314,7 +399,7 @@ export function SearchSuggestions({
               onClick={() => onSeeAll(query)}
               className={`
                 w-full px-3 py-2.5 text-center text-xs font-medium transition-colors
-                ${activeIndex === matchedPros.length + matchedPlaces.length
+                ${activeIndex === matchedPros.length + matchedIdfpr.length + matchedPlaces.length
                   ? "bg-white/[0.08] text-blue-400"
                   : "text-slate-500 hover:text-blue-400 hover:bg-white/[0.05]"}
               `}
