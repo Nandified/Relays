@@ -131,6 +131,7 @@ export interface TimeWindow {
 // ── Unclaimed Professional (IDFPR data) ──
 export interface UnclaimedProfessional {
   id: string; // generated from license_number
+  slug: string;
   name: string;
   licenseNumber: string;
   licenseType: string; // "LICENSED REAL ESTATE BROKER", "LICENSED HOME INSPECTOR", etc.

@@ -87,6 +87,23 @@ function parseCSVFile(filePath: string): Record<string, string>[] {
   return rows;
 }
 
+/* ── Slugs ──────────────────────────────────────────────────── */
+
+function slugify(input: string): string {
+  return input
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, " ")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function baseSlugForProfessional(p: { name: string; city: string }): string {
+  // Spec: name + city (e.g., "jill-l-clark-naperville")
+  return slugify(`${p.name} ${p.city}`.trim());
+}
+
 /* ── Map CSV row → UnclaimedProfessional ─────────────────────── */
 
 function rowToProfessional(row: Record<string, string>): UnclaimedProfessional | null {
@@ -104,6 +121,7 @@ function rowToProfessional(row: Record<string, string>): UnclaimedProfessional |
 
   return {
     id: `idfpr_${licenseNumber}`,
+    slug: "", // assigned during load (needs global collision detection)
     name: (row.name ?? "").trim(),
     licenseNumber,
     licenseType: row.type ?? "",
@@ -176,6 +194,7 @@ function loadEnrichmentByLicense(): Map<string, NonNullable<IdfprEnrichmentLooku
 /* ── In-memory cache ─────────────────────────────────────────── */
 
 let cachedProfessionals: UnclaimedProfessional[] | null = null;
+let cachedProfessionalsBySlug: Map<string, UnclaimedProfessional> | null = null;
 let lastLoadTime: Date | null = null;
 
 function getDataDir(): string {
@@ -183,7 +202,7 @@ function getDataDir(): string {
 }
 
 function loadAllProfessionals(): UnclaimedProfessional[] {
-  if (cachedProfessionals) return cachedProfessionals;
+  if (cachedProfessionals && cachedProfessionalsBySlug) return cachedProfessionals;
 
   const dataDir = getDataDir();
   const files = [
@@ -196,13 +215,25 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
   ];
 
   const all: UnclaimedProfessional[] = [];
+  const slugs = new Set<string>();
+  const bySlug = new Map<string, UnclaimedProfessional>();
 
   for (const file of files) {
     const filePath = path.join(dataDir, file);
     const rows = parseCSVFile(filePath);
     for (const row of rows) {
       const prof = rowToProfessional(row);
-      if (prof) all.push(prof);
+      if (!prof) continue;
+
+      const baseSlug = baseSlugForProfessional(prof);
+      // If we can't make a useful slug (missing data), fall back to license number.
+      const candidate = baseSlug || `professional-${prof.licenseNumber}`;
+      const finalSlug = slugs.has(candidate) ? `${candidate}-${prof.licenseNumber}` : candidate;
+
+      prof.slug = finalSlug;
+      slugs.add(finalSlug);
+      bySlug.set(finalSlug, prof);
+      all.push(prof);
     }
   }
 
@@ -223,6 +254,7 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
   }
 
   cachedProfessionals = all;
+  cachedProfessionalsBySlug = bySlug;
   lastLoadTime = new Date();
   return all;
 }
@@ -305,6 +337,14 @@ export function getProfessionalById(id: string): UnclaimedProfessional | null {
 }
 
 /**
+ * Get a single professional by slug.
+ */
+export function getProfessionalBySlug(slug: string): UnclaimedProfessional | null {
+  loadAllProfessionals();
+  return cachedProfessionalsBySlug?.get(slug) ?? null;
+}
+
+/**
  * Get aggregate stats across all loaded data.
  */
 export function getProfessionalStats(): {
@@ -343,6 +383,7 @@ export function importCSV(filename: string, csvContent: string): number {
 
   // Invalidate cache so next read picks up new data
   cachedProfessionals = null;
+  cachedProfessionalsBySlug = null;
   lastLoadTime = null;
   cachedEnrichmentByLicense = null;
 
@@ -361,6 +402,7 @@ export function importCSV(filename: string, csvContent: string): number {
  */
 export function reloadData(): void {
   cachedProfessionals = null;
+  cachedProfessionalsBySlug = null;
   lastLoadTime = null;
   cachedEnrichmentByLicense = null;
   loadAllProfessionals();

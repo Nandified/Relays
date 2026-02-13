@@ -222,7 +222,7 @@ export function HeroSearchBar() {
 
   function handleSelectIdfpr(professional: UnclaimedProfessional) {
     setIsOpen(false);
-    router.push(`/professionals/${professional.id}`);
+    router.push(`/pros/${professional.slug}`);
   }
 
   function handleSeeAll(q: string) {

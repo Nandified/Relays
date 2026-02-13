@@ -287,7 +287,7 @@ function MarketplaceContent() {
   }, []);
 
   const handleSearchSelectIdfpr = React.useCallback((professional: UnclaimedProfessional) => {
-    router.push(`/professionals/${professional.id}`);
+    router.push(`/pros/${professional.slug}`);
   }, [router]);
 
   const handleSearchSelectPlace = React.useCallback((place: PlacesResult) => {
