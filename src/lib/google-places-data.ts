@@ -134,8 +134,8 @@ function loadAllGoogleProfessionals(): UnclaimedProfessional[] {
       const placeId = safeTrim(place.place_id);
       if (!placeId) continue;
 
-      // Inspector dedupe against IDFPR (same Google Place).
-      if (category === "Home Inspector" && idfprGooglePlaceIds.has(placeId)) continue;
+      // Dedupe against IDFPR-enriched professionals (same Google Place).
+      if (idfprGooglePlaceIds.has(placeId)) continue;
 
       // De-dupe within Google set.
       if (byId.has(placeId)) continue;
