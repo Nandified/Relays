@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getProfessionalById } from "@/lib/idfpr-data";
+import { getProfessionalById } from "@/lib/professional-data";
 
 export async function GET(
   _request: NextRequest,

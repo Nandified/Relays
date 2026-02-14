@@ -11,7 +11,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-type IdfprBrokerRaw = {
+type IdfprPersonRaw = {
   first_name?: string;
   middle?: string;
   last_name?: string;
@@ -126,9 +126,7 @@ function extractPersonishName(listingName: string): string {
 function looksLikeOfficeName(name: string, personName: string): boolean {
   const sim = diceSimilarity(name, personName);
   if (sim < 0.72) return true;
-  // If name includes office-y separators, consider it an office name.
   if (/[|]|\s+[-–—]\s+/.test(name)) return true;
-  // If it includes common brand words even if similar.
   const n = name.toLowerCase();
   if (/re\/?max|kw\b|keller\s+williams|coldwell|compass|sotheby|century\s*21|@properties|berkshire/.test(n)) return true;
   return false;
@@ -137,10 +135,8 @@ function looksLikeOfficeName(name: string, personName: string): boolean {
 function isMeaningfulOfficeName(candidate: string | undefined, personName: string): string | null {
   const c = (candidate ?? "").trim();
   if (!c) return null;
-  // Ignore placeholders that are basically the person name repeated.
   const sim = diceSimilarity(c, personName);
   if (sim > 0.9) return null;
-  // Ignore obviously bogus / single-char.
   if (c.length < 3) return null;
   return c;
 }
@@ -154,42 +150,34 @@ function toNumber(x: unknown): number | null {
   return null;
 }
 
-function main() {
-  const repoRoot = process.cwd();
-  const idfprRawPath = path.join(repoRoot, "data", "idfpr", "real_estate_broker_raw.json");
-  const outscraperPath = path.join(repoRoot, "data", "outscraper", "il_real_estate_agent_results.json");
-  const outputPath = path.join(repoRoot, "data", "idfpr", "idfpr_outscraper_enrichment.json");
+type PersonIndexRow = {
+  licenseNumber: string;
+  personName: string;
+  city: string;
+  normCity: string;
+  lastName: string;
+  businessdba?: string;
+};
 
-  const brokers = readJson<IdfprBrokerRaw[]>(idfprRawPath);
-  const places = readJson<OutscraperPlace[]>(outscraperPath);
+function indexPeopleByCity(people: IdfprPersonRaw[]): {
+  cityIndex: Map<string, PersonIndexRow[]>;
+  licenseToPerson: Map<string, PersonIndexRow>;
+} {
+  const cityIndex = new Map<string, PersonIndexRow[]>();
+  const licenseToPerson = new Map<string, PersonIndexRow>();
 
-  // Index IDFPR brokers by normalized city for fast candidate lookup.
-  type BrokerIndexRow = {
-    licenseNumber: string;
-    personName: string;
-    city: string;
-    normCity: string;
-    normName: string;
-    lastName: string;
-    businessdba?: string;
-  };
-
-  const cityIndex = new Map<string, BrokerIndexRow[]>();
-  const licenseToBroker = new Map<string, BrokerIndexRow>();
-
-  for (const b of brokers) {
+  for (const b of people) {
     const licenseNumber = (b.license_number ?? "").trim();
     if (!licenseNumber) continue;
 
     const personName = [b.first_name, b.middle, b.last_name].filter(Boolean).join(" ").trim();
     const city = (b.city ?? "").trim();
 
-    const row: BrokerIndexRow = {
+    const row: PersonIndexRow = {
       licenseNumber,
       personName: personName || "",
       city,
       normCity: normCity(city),
-      normName: normName(personName || ""),
       lastName: lastNameFromFullName(personName || ""),
       businessdba: b.businessdba,
     };
@@ -198,43 +186,47 @@ function main() {
     if (!key) continue;
     if (!cityIndex.has(key)) cityIndex.set(key, []);
     cityIndex.get(key)!.push(row);
-    licenseToBroker.set(licenseNumber, row);
+    licenseToPerson.set(licenseNumber, row);
   }
 
-  const enrichmentByLicense: Record<string, ProfessionalEnrichment> = {};
+  return { cityIndex, licenseToPerson };
+}
 
-  let matched = 0;
-  let ambiguous = 0;
-
-  for (const place of places) {
+function applyOutscraperMatches(opts: {
+  places: OutscraperPlace[];
+  cityIndex: Map<string, PersonIndexRow[]>;
+  enrichmentByLicense: Record<string, ProfessionalEnrichment>;
+  matchCounts: { matched: number; ambiguous: number };
+}) {
+  for (const place of opts.places) {
     const listingName = (place.name ?? "").trim();
     const city = (place.city ?? "").trim();
     if (!listingName || !city) continue;
 
     const key = normCity(city);
-    const candidates = cityIndex.get(key) ?? [];
+    const candidates = opts.cityIndex.get(key) ?? [];
     if (candidates.length === 0) continue;
 
     const personish = extractPersonishName(listingName);
 
-    let best: { row: BrokerIndexRow; score: number } | null = null;
+    let best: { row: PersonIndexRow; score: number } | null = null;
     let secondBestScore = 0;
 
     for (const row of candidates) {
       if (!row.personName) continue;
 
-      // Quick last-name gate when possible.
       const ln = row.lastName;
-      if (ln && normName(listingName).includes(ln) === false && normName(personish).includes(ln) === false) {
+      if (
+        ln &&
+        normName(listingName).includes(ln) === false &&
+        normName(personish).includes(ln) === false
+      ) {
         continue;
       }
 
       const s1 = diceSimilarity(row.personName, listingName);
       const s2 = diceSimilarity(row.personName, personish);
-      const nameScore = Math.max(s1, s2);
-
-      // City is already constrained; keep it for future flexibility.
-      const score = nameScore;
+      const score = Math.max(s1, s2);
 
       if (!best || score > best.score) {
         secondBestScore = best?.score ?? 0;
@@ -246,30 +238,25 @@ function main() {
 
     if (!best) continue;
 
-    // Thresholds tuned for conservative matching.
     if (best.score < 0.84) continue;
     if (secondBestScore && best.score - secondBestScore < 0.04) {
-      ambiguous++;
+      opts.matchCounts.ambiguous++;
       continue;
     }
 
     const licenseNumber = best.row.licenseNumber;
-
-    const existing = enrichmentByLicense[licenseNumber] ?? {};
+    const existing = opts.enrichmentByLicense[licenseNumber] ?? {};
 
     const website = (place.website ?? place.site ?? "").trim() || null;
     const rating = toNumber(place.rating);
     const reviewCount = toNumber(place.reviews);
     const photoUrl = (place.photo ?? place.logo ?? "").trim() || null;
 
-    // Office name selection:
-    // 1) Prefer IDFPR businessdba if it's meaningful
-    // 2) Else use the Google listing name when it looks like an office / brand
     const officeFromDba = isMeaningfulOfficeName(best.row.businessdba, best.row.personName);
     const officeFromGoogle = looksLikeOfficeName(listingName, best.row.personName) ? listingName : null;
     const officeName = officeFromDba ?? officeFromGoogle ?? null;
 
-    enrichmentByLicense[licenseNumber] = {
+    opts.enrichmentByLicense[licenseNumber] = {
       ...existing,
       phone: (place.phone ?? "").trim() || existing.phone || null,
       email: existing.email ?? null,
@@ -281,12 +268,54 @@ function main() {
       googlePlaceId: (place.place_id ?? "").trim() || existing.googlePlaceId || null,
     };
 
-    matched++;
+    opts.matchCounts.matched++;
   }
+}
 
-  // Also write officeName for brokers that have a meaningful businessdba, even if not matched in Outscraper.
+function main() {
+  const repoRoot = process.cwd();
+
+  const brokersRawPath = path.join(repoRoot, "data", "idfpr", "real_estate_broker_raw.json");
+  const inspectorsRawPath = path.join(repoRoot, "data", "idfpr", "home_inspector_raw.json");
+
+  const outscraperAgentsPath = path.join(repoRoot, "data", "outscraper", "il_real_estate_agent_results.json");
+  const outscraperInspectorsPath = path.join(repoRoot, "data", "outscraper", "il_home_inspector_results.json");
+
+  const outputPath = path.join(repoRoot, "data", "idfpr", "idfpr_outscraper_enrichment.json");
+
+  const brokers = readJson<IdfprPersonRaw[]>(brokersRawPath);
+  const inspectors = readJson<IdfprPersonRaw[]>(inspectorsRawPath);
+
+  const placesAgents = readJson<OutscraperPlace[]>(outscraperAgentsPath);
+  const placesInspectors = readJson<OutscraperPlace[]>(outscraperInspectorsPath);
+
+  const brokerIndex = indexPeopleByCity(brokers);
+  const inspectorIndex = indexPeopleByCity(inspectors);
+
+  const enrichmentByLicense: Record<string, ProfessionalEnrichment> = {};
+
+  const matchCounts = {
+    matched: 0,
+    ambiguous: 0,
+  };
+
+  applyOutscraperMatches({
+    places: placesAgents,
+    cityIndex: brokerIndex.cityIndex,
+    enrichmentByLicense,
+    matchCounts,
+  });
+
+  applyOutscraperMatches({
+    places: placesInspectors,
+    cityIndex: inspectorIndex.cityIndex,
+    enrichmentByLicense,
+    matchCounts,
+  });
+
+  // Also write officeName for anyone who has a meaningful businessdba, even if not matched in Outscraper.
   let dbaOnly = 0;
-  for (const [licenseNumber, row] of licenseToBroker.entries()) {
+  for (const [licenseNumber, row] of new Map([...brokerIndex.licenseToPerson, ...inspectorIndex.licenseToPerson]).entries()) {
     const officeFromDba = isMeaningfulOfficeName(row.businessdba, row.personName);
     if (!officeFromDba) continue;
     if (!enrichmentByLicense[licenseNumber]) {
@@ -308,15 +337,18 @@ function main() {
 
   writeJsonPretty(outputPath, {
     generatedAt: new Date().toISOString(),
-    matchedOutscraperPlaces: matched,
-    ambiguousOutscraperPlaces: ambiguous,
+    matchedOutscraperPlaces: matchCounts.matched,
+    ambiguousOutscraperPlaces: matchCounts.ambiguous,
     dbaOnly,
     byLicenseNumber: enrichmentByLicense,
   });
 
   // eslint-disable-next-line no-console
   console.log(
-    `[enrich-idfpr-outscraper] wrote ${Object.keys(enrichmentByLicense).length} enrichments → ${path.relative(repoRoot, outputPath)} (matched=${matched}, ambiguous=${ambiguous}, dbaOnly=${dbaOnly})`
+    `[enrich-idfpr-outscraper] wrote ${Object.keys(enrichmentByLicense).length} enrichments → ${path.relative(
+      repoRoot,
+      outputPath
+    )} (matched=${matchCounts.matched}, ambiguous=${matchCounts.ambiguous}, dbaOnly=${dbaOnly})`
   );
 }
 

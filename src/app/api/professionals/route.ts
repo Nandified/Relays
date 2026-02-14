@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { searchProfessionals } from "@/lib/idfpr-data";
+import { searchAllProfessionals } from "@/lib/professional-data";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   const limit = searchParams.get("limit") ? parseInt(searchParams.get("limit")!, 10) : 50;
   const offset = searchParams.get("offset") ? parseInt(searchParams.get("offset")!, 10) : 0;
 
-  const result = searchProfessionals({ q, category, city, zip, county, limit, offset });
+  const result = searchAllProfessionals({ q, category, city, zip, county, limit, offset });
 
   return NextResponse.json(result);
 }
