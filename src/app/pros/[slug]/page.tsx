@@ -36,6 +36,11 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
     !Number.isNaN(professional.rating) &&
     typeof professional.reviewCount === "number";
 
+  const googlePlaceId = (professional as { googlePlaceId?: string | null }).googlePlaceId ?? null;
+  const googleMapsUrl = googlePlaceId
+    ? `https://www.google.com/maps/place/?q=place_id:${googlePlaceId}`
+    : null;
+
   const serviceAreaParts = [
     professional.city,
     professional.county ? `${professional.county} County` : null,
@@ -183,7 +188,23 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
             <Stars rating={professional.rating ?? 0} size={14} />
             <span className="text-sm font-semibold text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
             <span className="text-sm text-slate-500">({professional.reviewCount} reviews)</span>
-            <GoogleG className="opacity-60" />
+
+            {googleMapsUrl ? (
+              <a
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+              >
+                <GoogleG className="opacity-60" />
+                <span>Google Reviews</span>
+              </a>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-xs text-slate-500">
+                <GoogleG className="opacity-60" />
+                <span>Google Reviews</span>
+              </span>
+            )}
           </div>
         ) : (
           <p className="text-sm text-slate-500">No reviews yet</p>

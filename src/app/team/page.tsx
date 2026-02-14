@@ -26,8 +26,26 @@ export default function TeamPage() {
   const filledRoles = new Set(mockTeam.map((m) => m.role));
   const emptyRoles = roleOrder.filter((r) => !filledRoles.has(r));
 
+  const totalRoles = roleOrder.length;
+  const filledCount = filledRoles.size;
+  const progress = totalRoles === 0 ? 0 : Math.round((filledCount / totalRoles) * 100);
+
+  const emptyRoleCopy: Record<ProServiceCategory, string> = {
+    Realtor: "Every journey starts with a great agent",
+    "Mortgage Lender": "Get pre-approved to make your offer stronger",
+    Attorney: "Protect your interests at closing",
+    "Home Inspector": "Know exactly what you're buying",
+    "Insurance Agent": "Protect your investment from day one",
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
+      {filledCount < totalRoles && (
+        <div className="mb-5 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm px-4 py-3 text-sm text-slate-300">
+          <span className="text-slate-200">Complete your team</span> to be ready for every step of your home journey
+        </div>
+      )}
+
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-slate-100">My Dream Team</h1>
@@ -35,14 +53,43 @@ export default function TeamPage() {
             {mockTeam.length} professional{mockTeam.length !== 1 ? "s" : ""} on your team
           </p>
         </div>
-        <Link href="/marketplace">
-          <Button size="sm">
-            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-1.5">
-              <path d="M12 4v16m8-8H4" />
-            </svg>
-            Add Pro
-          </Button>
-        </Link>
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col items-center">
+            <div className="relative h-12 w-12">
+              <svg viewBox="0 0 36 36" className="h-12 w-12 text-[var(--accent)]">
+                <path
+                  d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831"
+                  fill="none"
+                  stroke="var(--border)"
+                  strokeWidth="3"
+                  opacity="0.35"
+                />
+                <path
+                  d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray={`${progress}, 100`}
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">
+                {filledCount}/{totalRoles}
+              </div>
+            </div>
+            <div className="mt-2 text-xs text-slate-500 tabular-nums">{filledCount} of {totalRoles} roles filled</div>
+            <div className="mt-1 text-[11px] text-slate-500 tabular-nums">Your team is {filledCount}/{totalRoles} complete</div>
+          </div>
+
+          <Link href="/marketplace">
+            <Button size="sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-1.5">
+                <path d="M12 4v16m8-8H4" />
+              </svg>
+              Add Pro
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Filled roles */}
@@ -110,7 +157,7 @@ export default function TeamPage() {
                     </div>
                     <div>
                       <div className="text-sm font-medium text-slate-300">{role}</div>
-                      <div className="text-xs text-slate-600">Find a {role.toLowerCase()}</div>
+                      <div className="text-xs text-slate-600">{emptyRoleCopy[role]}</div>
                     </div>
                   </div>
                 </Card>

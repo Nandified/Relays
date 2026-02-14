@@ -114,8 +114,12 @@ export function ExpandableIdfprCard({ professional, expanded, onToggle }: Expand
                     </svg>
                     {professional.rating!.toFixed(1)}
                   </span>
-                  {professional.reviewCount && <span>{professional.reviewCount} reviews</span>}
-                  <GoogleG className="opacity-60" />
+                  {professional.reviewCount && (
+                    <span className="flex items-center gap-1">
+                      {professional.reviewCount} reviews
+                      <GoogleG className="opacity-60" />
+                    </span>
+                  )}
                 </>
               )}
               {professional.city && <span>{professional.city}, {professional.state}</span>}

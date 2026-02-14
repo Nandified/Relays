@@ -33,8 +33,8 @@ const steps = [
   },
   {
     num: "3",
-    title: "Stay on Track",
-    desc: "Get guided through each step. Relays reminds you what\u2019s next so nothing falls through the cracks.",
+    title: "Never Miss a Step",
+    desc: "Relays shows you what's next in your home journey — so nothing gets forgotten and no professional gets left out.", 
     icon: (
       <svg width="28" height="28" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
         <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
