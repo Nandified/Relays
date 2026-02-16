@@ -76,6 +76,40 @@ export function AdminDonutChart({ data, height = 200 }: ChartProps) {
   );
 }
 
+export function AdminFunnelChart({ data, height = 200 }: ChartProps) {
+  const max = Math.max(...data.map((d) => d.value), 1);
+  const colors = ["#3b82f6", "#6366f1", "#8b5cf6", "#a855f7", "#c084fc"];
+  return (
+    <div className="space-y-1" style={{ minHeight: height }}>
+      {data.map((d, i) => {
+        const pct = (d.value / max) * 100;
+        const prevPct = i > 0 ? ((d.value / data[i - 1].value) * 100).toFixed(0) : null;
+        return (
+          <div key={d.label} className="flex items-center gap-3">
+            <span className="text-xs text-slate-400 w-24 truncate text-right">{d.label}</span>
+            <div className="flex-1 flex items-center gap-2">
+              <div className="flex-1 h-7 rounded-lg bg-white/5 overflow-hidden flex items-center">
+                <div
+                  className="h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-500"
+                  style={{
+                    width: `${Math.max(pct, 8)}%`,
+                    backgroundColor: colors[i % colors.length],
+                  }}
+                >
+                  <span className="text-[10px] text-white/90 font-medium">{d.value.toLocaleString()}</span>
+                </div>
+              </div>
+              {prevPct && (
+                <span className="text-[10px] text-slate-500 w-10 text-right">{prevPct}%</span>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function AdminBarChart({ data, height = 200, color = "var(--accent, #3b82f6)", colorMap }: ChartProps) {
   const max = Math.max(...data.map((d) => d.value), 1);
   return (
