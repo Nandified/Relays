@@ -7,12 +7,14 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { StageTimeline } from "@/components/journey/StageTimeline";
 import { HeroMomentCard, UpcomingMomentCard, CompletedMomentCard } from "@/components/journey/MomentCard";
+import { PostServiceFollowUps } from "@/components/reviews/PostServiceFollowUps";
 import {
   mockJourneys,
   getProById,
   getFilledRoleCount,
   getTotalRoleCount,
 } from "@/lib/mock-data";
+import { getPendingFollowUps } from "@/lib/mock-reviews";
 import { type Journey, JOURNEY_STAGE_LABELS, JOURNEY_STAGE_ICONS } from "@/lib/types";
 import { computeMoments, getHeroMoment } from "@/lib/moments-engine";
 
@@ -255,8 +257,11 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* Post-Service Follow-ups */}
+      <PostServiceFollowUps followUps={getPendingFollowUps("user_jamie")} />
+
       {/* Quick actions */}
-      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-8 mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Link href="/marketplace">
           <Card hover padding="sm" className="text-center py-4">
             <div className="mx-auto h-10 w-10 rounded-xl bg-[var(--accent-light)] border border-blue-500/10 flex items-center justify-center mb-2">

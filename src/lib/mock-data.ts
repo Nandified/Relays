@@ -1,4 +1,4 @@
-import { type Pro, type ProServiceCategory, type ServiceRequest, type TimelineEvent, type Journey, type TeamMember, type ProIncomingRequest, type TimeWindow, type CuratedGroup, type CuratedGroupPartner, type GroupAuditEntry, type ReferralMoment, type JourneyAuditEntry, type NotificationPreference, type NotificationHistoryEntry, type JourneyDocument } from "@/lib/types";
+import { type Pro, type ProServiceCategory, type ServiceRequest, type TimelineEvent, type Journey, type TeamMember, type ProIncomingRequest, type TimeWindow, type CuratedGroup, type CuratedGroupPartner, type GroupAuditEntry, type ReferralMoment, type JourneyAuditEntry, type NotificationPreference, type NotificationHistoryEntry, type JourneyDocument, type CalendarConnection, type Booking, type BookingTimeWindow, type AvailabilitySlot, type AvailabilityRules } from "@/lib/types";
 
 /* ── Pros (10 across categories) ──────────────────────────────── */
 
@@ -1422,3 +1422,379 @@ export const mockNotificationHistory: NotificationHistoryEntry[] = [
     read: true,
   },
 ];
+
+/* ── Calendar Connections (mock) ──────────────────────────────── */
+
+export const mockCalendarConnections: CalendarConnection[] = [
+  {
+    id: "cal_1",
+    proId: "pro_1",
+    provider: "google",
+    email: "alex@bluepeakinspections.com",
+    status: "connected",
+    syncEnabled: true,
+    lastSyncAt: "2026-02-15T14:30:00Z",
+    calendarId: "primary",
+  },
+  {
+    id: "cal_2",
+    proId: "pro_1",
+    provider: "outlook",
+    email: "alex.martinez@outlook.com",
+    status: "disconnected",
+    syncEnabled: false,
+  },
+  {
+    id: "cal_3",
+    proId: "pro_2",
+    provider: "google",
+    email: "jordan@sunrisemortgage.com",
+    status: "connected",
+    syncEnabled: true,
+    lastSyncAt: "2026-02-15T12:00:00Z",
+    calendarId: "primary",
+  },
+  {
+    id: "cal_4",
+    proId: "pro_9",
+    provider: "google",
+    email: "lisa@hartwellrealty.com",
+    status: "connected",
+    syncEnabled: true,
+    lastSyncAt: "2026-02-15T10:00:00Z",
+    calendarId: "primary",
+  },
+  {
+    id: "cal_5",
+    proId: "pro_9",
+    provider: "apple",
+    email: "lisa.hartwell@icloud.com",
+    status: "expired",
+    syncEnabled: false,
+    lastSyncAt: "2026-01-20T08:00:00Z",
+  },
+];
+
+/* ── Availability Rules (mock) ────────────────────────────────── */
+
+export const mockAvailabilityRules: AvailabilityRules[] = [
+  {
+    proId: "pro_1",
+    businessHours: {
+      monday: { start: "08:00", end: "17:00", enabled: true },
+      tuesday: { start: "08:00", end: "17:00", enabled: true },
+      wednesday: { start: "08:00", end: "17:00", enabled: true },
+      thursday: { start: "08:00", end: "17:00", enabled: true },
+      friday: { start: "08:00", end: "16:00", enabled: true },
+      saturday: { start: "09:00", end: "14:00", enabled: true },
+      sunday: { start: "09:00", end: "14:00", enabled: false },
+    },
+    bufferMinutes: 30,
+    minNoticeHours: 2,
+    maxAdvanceDays: 30,
+    blockedDates: ["2026-02-20", "2026-02-25", "2026-03-04"],
+  },
+  {
+    proId: "pro_2",
+    businessHours: {
+      monday: { start: "09:00", end: "18:00", enabled: true },
+      tuesday: { start: "09:00", end: "18:00", enabled: true },
+      wednesday: { start: "09:00", end: "18:00", enabled: true },
+      thursday: { start: "09:00", end: "18:00", enabled: true },
+      friday: { start: "09:00", end: "17:00", enabled: true },
+      saturday: { start: "10:00", end: "14:00", enabled: true },
+      sunday: { start: "10:00", end: "14:00", enabled: false },
+    },
+    bufferMinutes: 15,
+    minNoticeHours: 1,
+    maxAdvanceDays: 14,
+    blockedDates: ["2026-02-22"],
+  },
+  {
+    proId: "pro_9",
+    businessHours: {
+      monday: { start: "08:00", end: "19:00", enabled: true },
+      tuesday: { start: "08:00", end: "19:00", enabled: true },
+      wednesday: { start: "08:00", end: "19:00", enabled: true },
+      thursday: { start: "08:00", end: "19:00", enabled: true },
+      friday: { start: "08:00", end: "18:00", enabled: true },
+      saturday: { start: "09:00", end: "16:00", enabled: true },
+      sunday: { start: "10:00", end: "14:00", enabled: true },
+    },
+    bufferMinutes: 30,
+    minNoticeHours: 24,
+    maxAdvanceDays: 30,
+    blockedDates: [],
+  },
+];
+
+/* ── Bookings (mock) ──────────────────────────────────────────── */
+
+export const mockBookings: Booking[] = [
+  {
+    id: "booking_1",
+    journeyId: "journey_1",
+    proId: "pro_1",
+    consumerId: "user_demo",
+    consumerName: "Jamie Rodriguez",
+    consumerEmail: "jamie.r@email.com",
+    type: "inspection",
+    status: "pending",
+    proposedWindows: [
+      { id: "bw_1a", date: "2026-02-18", startTime: "09:00", endTime: "11:00", duration: 120 },
+      { id: "bw_1b", date: "2026-02-18", startTime: "13:00", endTime: "15:00", duration: 120 },
+      { id: "bw_1c", date: "2026-02-19", startTime: "09:00", endTime: "11:00", duration: 120 },
+    ],
+    property: { address: "742 Maple Ave, Oak Park, IL 60302" },
+    notes: "Foundation and electrical are primary concerns. Built 1928.",
+    createdAt: "2026-02-15T10:00:00Z",
+    updatedAt: "2026-02-15T10:00:00Z",
+  },
+  {
+    id: "booking_2",
+    journeyId: "journey_1",
+    proId: "pro_4",
+    consumerId: "user_demo",
+    consumerName: "Jamie Rodriguez",
+    consumerEmail: "jamie.r@email.com",
+    type: "consultation",
+    status: "confirmed",
+    proposedWindows: [
+      { id: "bw_2a", date: "2026-02-17", startTime: "14:00", endTime: "15:00", duration: 60 },
+      { id: "bw_2b", date: "2026-02-17", startTime: "16:00", endTime: "17:00", duration: 60 },
+    ],
+    confirmedWindow: { id: "bw_2a", date: "2026-02-17", startTime: "14:00", endTime: "15:00", duration: 60 },
+    property: { address: "742 Maple Ave, Oak Park, IL 60302" },
+    notes: "Contract review for purchase agreement.",
+    createdAt: "2026-02-13T09:00:00Z",
+    updatedAt: "2026-02-13T16:00:00Z",
+  },
+  {
+    id: "booking_3",
+    journeyId: "journey_2",
+    proId: "pro_1",
+    consumerId: "user_sam",
+    consumerName: "Sam Patel",
+    consumerEmail: "sam.patel@email.com",
+    type: "inspection",
+    status: "confirmed",
+    proposedWindows: [
+      { id: "bw_3a", date: "2026-02-20", startTime: "08:00", endTime: "10:00", duration: 120 },
+      { id: "bw_3b", date: "2026-02-20", startTime: "13:00", endTime: "15:00", duration: 120 },
+    ],
+    confirmedWindow: { id: "bw_3a", date: "2026-02-20", startTime: "08:00", endTime: "10:00", duration: 120 },
+    property: { address: "1455 N Wells St, Chicago, IL 60614" },
+    notes: "Pre-listing inspection for condo unit.",
+    createdAt: "2026-02-11T14:00:00Z",
+    updatedAt: "2026-02-12T09:00:00Z",
+  },
+  {
+    id: "booking_4",
+    proId: "pro_1",
+    consumerId: "user_morgan",
+    consumerName: "Morgan Davis",
+    consumerEmail: "morgan.d@email.com",
+    type: "inspection",
+    status: "completed",
+    proposedWindows: [
+      { id: "bw_4a", date: "2026-01-28", startTime: "10:00", endTime: "12:00", duration: 120 },
+    ],
+    confirmedWindow: { id: "bw_4a", date: "2026-01-28", startTime: "10:00", endTime: "12:00", duration: 120 },
+    property: { address: "824 Davis St, Evanston, IL 60201" },
+    notes: "Full inspection with radon and mold screening.",
+    createdAt: "2026-01-25T11:00:00Z",
+    updatedAt: "2026-01-28T14:00:00Z",
+  },
+  {
+    id: "booking_5",
+    proId: "pro_1",
+    consumerId: "user_casey",
+    consumerName: "Casey Wilson",
+    consumerEmail: "casey.w@email.com",
+    type: "inspection",
+    status: "declined",
+    proposedWindows: [
+      { id: "bw_5a", date: "2026-02-22", startTime: "08:00", endTime: "10:00", duration: 120 },
+      { id: "bw_5b", date: "2026-02-22", startTime: "13:00", endTime: "15:00", duration: 120 },
+    ],
+    property: { address: "1820 Oakton St, Skokie, IL 60076" },
+    notes: "Radon + mold only, no full inspection needed.",
+    declineReason: "Outside service area for specialty inspections. Recommend a local specialist.",
+    createdAt: "2026-02-10T08:00:00Z",
+    updatedAt: "2026-02-10T12:00:00Z",
+  },
+  {
+    id: "booking_6",
+    journeyId: "journey_1",
+    proId: "pro_3",
+    consumerId: "user_demo",
+    consumerName: "Jamie Rodriguez",
+    consumerEmail: "jamie.r@email.com",
+    type: "consultation",
+    status: "rescheduled",
+    proposedWindows: [
+      { id: "bw_6a", date: "2026-02-16", startTime: "10:00", endTime: "10:30", duration: 30 },
+      { id: "bw_6b", date: "2026-02-16", startTime: "14:00", endTime: "14:30", duration: 30 },
+    ],
+    proSuggestedWindow: { id: "bw_6c", date: "2026-02-19", startTime: "11:00", endTime: "11:30", duration: 30 },
+    property: { address: "742 Maple Ave, Oak Park, IL 60302" },
+    notes: "Insurance quote discussion before closing.",
+    createdAt: "2026-02-14T09:00:00Z",
+    updatedAt: "2026-02-14T16:00:00Z",
+  },
+  {
+    id: "booking_7",
+    proId: "pro_2",
+    consumerId: "user_demo",
+    consumerName: "Jamie Rodriguez",
+    consumerEmail: "jamie.r@email.com",
+    type: "consultation",
+    status: "confirmed",
+    proposedWindows: [
+      { id: "bw_7a", date: "2026-02-21", startTime: "10:00", endTime: "11:00", duration: 60 },
+    ],
+    confirmedWindow: { id: "bw_7a", date: "2026-02-21", startTime: "10:00", endTime: "11:00", duration: 60 },
+    notes: "Final rate lock discussion before closing.",
+    createdAt: "2026-02-15T08:00:00Z",
+    updatedAt: "2026-02-15T11:00:00Z",
+  },
+  {
+    id: "booking_8",
+    proId: "pro_1",
+    consumerId: "user_taylor",
+    consumerName: "Taylor Brooks",
+    consumerEmail: "taylor.b@email.com",
+    type: "walkthrough",
+    status: "pending",
+    proposedWindows: [
+      { id: "bw_8a", date: "2026-02-24", startTime: "09:00", endTime: "10:00", duration: 60 },
+      { id: "bw_8b", date: "2026-02-24", startTime: "14:00", endTime: "15:00", duration: 60 },
+    ],
+    property: { address: "3540 N Halsted St, Chicago, IL 60657" },
+    notes: "Pre-closing walkthrough to verify repairs.",
+    createdAt: "2026-02-16T07:30:00Z",
+    updatedAt: "2026-02-16T07:30:00Z",
+  },
+];
+
+/* ── Mock Availability Slots (per date) ───────────────────────── */
+
+export function generateAvailabilitySlots(proId: string, date: string): AvailabilitySlot[] {
+  const dayOfWeek = new Date(date + "T12:00:00").toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
+  const rules = mockAvailabilityRules.find((r) => r.proId === proId);
+
+  if (!rules) {
+    // Default slots for pros without rules
+    return [
+      { date, startTime: "09:00", endTime: "10:00", available: true },
+      { date, startTime: "10:00", endTime: "11:00", available: Math.random() > 0.3 },
+      { date, startTime: "11:00", endTime: "12:00", available: true },
+      { date, startTime: "13:00", endTime: "14:00", available: Math.random() > 0.4 },
+      { date, startTime: "14:00", endTime: "15:00", available: true },
+      { date, startTime: "15:00", endTime: "16:00", available: Math.random() > 0.3 },
+    ];
+  }
+
+  const hours = rules.businessHours[dayOfWeek];
+  if (!hours || !hours.enabled) return [];
+  if (rules.blockedDates.includes(date)) return [];
+
+  const startH = parseInt(hours.start.split(":")[0]);
+  const endH = parseInt(hours.end.split(":")[0]);
+  const slots: AvailabilitySlot[] = [];
+
+  // Deterministic "random" based on date string hash
+  const hash = date.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+
+  for (let h = startH; h < endH; h++) {
+    const slotAvailable = ((hash + h * 7) % 10) > 3; // ~60% available
+    slots.push({
+      date,
+      startTime: `${String(h).padStart(2, "0")}:00`,
+      endTime: `${String(h + 1).padStart(2, "0")}:00`,
+      available: slotAvailable,
+    });
+  }
+
+  return slots;
+}
+
+/** Get date availability status: 'available' | 'busy' | 'unavailable' */
+export function getDateAvailability(proId: string, date: string): "available" | "busy" | "unavailable" {
+  const dayOfWeek = new Date(date + "T12:00:00").toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
+  const rules = mockAvailabilityRules.find((r) => r.proId === proId);
+
+  if (rules) {
+    if (rules.blockedDates.includes(date)) return "unavailable";
+    const hours = rules.businessHours[dayOfWeek];
+    if (!hours || !hours.enabled) return "unavailable";
+  }
+
+  // Check if any existing bookings fill the day
+  const dayBookings = mockBookings.filter(
+    (b) => b.proId === proId && b.status === "confirmed" && b.confirmedWindow?.date === date
+  );
+  if (dayBookings.length >= 3) return "busy";
+
+  // Use hash for deterministic "busyness"
+  const hash = date.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  if (hash % 7 === 0) return "busy";
+
+  return "available";
+}
+
+/* ── Booking helpers ──────────────────────────────────────────── */
+
+export function getBookingsForPro(proId: string): Booking[] {
+  return mockBookings.filter((b) => b.proId === proId);
+}
+
+export function getBookingsForConsumer(consumerId: string): Booking[] {
+  return mockBookings.filter((b) => b.consumerId === consumerId);
+}
+
+export function getBookingById(bookingId: string): Booking | undefined {
+  return mockBookings.find((b) => b.id === bookingId);
+}
+
+export function getCalendarConnectionsForPro(proId: string): CalendarConnection[] {
+  return mockCalendarConnections.filter((c) => c.proId === proId);
+}
+
+export function getAvailabilityRulesForPro(proId: string): AvailabilityRules | undefined {
+  return mockAvailabilityRules.find((r) => r.proId === proId);
+}
+
+/** Get booking duration based on type */
+export function getBookingDuration(type: Booking["type"]): number {
+  switch (type) {
+    case "inspection": return 120;
+    case "consultation": return 60;
+    case "closing": return 90;
+    case "walkthrough": return 60;
+    case "general": return 60;
+  }
+}
+
+/** Format booking type label */
+export function getBookingTypeLabel(type: Booking["type"]): string {
+  switch (type) {
+    case "inspection": return "Home Inspection";
+    case "consultation": return "Consultation";
+    case "closing": return "Closing";
+    case "walkthrough": return "Walkthrough";
+    case "general": return "General Meeting";
+  }
+}
+
+/** Format booking status */
+export function getBookingStatusInfo(status: Booking["status"]): { label: string; color: string; variant: "accent" | "success" | "warning" | "danger" | "default" | "outline" } {
+  switch (status) {
+    case "pending": return { label: "Pending", color: "amber", variant: "warning" };
+    case "confirmed": return { label: "Confirmed", color: "emerald", variant: "success" };
+    case "declined": return { label: "Declined", color: "red", variant: "danger" };
+    case "rescheduled": return { label: "Rescheduled", color: "blue", variant: "accent" };
+    case "cancelled": return { label: "Cancelled", color: "slate", variant: "default" };
+    case "completed": return { label: "Completed", color: "emerald", variant: "success" };
+  }
+}

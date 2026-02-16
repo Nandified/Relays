@@ -539,3 +539,34 @@ html {
   animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   overflow: hidden;
 }
+
+/* ── Review & Rating Animations ───────────────────────────────── */
+
+/* Star glow on hover (for interactive star rating) */
+@keyframes starGlow {
+  0%, 100% { filter: drop-shadow(0 0 3px rgba(245, 158, 11, 0.3)); }
+  50% { filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)); }
+}
+
+/* Rating bar entrance animation */
+@keyframes ratingBarFill {
+  from { width: 0%; }
+}
+.animate-rating-bar {
+  animation: ratingBarFill 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Celebration confetti burst */
+@keyframes celebratePop {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.3) rotate(180deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+.animate-celebrate-pop {
+  animation: celebratePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Amber glow for verified client badge */
+.glow-amber {
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15), 0 0 4px rgba(245, 158, 11, 0.1);
+}

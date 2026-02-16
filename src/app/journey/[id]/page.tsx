@@ -28,6 +28,7 @@ import {
 } from "@/lib/types";
 import { computeMoments, advanceStage } from "@/lib/moments-engine";
 import { useAuth } from "@/lib/auth/provider";
+import { PostCloseBanner } from "@/components/journey/PostCloseBanner";
 
 /* ── Role category metadata ──────────────────────────────────── */
 const roleMeta: Record<string, { icon: string; color: string; colorBg: string; description: string }> = {
@@ -557,6 +558,13 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
               <CompletedMomentCard key={moment.id} moment={moment} />
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Post-Close Section */}
+      {(journey.stage === "closed" || journey.stage === "post_close") && (
+        <div className="mb-8">
+          <PostCloseBanner clientName={journey.client.name.split(" ")[0]} />
         </div>
       )}
 

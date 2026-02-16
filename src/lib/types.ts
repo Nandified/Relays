@@ -321,7 +321,69 @@ export interface TeamMember {
   addedAt: string;
 }
 
+// ── Calendar Connections ──
+export type CalendarProvider = 'google' | 'outlook' | 'apple' | 'manual';
+export type CalendarConnectionStatus = 'connected' | 'disconnected' | 'expired';
+
+export interface CalendarConnection {
+  id: string;
+  proId: string;
+  provider: CalendarProvider;
+  email: string;
+  status: CalendarConnectionStatus;
+  syncEnabled: boolean;
+  lastSyncAt?: string; // ISO 8601
+  calendarId?: string;
+}
+
 // ── Booking ──
+export type BookingType = 'inspection' | 'consultation' | 'closing' | 'walkthrough' | 'general';
+export type BookingStatus = 'pending' | 'confirmed' | 'declined' | 'rescheduled' | 'cancelled' | 'completed';
+
+export interface BookingTimeWindow {
+  id: string;
+  date: string; // YYYY-MM-DD
+  startTime: string; // HH:mm
+  endTime: string; // HH:mm
+  duration: number; // minutes
+}
+
+export interface Booking {
+  id: string;
+  journeyId?: string;
+  proId: string;
+  consumerId: string;
+  consumerName: string;
+  consumerEmail: string;
+  type: BookingType;
+  status: BookingStatus;
+  proposedWindows: BookingTimeWindow[];
+  confirmedWindow?: BookingTimeWindow;
+  proSuggestedWindow?: BookingTimeWindow;
+  property?: { address: string };
+  notes?: string;
+  declineReason?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AvailabilitySlot {
+  date: string; // YYYY-MM-DD
+  startTime: string; // HH:mm
+  endTime: string; // HH:mm
+  available: boolean;
+}
+
+export interface AvailabilityRules {
+  proId: string;
+  businessHours: Record<string, { start: string; end: string; enabled: boolean }>;
+  bufferMinutes: number;
+  minNoticeHours: number;
+  maxAdvanceDays: number;
+  blockedDates: string[]; // YYYY-MM-DD
+}
+
+// ── Legacy TimeWindow (used by generateTimeWindows) ──
 export interface TimeWindow {
   id: string;
   date: string; // YYYY-MM-DD
@@ -620,6 +682,56 @@ export const STAGE_DOCUMENTS: Record<JourneyStage, DocCategory[]> = {
   post_close: [],
 };
 
+// ── Reviews ──
+export interface Review {
+  id: string;
+  proId: string;
+  consumerId: string;
+  consumerName: string;
+  journeyId?: string;
+  rating: number; // 1-5
+  title?: string;
+  body: string;
+  serviceCategory: ProServiceCategory;
+  verifiedClient: boolean; // had a journey together
+  proResponse?: {
+    body: string;
+    respondedAt: string; // ISO 8601
+  };
+  helpful: number; // upvotes
+  reported: boolean;
+  createdAt: string; // ISO 8601
+}
+
+export interface ReviewStats {
+  proId: string;
+  averageRating: number;
+  totalReviews: number;
+  ratingDistribution: Record<1 | 2 | 3 | 4 | 5, number>;
+  responseRate: number; // 0-100
+  avgResponseTime: string; // human-readable e.g. "within 24 hours"
+}
+
+// ── Post-Service Follow-up ──
+export type FollowUpType = "review_prompt" | "review_reminder" | "journey_complete" | "nps_survey";
+export type FollowUpStatus = "pending" | "completed" | "dismissed";
+
+export interface PostServiceFollowUp {
+  id: string;
+  type: FollowUpType;
+  consumerId: string;
+  journeyId?: string;
+  proId?: string;
+  proName?: string;
+  title: string;
+  body: string;
+  status: FollowUpStatus;
+  createdAt: string; // ISO 8601
+  completedAt?: string;
+  /** For NPS survey */
+  npsScore?: number; // 1-10
+}
+
 // ── Pro-side request ──
 export interface ProIncomingRequest {
   id: string;
@@ -711,4 +823,127 @@ export interface ConnectRequest {
   preferredContact: "in_app" | "email" | "phone";
   status: ConnectRequestStatus;
   createdAt: string;
+}
+
+// ── Webhooks & Events ──
+
+export type EventType =
+  | "person.created"
+  | "person.updated"
+  | "journey.created"
+  | "journey.stage_changed"
+  | "journey.owner_changed"
+  | "pro.added_to_journey"
+  | "curated_group.changed"
+  | "referral.sent"
+  | "booking.requested"
+  | "booking.accepted"
+  | "booking.declined"
+  | "doc.requested"
+  | "doc.uploaded"
+  | "connect.requested"
+  | "connect.accepted"
+  | "message.sent"
+  | "verification.completed";
+
+export const ALL_EVENT_TYPES: EventType[] = [
+  "person.created",
+  "person.updated",
+  "journey.created",
+  "journey.stage_changed",
+  "journey.owner_changed",
+  "pro.added_to_journey",
+  "curated_group.changed",
+  "referral.sent",
+  "booking.requested",
+  "booking.accepted",
+  "booking.declined",
+  "doc.requested",
+  "doc.uploaded",
+  "connect.requested",
+  "connect.accepted",
+  "message.sent",
+  "verification.completed",
+];
+
+export type EventCategory = "Person" | "Journey" | "Booking" | "Documents" | "Messaging" | "Verification";
+
+export const EVENT_CATEGORIES: Record<EventCategory, EventType[]> = {
+  Person: ["person.created", "person.updated"],
+  Journey: ["journey.created", "journey.stage_changed", "journey.owner_changed", "pro.added_to_journey", "curated_group.changed", "referral.sent"],
+  Booking: ["booking.requested", "booking.accepted", "booking.declined"],
+  Documents: ["doc.requested", "doc.uploaded"],
+  Messaging: ["connect.requested", "connect.accepted", "message.sent"],
+  Verification: ["verification.completed"],
+};
+
+export interface RelaysEvent {
+  id: string;
+  type: EventType;
+  version: string; // e.g. "v1"
+  timestamp: string; // ISO 8601
+  payload: Record<string, unknown>;
+  journeyId?: string;
+  proId?: string;
+  consumerId?: string;
+  idempotencyKey: string;
+}
+
+export type WebhookEndpointStatus = "active" | "paused" | "failed";
+
+export interface WebhookEndpoint {
+  id: string;
+  url: string;
+  secret: string; // HMAC signing secret
+  events: EventType[]; // subscribed event types
+  status: WebhookEndpointStatus;
+  createdAt: string;
+  lastDeliveryAt?: string;
+  failureCount: number;
+}
+
+export type WebhookDeliveryStatus = "pending" | "delivered" | "failed" | "retrying";
+
+export interface WebhookDelivery {
+  id: string;
+  endpointId: string;
+  eventId: string;
+  eventType: EventType;
+  status: WebhookDeliveryStatus;
+  statusCode?: number;
+  responseMs?: number;
+  attempts: number;
+  nextRetryAt?: string;
+  createdAt: string;
+}
+
+export interface APIKey {
+  id: string;
+  name: string;
+  prefix: string; // first 8 chars e.g. "rl_live_"
+  lastFour: string;
+  createdAt: string;
+  lastUsedAt?: string;
+  status: "active" | "revoked";
+}
+
+export interface Integration {
+  id: string;
+  name: string;
+  description: string;
+  logoUrl: string;
+  category: "crm" | "automation" | "spreadsheet" | "custom";
+  connected: boolean;
+  lastSyncAt?: string;
+  status?: "connected" | "error" | "syncing";
+}
+
+export interface EventCatalogEntry {
+  type: EventType;
+  version: string;
+  category: EventCategory;
+  name: string; // display name e.g. "Person Created"
+  description: string;
+  triggerConditions: string;
+  samplePayload: Record<string, unknown>;
 }

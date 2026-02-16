@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { SoftWallGate } from "@/components/marketplace/SoftWallGate";
 import { ProIntroVideoPlayer } from "@/components/video/ProIntroVideoPlayer";
+import { ProReviewsSection } from "@/components/reviews/ProReviewsSection";
+import { getReviewsForPro, getReviewStatsForPro } from "@/lib/mock-reviews";
 
 const badgeVariantMap: Record<string, "success" | "accent" | "warning"> = {
   licensed: "success",
@@ -208,38 +210,14 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
         </div>
       </Card>
 
-      <Card padding="lg" className="mt-6">
-        <h2 className="text-sm font-semibold text-slate-200 mb-4">Reviews</h2>
-        <div className="space-y-4">
-          {[
-            { name: "Michael T.", rating: 5, text: "Thorough inspection and great communication. Highly recommend!", date: "2 weeks ago" },
-            { name: "Sarah K.", rating: 5, text: "Very professional and detailed. Explained everything clearly.", date: "1 month ago" },
-            { name: "David R.", rating: 4, text: "Good work overall. Report was comprehensive and delivered on time.", date: "2 months ago" },
-          ].map((review) => (
-            <div key={review.name} className="border-b border-[var(--border)] pb-4 last:border-0 last:pb-0">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-white/5 border border-[var(--border)] flex items-center justify-center text-xs font-medium text-slate-500">
-                    {review.name.split(" ").map((n) => n[0]).join("")}
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-slate-200">{review.name}</div>
-                    <div className="flex items-center gap-0.5">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <svg key={s} width="10" height="10" fill={s <= review.rating ? "#f59e0b" : "#334155"} viewBox="0 0 20 20">
-                          <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <span className="text-xs text-slate-600">{review.date}</span>
-              </div>
-              <p className="mt-2 text-sm text-slate-400">{review.text}</p>
-            </div>
-          ))}
-        </div>
-      </Card>
+      {/* Reviews Section */}
+      <div className="mt-6">
+        <ProReviewsSection
+          reviews={getReviewsForPro(pro.id)}
+          stats={getReviewStatsForPro(pro.id)}
+          proSlug={pro.slug}
+        />
+      </div>
     </main>
   );
 }

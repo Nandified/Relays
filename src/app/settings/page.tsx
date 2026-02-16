@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
+import { ConsumerReviewHistory } from "@/components/reviews/ConsumerReviewHistory";
+import { getReviewsByConsumer } from "@/lib/mock-reviews";
 
 /* ── Toggle Component ────────────────────────────────────────── */
 
@@ -271,6 +273,11 @@ export default function ConsumerSettingsPage() {
             <Button size="sm" variant="secondary">Connect</Button>
           </div>
         </div>
+      </SettingsSection>
+
+      {/* ── My Reviews ── */}
+      <SettingsSection title="My Reviews" description="Reviews you've written for professionals">
+        <ConsumerReviewHistory reviews={getReviewsByConsumer("user_morgan")} />
       </SettingsSection>
 
       {/* ── Danger Zone ── */}

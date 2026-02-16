@@ -33,6 +33,12 @@ export default function ProOnboardingPage() {
   const [claimedPlace, setClaimedPlace] = React.useState<PlacesResult | null>(null);
   const [showClaimStep, setShowClaimStep] = React.useState(false);
 
+  // New enhancement fields
+  const [socialLinks, setSocialLinks] = React.useState({ linkedin: "", instagram: "", facebook: "" });
+  const [additionalAreas, setAdditionalAreas] = React.useState("");
+  const [introVideoUploaded, setIntroVideoUploaded] = React.useState(false);
+  const [googleImported, setGoogleImported] = React.useState(false);
+
   React.useEffect(() => {
     if (state.status !== "authed" || state.user.role !== "pro") {
       router.push("/signup");
@@ -41,12 +47,17 @@ export default function ProOnboardingPage() {
 
   if (state.status !== "authed") return null;
 
+  const totalSteps = 7;
+
   const canProceed = () => {
     switch (step) {
       case 1: return selectedCategory !== null;
       case 2: return companyName.trim() !== "" && fullName.trim() !== "";
       case 3: return serviceArea.trim() !== "";
-      case 4: return true;
+      case 4: return true; // photos optional
+      case 5: return true; // social links optional
+      case 6: return true; // video optional
+      case 7: return true; // preview
       default: return false;
     }
   };
@@ -69,7 +80,7 @@ export default function ProOnboardingPage() {
       setShowClaimStep(false);
     }
 
-    if (step < 4) {
+    if (step < totalSteps) {
       setStep(step + 1);
     } else {
       // Complete onboarding
@@ -101,30 +112,18 @@ export default function ProOnboardingPage() {
         <p className="mt-2 text-sm text-slate-400">Let&apos;s get your business listed on Relays</p>
       </div>
 
-      {/* Step indicator */}
-      <div className="flex items-center gap-2 mb-8 px-4">
-        {[1, 2, 3, 4].map((s) => (
-          <React.Fragment key={s}>
-            <div className={`
-              flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all
-              ${step === s
-                ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]"
-                : s < step
-                  ? "bg-emerald-500 text-white"
-                  : "bg-white/5 text-slate-600 border border-[var(--border)]"
-              }
-            `}>
-              {s < step ? (
-                <svg width="14" height="14" fill="white" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              ) : s}
-            </div>
-            {s < 4 && (
-              <div className={`flex-1 h-px ${s < step ? "bg-emerald-500/50" : "bg-[var(--border)]"}`} />
-            )}
-          </React.Fragment>
-        ))}
+      {/* Progress bar */}
+      <div className="mb-8 px-4">
+        <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
+          <span>Step {step} of {totalSteps}</span>
+          <span className="text-emerald-400">{Math.round((step / totalSteps) * 100)}%</span>
+        </div>
+        <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-500 ease-out"
+            style={{ width: `${(step / totalSteps) * 100}%` }}
+          />
+        </div>
       </div>
 
       {/* Step 1: Category */}
@@ -321,6 +320,208 @@ export default function ProOnboardingPage() {
         </Card>
       )}
 
+      {/* Step 5: Social Links */}
+      {step === 5 && (
+        <Card padding="lg" className="animate-in">
+          <h2 className="text-lg font-semibold text-slate-100 mb-2">Add your social links</h2>
+          <p className="text-sm text-slate-400 mb-6">Help clients find and verify you online</p>
+          <div className="space-y-4">
+            <Input
+              label="LinkedIn"
+              placeholder="linkedin.com/in/yourname"
+              value={socialLinks.linkedin}
+              onChange={(e) => setSocialLinks({ ...socialLinks, linkedin: e.target.value })}
+            />
+            <Input
+              label="Instagram"
+              placeholder="@yourhandle"
+              value={socialLinks.instagram}
+              onChange={(e) => setSocialLinks({ ...socialLinks, instagram: e.target.value })}
+            />
+            <Input
+              label="Facebook"
+              placeholder="facebook.com/yourbusiness"
+              value={socialLinks.facebook}
+              onChange={(e) => setSocialLinks({ ...socialLinks, facebook: e.target.value })}
+            />
+
+            {/* Import from Google */}
+            <div className="rounded-2xl border border-dashed border-[var(--border)] p-4 text-center">
+              <button
+                onClick={() => {
+                  setGoogleImported(true);
+                  setSocialLinks({ linkedin: "linkedin.com/in/yourname", instagram: "@yourbusiness", facebook: "facebook.com/yourbusiness" });
+                }}
+                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all cursor-pointer ${
+                  googleImported
+                    ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
+                    : "bg-white/5 border border-[var(--border)] text-slate-300 hover:bg-white/10"
+                }`}
+              >
+                {googleImported ? (
+                  <>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Imported from Google
+                  </>
+                ) : (
+                  <>
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Import from Google Business
+                  </>
+                )}
+              </button>
+              <p className="text-xs text-slate-600 mt-2">
+                Auto-fill from your Google Business Profile
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-xs text-slate-500">
+            All social links are optional. You can add or edit them later.
+          </p>
+        </Card>
+      )}
+
+      {/* Step 6: Service Areas & Intro Video */}
+      {step === 6 && (
+        <Card padding="lg" className="animate-in">
+          <h2 className="text-lg font-semibold text-slate-100 mb-2">Expand your reach</h2>
+          <p className="text-sm text-slate-400 mb-6">Add more service areas and an intro video</p>
+          <div className="space-y-6">
+            <div>
+              <Input
+                label="Additional Service Areas"
+                placeholder="e.g., Naperville, Schaumburg, 60540"
+                value={additionalAreas}
+                onChange={(e) => setAdditionalAreas(e.target.value)}
+              />
+              <p className="text-xs text-slate-500 mt-1">Separate with commas. Currently serving: {serviceArea || "Not set"}</p>
+            </div>
+
+            {/* Intro Video Upload */}
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Intro Video (optional)</label>
+              <button
+                onClick={() => setIntroVideoUploaded(!introVideoUploaded)}
+                className={`w-full flex flex-col items-center gap-3 rounded-2xl border-2 border-dashed p-8 transition-all cursor-pointer ${
+                  introVideoUploaded
+                    ? "border-emerald-500/30 bg-emerald-500/5"
+                    : "border-[var(--border)] bg-[var(--bg-elevated)] hover:border-[var(--border-hover)]"
+                }`}
+              >
+                {introVideoUploaded ? (
+                  <div className="flex items-center gap-2">
+                    <div className="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <svg width="20" height="20" fill="none" stroke="#10b981" strokeWidth="2" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <div className="text-sm font-medium text-emerald-400">Video uploaded!</div>
+                      <div className="text-xs text-slate-500">Click to replace</div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="h-14 w-14 rounded-2xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+                      <svg width="24" height="24" fill="none" stroke="#64748b" strokeWidth="1.5" viewBox="0 0 24 24">
+                        <polygon points="23 7 16 12 23 17 23 7" />
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                      </svg>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-sm font-medium text-slate-300">Upload an intro video</div>
+                      <div className="text-xs text-slate-500 mt-0.5">30-60 seconds — let clients see the real you</div>
+                    </div>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {/* Step 7: Profile Preview */}
+      {step === 7 && (
+        <Card padding="lg" className="animate-in">
+          <h2 className="text-lg font-semibold text-slate-100 mb-2">Preview your profile</h2>
+          <p className="text-sm text-slate-400 mb-6">This is how clients will see you on Relays</p>
+
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-5">
+            {/* Preview Card */}
+            <div className="flex items-start gap-4">
+              <div className={`h-16 w-16 rounded-2xl flex items-center justify-center text-xl font-bold ${
+                headshotUploaded ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-blue-500/10 border border-blue-500/20"
+              }`}>
+                {headshotUploaded ? "📷" : fullName.charAt(0) || "?"}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-slate-100">{fullName || "Your Name"}</h3>
+                  <span className="inline-flex items-center rounded-full bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 text-[10px] text-blue-400">
+                    {selectedCategory || "Category"}
+                  </span>
+                </div>
+                <p className="text-sm text-slate-400 mt-0.5">{companyName || "Your Company"}</p>
+                <div className="flex items-center gap-3 mt-2">
+                  <span className="flex items-center gap-1 text-xs text-slate-500">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    {serviceArea || "Your Area"}{additionalAreas ? `, ${additionalAreas}` : ""}
+                  </span>
+                </div>
+                {(socialLinks.linkedin || socialLinks.instagram) && (
+                  <div className="flex items-center gap-2 mt-2">
+                    {socialLinks.linkedin && (
+                      <span className="text-[10px] text-slate-500 bg-white/5 rounded-md px-2 py-0.5">LinkedIn</span>
+                    )}
+                    {socialLinks.instagram && (
+                      <span className="text-[10px] text-slate-500 bg-white/5 rounded-md px-2 py-0.5">Instagram</span>
+                    )}
+                  </div>
+                )}
+                {introVideoUploaded && (
+                  <div className="mt-2 flex items-center gap-1 text-[10px] text-emerald-400">
+                    <svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 5a1 1 0 011.5-.87l4 2.5a1 1 0 010 1.74l-4 2.5A1 1 0 017 13V8z" />
+                    </svg>
+                    Intro video attached
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Stats preview */}
+            <div className="mt-4 pt-4 border-t border-[var(--border)] grid grid-cols-3 gap-3 text-center">
+              <div>
+                <div className="text-sm font-semibold text-slate-200">New</div>
+                <div className="text-[10px] text-slate-500">Rating</div>
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-slate-200">0</div>
+                <div className="text-[10px] text-slate-500">Reviews</div>
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-emerald-400">✓</div>
+                <div className="text-[10px] text-slate-500">Accepting</div>
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-4 text-xs text-slate-500 text-center">
+            Looks good? Complete your setup and start receiving referrals!
+          </p>
+        </Card>
+      )}
+
       {/* Navigation buttons */}
       <div className="mt-6 flex items-center justify-between">
         {step > 1 ? (
@@ -334,8 +535,8 @@ export default function ProOnboardingPage() {
           <div />
         )}
         <Button onClick={handleNext} disabled={!canProceed()}>
-          {step === 4 ? "Complete Setup" : "Continue"}
-          {step < 4 && (
+          {step === totalSteps ? "Complete Setup" : "Continue"}
+          {step < totalSteps && (
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="ml-1">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
