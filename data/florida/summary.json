@@ -1,0 +1,293 @@
+{
+  "source": {
+    "main_file": "dbpr_all_licensees.csv",
+    "columns": [
+      "License Code",
+      "Licensee Name",
+      "DBA Name",
+      "Rank",
+      "Address 1",
+      "Address 2",
+      "Address 3",
+      "City",
+      "State",
+      "Zip",
+      "County Name",
+      "License Number",
+      "Primary Status",
+      "Secondary Status",
+      "Original License Date",
+      "Status Effective Date",
+      "License Expiration Date",
+      "Alternate License Number",
+      "Self Proprietor's Name",
+      "Employer's Name",
+      "Employer's License Number"
+    ]
+  },
+  "counts": {
+    "total_records": 454253,
+    "active_current_records": 315871
+  },
+  "breakdowns": {
+    "rank": [
+      {
+        "rank": "SL Sales Associate",
+        "count": 373518
+      },
+      {
+        "rank": "BK Broker",
+        "count": 48908
+      },
+      {
+        "rank": "BL Broker Sales",
+        "count": 31827
+      }
+    ],
+    "primary_status": [
+      {
+        "primary_status": "Current",
+        "count": 415759
+      },
+      {
+        "primary_status": "Invol Inactive",
+        "count": 38366
+      },
+      {
+        "primary_status": "Suspended",
+        "count": 87
+      },
+      {
+        "primary_status": "Probation",
+        "count": 41
+      }
+    ],
+    "secondary_status": [
+      {
+        "secondary_status": "Active",
+        "count": 318243
+      },
+      {
+        "secondary_status": "Inactive",
+        "count": 136005
+      },
+      {
+        "secondary_status": "(blank)",
+        "count": 5
+      }
+    ],
+    "primary_secondary": [
+      {
+        "primary_status": "Current",
+        "secondary_status": "Active",
+        "count": 315871
+      },
+      {
+        "primary_status": "Current",
+        "secondary_status": "Inactive",
+        "count": 99888
+      },
+      {
+        "primary_status": "Invol Inactive",
+        "secondary_status": "Inactive",
+        "count": 36032
+      },
+      {
+        "primary_status": "Invol Inactive",
+        "secondary_status": "Active",
+        "count": 2334
+      },
+      {
+        "primary_status": "Suspended",
+        "secondary_status": "Inactive",
+        "count": 78
+      },
+      {
+        "primary_status": "Probation",
+        "secondary_status": "Active",
+        "count": 34
+      },
+      {
+        "primary_status": "Probation",
+        "secondary_status": "Inactive",
+        "count": 7
+      },
+      {
+        "primary_status": "Suspended",
+        "secondary_status": "(blank)",
+        "count": 5
+      },
+      {
+        "primary_status": "Suspended",
+        "secondary_status": "Active",
+        "count": 4
+      }
+    ]
+  },
+  "top": {
+    "cities": [
+      {
+        "name": "MIAMI",
+        "count": 35736
+      },
+      {
+        "name": "ORLANDO",
+        "count": 20567
+      },
+      {
+        "name": "TAMPA",
+        "count": 13031
+      },
+      {
+        "name": "NAPLES",
+        "count": 11078
+      },
+      {
+        "name": "JACKSONVILLE",
+        "count": 10412
+      },
+      {
+        "name": "BOCA RATON",
+        "count": 9184
+      },
+      {
+        "name": "SARASOTA",
+        "count": 7095
+      },
+      {
+        "name": "FORT LAUDERDALE",
+        "count": 6094
+      },
+      {
+        "name": "CAPE CORAL",
+        "count": 5783
+      },
+      {
+        "name": "KISSIMMEE",
+        "count": 5620
+      },
+      {
+        "name": "FORT MYERS",
+        "count": 5566
+      },
+      {
+        "name": "WEST PALM BEACH",
+        "count": 4934
+      },
+      {
+        "name": "PEMBROKE PINES",
+        "count": 4308
+      },
+      {
+        "name": "MIAMI BEACH",
+        "count": 4250
+      },
+      {
+        "name": "BRADENTON",
+        "count": 4089
+      },
+      {
+        "name": "HOLLYWOOD",
+        "count": 4005
+      },
+      {
+        "name": "OCALA",
+        "count": 3803
+      },
+      {
+        "name": "BOYNTON BEACH",
+        "count": 3751
+      },
+      {
+        "name": "DELRAY BEACH",
+        "count": 3496
+      },
+      {
+        "name": "DORAL",
+        "count": 3451
+      }
+    ],
+    "counties": [
+      {
+        "name": "Dade",
+        "count": 67883
+      },
+      {
+        "name": "Broward",
+        "count": 48710
+      },
+      {
+        "name": "Palm Beach",
+        "count": 39305
+      },
+      {
+        "name": "Orange",
+        "count": 31928
+      },
+      {
+        "name": "Hillsborough",
+        "count": 23324
+      },
+      {
+        "name": "Out of State",
+        "count": 23083
+      },
+      {
+        "name": "Lee",
+        "count": 18102
+      },
+      {
+        "name": "Pinellas",
+        "count": 16919
+      },
+      {
+        "name": "Collier",
+        "count": 12172
+      },
+      {
+        "name": "Duval",
+        "count": 11704
+      },
+      {
+        "name": "Sarasota",
+        "count": 10988
+      },
+      {
+        "name": "(blank)",
+        "count": 9642
+      },
+      {
+        "name": "Brevard",
+        "count": 9567
+      },
+      {
+        "name": "Volusia",
+        "count": 9065
+      },
+      {
+        "name": "Pasco",
+        "count": 8875
+      },
+      {
+        "name": "Osceola",
+        "count": 8854
+      },
+      {
+        "name": "Polk",
+        "count": 8739
+      },
+      {
+        "name": "Seminole",
+        "count": 8528
+      },
+      {
+        "name": "Manatee",
+        "count": 7471
+      },
+      {
+        "name": "Lake",
+        "count": 7360
+      }
+    ]
+  }
+}

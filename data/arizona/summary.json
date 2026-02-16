@@ -1,0 +1,105 @@
+{
+  "state": "AZ",
+  "source": "ADRE",
+  "total_records": 222450,
+  "active_real_estate": 59915,
+  "status_breakdown": {
+    "Terminated": 137324,
+    "Active": 60121,
+    "Eligible": 13281,
+    "Expired": 6662,
+    "Inactive": 2609,
+    "Suspended": 732,
+    "Revoked": 723,
+    "Cancelled": 579,
+    "Denied": 419
+  },
+  "type_breakdown": {
+    "Salesperson": 192100,
+    "Broker": 30062,
+    "Unlicensed": 283,
+    "Candidate": 5
+  },
+  "top_cities": [
+    {
+      "city": "SCOTTSDALE",
+      "count": 15057
+    },
+    {
+      "city": "PHOENIX",
+      "count": 10201
+    },
+    {
+      "city": "TUCSON",
+      "count": 6088
+    },
+    {
+      "city": "GILBERT",
+      "count": 3699
+    },
+    {
+      "city": "PEORIA",
+      "count": 3396
+    },
+    {
+      "city": "GLENDALE",
+      "count": 2606
+    },
+    {
+      "city": "MESA",
+      "count": 2469
+    },
+    {
+      "city": "CHANDLER",
+      "count": 1692
+    },
+    {
+      "city": "TEMPE",
+      "count": 1269
+    },
+    {
+      "city": "NEWARK",
+      "count": 1232
+    },
+    {
+      "city": "GOODYEAR",
+      "count": 1158
+    },
+    {
+      "city": "LAKE HAVASU CITY",
+      "count": 1137
+    },
+    {
+      "city": "PRESCOTT",
+      "count": 841
+    },
+    {
+      "city": "YUMA",
+      "count": 629
+    },
+    {
+      "city": "FLAGSTAFF",
+      "count": 521
+    },
+    {
+      "city": "SURPRISE",
+      "count": 515
+    },
+    {
+      "city": "QUEEN CREEK",
+      "count": 512
+    },
+    {
+      "city": "SEDONA",
+      "count": 450
+    },
+    {
+      "city": "ORO VALLEY",
+      "count": 302
+    },
+    {
+      "city": "BULLHEAD CITY",
+      "count": 263
+    }
+  ]
+}

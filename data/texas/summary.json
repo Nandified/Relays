@@ -1,0 +1,26 @@
+{
+  "total_records": 312735,
+  "active_records": 229493,
+  "inactive_records": 83242,
+  "source_files": {
+    "brokers_sales": "trec_brokers_sales.csv",
+    "inspectors": "trec_inspectors.csv"
+  },
+  "columns_used": {
+    "status": "Status",
+    "license_type": "License Type",
+    "city": null,
+    "county": "County"
+  },
+  "by_license_type": {
+    "sales_agent": 252569,
+    "broker": 60166
+  },
+  "top_cities": [],
+  "top_counties": [
+    {
+      "county": "(blank)",
+      "count": 229493
+    }
+  ]
+}

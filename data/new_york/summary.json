@@ -1,0 +1,210 @@
+{
+  "generated_at": "2026-02-16T09:55:51.610756",
+  "as_of_date": "2026-02-16",
+  "files": {
+    "brokers": "dos_brokers.csv",
+    "salespersons": "dos_salespersons.csv",
+    "offices": "dos_offices.csv"
+  },
+  "record_counts": {
+    "brokers_total": 43462,
+    "brokers_active": 43417,
+    "salespersons_total": 77080,
+    "salespersons_active": 76988,
+    "offices_total": 27728,
+    "offices_active": 27724,
+    "all_total": 148270
+  },
+  "license_type_breakdown_all_files": {
+    "REAL ESTATE SALESPERSON": 77080,
+    "REAL ESTATE PRINCIPAL OFFICE": 26286,
+    "ASSOCIATE BROKER": 16240,
+    "INDIVIDUAL BROKER": 9500,
+    "LIMITED LIABILITY BROKER": 8125,
+    "CORPORATE BROKER": 7524,
+    "TRADENAME BROKER": 1944,
+    "REAL ESTATE BRANCH OFFICE": 1442,
+    "PARTNERSHIP BROKER": 129
+  },
+  "top_20_cities_by_active_licensees_brokers_and_salespersons": [
+    {
+      "city": "New York",
+      "count": 26178
+    },
+    {
+      "city": "Brooklyn",
+      "count": 9080
+    },
+    {
+      "city": "Flushing",
+      "count": 2922
+    },
+    {
+      "city": "Staten Island",
+      "count": 2677
+    },
+    {
+      "city": "Bronx",
+      "count": 2149
+    },
+    {
+      "city": "Rochester",
+      "count": 2018
+    },
+    {
+      "city": "White Plains",
+      "count": 1940
+    },
+    {
+      "city": "Buffalo",
+      "count": 1269
+    },
+    {
+      "city": "Albany",
+      "count": 1220
+    },
+    {
+      "city": "Manhasset",
+      "count": 1196
+    },
+    {
+      "city": "Great Neck",
+      "count": 1101
+    },
+    {
+      "city": "Huntington",
+      "count": 1081
+    },
+    {
+      "city": "Scarsdale",
+      "count": 1016
+    },
+    {
+      "city": "Garden City",
+      "count": 993
+    },
+    {
+      "city": "New City",
+      "count": 969
+    },
+    {
+      "city": "Bayside",
+      "count": 938
+    },
+    {
+      "city": "Elmhurst",
+      "count": 853
+    },
+    {
+      "city": "Williamsville",
+      "count": 810
+    },
+    {
+      "city": "Plainview",
+      "count": 793
+    },
+    {
+      "city": "Long Island City",
+      "count": 710
+    }
+  ],
+  "top_20_counties_by_active_licensees_brokers_and_salespersons": [
+    {
+      "county": "New York",
+      "count": 28630
+    },
+    {
+      "county": "Nassau",
+      "count": 13898
+    },
+    {
+      "county": "Suffolk",
+      "count": 11646
+    },
+    {
+      "county": "Queens",
+      "count": 11619
+    },
+    {
+      "county": "Kings",
+      "count": 8852
+    },
+    {
+      "county": "Westchester",
+      "count": 8133
+    },
+    {
+      "county": "N/A - Out Of State",
+      "count": 4246
+    },
+    {
+      "county": "Erie",
+      "count": 3872
+    },
+    {
+      "county": "Monroe",
+      "count": 2995
+    },
+    {
+      "county": "Albany",
+      "count": 2731
+    },
+    {
+      "county": "Richmond",
+      "count": 2568
+    },
+    {
+      "county": "Rockland",
+      "count": 2083
+    },
+    {
+      "county": "Bronx",
+      "count": 2065
+    },
+    {
+      "county": "Orange",
+      "count": 1950
+    },
+    {
+      "county": "Onondaga",
+      "count": 1824
+    },
+    {
+      "county": "Dutchess",
+      "count": 1735
+    },
+    {
+      "county": "Saratoga",
+      "count": 1234
+    },
+    {
+      "county": "Ulster",
+      "count": 911
+    },
+    {
+      "county": "None",
+      "count": 737
+    },
+    {
+      "county": "Oneida",
+      "count": 527
+    }
+  ],
+  "nyc_metro_counties": [
+    "Bronx",
+    "Kings",
+    "Nassau",
+    "New York",
+    "Queens",
+    "Richmond",
+    "Suffolk",
+    "Westchester"
+  ],
+  "nyc_metro_vs_rest_active_brokers_and_salespersons": {
+    "nyc_metro_count": 87411,
+    "rest_of_state_count": 32994,
+    "total_active_brokers_and_salespersons": 120405
+  },
+  "merged_active_output": "dos_all_active.csv",
+  "merged_active_rows": 120405
+}

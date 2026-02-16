@@ -40,3 +40,20 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 data/homes_com/.playwright-profile/
+
+# Large raw data files (keep normalized CSVs only)
+data/*/adre_*.csv
+data/*/trec_brokers_sales.csv
+data/*/trec_active_brokers.csv
+data/*/CurrList.*
+data/*/dre_active_individuals.csv
+data/*/dbpr_all_licensees.csv
+data/*/dbpr_active_licensees.csv
+data/*/dbpr_corporations.csv
+data/*/dos_brokers.csv
+data/*/dos_salespersons.csv
+data/*/dos_offices.csv
+data/*/dora_re_professionals.csv
+data/*/dora_real_estate.csv
+data/*/test.csv
+data/*/ct_*.csv

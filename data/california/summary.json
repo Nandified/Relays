@@ -1,0 +1,192 @@
+{
+  "source_url": "https://secure.dre.ca.gov/datafile/CurrList.zip",
+  "input_file": "/Users/Clawdbot/clawd/Relays/data/california/CurrList.csv",
+  "generated_at": "2026-02-16T15:55:17.706986+00:00",
+  "total_records": 437660,
+  "counts_by_license_status": {
+    "Licensed": 345910,
+    "Licensed NBA": 91750
+  },
+  "counts_by_license_type": {
+    "Corporation": 24599,
+    "Salesperson": 295809,
+    "Broker": 92641,
+    "Officer": 24611
+  },
+  "top_20_cities": [
+    {
+      "city": "LOS ANGELES",
+      "count": 19148
+    },
+    {
+      "city": "SAN DIEGO",
+      "count": 17391
+    },
+    {
+      "city": "SAN JOSE",
+      "count": 9086
+    },
+    {
+      "city": "IRVINE",
+      "count": 8553
+    },
+    {
+      "city": "SAN FRANCISCO",
+      "count": 7998
+    },
+    {
+      "city": "SACRAMENTO",
+      "count": 6490
+    },
+    {
+      "city": "NEWPORT BEACH",
+      "count": 4842
+    },
+    {
+      "city": "LONG BEACH",
+      "count": 4450
+    },
+    {
+      "city": "HUNTINGTON BEACH",
+      "count": 4011
+    },
+    {
+      "city": "FRESNO",
+      "count": 4004
+    },
+    {
+      "city": "BAKERSFIELD",
+      "count": 3715
+    },
+    {
+      "city": "BEVERLY HILLS",
+      "count": 3441
+    },
+    {
+      "city": "RIVERSIDE",
+      "count": 3439
+    },
+    {
+      "city": "CARLSBAD",
+      "count": 3303
+    },
+    {
+      "city": "GLENDALE",
+      "count": 3107
+    },
+    {
+      "city": "RANCHO CUCAMONGA",
+      "count": 3056
+    },
+    {
+      "city": "ROSEVILLE",
+      "count": 3018
+    },
+    {
+      "city": "CORONA",
+      "count": 2995
+    },
+    {
+      "city": "TORRANCE",
+      "count": 2769
+    },
+    {
+      "city": "ANAHEIM",
+      "count": 2761
+    }
+  ],
+  "top_20_counties": [
+    {
+      "county": "LOS ANGELES",
+      "count": 115601
+    },
+    {
+      "county": "ORANGE",
+      "count": 58088
+    },
+    {
+      "county": "SAN DIEGO",
+      "count": 42798
+    },
+    {
+      "county": "RIVERSIDE",
+      "count": 27686
+    },
+    {
+      "county": "SANTA CLARA",
+      "count": 19543
+    },
+    {
+      "county": "SAN BERNARDINO",
+      "count": 18923
+    },
+    {
+      "county": "SACRAMENTO",
+      "count": 14483
+    },
+    {
+      "county": "ALAMEDA",
+      "count": 13823
+    },
+    {
+      "county": "CONTRA COSTA",
+      "count": 13358
+    },
+    {
+      "county": "OUT OF STATE",
+      "count": 12841
+    },
+    {
+      "county": "VENTURA",
+      "count": 9595
+    },
+    {
+      "county": "SAN MATEO",
+      "count": 8244
+    },
+    {
+      "county": "SAN FRANCISCO",
+      "count": 8003
+    },
+    {
+      "county": "PLACER",
+      "count": 7805
+    },
+    {
+      "county": "FRESNO",
+      "count": 6373
+    },
+    {
+      "county": "SAN JOAQUIN",
+      "count": 5489
+    },
+    {
+      "county": "SONOMA",
+      "count": 4903
+    },
+    {
+      "county": "KERN",
+      "count": 4810
+    },
+    {
+      "county": "SANTA BARBARA",
+      "count": 3937
+    },
+    {
+      "county": "STANISLAUS",
+      "count": 3719
+    }
+  ],
+  "active_individuals_filter": {
+    "lic_status_in": [
+      "Licensed",
+      "Licensed NBA"
+    ],
+    "lic_type_in": [
+      "Salesperson",
+      "Broker"
+    ],
+    "output_file": "/Users/Clawdbot/clawd/Relays/data/california/dre_active_individuals.csv",
+    "output_records": 388450
+  }
+}

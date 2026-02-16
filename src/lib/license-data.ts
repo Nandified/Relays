@@ -243,6 +243,21 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
       idPrefix: "nydos_",
       defaultState: "NY",
     },
+    {
+      filePath: path.join(process.cwd(), "data", "arizona", "normalized_brokers.csv"),
+      idPrefix: "adre_",
+      defaultState: "AZ",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "colorado", "normalized_brokers.csv"),
+      idPrefix: "dora_",
+      defaultState: "CO",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "connecticut", "normalized_brokers.csv"),
+      idPrefix: "ctdcp_",
+      defaultState: "CT",
+    },
   ];
 
   const all: UnclaimedProfessional[] = [];

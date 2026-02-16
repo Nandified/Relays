@@ -1,0 +1,102 @@
+{
+  "state": "CT",
+  "source": "DCP",
+  "total_records": 117435,
+  "active_individual_re": 26174,
+  "status_breakdown": {
+    "INACTIVE": 63260,
+    "ACTIVE": 25911,
+    "EXPIRED APPLICATION": 23941,
+    "PENDING": 2017,
+    "QUALIFIED": 1307,
+    "RETIRED": 903,
+    "APPROVED": 29,
+    "DENIED": 25,
+    "SUSPENDED": 21,
+    "ACTIVE UNDER REVIEW": 16,
+    "REVOKED": 4,
+    "LAPSED": 1
+  },
+  "top_cities": [
+    {
+      "city": "STAMFORD",
+      "count": 1133
+    },
+    {
+      "city": "NORWALK",
+      "count": 716
+    },
+    {
+      "city": "FAIRFIELD",
+      "count": 673
+    },
+    {
+      "city": "GREENWICH",
+      "count": 607
+    },
+    {
+      "city": "WESTPORT",
+      "count": 488
+    },
+    {
+      "city": "WEST HARTFORD",
+      "count": 480
+    },
+    {
+      "city": "MILFORD",
+      "count": 445
+    },
+    {
+      "city": "BRIDGEPORT",
+      "count": 437
+    },
+    {
+      "city": "DANBURY",
+      "count": 419
+    },
+    {
+      "city": "TRUMBULL",
+      "count": 401
+    },
+    {
+      "city": "SHELTON",
+      "count": 376
+    },
+    {
+      "city": "STRATFORD",
+      "count": 373
+    },
+    {
+      "city": "NEW HAVEN",
+      "count": 333
+    },
+    {
+      "city": "DARIEN",
+      "count": 312
+    },
+    {
+      "city": "WATERBURY",
+      "count": 303
+    },
+    {
+      "city": "HAMDEN",
+      "count": 296
+    },
+    {
+      "city": "WALLINGFORD",
+      "count": 294
+    },
+    {
+      "city": "RIDGEFIELD",
+      "count": 282
+    },
+    {
+      "city": "NEW CANAAN",
+      "count": 276
+    },
+    {
+      "city": "BRANFORD",
+      "count": 261
+    }
+  ]
+}

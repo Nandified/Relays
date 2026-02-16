@@ -1,0 +1,117 @@
+{
+  "state": "CO",
+  "source": "DORA",
+  "total_records": 107212,
+  "active_re": 64278,
+  "license_types": {
+    "Associate Level Real Estate Broker": 31923,
+    "Mortgage Loan Originator": 21793,
+    "Real Estate Company - Independent": 8776,
+    "Home Owner's Association": 8592,
+    "Real Estate Company - Employing": 7804,
+    "HOA Designated Agent": 7420,
+    "Employing Level Real Estate Broker - Responsible Broker": 4973,
+    "Employing Level Real Estate Broker - Associate": 3576,
+    "Independent Level Real Estate Broker - Individual Proprietor": 2458,
+    "Independent Level Real Estate Broker - Associate": 2055,
+    "Employing Level Real Estate Broker - Individual Proprietor": 2013,
+    "Natural Person": 1280,
+    "Certified Residential Appraiser": 1140,
+    "Certified General Appraiser": 1076,
+    "Independent Level Real Estate Broker - Responsible Broker": 809,
+    "Subdivision Projects": 489,
+    "Controlling Appraiser": 323,
+    "Ad Valorem Appraiser": 271,
+    "Licensed Appraiser": 193,
+    "Appraisal Management Company": 114,
+    "Temporary Appraisal Permit": 73,
+    "Subdivision Developer": 58,
+    "Federally Regulated Appraisal Management Company": 3
+  },
+  "status_breakdown": {
+    "Active": 88920,
+    "Inactive": 18292
+  },
+  "top_cities": [
+    {
+      "city": "DENVER",
+      "count": 9744
+    },
+    {
+      "city": "COLORADO SPRINGS",
+      "count": 4943
+    },
+    {
+      "city": "AURORA",
+      "count": 2467
+    },
+    {
+      "city": "FORT COLLINS",
+      "count": 2177
+    },
+    {
+      "city": "LITTLETON",
+      "count": 2140
+    },
+    {
+      "city": "LAKEWOOD",
+      "count": 1882
+    },
+    {
+      "city": "BOULDER",
+      "count": 1731
+    },
+    {
+      "city": "CENTENNIAL",
+      "count": 1423
+    },
+    {
+      "city": "GRAND JUNCTION",
+      "count": 1395
+    },
+    {
+      "city": "PARKER",
+      "count": 1265
+    },
+    {
+      "city": "ARVADA",
+      "count": 1230
+    },
+    {
+      "city": "CASTLE ROCK",
+      "count": 1090
+    },
+    {
+      "city": "ENGLEWOOD",
+      "count": 988
+    },
+    {
+      "city": "HIGHLANDS RANCH",
+      "count": 967
+    },
+    {
+      "city": "WESTMINSTER",
+      "count": 931
+    },
+    {
+      "city": "GREENWOOD VILLAGE",
+      "count": 929
+    },
+    {
+      "city": "LOVELAND",
+      "count": 914
+    },
+    {
+      "city": "LONGMONT",
+      "count": 912
+    },
+    {
+      "city": "THORNTON",
+      "count": 872
+    },
+    {
+      "city": "GOLDEN",
+      "count": 787
+    }
+  ]
+}
