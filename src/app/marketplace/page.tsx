@@ -5,13 +5,13 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { type UnclaimedProfessional } from "@/lib/types";
 import { ExpandableProCard } from "@/components/marketplace/ExpandableProCard";
-import { ExpandableIdfprCard } from "@/components/marketplace/ExpandableIdfprCard";
+import { ExpandableLicensedCard } from "@/components/marketplace/ExpandableLicensedCard";
 import { SearchBar } from "@/components/marketplace/SearchBar";
 import { FilterChips } from "@/components/marketplace/FilterChips";
 
 type SortOption = "rating" | "reviews" | "response" | "newest";
 
-const IDFPR_PAGE_SIZE = 25;
+const LICENSE_PAGE_SIZE = 25;
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
@@ -37,15 +37,15 @@ function MarketplaceContent() {
   const [verifiedOnly, setVerifiedOnly] = React.useState(false);
   const [acceptingOnly, setAcceptingOnly] = React.useState(false);
 
-  // IDFPR data state
-  const [idfprData, setIdfprData] = React.useState<UnclaimedProfessional[]>([]);
-  const [idfprTotal, setIdfprTotal] = React.useState(0);
-  const [idfprLoading, setIdfprLoading] = React.useState(false);
-  const [idfprOffset, setIdfprOffset] = React.useState(0);
-  const [idfprHasMore, setIdfprHasMore] = React.useState(true);
+  // License data state
+  const [licensedData, setLicensedData] = React.useState<UnclaimedProfessional[]>([]);
+  const [licensedTotal, setLicensedTotal] = React.useState(0);
+  const [licensedLoading, setLicensedLoading] = React.useState(false);
+  const [licensedOffset, setLicensedOffset] = React.useState(0);
+  const [licensedHasMore, setLicensedHasMore] = React.useState(true);
 
   // Refs
-  const idfprFetchRef = React.useRef<AbortController | null>(null);
+  const licenseFetchRef = React.useRef<AbortController | null>(null);
 
   // Multi-category support from URL
   const urlCategories = React.useMemo(() => {
@@ -71,25 +71,25 @@ function MarketplaceContent() {
     if (z) setZip(z);
   }, [searchParams]);
 
-  // Fetch IDFPR data with debounce
-  const fetchIdfpr = React.useCallback(async (reset: boolean = false) => {
+  // Fetch license data with debounce
+  const fetchLicensed = React.useCallback(async (reset: boolean = false) => {
     // Abort previous request
-    if (idfprFetchRef.current) {
-      idfprFetchRef.current.abort();
+    if (licenseFetchRef.current) {
+      licenseFetchRef.current.abort();
     }
 
     const controller = new AbortController();
-    idfprFetchRef.current = controller;
+    licenseFetchRef.current = controller;
 
-    const offset = reset ? 0 : idfprOffset;
-    setIdfprLoading(true);
+    const offset = reset ? 0 : licensedOffset;
+    setLicensedLoading(true);
 
     try {
       const params = new URLSearchParams();
       if (query.trim()) params.set("q", query.trim());
       if (categoryFilter && categoryFilter !== "All") params.set("category", categoryFilter);
       if (zip.trim()) params.set("zip", zip.trim());
-      params.set("limit", String(IDFPR_PAGE_SIZE));
+      params.set("limit", String(LICENSE_PAGE_SIZE));
       params.set("offset", String(offset));
 
       const res = await fetch(`/api/professionals?${params.toString()}`, {
@@ -101,21 +101,21 @@ function MarketplaceContent() {
       const result = await res.json();
 
       if (reset) {
-        setIdfprData(result.data);
+        setLicensedData(result.data);
       } else {
-        setIdfprData((prev) => [...prev, ...result.data]);
+        setLicensedData((prev) => [...prev, ...result.data]);
       }
 
-      setIdfprTotal(result.total);
-      setIdfprOffset(offset + result.data.length);
-      setIdfprHasMore(offset + result.data.length < result.total);
+      setLicensedTotal(result.total);
+      setLicensedOffset(offset + result.data.length);
+      setLicensedHasMore(offset + result.data.length < result.total);
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
-      console.error("[marketplace] Failed to fetch IDFPR data:", err);
+      console.error("[marketplace] Failed to fetch license data:", err);
     } finally {
-      setIdfprLoading(false);
+      setLicensedLoading(false);
     }
-  }, [query, categoryFilter, zip, idfprOffset]);
+  }, [query, categoryFilter, zip, licensedOffset]);
 
   // Total professional count (fetch once on mount for display)
   const [totalProfessionals, setTotalProfessionals] = React.useState(0);
@@ -127,21 +127,21 @@ function MarketplaceContent() {
   const hasActiveFilter = !!(query.trim() || (categoryFilter && categoryFilter !== "All") || zip.trim());
 
   // Initial fetch + refetch on filter changes (debounced)
-  // Only fetch IDFPR data when user has searched/filtered
+  // Only fetch license data when user has searched/filtered
   React.useEffect(() => {
     if (!hasActiveFilter) {
-      // Clear IDFPR data when no active search — show just demo pros
-      setIdfprData([]);
-      setIdfprTotal(0);
-      setIdfprOffset(0);
-      setIdfprHasMore(false);
+      // Clear license data when no active search — show just demo pros
+      setLicensedData([]);
+      setLicensedTotal(0);
+      setLicensedOffset(0);
+      setLicensedHasMore(false);
       return;
     }
 
     const timeout = setTimeout(() => {
-      setIdfprOffset(0);
-      setIdfprHasMore(true);
-      fetchIdfpr(true);
+      setLicensedOffset(0);
+      setLicensedHasMore(true);
+      fetchLicensed(true);
     }, 300);
 
     return () => clearTimeout(timeout);
@@ -190,7 +190,7 @@ function MarketplaceContent() {
   }, [query, categoryFilter, urlCategories, sortBy, verifiedOnly, acceptingOnly]);
 
   // Handlers
-  const handleSearchSelectIdfpr = React.useCallback((professional: UnclaimedProfessional) => {
+  const handleSearchSelectLicensed = React.useCallback((professional: UnclaimedProfessional) => {
     router.push(`/pros/${professional.slug}`);
   }, [router]);
 
@@ -209,8 +209,8 @@ function MarketplaceContent() {
     return labels;
   }, [categoryFilter, urlCategories]);
 
-  // Loading shimmer for IDFPR cards
-  const IdfprLoadingShimmer = () => (
+  // Loading shimmer for licensed professional cards
+  const LicensedLoadingShimmer = () => (
     <div className="space-y-2">
       {[1, 2, 3].map((i) => (
         <div key={i} className="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)]/60 p-4 animate-pulse">
@@ -230,7 +230,7 @@ function MarketplaceContent() {
     </div>
   );
 
-  const hasAnyResults = filteredPros.length > 0 || idfprData.length > 0;
+  const hasAnyResults = filteredPros.length > 0 || licensedData.length > 0;
 
   return (
     <main className="mx-auto max-w-6xl overflow-x-hidden px-3 sm:px-4 py-4 sm:py-6">
@@ -276,9 +276,9 @@ function MarketplaceContent() {
           {hasActiveFilter ? (
             <>
               <span className="font-medium text-slate-300">
-                {(filteredPros.length + idfprTotal).toLocaleString()}
+                {(filteredPros.length + licensedTotal).toLocaleString()}
               </span>
-              {" "}result{(filteredPros.length + idfprTotal) !== 1 ? "s" : ""}
+              {" "}result{(filteredPros.length + licensedTotal) !== 1 ? "s" : ""}
               {zip.trim() ? ` near ${zip.trim()}` : ""}
             </>
           ) : (
@@ -318,16 +318,16 @@ function MarketplaceContent() {
                   onToggle={() => handleMobileToggle(pro.id)}
                 />
               ))
-            ) : !hasAnyResults && !idfprLoading ? (
+            ) : !hasAnyResults && !licensedLoading ? (
               <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
                 <div className="text-sm font-medium text-slate-300">No results found</div>
                 <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
               </div>
             ) : null}
 
-            {/* IDFPR cards */}
-            {idfprData.map((prof) => (
-              <ExpandableIdfprCard
+            {/* Licensed professional cards */}
+            {licensedData.map((prof) => (
+              <ExpandableLicensedCard
                 key={prof.id}
                 professional={prof}
                 expanded={mobileExpandedId === prof.id}
@@ -335,26 +335,26 @@ function MarketplaceContent() {
               />
             ))}
 
-            {/* IDFPR loading */}
-            {idfprLoading && <IdfprLoadingShimmer />}
+            {/* Licensed professional data loading */}
+            {licensedLoading && <LicensedLoadingShimmer />}
 
             {/* Show more button */}
-            {idfprHasMore && !idfprLoading && (
+            {licensedHasMore && !licensedLoading && (
               <div className="py-4 text-center">
                 <button
-                  onClick={() => fetchIdfpr(false)}
+                  onClick={() => fetchLicensed(false)}
                   className="inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] backdrop-blur-lg px-6 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/[0.08] hover:border-white/[0.15] hover:text-slate-100 transition-all"
                 >
                   Show more results
                   <span className="text-xs text-slate-500">
-                    ({idfprData.length} of {idfprTotal.toLocaleString()})
+                    ({licensedData.length} of {licensedTotal.toLocaleString()})
                   </span>
                 </button>
               </div>
             )}
 
             {/* Browse prompt when no search is active */}
-            {!hasActiveFilter && !idfprLoading && (
+            {!hasActiveFilter && !licensedLoading && (
               <div className="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 text-center">
                 <p className="text-sm text-slate-400">
                   Search by name or filter by category to browse{" "}

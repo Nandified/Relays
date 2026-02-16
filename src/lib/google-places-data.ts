@@ -2,13 +2,13 @@
  * Google Places (Outscraper) Data Loading Module
  *
  * Reads pre-scraped Outscraper JSON files from /data/outscraper and exposes
- * the same search/filter/pagination API shape as src/lib/idfpr-data.ts.
+ * the same search/filter/pagination API shape as src/lib/license-data.ts.
  */
 
 import * as fs from "fs";
 import * as path from "path";
 import { type ProServiceCategory, type UnclaimedProfessional } from "@/lib/types";
-// Intentionally no dependency on the IDFPR loader here.
+// Intentionally no dependency on the state license loader here.
 
 type OutscraperPlace = {
   name?: string;
@@ -102,9 +102,9 @@ let lastLoadTime: Date | null = null;
 function loadAllGoogleProfessionals(): UnclaimedProfessional[] {
   if (cachedGooglePros && cachedGoogleProsById && cachedGoogleProsBySlug) return cachedGooglePros;
 
-  // Dedup inspectors that are already represented in IDFPR.
-  // We use googlePlaceId values stored in the IDFPR enrichment lookup file.
-  const idfprGooglePlaceIds = new Set<string>();
+  // Dedup inspectors that are already represented in the state license database.
+  // We use googlePlaceId values stored in the license enrichment lookup file.
+  const licenseGooglePlaceIds = new Set<string>();
   try {
     const enrichmentPath = path.join(process.cwd(), "data", "idfpr", "idfpr_outscraper_enrichment.json");
     if (fs.existsSync(enrichmentPath)) {
@@ -113,7 +113,7 @@ function loadAllGoogleProfessionals(): UnclaimedProfessional[] {
       };
       for (const v of Object.values(parsed.byLicenseNumber ?? {})) {
         const gp = typeof v.googlePlaceId === "string" ? v.googlePlaceId.trim() : "";
-        if (gp) idfprGooglePlaceIds.add(gp);
+        if (gp) licenseGooglePlaceIds.add(gp);
       }
     }
   } catch {
@@ -134,8 +134,8 @@ function loadAllGoogleProfessionals(): UnclaimedProfessional[] {
       const placeId = safeTrim(place.place_id);
       if (!placeId) continue;
 
-      // Dedupe against IDFPR-enriched professionals (same Google Place).
-      if (idfprGooglePlaceIds.has(placeId)) continue;
+      // Dedupe against license-enriched professionals (same Google Place).
+      if (licenseGooglePlaceIds.has(placeId)) continue;
 
       // De-dupe within Google set.
       if (byId.has(placeId)) continue;

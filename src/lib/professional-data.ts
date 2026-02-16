@@ -2,18 +2,18 @@
  * Unified professional data access layer.
  *
  * Combines:
- * - IDFPR licensed individuals (src/lib/idfpr-data.ts)
+ * - State license database professionals (src/lib/license-data.ts)
  * - Google Places (Outscraper) listings (src/lib/google-places-data.ts)
  */
 
 import { type ProServiceCategory, type UnclaimedProfessional } from "@/lib/types";
 import {
-  searchProfessionals as searchIdfprProfessionals,
-  getProfessionalById as getIdfprProfessionalById,
-  getProfessionalBySlug as getIdfprProfessionalBySlug,
-  getProfessionalStats as getIdfprStats,
-  getAllProfessionals as getAllIdfprProfessionals,
-} from "@/lib/idfpr-data";
+  searchLicensedProfessionals as searchLicenseProfessionals,
+  getLicensedProfessionalById as getLicenseProfessionalById,
+  getLicensedProfessionalBySlug as getLicenseProfessionalBySlug,
+  getLicensedStats as getLicenseStats,
+  getAllLicensedProfessionals as getAllLicenseProfessionals,
+} from "@/lib/license-data";
 import {
   searchGoogleProfessionals,
   getGoogleProfessionalById,
@@ -51,7 +51,7 @@ function mergeStats(
 }
 
 /**
- * Search/filter/paginate across ALL professionals (IDFPR + Google Places).
+ * Search/filter/paginate across ALL professionals (license data + Google Places).
  *
  * Note: We implement global pagination by searching each source with
  * an expanded window and then slicing.
@@ -63,11 +63,11 @@ export function searchAllProfessionals(params: ProfessionalSearchParams): Profes
   // For global pagination, fetch enough from each source to satisfy offset+limit.
   const window = offset + limit;
 
-  const idfpr = searchIdfprProfessionals({ ...params, limit: window, offset: 0 });
+  const licensed = searchLicenseProfessionals({ ...params, limit: window, offset: 0 });
   const google = searchGoogleProfessionals({ ...params, limit: window, offset: 0 });
 
   // Merge results.
-  let merged = [...idfpr.data, ...google.data];
+  let merged = [...licensed.data, ...google.data];
 
   // Prefer higher-quality results first when browsing (rating/photos), then name.
   merged.sort((a, b) => {
@@ -86,7 +86,7 @@ export function searchAllProfessionals(params: ProfessionalSearchParams): Profes
     return a.name.localeCompare(b.name);
   });
 
-  const total = idfpr.total + google.total;
+  const total = licensed.total + google.total;
 
   return {
     data: merged.slice(offset, offset + limit),
@@ -97,15 +97,15 @@ export function searchAllProfessionals(params: ProfessionalSearchParams): Profes
 }
 
 export function getProfessionalById(id: string): UnclaimedProfessional | null {
-  // IDFPR IDs are prefixed (idfpr_); Google uses place_id.
-  const fromIdfpr = getIdfprProfessionalById(id);
-  if (fromIdfpr) return fromIdfpr;
+  // State license database IDs are prefixed (idfpr_, trec_, dre_, etc.); Google uses place_id.
+  const fromLicense = getLicenseProfessionalById(id);
+  if (fromLicense) return fromLicense;
   return getGoogleProfessionalById(id);
 }
 
 export function getProfessionalBySlug(slug: string): UnclaimedProfessional | null {
-  const fromIdfpr = getIdfprProfessionalBySlug(slug);
-  if (fromIdfpr) return fromIdfpr;
+  const fromLicense = getLicenseProfessionalBySlug(slug);
+  if (fromLicense) return fromLicense;
   return getGoogleProfessionalBySlug(slug);
 }
 
@@ -114,7 +114,7 @@ export function getProfessionalStats(): {
   byCategory: Record<string, number>;
   lastLoaded: string | null;
 } {
-  const a = getIdfprStats();
+  const a = getLicenseStats();
   const b = getGoogleProfessionalStats();
   const merged = mergeStats(a, b);
 
@@ -127,5 +127,5 @@ export function getProfessionalStats(): {
 }
 
 export function getAllProfessionals(): UnclaimedProfessional[] {
-  return [...getAllIdfprProfessionals(), ...getAllGoogleProfessionals()];
+  return [...getAllLicenseProfessionals(), ...getAllGoogleProfessionals()];
 }

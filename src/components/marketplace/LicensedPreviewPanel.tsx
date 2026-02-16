@@ -32,7 +32,7 @@ function avatarColor(name: string): string {
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
-export function IdfprPreviewPanel({ professional }: { professional: UnclaimedProfessional }) {
+export function LicensedPreviewPanel({ professional }: { professional: UnclaimedProfessional }) {
   const initials = getInitials(professional.name);
   const colorClass = avatarColor(professional.name);
 

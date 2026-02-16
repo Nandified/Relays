@@ -120,7 +120,7 @@ export default function DataImportPage() {
       <div>
         <h1 className="text-xl font-bold text-slate-100">Data Import</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Import IDFPR license data and manage professional records.
+          Import state license data and manage professional records.
         </p>
       </div>
 
@@ -282,7 +282,7 @@ export default function DataImportPage() {
       <Card padding="md" className="opacity-70">
         <h3 className="text-sm font-semibold text-slate-300 mb-2">Expected CSV Format</h3>
         <p className="text-xs text-slate-500 leading-relaxed">
-          CSV files should include headers matching IDFPR data format:{" "}
+          CSV files should include headers matching the state license data format:{" "}
           <code className="text-violet-400/80">name, license_number, type, company, city, state, zip, county, licensed_since, expires, disciplined</code>.
           The <code className="text-violet-400/80">type</code> column determines the professional category mapping.
           Brokerages (is_business=True) and appraisers are automatically skipped.

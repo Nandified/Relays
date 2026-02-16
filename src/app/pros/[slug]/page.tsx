@@ -17,7 +17,7 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
     return <ClaimedProProfile pro={claimed} />;
   }
 
-  // 2) Unclaimed IDFPR professionals
+  // 2) Unclaimed license database professionals
   const unclaimed = getProfessionalBySlug(slug);
   if (unclaimed) {
     return <UnclaimedProfileTemplate professional={unclaimed} />;

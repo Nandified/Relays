@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { type UnclaimedProfessional } from "@/lib/types";
 
-interface ExpandableIdfprCardProps {
+interface ExpandableLicensedCardProps {
   professional: UnclaimedProfessional;
   expanded: boolean;
   onToggle: () => void;
@@ -53,7 +53,7 @@ function GoogleG({ className = "" }: { className?: string }) {
   );
 }
 
-export function ExpandableIdfprCard({ professional, expanded, onToggle }: ExpandableIdfprCardProps) {
+export function ExpandableLicensedCard({ professional, expanded, onToggle }: ExpandableLicensedCardProps) {
   const initials = getInitials(professional.name);
   const colorClass = avatarColor(professional.name);
   const hasRating = typeof professional.rating === "number" && !Number.isNaN(professional.rating);

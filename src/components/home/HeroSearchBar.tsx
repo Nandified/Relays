@@ -220,7 +220,7 @@ export function HeroSearchBar() {
     router.push(`/marketplace?placeId=${place.placeId}`);
   }
 
-  function handleSelectIdfpr(professional: UnclaimedProfessional) {
+  function handleSelectLicensed(professional: UnclaimedProfessional) {
     setIsOpen(false);
     router.push(`/pros/${professional.slug}`);
   }
@@ -395,7 +395,7 @@ export function HeroSearchBar() {
           categories={activeCategoryArray.length > 0 ? activeCategoryArray : undefined}
           onSelectPro={handleSelectPro}
           onSelectPlace={handleSelectPlace}
-          onSelectIdfpr={handleSelectIdfpr}
+          onSelectLicensed={handleSelectLicensed}
           onSeeAll={handleSeeAll}
           visible={showSuggestions}
           className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative mt-2"

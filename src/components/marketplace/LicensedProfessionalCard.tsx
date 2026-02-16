@@ -33,7 +33,7 @@ function avatarColor(name: string): string {
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
-export function IdfprCard({
+export function LicensedProfessionalCard({
   professional,
   selected,
   onSelect,

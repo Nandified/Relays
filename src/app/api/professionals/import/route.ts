@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { importCSV } from "@/lib/idfpr-data";
+import { importCSV } from "@/lib/license-data";
 
 export async function POST(request: NextRequest) {
   try {

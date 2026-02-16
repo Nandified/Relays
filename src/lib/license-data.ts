@@ -1,11 +1,13 @@
 /**
- * IDFPR Data Loading Module
+ * State license database loading module.
  *
- * Reads CSV files from /data/idfpr/ and provides search/filter/pagination
- * over Illinois licensed professionals (brokers, inspectors, etc.).
+ * Loads and normalizes professionals from one or more state license sources.
+ *
+ * Notes:
+ * - The Illinois source data lives in /data/idfpr/ (directory name kept as-is).
+ * - Additional states are loaded from state-specific normalized CSVs.
  *
  * Data is parsed once on first request and cached in memory.
- * ~70K records ≈ 30-50MB — acceptable for server-side caching.
  */
 
 import * as fs from "fs";
@@ -106,7 +108,12 @@ function baseSlugForProfessional(p: { name: string; city: string }): string {
 
 /* ── Map CSV row → UnclaimedProfessional ─────────────────────── */
 
-function rowToProfessional(row: Record<string, string>): UnclaimedProfessional | null {
+type RowToProfessionalOptions = {
+  idPrefix: string;
+  defaultState: string;
+};
+
+function rowToProfessional(row: Record<string, string>, opts: RowToProfessionalOptions): UnclaimedProfessional | null {
   const licenseType = (row.type ?? "").toUpperCase().trim();
 
   // Skip business entities and unsupported types
@@ -120,7 +127,7 @@ function rowToProfessional(row: Record<string, string>): UnclaimedProfessional |
   if (!licenseNumber) return null;
 
   return {
-    id: `idfpr_${licenseNumber}`,
+    id: `${opts.idPrefix}${licenseNumber}`,
     slug: "", // assigned during load (needs global collision detection)
     name: (row.name ?? "").trim(),
     licenseNumber,
@@ -128,7 +135,7 @@ function rowToProfessional(row: Record<string, string>): UnclaimedProfessional |
     company: (row.company ?? "").trim(),
     officeName: null,
     city: (row.city ?? "").trim(),
-    state: (row.state ?? "IL").trim(),
+    state: (row.state ?? opts.defaultState).trim(),
     zip: (row.zip ?? "").trim(),
     county: (row.county ?? "").trim(),
     licensedSince: (row.licensed_since ?? "").trim(),
@@ -148,7 +155,7 @@ function rowToProfessional(row: Record<string, string>): UnclaimedProfessional |
 
 /* ── Enrichment loading (Outscraper / DBA office name) ───────── */
 
-type IdfprEnrichmentLookupFile = {
+type LicenseEnrichmentLookupFile = {
   generatedAt?: string;
   byLicenseNumber?: Record<
     string,
@@ -165,13 +172,13 @@ type IdfprEnrichmentLookupFile = {
   >;
 };
 
-let cachedEnrichmentByLicense: Map<string, NonNullable<IdfprEnrichmentLookupFile["byLicenseNumber"]>[string]> | null = null;
+let cachedEnrichmentByLicense: Map<string, NonNullable<LicenseEnrichmentLookupFile["byLicenseNumber"]>[string]> | null = null;
 
 function getEnrichmentPath(): string {
   return path.join(process.cwd(), "data", "idfpr", "idfpr_outscraper_enrichment.json");
 }
 
-function loadEnrichmentByLicense(): Map<string, NonNullable<IdfprEnrichmentLookupFile["byLicenseNumber"]>[string]> {
+function loadEnrichmentByLicense(): Map<string, NonNullable<LicenseEnrichmentLookupFile["byLicenseNumber"]>[string]> {
   if (cachedEnrichmentByLicense) return cachedEnrichmentByLicense;
 
   const filePath = getEnrichmentPath();
@@ -181,7 +188,7 @@ function loadEnrichmentByLicense(): Map<string, NonNullable<IdfprEnrichmentLooku
   }
 
   try {
-    const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8")) as IdfprEnrichmentLookupFile;
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8")) as LicenseEnrichmentLookupFile;
     const obj = parsed.byLicenseNumber ?? {};
     cachedEnrichmentByLicense = new Map(Object.entries(obj));
   } catch {
@@ -204,8 +211,8 @@ function getDataDir(): string {
 function loadAllProfessionals(): UnclaimedProfessional[] {
   if (cachedProfessionals && cachedProfessionalsBySlug) return cachedProfessionals;
 
-  const dataDir = getDataDir();
-  const files = [
+  const ilDataDir = getDataDir();
+  const ilFiles = [
     "real_estate_broker.csv",
     "home_inspector.csv",
     // Appraiser CSV is loaded but rows are skipped via LICENSE_TYPE mapping
@@ -214,21 +221,46 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
     "real_estate_brokerage.csv",
   ];
 
+  // Additional normalized (license-format) CSVs from other states.
+  const extraStateFiles: Array<{ filePath: string; idPrefix: string; defaultState: string }> = [
+    {
+      filePath: path.join(process.cwd(), "data", "texas", "normalized_brokers.csv"),
+      idPrefix: "trec_",
+      defaultState: "TX",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "california", "normalized_brokers.csv"),
+      idPrefix: "dre_",
+      defaultState: "CA",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "florida", "normalized_brokers.csv"),
+      idPrefix: "dbpr_",
+      defaultState: "FL",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "new_york", "normalized_brokers.csv"),
+      idPrefix: "nydos_",
+      defaultState: "NY",
+    },
+  ];
+
   const all: UnclaimedProfessional[] = [];
   const slugs = new Set<string>();
   const bySlug = new Map<string, UnclaimedProfessional>();
-  const seenLicenses = new Set<string>(); // dedup by license number
+  const seenIds = new Set<string>(); // dedup across all sources (state-prefixed)
 
-  for (const file of files) {
-    const filePath = path.join(dataDir, file);
+  // 1) Illinois license data (keep existing loading behavior)
+  for (const file of ilFiles) {
+    const filePath = path.join(ilDataDir, file);
     const rows = parseCSVFile(filePath);
     for (const row of rows) {
-      const prof = rowToProfessional(row);
+      const prof = rowToProfessional(row, { idPrefix: "idfpr_", defaultState: "IL" });
       if (!prof) continue;
 
-      // Skip duplicates — same license number across CSV files
-      if (seenLicenses.has(prof.licenseNumber)) continue;
-      seenLicenses.add(prof.licenseNumber);
+      // Skip duplicates — same license number across Illinois source CSV files
+      if (seenIds.has(prof.id)) continue;
+      seenIds.add(prof.id);
 
       const baseSlug = baseSlugForProfessional(prof);
       // If we can't make a useful slug (missing data), fall back to license number.
@@ -242,10 +274,33 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
     }
   }
 
-  // Apply enrichment lookup (phone/website/rating + officeName)
+  // 2) Extra states (normalized CSV)
+  for (const src of extraStateFiles) {
+    const rows = parseCSVFile(src.filePath);
+    for (const row of rows) {
+      const prof = rowToProfessional(row, { idPrefix: src.idPrefix, defaultState: src.defaultState });
+      if (!prof) continue;
+
+      // Skip duplicates within/among sources (state-prefixed)
+      if (seenIds.has(prof.id)) continue;
+      seenIds.add(prof.id);
+
+      const baseSlug = baseSlugForProfessional(prof);
+      const candidate = baseSlug || `professional-${prof.licenseNumber}`;
+      const finalSlug = slugs.has(candidate) ? `${candidate}-${prof.licenseNumber}` : candidate;
+
+      prof.slug = finalSlug;
+      slugs.add(finalSlug);
+      bySlug.set(finalSlug, prof);
+      all.push(prof);
+    }
+  }
+
+  // Apply enrichment lookup (phone/website/rating + officeName) — Illinois only
   const enrich = loadEnrichmentByLicense();
   if (enrich.size) {
     for (const p of all) {
+      if (!p.id.startsWith("idfpr_")) continue;
       const e = enrich.get(p.licenseNumber);
       if (!e) continue;
       p.phone = e.phone ?? p.phone;
@@ -284,9 +339,9 @@ export interface ProfessionalSearchResult {
 }
 
 /**
- * Search/filter/paginate IDFPR professionals.
+ * Search/filter/paginate licensed professionals.
  */
-export function searchProfessionals(params: ProfessionalSearchParams): ProfessionalSearchResult {
+export function searchLicensedProfessionals(params: ProfessionalSearchParams): ProfessionalSearchResult {
   const all = loadAllProfessionals();
   let filtered = all;
 
@@ -378,7 +433,7 @@ export function searchProfessionals(params: ProfessionalSearchParams): Professio
 /**
  * Get a single professional by ID.
  */
-export function getProfessionalById(id: string): UnclaimedProfessional | null {
+export function getLicensedProfessionalById(id: string): UnclaimedProfessional | null {
   const all = loadAllProfessionals();
   return all.find((p) => p.id === id) ?? null;
 }
@@ -386,7 +441,7 @@ export function getProfessionalById(id: string): UnclaimedProfessional | null {
 /**
  * Get a single professional by slug.
  */
-export function getProfessionalBySlug(slug: string): UnclaimedProfessional | null {
+export function getLicensedProfessionalBySlug(slug: string): UnclaimedProfessional | null {
   loadAllProfessionals();
   return cachedProfessionalsBySlug?.get(slug) ?? null;
 }
@@ -394,7 +449,7 @@ export function getProfessionalBySlug(slug: string): UnclaimedProfessional | nul
 /**
  * Get aggregate stats across all loaded data.
  */
-export function getProfessionalStats(): {
+export function getLicensedStats(): {
   total: number;
   byCategory: Record<string, number>;
   lastLoaded: string | null;
@@ -438,7 +493,7 @@ export function importCSV(filename: string, csvContent: string): number {
   const rows = parseCSVFile(filePath);
   let count = 0;
   for (const row of rows) {
-    if (rowToProfessional(row)) count++;
+    if (rowToProfessional(row, { idPrefix: "idfpr_", defaultState: "IL" })) count++;
   }
 
   return count;
@@ -459,6 +514,6 @@ export function reloadData(): void {
  * Get all professionals (for search suggestions, etc.).
  * Returns the full cached array — don't mutate.
  */
-export function getAllProfessionals(): UnclaimedProfessional[] {
+export function getAllLicensedProfessionals(): UnclaimedProfessional[] {
   return loadAllProfessionals();
 }

@@ -128,7 +128,7 @@ export interface TimeWindow {
   available: boolean;
 }
 
-// ── Unclaimed Professional (IDFPR data) ──
+// ── Unclaimed Professional (state license database data) ──
 export interface UnclaimedProfessional {
   id: string; // generated from license_number
   slug: string;
@@ -137,8 +137,8 @@ export interface UnclaimedProfessional {
   licenseType: string; // "LICENSED REAL ESTATE BROKER", "LICENSED HOME INSPECTOR", etc.
   company: string;
   /**
-   * Employing brokerage / office name (IDFPR compliance).
-   * Derived from IDFPR business DBA and/or Google Maps listing name.
+   * Employing brokerage / office name (license database compliance).
+   * Derived from license database business DBA and/or Google Maps listing name.
    */
   officeName: string | null;
   city: string;
