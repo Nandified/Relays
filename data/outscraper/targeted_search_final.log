@@ -209,3 +209,53 @@
 [2026-02-16 13:29:51]   Finished batch: 15 queries, 0 new matches | totalSearched=61430 matchesFound=4674
 [2026-02-16 13:29:52] Batch 66/80: 15 queries (progress 61430/61646)
 [2026-02-16 13:29:53]   Batch request id: ab-2a2904af-dd50-402f-b5ae-1d9d53837c64
+[2026-02-16 13:30:41]   Finished batch: 15 queries, 0 new matches | totalSearched=61445 matchesFound=4674
+[2026-02-16 13:30:42] Batch 67/80: 15 queries (progress 61445/61646)
+[2026-02-16 13:30:42]   Batch request id: ab-2b82e98e-3b62-4911-87ac-aab72ec43e7d
+[2026-02-16 13:31:30]   Finished batch: 15 queries, 0 new matches | totalSearched=61460 matchesFound=4674
+[2026-02-16 13:31:31] Batch 68/80: 15 queries (progress 61460/61646)
+[2026-02-16 13:31:32]   Batch request id: ab-eb204834-fd14-44f4-bf0a-dae9faf21ced
+[2026-02-16 13:33:07]   Finished batch: 15 queries, 0 new matches | totalSearched=61475 matchesFound=4674
+[2026-02-16 13:33:08] Batch 69/80: 15 queries (progress 61475/61646)
+[2026-02-16 13:33:09]   Batch request id: ab-1c3f6821-8ee2-454c-a2f6-dee2f9084152
+[2026-02-16 13:34:44]   Finished batch: 15 queries, 0 new matches | totalSearched=61490 matchesFound=4674
+[2026-02-16 13:34:45] Batch 70/80: 15 queries (progress 61490/61646)
+[2026-02-16 13:34:46]   Batch request id: ab-05c4daee-7666-449a-99e1-68e8000f8530
+[2026-02-16 13:35:34]   Finished batch: 15 queries, 0 new matches | totalSearched=61505 matchesFound=4674
+[2026-02-16 13:35:35] Batch 71/80: 15 queries (progress 61505/61646)
+[2026-02-16 13:35:36]   Batch request id: ab-c81ac20d-da81-410c-912d-0ca2889a51d8
+[2026-02-16 13:36:24]   Finished batch: 15 queries, 1 new matches | totalSearched=61520 matchesFound=4675
+[2026-02-16 13:36:25] Batch 72/80: 15 queries (progress 61520/61646)
+[2026-02-16 13:36:26]   Batch request id: ab-cf5e0c86-664f-461c-87ae-42b1304e41d4
+[2026-02-16 13:37:14]   Finished batch: 15 queries, 0 new matches | totalSearched=61535 matchesFound=4675
+[2026-02-16 13:37:15] Batch 73/80: 15 queries (progress 61535/61646)
+[2026-02-16 13:37:16]   Batch request id: ab-fb2b57f3-b858-4425-a05a-af499eee139f
+[2026-02-16 13:38:04]   Finished batch: 15 queries, 1 new matches | totalSearched=61550 matchesFound=4676
+[2026-02-16 13:38:05] Batch 74/80: 15 queries (progress 61550/61646)
+[2026-02-16 13:38:06]   Batch request id: ab-4a5f0b4e-d59c-4280-959e-b223f4633dce
+[2026-02-16 13:38:38]   Finished batch: 15 queries, 0 new matches | totalSearched=61565 matchesFound=4676
+[2026-02-16 13:38:40] Batch 75/80: 15 queries (progress 61565/61646)
+[2026-02-16 13:38:40]   Batch request id: ab-58dc45fb-2b8b-45fb-ac1f-3fa907ce2bcb
+[2026-02-16 13:39:12]   Finished batch: 15 queries, 0 new matches | totalSearched=61580 matchesFound=4676
+[2026-02-16 13:39:14] Batch 76/80: 15 queries (progress 61580/61646)
+[2026-02-16 13:39:14]   Batch request id: ab-a12065af-a499-44e2-b644-553221f93f20
+[2026-02-16 13:40:18]   Finished batch: 15 queries, 1 new matches | totalSearched=61595 matchesFound=4677
+[2026-02-16 13:40:19] Batch 77/80: 15 queries (progress 61595/61646)
+[2026-02-16 13:40:19]   Batch request id: ab-49319e7b-47d2-4e62-95bb-0c8b6d34dcd7
+[2026-02-16 13:41:07]   Finished batch: 15 queries, 1 new matches | totalSearched=61610 matchesFound=4678
+[2026-02-16 13:41:08] Batch 78/80: 15 queries (progress 61610/61646)
+[2026-02-16 13:41:09]   Batch request id: ab-cce47bfc-d826-4218-96fd-5625f6b02d8d
+[2026-02-16 13:42:28]   Finished batch: 15 queries, 2 new matches | totalSearched=61625 matchesFound=4680
+[2026-02-16 13:42:29] Batch 79/80: 15 queries (progress 61625/61646)
+[2026-02-16 13:42:30]   Batch request id: ab-caa5042a-fd1b-4121-a217-47a06380765f
+[2026-02-16 13:43:02]   Finished batch: 15 queries, 0 new matches | totalSearched=61640 matchesFound=4680
+[2026-02-16 13:43:03] Batch 80/80: 6 queries (progress 61640/61646)
+[2026-02-16 13:43:04]   Batch request id: ab-793a1ec9-00f6-4a7c-9cd1-327401713c72
+[2026-02-16 13:43:20]   Finished batch: 6 queries, 1 new matches | totalSearched=61646 matchesFound=4681
+[2026-02-16 13:43:22] 
+[2026-02-16 13:43:22] ======================================================================
+[2026-02-16 13:43:23] FINISHED. Total searched: 61646 | Matches: 4681 | Rate: 7.6%
+[2026-02-16 13:43:23] Final balance: $23.02
+[2026-02-16 13:43:23] Results saved to: /Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search_results.json
+[2026-02-16 13:43:23] Progress saved to: /Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search_progress.json
+[2026-02-16 13:43:23] ======================================================================
