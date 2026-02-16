@@ -7,6 +7,7 @@ import { type UnclaimedProfessional } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { ClaimedProProfile } from "@/components/profiles/ClaimedProProfile";
+import { UnclaimedClaimButton } from "@/components/profiles/UnclaimedClaimButton";
 
 export default async function ProProfilePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

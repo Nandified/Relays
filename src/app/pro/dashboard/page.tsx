@@ -1,10 +1,12 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { VerifiedBadge } from "@/components/verified-badge";
 import {
   mockProIncomingRequests,
   mockJourneys,
@@ -12,6 +14,7 @@ import {
   getFilledRoleCount,
   getTotalRoleCount,
 } from "@/lib/mock-data";
+import { getVerificationStatus, getVerificationDate } from "@/lib/mock-verification-data";
 
 export default function ProDashboardPage() {
   const pending = mockProIncomingRequests.filter((r) => r.status === "pending");
@@ -21,6 +24,11 @@ export default function ProDashboardPage() {
   const proId = "pro_9";
   const myJourneys = mockJourneys.filter((j) => j.createdByProId === proId);
   const totalRoles = getTotalRoleCount();
+
+  // Verification status (demo using pro_1 = Alex Martinez = verified)
+  const [demoVerifiedProId, setDemoVerifiedProId] = React.useState("pro_1");
+  const vStatus = getVerificationStatus(demoVerifiedProId);
+  const vDate = getVerificationDate(demoVerifiedProId);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
@@ -158,22 +166,86 @@ export default function ProDashboardPage() {
         </div>
       </div>
 
-      {/* Get verified CTA */}
+      {/* Verification Status */}
       <div className="mb-8">
-        <Card padding="lg" className="border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-indigo-500/5">
-          <div className="flex items-start gap-3">
-            <div className="h-10 w-10 rounded-xl bg-[var(--accent-light)] border border-blue-500/10 flex items-center justify-center flex-shrink-0">
-              <svg width="20" height="20" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+        {/* Demo toggle */}
+        <div className="mb-3 flex items-center gap-2 text-xs">
+          <span className="text-slate-600">Demo status:</span>
+          {[
+            { id: "pro_1", label: "Verified", color: "emerald" },
+            { id: "pro_2", label: "Pending", color: "amber" },
+            { id: "pro_3", label: "Not Verified", color: "slate" },
+          ].map((opt) => (
+            <button
+              key={opt.id}
+              className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
+                demoVerifiedProId === opt.id
+                  ? `border-${opt.color}-500/30 bg-${opt.color}-500/10 text-${opt.color}-400`
+                  : "border-[var(--border)] text-slate-500 hover:text-slate-400"
+              }`}
+              onClick={() => setDemoVerifiedProId(opt.id)}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+
+        {vStatus === "verified" && (
+          <Card padding="lg" className="border-emerald-500/20 bg-gradient-to-r from-emerald-500/5 to-teal-500/5">
+            <div className="flex items-start gap-3">
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/15 flex items-center justify-center flex-shrink-0">
+                <VerifiedBadge status="verified" size="lg" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-emerald-400">License Verified</h3>
+                  <VerifiedBadge status="verified" size="sm" showLabel />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Verified since {vDate ? new Date(vDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "recently"}. Your badge is live on your profile.
+                </p>
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className="text-sm font-semibold text-slate-100">Get verified — submit your license</h3>
-              <p className="text-xs text-slate-400 mt-1">Verified pros get more leads and rank higher in search results.</p>
-              <Button size="sm" className="mt-3">Submit Credentials</Button>
+          </Card>
+        )}
+
+        {vStatus === "pending" && (
+          <Card padding="lg" className="border-amber-500/20 bg-gradient-to-r from-amber-500/5 to-orange-500/5">
+            <div className="flex items-start gap-3">
+              <div className="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/15 flex items-center justify-center flex-shrink-0">
+                <VerifiedBadge status="pending" size="lg" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-amber-400">Verification Under Review</h3>
+                  <VerifiedBadge status="pending" size="sm" showLabel />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Your license is being reviewed by our team. This usually takes 1-2 business days.
+                </p>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        )}
+
+        {vStatus === "not_verified" && (
+          <Card padding="lg" className="border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-indigo-500/5">
+            <div className="flex items-start gap-3">
+              <div className="h-10 w-10 rounded-xl bg-[var(--accent-light)] border border-blue-500/10 flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-slate-100">Get Verified — Upload Your License</h3>
+                <p className="text-xs text-slate-400 mt-1">Verified pros get more leads and rank higher in search results. Most are verified instantly.</p>
+                <Link href="/pro/verification">
+                  <Button size="sm" className="mt-3">Upload License</Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+        )}
       </div>
 
       {/* Recent activity */}

@@ -15,8 +15,12 @@ export default function AdminCategoriesPage() {
   const [newName, setNewName] = React.useState("");
   const [newIcon, setNewIcon] = React.useState("");
   const [newDescription, setNewDescription] = React.useState("");
+  const [newCredentials, setNewCredentials] = React.useState("");
+  const [dragIndex, setDragIndex] = React.useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = React.useState<number | null>(null);
 
   const editing = editingId ? categories.find(c => c.id === editingId) : null;
+  const sorted = [...categories].sort((a, b) => a.order - b.order);
 
   const handleAdd = () => {
     if (!newName.trim()) return;
@@ -25,15 +29,13 @@ export default function AdminCategoriesPage() {
       name: newName.trim() as ServiceCategoryConfig["name"],
       icon: newIcon || "📋",
       description: newDescription,
-      requiredCredentials: [],
+      requiredCredentials: newCredentials.split(",").map(c => c.trim()).filter(Boolean),
       proCount: 0,
       enabled: true,
       order: categories.length + 1,
     };
     setCategories(prev => [...prev, newCat]);
-    setNewName("");
-    setNewIcon("");
-    setNewDescription("");
+    resetForm();
     setAddModalOpen(false);
   };
 
@@ -46,12 +48,16 @@ export default function AdminCategoriesPage() {
   const handleEdit = () => {
     if (!editingId || !newName.trim()) return;
     setCategories(prev => prev.map(c =>
-      c.id === editingId ? { ...c, name: newName.trim() as ServiceCategoryConfig["name"], icon: newIcon || c.icon, description: newDescription || c.description } : c
+      c.id === editingId ? {
+        ...c,
+        name: newName.trim() as ServiceCategoryConfig["name"],
+        icon: newIcon || c.icon,
+        description: newDescription || c.description,
+        requiredCredentials: newCredentials ? newCredentials.split(",").map(cr => cr.trim()).filter(Boolean) : c.requiredCredentials,
+      } : c
     ));
     setEditingId(null);
-    setNewName("");
-    setNewIcon("");
-    setNewDescription("");
+    resetForm();
   };
 
   const openEdit = (cat: ServiceCategoryConfig) => {
@@ -59,6 +65,56 @@ export default function AdminCategoriesPage() {
     setNewName(cat.name);
     setNewIcon(cat.icon);
     setNewDescription(cat.description);
+    setNewCredentials(cat.requiredCredentials.join(", "));
+  };
+
+  const resetForm = () => {
+    setNewName("");
+    setNewIcon("");
+    setNewDescription("");
+    setNewCredentials("");
+  };
+
+  // Drag & drop reorder
+  const handleDragStart = (index: number) => {
+    setDragIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    setDragOverIndex(index);
+  };
+
+  const handleDrop = (targetIndex: number) => {
+    if (dragIndex === null || dragIndex === targetIndex) {
+      setDragIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    const reordered = [...sorted];
+    const [moved] = reordered.splice(dragIndex, 1);
+    reordered.splice(targetIndex, 0, moved);
+
+    // Update order values
+    const updated = reordered.map((cat, i) => ({ ...cat, order: i + 1 }));
+    setCategories(updated);
+    setDragIndex(null);
+    setDragOverIndex(null);
+  };
+
+  const moveUp = (index: number) => {
+    if (index <= 0) return;
+    const reordered = [...sorted];
+    [reordered[index - 1], reordered[index]] = [reordered[index], reordered[index - 1]];
+    setCategories(reordered.map((cat, i) => ({ ...cat, order: i + 1 })));
+  };
+
+  const moveDown = (index: number) => {
+    if (index >= sorted.length - 1) return;
+    const reordered = [...sorted];
+    [reordered[index], reordered[index + 1]] = [reordered[index + 1], reordered[index]];
+    setCategories(reordered.map((cat, i) => ({ ...cat, order: i + 1 })));
   };
 
   return (
@@ -68,7 +124,7 @@ export default function AdminCategoriesPage() {
         <div>
           <h1 className="text-2xl font-bold text-slate-100">Service Categories</h1>
           <p className="mt-1 text-sm text-slate-400">
-            Manage the professional categories available on Relays.
+            Manage professional categories. Drag to reorder display priority.
           </p>
         </div>
         <Button onClick={() => setAddModalOpen(true)}>
@@ -80,14 +136,35 @@ export default function AdminCategoriesPage() {
       </div>
 
       {/* Categories list */}
-      <div className="space-y-3">
-        {categories
-          .sort((a, b) => a.order - b.order)
-          .map((cat, index) => (
-            <Card key={cat.id} padding="none" className="glow-violet">
+      <div className="space-y-2">
+        {sorted.map((cat, index) => (
+          <div
+            key={cat.id}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragOver={(e) => handleDragOver(e, index)}
+            onDrop={() => handleDrop(index)}
+            onDragEnd={() => { setDragIndex(null); setDragOverIndex(null); }}
+            className={`transition-all duration-200 ${
+              dragOverIndex === index && dragIndex !== index ? "translate-y-1 opacity-70" : ""
+            }`}
+          >
+            <Card padding="none" className={`glow-violet ${dragIndex === index ? "opacity-50 scale-[0.98]" : ""}`}>
               <div className="flex items-center gap-4 px-4 py-3.5">
+                {/* Drag handle */}
+                <div className="cursor-grab active:cursor-grabbing text-slate-600 hover:text-slate-400 transition-colors">
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="8" cy="6" r="1.5" />
+                    <circle cx="16" cy="6" r="1.5" />
+                    <circle cx="8" cy="12" r="1.5" />
+                    <circle cx="16" cy="12" r="1.5" />
+                    <circle cx="8" cy="18" r="1.5" />
+                    <circle cx="16" cy="18" r="1.5" />
+                  </svg>
+                </div>
+
                 {/* Order indicator */}
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 text-xs font-medium text-slate-500 border border-[var(--border)]">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 text-xs font-medium text-slate-500 border border-[var(--border)] tabular-nums">
                   {index + 1}
                 </div>
 
@@ -107,12 +184,38 @@ export default function AdminCategoriesPage() {
                     )}
                   </div>
                   <p className="text-xs text-slate-500 mt-0.5 truncate">{cat.description}</p>
+                  {/* Credentials */}
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {cat.requiredCredentials.map((cred) => (
+                      <span key={cred} className="inline-flex rounded-md bg-white/5 px-1.5 py-0.5 text-[10px] text-slate-500 border border-[var(--border)]">
+                        {cred}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Pro count */}
                 <div className="text-center hidden sm:block">
-                  <div className="text-sm font-medium text-slate-200">{cat.proCount}</div>
+                  <div className="text-sm font-medium text-slate-200 tabular-nums">{cat.proCount}</div>
                   <div className="text-[10px] text-slate-500">pros</div>
+                </div>
+
+                {/* Move buttons */}
+                <div className="flex flex-col gap-0.5 hidden sm:flex">
+                  <button
+                    onClick={() => moveUp(index)}
+                    disabled={index === 0}
+                    className="rounded-lg p-1 text-slate-600 hover:bg-white/5 hover:text-slate-400 transition-colors disabled:opacity-30"
+                  >
+                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" /></svg>
+                  </button>
+                  <button
+                    onClick={() => moveDown(index)}
+                    disabled={index === sorted.length - 1}
+                    className="rounded-lg p-1 text-slate-600 hover:bg-white/5 hover:text-slate-400 transition-colors disabled:opacity-30"
+                  >
+                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
+                  </button>
                 </div>
 
                 {/* Actions */}
@@ -149,11 +252,12 @@ export default function AdminCategoriesPage() {
                 </div>
               </div>
             </Card>
-          ))}
+          </div>
+        ))}
       </div>
 
       {/* Add modal */}
-      <Modal open={addModalOpen} title="Add Service Category" onClose={() => setAddModalOpen(false)}>
+      <Modal open={addModalOpen} title="Add Service Category" onClose={() => { setAddModalOpen(false); resetForm(); }}>
         <div className="space-y-4">
           <Input
             label="Category Name"
@@ -173,8 +277,14 @@ export default function AdminCategoriesPage() {
             value={newDescription}
             onChange={(e) => setNewDescription(e.target.value)}
           />
+          <Input
+            label="Required Credentials (comma-separated)"
+            placeholder="e.g., State License, Certification"
+            value={newCredentials}
+            onChange={(e) => setNewCredentials(e.target.value)}
+          />
           <div className="flex gap-2 justify-end">
-            <Button variant="ghost" onClick={() => setAddModalOpen(false)}>Cancel</Button>
+            <Button variant="ghost" onClick={() => { setAddModalOpen(false); resetForm(); }}>Cancel</Button>
             <Button onClick={handleAdd}>Add Category</Button>
           </div>
         </div>
@@ -184,7 +294,7 @@ export default function AdminCategoriesPage() {
       <Modal
         open={editingId !== null}
         title={`Edit: ${editing?.name ?? ""}`}
-        onClose={() => { setEditingId(null); setNewName(""); setNewIcon(""); setNewDescription(""); }}
+        onClose={() => { setEditingId(null); resetForm(); }}
       >
         <div className="space-y-4">
           <Input
@@ -202,8 +312,13 @@ export default function AdminCategoriesPage() {
             value={newDescription}
             onChange={(e) => setNewDescription(e.target.value)}
           />
+          <Input
+            label="Required Credentials (comma-separated)"
+            value={newCredentials}
+            onChange={(e) => setNewCredentials(e.target.value)}
+          />
           <div className="flex gap-2 justify-end">
-            <Button variant="ghost" onClick={() => { setEditingId(null); setNewName(""); setNewIcon(""); setNewDescription(""); }}>Cancel</Button>
+            <Button variant="ghost" onClick={() => { setEditingId(null); resetForm(); }}>Cancel</Button>
             <Button onClick={handleEdit}>Save Changes</Button>
           </div>
         </div>

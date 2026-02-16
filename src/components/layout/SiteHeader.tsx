@@ -112,6 +112,7 @@ export function SiteHeader() {
             {isPro && (
               <>
                 <MobileLink href="/pro/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</MobileLink>
+                <MobileLink href="/pro/journeys" onClick={() => setMobileOpen(false)}>Journeys</MobileLink>
                 <MobileLink href="/pro/requests" onClick={() => setMobileOpen(false)}>Requests</MobileLink>
                 <MobileLink href="/pro/profile" onClick={() => setMobileOpen(false)}>Profile</MobileLink>
               </>
