@@ -46,6 +46,9 @@ export function SiteHeader() {
               <Link href="/pro/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Dashboard
               </Link>
+              <Link href="/pro/journeys" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
+                Journeys
+              </Link>
               <Link href="/pro/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors">
                 Requests
               </Link>

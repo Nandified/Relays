@@ -1,14 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { mockProIncomingRequests } from "@/lib/mock-data";
+import {
+  mockProIncomingRequests,
+  mockJourneys,
+  getProById,
+  getFilledRoleCount,
+  getTotalRoleCount,
+} from "@/lib/mock-data";
 
 export default function ProDashboardPage() {
   const pending = mockProIncomingRequests.filter((r) => r.status === "pending");
   const accepted = mockProIncomingRequests.filter((r) => r.status === "accepted");
+
+  // Journeys created by this pro (Lisa Hartwell for demo)
+  const proId = "pro_9";
+  const myJourneys = mockJourneys.filter((j) => j.createdByProId === proId);
+  const totalRoles = getTotalRoleCount();
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
@@ -24,8 +36,8 @@ export default function ProDashboardPage() {
           <div className="text-xs text-slate-500 mt-1">New Leads</div>
         </Card>
         <Card padding="md">
-          <div className="text-2xl font-bold text-amber-400">{pending.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Pending Actions</div>
+          <div className="text-2xl font-bold text-purple-400">{myJourneys.length}</div>
+          <div className="text-xs text-slate-500 mt-1">Journeys</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-emerald-400">{accepted.length}</div>
@@ -37,7 +49,86 @@ export default function ProDashboardPage() {
         </Card>
       </div>
 
-      {/* Pending actions */}
+      {/* Journey management section */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Your Journeys</h2>
+          <div className="flex items-center gap-2">
+            <Link href="/pro/journeys" className="text-xs text-blue-400 hover:underline">View all →</Link>
+          </div>
+        </div>
+
+        {myJourneys.length > 0 ? (
+          <div className="space-y-3">
+            {myJourneys.slice(0, 3).map((journey) => {
+              const filled = getFilledRoleCount(journey);
+              const pct = Math.round((filled / totalRoles) * 100);
+
+              return (
+                <Link key={journey.id} href={`/journey/${journey.id}`}>
+                  <Card hover padding="md" className="mb-3">
+                    <div className="flex items-center gap-4">
+                      <div className="relative h-10 w-10 flex-shrink-0">
+                        <svg viewBox="0 0 36 36" className="h-10 w-10">
+                          <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
+                          <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke={filled === totalRoles ? "#10b981" : "#3b82f6"} strokeWidth="3" strokeLinecap="round" strokeDasharray={`${pct}, 100`} />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">{filled}/{totalRoles}</div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-sm font-semibold text-slate-100 truncate">{journey.title}</h3>
+                          <Badge variant={journey.status === "completed" ? "success" : journey.status === "active" ? "accent" : "warning"}>
+                            {journey.status === "completed" ? "Complete" : journey.status === "active" ? "Active" : "Pending"}
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {journey.client.name} • {journey.address}
+                        </p>
+                      </div>
+
+                      {/* Filled member avatars */}
+                      <div className="hidden sm:flex -space-x-2">
+                        {journey.roles
+                          .filter((r) => r.status === "filled" && r.assignedProId)
+                          .slice(0, 3)
+                          .map((r) => {
+                            const pro = getProById(r.assignedProId!);
+                            if (!pro) return null;
+                            return (
+                              <div key={r.category} className="h-6 w-6 overflow-hidden rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)]">
+                                <Image src={pro.headshotUrl} alt={pro.name} width={24} height={24} />
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </div>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <Card padding="lg" className="text-center">
+            <p className="text-sm text-slate-400 mb-3">Create your first journey to guide clients through the home buying process</p>
+            <Link href="/pro/journey/new"><Button>Create Journey</Button></Link>
+          </Card>
+        )}
+
+        {/* Create new journey CTA */}
+        <div className="mt-3">
+          <Link href="/pro/journey/new">
+            <Card hover padding="md" className="border-dashed text-center">
+              <div className="flex items-center justify-center gap-2">
+                <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" /></svg>
+                <span className="text-sm font-medium text-blue-400">Create New Journey</span>
+              </div>
+            </Card>
+          </Link>
+        </div>
+      </div>
+
+      {/* Incoming leads */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Incoming Leads</h2>
@@ -78,7 +169,7 @@ export default function ProDashboardPage() {
             </div>
             <div className="flex-1">
               <h3 className="text-sm font-semibold text-slate-100">Get verified — submit your license</h3>
-              <p className="text-xs text-slate-400 mt-1">Verified pros get more leads and rank higher in search results. Submit your license number or upload a copy for review.</p>
+              <p className="text-xs text-slate-400 mt-1">Verified pros get more leads and rank higher in search results.</p>
               <Button size="sm" className="mt-3">Submit Credentials</Button>
             </div>
           </div>

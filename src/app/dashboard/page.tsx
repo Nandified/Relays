@@ -5,7 +5,12 @@ import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { mockJourneys, getProById } from "@/lib/mock-data";
+import {
+  mockJourneys,
+  getProById,
+  getFilledRoleCount,
+  getTotalRoleCount,
+} from "@/lib/mock-data";
 import { type Journey } from "@/lib/types";
 
 function statusBadge(status: Journey["status"]) {
@@ -16,9 +21,145 @@ function statusBadge(status: Journey["status"]) {
   }
 }
 
+/* ── Progress Ring ───────────────────────────────────────────── */
+function ProgressRing({ filled, total, size = 56 }: { filled: number; total: number; size?: number }) {
+  const pct = total === 0 ? 0 : Math.round((filled / total) * 100);
+  const strokeW = 3.5;
+  const r = (size - strokeW * 2) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (pct / 100) * circ;
+  const done = filled === total;
+
+  return (
+    <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={strokeW} />
+        <circle
+          cx={size / 2} cy={size / 2} r={r} fill="none"
+          stroke={done ? "#10b981" : "#3b82f6"}
+          strokeWidth={strokeW} strokeLinecap="round"
+          strokeDasharray={circ} strokeDashoffset={offset}
+          className="animate-progress"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-sm font-bold text-slate-100 tabular-nums">{filled}/{total}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Journey Card ────────────────────────────────────────────── */
+function JourneyCard({ journey }: { journey: Journey }) {
+  const filled = getFilledRoleCount(journey);
+  const total = getTotalRoleCount();
+  const allFilled = filled === total;
+  const createdBy = getProById(journey.createdByProId);
+
+  // Next unfilled role for the "what's next" prompt
+  const nextUnfilled = journey.roles.find((r) => r.status !== "filled");
+
+  return (
+    <Link href={`/journey/${journey.id}`}>
+      <Card padding="none" hover className="overflow-hidden">
+        {/* Subtle top accent bar */}
+        <div className={`h-0.5 ${allFilled ? "bg-gradient-to-r from-emerald-500/60 to-emerald-500/0" : "bg-gradient-to-r from-blue-500/60 to-purple-500/0"}`} />
+
+        <div className="p-5">
+          {/* Top row */}
+          <div className="flex items-start gap-4 mb-4">
+            <ProgressRing filled={filled} total={total} />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-0.5">
+                <h3 className="text-base font-semibold text-slate-100 truncate">{journey.title}</h3>
+                {statusBadge(journey.status)}
+              </div>
+              <p className="text-xs text-slate-500 flex items-center gap-1">
+                <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
+                  <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {journey.address}
+              </p>
+              <div className="flex items-center gap-2 mt-1.5">
+                <Badge variant={journey.property.type === "buying" ? "accent" : "success"} className="text-[10px]">
+                  {journey.property.type === "buying" ? "Buying" : "Selling"}
+                </Badge>
+                {createdBy && (
+                  <span className="text-[11px] text-slate-600">
+                    via {createdBy.name}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* What's next callout */}
+          {!allFilled && nextUnfilled && (
+            <div className="rounded-xl bg-[var(--accent-light)] border border-blue-500/10 p-3 mb-4">
+              <div className="flex items-start gap-2">
+                <div className="mt-0.5 h-5 w-5 flex-shrink-0 rounded-full bg-[var(--accent)] flex items-center justify-center">
+                  <svg width="10" height="10" fill="white" viewBox="0 0 24 24">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-blue-400">{journey.pendingAction}</div>
+                  <div className="text-xs text-slate-400 mt-0.5">{journey.nextStep}</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {allFilled && (
+            <div className="rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 p-3 mb-4">
+              <div className="flex items-center gap-2">
+                <svg width="16" height="16" fill="#10b981" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+                </svg>
+                <span className="text-sm font-medium text-emerald-400">Team complete — you&apos;re all set!</span>
+              </div>
+            </div>
+          )}
+
+          {/* Team thumbnails */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-2">
+                {journey.roles
+                  .filter((r) => r.status === "filled" && r.assignedProId)
+                  .map((r) => {
+                    const pro = getProById(r.assignedProId!);
+                    if (!pro) return null;
+                    return (
+                      <div
+                        key={r.category}
+                        className="h-7 w-7 overflow-hidden rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)]"
+                        title={`${pro.name} (${r.category})`}
+                      >
+                        <Image src={pro.headshotUrl} alt={pro.name} width={28} height={28} />
+                      </div>
+                    );
+                  })}
+              </div>
+              <span className="text-xs text-slate-500">
+                {filled} team member{filled !== 1 ? "s" : ""}
+              </span>
+            </div>
+            <Button size="sm" variant={allFilled ? "secondary" : "primary"}>
+              {allFilled ? "View Journey" : journey.pendingAction}
+            </Button>
+          </div>
+        </div>
+      </Card>
+    </Link>
+  );
+}
+
+/* ── Dashboard Page ──────────────────────────────────────────── */
 export default function DashboardPage() {
   const journeys = mockJourneys;
-  const activeCount = journeys.filter(j => j.status === "active").length;
+  const activeCount = journeys.filter((j) => j.status === "active").length;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
@@ -64,88 +205,25 @@ export default function DashboardPage() {
             <div className="text-xs font-medium text-slate-300">Requests</div>
           </Card>
         </Link>
-        <Card hover padding="sm" className="text-center py-4 cursor-pointer">
-          <div className="mx-auto h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/10 flex items-center justify-center mb-2">
-            <svg width="18" height="18" fill="none" stroke="#f59e0b" strokeWidth="1.5" viewBox="0 0 24 24">
-              <path d="M12 4v16m8-8H4" />
-            </svg>
-          </div>
-          <div className="text-xs font-medium text-slate-300">New Journey</div>
-        </Card>
+        <Link href="/marketplace">
+          <Card hover padding="sm" className="text-center py-4">
+            <div className="mx-auto h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/10 flex items-center justify-center mb-2">
+              <svg width="18" height="18" fill="none" stroke="#f59e0b" strokeWidth="1.5" viewBox="0 0 24 24">
+                <path d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+            <div className="text-xs font-medium text-slate-300">Browse All</div>
+          </Card>
+        </Link>
       </div>
 
       {/* Journey cards */}
       <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Your Journeys</h2>
-      <div className="space-y-4">
+      <div className="space-y-4 stagger-children">
         {journeys.map((journey) => (
           <JourneyCard key={journey.id} journey={journey} />
         ))}
       </div>
     </div>
-  );
-}
-
-function JourneyCard({ journey }: { journey: Journey }) {
-  return (
-    <Card padding="lg" hover>
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div>
-          <h3 className="text-base font-semibold text-slate-100">{journey.title}</h3>
-          <p className="text-xs text-slate-500 mt-0.5">{journey.address}</p>
-        </div>
-        {statusBadge(journey.status)}
-      </div>
-
-      {/* Pending action callout */}
-      <div className="rounded-xl bg-[var(--accent-light)] border border-blue-500/10 p-3 mb-4">
-        <div className="flex items-start gap-2">
-          <div className="mt-0.5 h-5 w-5 flex-shrink-0 rounded-full bg-[var(--accent)] flex items-center justify-center">
-            <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
-              <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-            </svg>
-          </div>
-          <div>
-            <div className="text-sm font-medium text-blue-400">{journey.pendingAction}</div>
-            <div className="text-xs text-slate-400 mt-0.5">{journey.nextStep}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Owner */}
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs text-slate-500">
-          Owner: <span className="font-medium text-slate-300">{journey.owner}</span>
-        </span>
-      </div>
-
-      {/* Team thumbnails */}
-      <div className="flex items-center gap-1">
-        <div className="flex -space-x-2">
-          {journey.teamMembers.slice(0, 5).map((tm) => {
-            const pro = getProById(tm.proId);
-            if (!pro) return null;
-            return (
-              <div
-                key={tm.proId}
-                className="h-7 w-7 overflow-hidden rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)]"
-                title={`${pro.name} (${tm.role})`}
-              >
-                <Image src={pro.headshotUrl} alt={pro.name} width={28} height={28} />
-              </div>
-            );
-          })}
-        </div>
-        <span className="text-xs text-slate-500 ml-2">
-          {journey.teamMembers.length} team member{journey.teamMembers.length !== 1 ? "s" : ""}
-        </span>
-      </div>
-
-      {/* Primary CTA */}
-      <div className="mt-4">
-        <Button size="sm" className="w-full sm:w-auto">
-          {journey.status === "active" ? journey.pendingAction : "View Details"}
-        </Button>
-      </div>
-    </Card>
   );
 }

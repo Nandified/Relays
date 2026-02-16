@@ -47,7 +47,6 @@ export default function ProVerificationPage() {
     setScanProgress(0);
     setScanPhase("uploading");
 
-    // Simulated multi-phase scan progression
     const phases: { phase: typeof scanPhase; at: number }[] = [
       { phase: "uploading", at: 0 },
       { phase: "scanning", at: 20 },
@@ -61,10 +60,7 @@ export default function ProVerificationPage() {
       if (progress >= 100) {
         progress = 100;
         clearInterval(interval);
-        // Show results after brief pause
-        setTimeout(() => {
-          showResults();
-        }, 400);
+        setTimeout(() => showResults(), 400);
       }
       setScanProgress(Math.min(progress, 100));
       const currentPhase = [...phases].reverse().find((p) => progress >= p.at);
@@ -109,12 +105,8 @@ export default function ProVerificationPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      {/* Header */}
       <div className="mb-8">
-        <Link
-          href="/pro/dashboard"
-          className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-4"
-        >
+        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-4">
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
@@ -130,13 +122,13 @@ export default function ProVerificationPage() {
       <div className="mb-6 flex items-center gap-2 text-xs">
         <span className="text-slate-600">Demo:</span>
         <button
-          className={`px-2.5 py-1 rounded-full border transition-colors ${scenario === "high" ? "border-blue-500/30 bg-blue-500/10 text-blue-400" : "border-[var(--border)] text-slate-500 hover:text-slate-400"}`}
+          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "high" ? "border-blue-500/30 bg-blue-500/10 text-blue-400" : "border-[var(--border)] text-slate-500 hover:text-slate-400"}`}
           onClick={() => { setScenario("high"); resetFlow(); }}
         >
           High Confidence
         </button>
         <button
-          className={`px-2.5 py-1 rounded-full border transition-colors ${scenario === "low" ? "border-amber-500/30 bg-amber-500/10 text-amber-400" : "border-[var(--border)] text-slate-500 hover:text-slate-400"}`}
+          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "low" ? "border-amber-500/30 bg-amber-500/10 text-amber-400" : "border-[var(--border)] text-slate-500 hover:text-slate-400"}`}
           onClick={() => { setScenario("low"); resetFlow(); }}
         >
           Low Confidence
@@ -158,7 +150,6 @@ export default function ProVerificationPage() {
             </p>
           </div>
 
-          {/* Upload area */}
           <div
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
@@ -179,13 +170,11 @@ export default function ProVerificationPage() {
               onChange={handleInputChange}
               className="hidden"
             />
-
             <div className="mx-auto h-12 w-12 rounded-2xl bg-white/5 border border-[var(--border)] flex items-center justify-center mb-4">
               <svg width="24" height="24" fill="none" stroke={isDragging ? "#3b82f6" : "#64748b"} strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
             </div>
-
             <p className="text-sm text-slate-300 font-medium">
               {isDragging ? "Drop your file here" : "Drop your license here, or click to browse"}
             </p>
@@ -194,15 +183,10 @@ export default function ProVerificationPage() {
             </p>
           </div>
 
-          {/* What we look for */}
           <div className="mt-6 liquid-glass rounded-2xl p-4">
             <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">What we verify</h3>
             <div className="space-y-2">
-              {[
-                "Your name matches your profile",
-                "License number is present and valid",
-                "License is not expired",
-              ].map((item) => (
+              {["Your name matches your profile", "License number is present and valid", "License is not expired"].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <div className="h-5 w-5 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                     <svg width="10" height="10" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
@@ -225,7 +209,6 @@ export default function ProVerificationPage() {
             <p className="text-sm text-slate-500 mt-1">Our AI is extracting and verifying your license details</p>
           </div>
 
-          {/* Document preview with scan effect */}
           <div className="relative rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] aspect-[4/3] mb-6">
             {/* Fake document background */}
             <div className="absolute inset-0 p-8 opacity-30">
@@ -250,7 +233,7 @@ export default function ProVerificationPage() {
               </div>
             </div>
 
-            {/* Scanning line animation */}
+            {/* Scanning line */}
             <div
               className="absolute left-0 right-0 h-px transition-all duration-100"
               style={{
@@ -269,7 +252,7 @@ export default function ProVerificationPage() {
               }}
             />
 
-            {/* Matrix-like highlight blocks (appear as scan progresses) */}
+            {/* Matrix-like highlight blocks */}
             {scanProgress > 25 && (
               <div className="absolute top-[15%] left-[10%] w-[60%] h-6 rounded border border-blue-500/30 bg-blue-500/5 animate-pulse" />
             )}
@@ -293,7 +276,7 @@ export default function ProVerificationPage() {
           {/* Progress */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-medium capitalize">
+              <span className="text-xs text-slate-400 font-medium">
                 {scanPhase === "uploading" && "Uploading document…"}
                 {scanPhase === "scanning" && "Scanning text with AI…"}
                 {scanPhase === "analyzing" && "Extracting license data…"}
@@ -329,9 +312,7 @@ export default function ProVerificationPage() {
         <Card padding="lg" className="animate-in">
           <div className="text-center mb-6">
             <h2 className="text-lg font-semibold text-slate-100">Extraction Complete</h2>
-            <p className="text-sm text-slate-500 mt-1">
-              Here&apos;s what we found in your document
-            </p>
+            <p className="text-sm text-slate-500 mt-1">Here&apos;s what we found in your document</p>
           </div>
 
           {/* Confidence meter */}
@@ -391,7 +372,6 @@ export default function ProVerificationPage() {
             ))}
           </div>
 
-          {/* Status message */}
           {confidence >= 0.8 ? (
             <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 mb-6">
               <div className="flex items-center gap-3">
@@ -432,7 +412,6 @@ export default function ProVerificationPage() {
       {step === "success" && (
         <Card padding="lg" className="animate-in">
           <div className="text-center py-4">
-            {/* Celebration */}
             <div className="relative mx-auto mb-6">
               <div className="h-24 w-24 mx-auto rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center shadow-[0_0_60px_rgba(16,185,129,0.2)]">
                 <svg width="48" height="48" fill="none" viewBox="0 0 24 24" className="text-emerald-400">
@@ -445,7 +424,6 @@ export default function ProVerificationPage() {
                   />
                 </svg>
               </div>
-              {/* Particles */}
               <div className="absolute -top-1 left-1/2 -translate-x-4 w-2 h-2 rounded-full bg-emerald-400/60 animate-ping" />
               <div className="absolute top-1 right-[30%] w-1.5 h-1.5 rounded-full bg-blue-400/60 animate-ping" style={{ animationDelay: "0.3s" }} />
               <div className="absolute bottom-1 left-[35%] w-1.5 h-1.5 rounded-full bg-indigo-400/50 animate-ping" style={{ animationDelay: "0.6s" }} />
@@ -457,7 +435,6 @@ export default function ProVerificationPage() {
               Your license has been verified. Your verified badge is now live on your profile.
             </p>
 
-            {/* Badge preview */}
             <div className="inline-flex items-center gap-3 liquid-glass rounded-2xl p-5 mb-8">
               <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-[var(--border)] flex items-center justify-center text-lg font-bold text-slate-300">
                 AM
@@ -518,3 +495,14 @@ export default function ProVerificationPage() {
             <div className="flex flex-col gap-2">
               <Link href="/pro/dashboard">
                 <Button size="lg" className="w-full">Back to Dashboard</Button>
+              </Link>
+              <button onClick={resetFlow} className="text-xs text-slate-500 hover:text-slate-400 transition-colors cursor-pointer">
+                Try uploading a different document
+              </button>
+            </div>
+          </div>
+        </Card>
+      )}
+    </div>
+  );
+}

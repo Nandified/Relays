@@ -171,12 +171,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
         {/* Subtle claim — only visible to pros who recognize themselves */}
         <div className="mt-8 pt-4 border-t border-[var(--border)]">
-          <Link
-            href="/pro/onboarding"
-            className="text-xs text-slate-600 hover:text-slate-400 transition-colors"
-          >
-            Is this your profile? <span className="underline underline-offset-2">Claim it</span> to manage your listing and receive referrals.
-          </Link>
+          <UnclaimedClaimButton professional={professional} />
         </div>
       </Card>
 

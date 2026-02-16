@@ -13,12 +13,14 @@ function formatDate(date: string): string {
 }
 
 const roleBadge: Record<AdminTeamMember["role"], { variant: "accent" | "success" | "default"; label: string }> = {
+  super_admin: { variant: "accent", label: "Super Admin" },
   admin: { variant: "accent", label: "Admin" },
   support: { variant: "success", label: "Support" },
   viewer: { variant: "default", label: "Viewer" },
 };
 
 const roleColors: Record<AdminTeamMember["role"], string> = {
+  super_admin: "bg-violet-500/10 text-violet-400 border-violet-500/10",
   admin: "bg-violet-500/10 text-violet-400 border-violet-500/10",
   support: "bg-emerald-500/10 text-emerald-400 border-emerald-500/10",
   viewer: "bg-slate-500/10 text-slate-400 border-slate-500/10",
@@ -41,6 +43,7 @@ export default function AdminTeamPage() {
       avatarUrl: null,
       joinedAt: new Date().toISOString(),
       lastActiveAt: new Date().toISOString(),
+      activityLog: [],
     };
     setTeam(prev => [...prev, newMember]);
     setInviteEmail("");
