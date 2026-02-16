@@ -19,10 +19,7 @@ import urllib.parse
 import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
-API_KEY = os.environ.get(
-    "OUTSCRAPER_API_KEY",
-    "",
-)
+API_KEY = os.environ.get("OUTSCRAPER_API_KEY", "")
 BASE_URL = "https://api.app.outscraper.com"
 
 HERE = os.path.dirname(os.path.abspath(__file__))

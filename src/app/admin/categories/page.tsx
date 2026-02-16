@@ -25,6 +25,7 @@ export default function AdminCategoriesPage() {
       name: newName.trim() as ServiceCategoryConfig["name"],
       icon: newIcon || "📋",
       description: newDescription,
+      requiredCredentials: [],
       proCount: 0,
       enabled: true,
       order: categories.length + 1,

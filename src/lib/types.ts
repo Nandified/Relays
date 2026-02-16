@@ -37,7 +37,7 @@ export interface Pro {
 }
 
 // ── Auth / User ──
-export type UserRole = "consumer" | "pro";
+export type UserRole = "consumer" | "pro" | "admin";
 
 export interface ProOnboardingData {
   category: ProServiceCategory | null;
@@ -56,6 +56,22 @@ export interface SessionUser {
   role: UserRole;
   avatarUrl: string | null;
   proOnboarding?: ProOnboardingData;
+}
+
+/**
+ * Extended profile stored in the `profiles` table (Supabase).
+ * Extends the Supabase auth.users record with app-specific fields.
+ */
+export interface UserProfile {
+  id: string; // matches auth.users.id
+  email: string;
+  role: UserRole;
+  displayName: string | null;
+  avatarUrl: string | null;
+  phone: string | null;
+  onboardingComplete: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // ── Requests ──
@@ -91,25 +107,75 @@ export interface TimelineEvent {
   actor: "system" | "consumer" | "pro";
 }
 
-// ── Journey (consumer dashboard) ──
+// ── Journey (consumer dashboard — legacy compat) ──
 export type JourneyStatus = "active" | "pending" | "completed";
-
-export interface Journey {
-  id: string;
-  title: string;
-  address: string;
-  status: JourneyStatus;
-  pendingAction: string;
-  nextStep: string;
-  owner: string; // who owns the action
-  teamMembers: JourneyTeamMember[];
-  createdAt: string;
-}
 
 export interface JourneyTeamMember {
   proId: string;
   role: ProServiceCategory;
   status: "confirmed" | "pending" | "invited";
+}
+
+// ── Journey Flow (THE core product) ──
+export type JourneyPropertyType = "buying" | "selling";
+
+export type JourneyRoleStatus = "needed" | "recommended" | "filled";
+
+/** A single service role within a Journey */
+export interface JourneyRole {
+  category: ProServiceCategory;
+  status: JourneyRoleStatus;
+  /** Pro ID if role is filled */
+  assignedProId: string | null;
+  /** Up to 3 recommended Pro IDs when status is 'recommended' */
+  recommendedProIds: string[];
+}
+
+/** The 5 role categories in every Journey */
+export const JOURNEY_ROLE_CATEGORIES: ProServiceCategory[] = [
+  "Realtor",
+  "Mortgage Lender",
+  "Attorney",
+  "Home Inspector",
+  "Insurance Agent",
+];
+
+export interface JourneyProperty {
+  address: string;
+  type: JourneyPropertyType;
+}
+
+export interface JourneyClient {
+  name: string;
+  email: string;
+  phone: string;
+}
+
+/** Full Journey object — the core data model */
+export interface Journey {
+  id: string;
+  /** Display title (auto-generated from address or custom) */
+  title: string;
+  /** Full street address */
+  address: string;
+  property: JourneyProperty;
+  /** Pro who created this journey */
+  createdByProId: string;
+  /** Consumer / client info */
+  client: JourneyClient;
+  /** Overall status */
+  status: JourneyStatus;
+  /** The 5 service roles */
+  roles: JourneyRole[];
+  /** Shareable link slug */
+  shareSlug: string;
+  createdAt: string;
+
+  // ── Legacy compat fields (used by dashboard cards) ──
+  pendingAction: string;
+  nextStep: string;
+  owner: string;
+  teamMembers: JourneyTeamMember[];
 }
 
 // ── Team roster ──
@@ -158,6 +224,47 @@ export interface UnclaimedProfessional {
   rating: number | null;
   reviewCount: number | null;
   photoUrl: string | null;
+}
+
+// ── Verification ──
+export type VerificationType = "license_upload" | "claim_verification";
+export type VerificationStatus = "pending" | "auto_approved" | "manual_review" | "approved" | "rejected";
+
+export interface VerificationOCR {
+  extractedName: string;
+  extractedLicenseNumber: string;
+  extractedExpiration: string;
+  nameMatch: boolean;
+  licenseMatch: boolean;
+  expirationValid: boolean;
+  confidence: number; // 0-1
+}
+
+export interface VerificationRequest {
+  id: string;
+  proId: string;
+  proName: string;
+  type: VerificationType;
+  documentUrl: string | null;
+  status: VerificationStatus;
+  ocrResult: VerificationOCR | null;
+  confidence: number; // 0-1
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  rejectionReason: string | null;
+  createdAt: string;
+}
+
+export type ProfessionalIdType = "mls" | "nmls" | "ardc" | "internachi" | "ashi" | "npn";
+
+export interface ClaimAttempt {
+  id: string;
+  professionalId: string;
+  licenseNumberEntered: string;
+  matched: boolean;
+  professionalIdType: ProfessionalIdType | null;
+  professionalIdValue: string | null;
+  timestamp: string;
 }
 
 // ── Pro-side request ──

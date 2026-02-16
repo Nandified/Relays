@@ -11,10 +11,15 @@ import { type UserRole } from "@/lib/types";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { loginFake, state } = useAuth();
+  const { loginFake, signUp, signInWithOAuth, isSupabase, state } = useAuth();
+
   const [step, setStep] = React.useState<"role" | "auth">("role");
   const [role, setRole] = React.useState<UserRole>("consumer");
   const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [confirmSent, setConfirmSent] = React.useState(false);
 
   React.useEffect(() => {
     if (state.status === "authed") {
@@ -26,9 +31,44 @@ export default function SignupPage() {
     }
   }, [state, router]);
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!email.trim()) return;
-    loginFake({ email: email.trim(), role });
+    setError(null);
+    setLoading(true);
+
+    if (isSupabase) {
+      if (!password.trim()) {
+        setError("Password is required");
+        setLoading(false);
+        return;
+      }
+      const { error: err } = await signUp(email.trim(), password, { role });
+      setLoading(false);
+      if (err) {
+        setError(err.message);
+        return;
+      }
+      // Supabase may require email confirmation
+      setConfirmSent(true);
+    } else {
+      // Mock mode
+      loginFake({ email: email.trim(), role });
+      setLoading(false);
+    }
+  };
+
+  const handleOAuth = async (provider: "google" | "apple") => {
+    setError(null);
+    setLoading(true);
+
+    if (isSupabase) {
+      const { error: err } = await signInWithOAuth(provider);
+      setLoading(false);
+      if (err) setError(err.message);
+    } else {
+      loginFake({ email: `user@${provider}.com`, role });
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,6 +125,20 @@ export default function SignupPage() {
             </Card>
           </button>
         </div>
+      ) : confirmSent ? (
+        <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
+          <div className="text-center py-4">
+            <div className="mx-auto h-12 w-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-3">
+              <svg width="24" height="24" fill="none" stroke="#10b981" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 className="text-base font-semibold text-slate-100">Check your email</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              We sent a confirmation link to <strong className="text-slate-200">{email}</strong>. Click it to activate your account.
+            </p>
+          </div>
+        </Card>
       ) : (
         <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
           <button
@@ -102,6 +156,13 @@ export default function SignupPage() {
           </div>
 
           <div className="space-y-4">
+            {/* Error display */}
+            {error && (
+              <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400">
+                {error}
+              </div>
+            )}
+
             <Input
               label="Email address"
               type="email"
@@ -111,8 +172,19 @@ export default function SignupPage() {
               onKeyDown={(e) => e.key === "Enter" && handleSignup()}
             />
 
-            <Button className="w-full" onClick={handleSignup}>
-              Create Account
+            {isSupabase && (
+              <Input
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSignup()}
+              />
+            )}
+
+            <Button className="w-full" onClick={handleSignup} disabled={loading}>
+              {loading ? "Creating account..." : "Create Account"}
             </Button>
 
             <div className="relative py-2">
@@ -128,7 +200,8 @@ export default function SignupPage() {
               <Button
                 variant="secondary"
                 className="w-full"
-                onClick={() => loginFake({ email: "user@google.com", role })}
+                onClick={() => handleOAuth("google")}
+                disabled={loading}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" className="mr-1.5">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
@@ -141,7 +214,8 @@ export default function SignupPage() {
               <Button
                 variant="secondary"
                 className="w-full"
-                onClick={() => loginFake({ email: "user@icloud.com", role })}
+                onClick={() => handleOAuth("apple")}
+                disabled={loading}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" className="mr-1.5" fill="currentColor">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>

@@ -1,4 +1,4 @@
-import { type Pro, type ServiceRequest, type TimelineEvent, type Journey, type TeamMember, type ProIncomingRequest, type TimeWindow } from "@/lib/types";
+import { type Pro, type ProServiceCategory, type ServiceRequest, type TimelineEvent, type Journey, type TeamMember, type ProIncomingRequest, type TimeWindow } from "@/lib/types";
 
 /* ── Pros (10 across categories) ──────────────────────────────── */
 
@@ -308,56 +308,90 @@ export const mockTimelines: Record<string, TimelineEvent[]> = {
   ],
 };
 
-/* ── Journeys (consumer dashboard) ────────────────────────────── */
+/* ── Journeys (full Journey Flow data) ────────────────────────── */
 
 export const mockJourneys: Journey[] = [
   {
     id: "journey_1",
-    title: "Oak Park Bungalow Purchase",
+    title: "Oak Park Bungalow",
     address: "742 Maple Ave, Oak Park, IL 60302",
+    property: { address: "742 Maple Ave, Oak Park, IL 60302", type: "buying" },
+    createdByProId: "pro_9", // Lisa Hartwell (Realtor)
+    client: { name: "Jamie Rodriguez", email: "jamie.r@email.com", phone: "(312) 555-0142" },
     status: "active",
-    pendingAction: "Schedule home inspection",
-    nextStep: "Alex Martinez is ready — pick a date & time window",
+    roles: [
+      { category: "Realtor", status: "filled", assignedProId: "pro_9", recommendedProIds: [] },
+      { category: "Mortgage Lender", status: "filled", assignedProId: "pro_2", recommendedProIds: [] },
+      { category: "Attorney", status: "recommended", assignedProId: null, recommendedProIds: ["pro_4", "pro_5"] },
+      { category: "Home Inspector", status: "recommended", assignedProId: null, recommendedProIds: ["pro_1", "pro_8"] },
+      { category: "Insurance Agent", status: "needed", assignedProId: null, recommendedProIds: [] },
+    ],
+    shareSlug: "j-oak-park-742",
+    createdAt: "2026-02-01T10:00:00Z",
+    // Legacy compat
+    pendingAction: "Choose your attorney",
+    nextStep: "Lisa recommended 2 attorneys — pick the one that fits",
     owner: "You",
     teamMembers: [
       { proId: "pro_9", role: "Realtor", status: "confirmed" },
       { proId: "pro_2", role: "Mortgage Lender", status: "confirmed" },
-      { proId: "pro_1", role: "Home Inspector", status: "pending" },
-      { proId: "pro_4", role: "Attorney", status: "invited" },
     ],
-    createdAt: "2026-02-01T10:00:00Z",
   },
   {
     id: "journey_2",
     title: "Lincoln Park Condo",
     address: "1455 N Wells St, Chicago, IL 60614",
+    property: { address: "1455 N Wells St, Chicago, IL 60614", type: "buying" },
+    createdByProId: "pro_10", // Frank Johnson (Realtor)
+    client: { name: "Sam Patel", email: "sam.patel@email.com", phone: "(773) 555-0198" },
     status: "active",
-    pendingAction: "Get insurance quotes",
-    nextStep: "Submit your insurance request — closing is in 3 weeks",
+    roles: [
+      { category: "Realtor", status: "filled", assignedProId: "pro_10", recommendedProIds: [] },
+      { category: "Mortgage Lender", status: "filled", assignedProId: "pro_2", recommendedProIds: [] },
+      { category: "Attorney", status: "filled", assignedProId: "pro_5", recommendedProIds: [] },
+      { category: "Home Inspector", status: "recommended", assignedProId: null, recommendedProIds: ["pro_1", "pro_8"] },
+      { category: "Insurance Agent", status: "recommended", assignedProId: null, recommendedProIds: ["pro_3", "pro_6"] },
+    ],
+    shareSlug: "j-lincoln-park-1455",
+    createdAt: "2026-01-28T14:00:00Z",
+    // Legacy compat
+    pendingAction: "Book a home inspector",
+    nextStep: "Frank recommended 2 inspectors — schedule yours",
     owner: "You",
     teamMembers: [
       { proId: "pro_10", role: "Realtor", status: "confirmed" },
       { proId: "pro_2", role: "Mortgage Lender", status: "confirmed" },
       { proId: "pro_5", role: "Attorney", status: "confirmed" },
     ],
-    createdAt: "2026-01-28T14:00:00Z",
   },
   {
     id: "journey_3",
-    title: "Evanston Victorian Rehab",
+    title: "Evanston Victorian",
     address: "824 Davis St, Evanston, IL 60201",
-    status: "pending",
-    pendingAction: "Waiting for attorney review",
-    nextStep: "Marcus Williams is reviewing your contract — expect update by Feb 15",
-    owner: "Marcus Williams",
+    property: { address: "824 Davis St, Evanston, IL 60201", type: "buying" },
+    createdByProId: "pro_9", // Lisa Hartwell (Realtor)
+    client: { name: "Morgan Davis", email: "morgan.d@email.com", phone: "(847) 555-0267" },
+    status: "completed",
+    roles: [
+      { category: "Realtor", status: "filled", assignedProId: "pro_9", recommendedProIds: [] },
+      { category: "Mortgage Lender", status: "filled", assignedProId: "pro_2", recommendedProIds: [] },
+      { category: "Attorney", status: "filled", assignedProId: "pro_4", recommendedProIds: [] },
+      { category: "Home Inspector", status: "filled", assignedProId: "pro_8", recommendedProIds: [] },
+      { category: "Insurance Agent", status: "filled", assignedProId: "pro_3", recommendedProIds: [] },
+    ],
+    shareSlug: "j-evanston-824",
+    createdAt: "2026-01-15T09:00:00Z",
+    // Legacy compat
+    pendingAction: "All set!",
+    nextStep: "Your team is complete — you're ready for closing",
+    owner: "You",
     teamMembers: [
       { proId: "pro_9", role: "Realtor", status: "confirmed" },
       { proId: "pro_2", role: "Mortgage Lender", status: "confirmed" },
       { proId: "pro_4", role: "Attorney", status: "confirmed" },
       { proId: "pro_8", role: "Home Inspector", status: "confirmed" },
-      { proId: "pro_3", role: "Insurance Agent", status: "pending" },
+      { proId: "pro_3", role: "Insurance Agent", status: "confirmed" },
     ],
-    createdAt: "2026-01-15T09:00:00Z",
   },
 ];
 
@@ -474,3 +508,29 @@ export const serviceCategories = [
   "Home Inspector",
   "Insurance Agent",
 ] as const;
+
+/* ── Journey helpers ──────────────────────────────────────────── */
+
+export function getJourneyById(id: string): Journey | undefined {
+  return mockJourneys.find((j) => j.id === id);
+}
+
+export function getJourneyBySlug(slug: string): Journey | undefined {
+  return mockJourneys.find((j) => j.shareSlug === slug);
+}
+
+export function getFilledRoleCount(journey: Journey): number {
+  return journey.roles.filter((r) => r.status === "filled").length;
+}
+
+export function getTotalRoleCount(): number {
+  return 5; // always 5 categories
+}
+
+export function getJourneysForPro(proId: string): Journey[] {
+  return mockJourneys.filter((j) => j.createdByProId === proId);
+}
+
+export function getProsByCategory(category: string): Pro[] {
+  return mockPros.filter((p) => p.categories.includes(category as ProServiceCategory));
+}
