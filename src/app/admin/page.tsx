@@ -74,11 +74,11 @@ const metricCards: MetricCardData[] = [
 ];
 
 const colorConfig = {
-  violet: { bg: "from-violet-500/10 to-violet-500/0", border: "border-violet-500/10", glow: "shadow-[0_0_20px_rgba(139,92,246,0.08)]", text: "text-violet-400", iconBg: "bg-violet-500/10" },
-  blue: { bg: "from-blue-500/10 to-blue-500/0", border: "border-blue-500/10", glow: "shadow-[0_0_20px_rgba(59,130,246,0.08)]", text: "text-blue-400", iconBg: "bg-blue-500/10" },
-  emerald: { bg: "from-emerald-500/10 to-emerald-500/0", border: "border-emerald-500/10", glow: "shadow-[0_0_20px_rgba(16,185,129,0.08)]", text: "text-emerald-400", iconBg: "bg-emerald-500/10" },
-  amber: { bg: "from-amber-500/10 to-amber-500/0", border: "border-amber-500/10", glow: "shadow-[0_0_20px_rgba(245,158,11,0.08)]", text: "text-amber-400", iconBg: "bg-amber-500/10" },
-  rose: { bg: "from-rose-500/10 to-rose-500/0", border: "border-rose-500/10", glow: "shadow-[0_0_20px_rgba(244,63,94,0.08)]", text: "text-rose-400", iconBg: "bg-rose-500/10" },
+  violet: { bg: "from-violet-500/10 to-violet-500/0", border: "border-violet-500/10", glow: "shadow-[0_0_20px_rgba(139,92,246,0.12)]", text: "text-violet-400", iconBg: "bg-violet-500/10" },
+  blue: { bg: "from-blue-500/10 to-blue-500/0", border: "border-blue-500/10", glow: "shadow-[0_0_20px_rgba(59,130,246,0.12)]", text: "text-blue-400", iconBg: "bg-blue-500/10" },
+  emerald: { bg: "from-emerald-500/10 to-emerald-500/0", border: "border-emerald-500/10", glow: "shadow-[0_0_20px_rgba(16,185,129,0.12)]", text: "text-emerald-400", iconBg: "bg-emerald-500/10" },
+  amber: { bg: "from-amber-500/10 to-amber-500/0", border: "border-amber-500/10", glow: "shadow-[0_0_20px_rgba(245,158,11,0.12)]", text: "text-amber-400", iconBg: "bg-amber-500/10" },
+  rose: { bg: "from-rose-500/10 to-rose-500/0", border: "border-rose-500/10", glow: "shadow-[0_0_20px_rgba(244,63,94,0.12)]", text: "text-rose-400", iconBg: "bg-rose-500/10" },
 };
 
 /* ── Activity Icons ───────────────────────────────────────────── */
@@ -111,48 +111,54 @@ function formatTimeAgo(timestamp: string): string {
 /* ── Page ─────────────────────────────────────────────────────── */
 
 export default function AdminDashboardPage() {
-  // Prepare chart data
   const signupTrendData = mockMetricsTimeline.daily.map(d => ({
     label: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
     value: d.signups,
   }));
 
   const donutData = mockMetricsTimeline.categoryBreakdown;
-
   const topCitiesData = mockMetricsTimeline.topCities.slice(0, 6);
   const requestStatusData = mockMetricsTimeline.requestsByStatus;
 
   return (
     <div className="mx-auto max-w-7xl space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-100">Command Center</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Platform overview and recent activity.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-100">Command Center</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Platform overview and recent activity.
+          </p>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 text-xs text-slate-600">
+          <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_4px_rgba(16,185,129,0.4)]" />
+          All systems operational
+        </div>
       </div>
 
       {/* ── Metric Cards ──────────────────────────────────────── */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 stagger-children">
         {metricCards.map((metric) => {
           const c = colorConfig[metric.color];
           const inner = (
             <div
-              className={`group relative overflow-hidden rounded-2xl border ${c.border} bg-gradient-to-b ${c.bg} p-4 transition-all duration-300 hover:${c.glow} admin-metric-card`}
+              className={`group relative overflow-hidden rounded-2xl border ${c.border} bg-gradient-to-b ${c.bg} p-4 transition-all duration-300 admin-metric-card`}
             >
+              {/* Subtle corner glow */}
+              <div className={`absolute -top-6 -right-6 h-16 w-16 rounded-full ${c.iconBg} blur-2xl opacity-40 transition-opacity group-hover:opacity-70`} />
               {/* Icon */}
-              <div className={`mb-3 flex h-9 w-9 items-center justify-center rounded-xl ${c.iconBg} border ${c.border} ${c.text}`}>
+              <div className={`relative mb-3 flex h-9 w-9 items-center justify-center rounded-xl ${c.iconBg} border ${c.border} ${c.text}`}>
                 {metric.icon}
               </div>
               {/* Value */}
-              <div className="text-2xl font-bold text-slate-100 tabular-nums">
+              <div className="relative text-2xl font-bold text-slate-100 tabular-nums">
                 {typeof metric.value === "number" ? metric.value.toLocaleString() : metric.value}
               </div>
               {/* Label */}
-              <div className="mt-0.5 text-xs text-slate-500">{metric.label}</div>
+              <div className="relative mt-0.5 text-xs text-slate-500">{metric.label}</div>
               {/* Change badge */}
               {metric.change && (
-                <div className={`mt-2 inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
+                <div className={`relative mt-2 inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
                   metric.changeUp
                     ? "bg-emerald-500/10 text-emerald-400"
                     : "bg-slate-500/10 text-slate-500"
@@ -162,7 +168,7 @@ export default function AdminDashboardPage() {
               )}
               {/* Arrow for linked cards */}
               {metric.href && (
-                <div className="absolute top-3 right-3 text-slate-600 transition-colors group-hover:text-slate-400">
+                <div className="absolute top-3 right-3 text-slate-600 transition-all group-hover:text-slate-400 group-hover:translate-x-0.5">
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
                 </div>
               )}
@@ -242,11 +248,15 @@ export default function AdminDashboardPage() {
             <span className="text-xs text-slate-600">{mockActivityFeed.length} events</span>
           </div>
           <Card padding="none" className="divide-y divide-[var(--border)]">
-            {mockActivityFeed.map((event) => {
+            {mockActivityFeed.map((event, idx) => {
               const typeInfo = activityTypeConfig[event.type] ?? { icon: "📌", color: "bg-slate-500/10 border-slate-500/10" };
               return (
-                <div key={event.id} className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors">
-                  <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm ${typeInfo.color}`}>
+                <div
+                  key={event.id}
+                  className="group flex items-start gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors"
+                  style={{ animationDelay: `${idx * 0.03}s` }}
+                >
+                  <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-sm transition-transform group-hover:scale-105 ${typeInfo.color}`}>
                     {typeInfo.icon}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -271,8 +281,8 @@ export default function AdminDashboardPage() {
             <h2 className="text-lg font-semibold text-slate-100 mb-4">Quick Actions</h2>
             <div className="space-y-2">
               <Link href="/admin/verification">
-                <Card hover padding="sm" className="flex items-center gap-3 glow-violet">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/10">
+                <Card hover padding="sm" className="group/qa flex items-center gap-3 glow-violet">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/10 transition-transform group-hover/qa:scale-105">
                     <ShieldIcon className="w-4 h-4 text-amber-400" />
                   </div>
                   <div className="flex-1">
@@ -284,8 +294,8 @@ export default function AdminDashboardPage() {
               </Link>
 
               <Link href="/admin/pros">
-                <Card hover padding="sm" className="flex items-center gap-3 glow-violet">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/10 border border-violet-500/10">
+                <Card hover padding="sm" className="group/qa flex items-center gap-3 glow-violet">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/10 border border-violet-500/10 transition-transform group-hover/qa:scale-105">
                     <UsersIcon className="w-4 h-4 text-violet-400" />
                   </div>
                   <div className="flex-1">
@@ -296,8 +306,8 @@ export default function AdminDashboardPage() {
               </Link>
 
               <Link href="/admin/data-import">
-                <Card hover padding="sm" className="flex items-center gap-3 glow-violet">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/10">
+                <Card hover padding="sm" className="group/qa flex items-center gap-3 glow-violet">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/10 transition-transform group-hover/qa:scale-105">
                     <DatabaseIcon className="w-4 h-4 text-blue-400" />
                   </div>
                   <div className="flex-1">
@@ -308,8 +318,8 @@ export default function AdminDashboardPage() {
               </Link>
 
               <Link href="/admin/metrics">
-                <Card hover padding="sm" className="flex items-center gap-3 glow-violet">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/10">
+                <Card hover padding="sm" className="group/qa flex items-center gap-3 glow-violet">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/10 transition-transform group-hover/qa:scale-105">
                     <ChartIcon className="w-4 h-4 text-emerald-400" />
                   </div>
                   <div className="flex-1">
@@ -325,14 +335,14 @@ export default function AdminDashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-slate-300">Verification Queue</h3>
-              <Link href="/admin/verification" className="text-xs text-violet-400 hover:underline">
+              <Link href="/admin/verification" className="text-xs text-violet-400 hover:text-violet-300 transition-colors">
                 View all →
               </Link>
             </div>
             <div className="space-y-2">
               {mockVerificationQueue.filter(v => v.status === "pending").slice(0, 4).map((ver) => (
-                <Card key={ver.id} padding="sm" className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-xs font-bold text-amber-400 border border-amber-500/10">
+                <Card key={ver.id} padding="sm" className="group/vq flex items-center gap-3 hover:bg-white/[0.02] transition-colors cursor-pointer">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-xs font-bold text-amber-400 border border-amber-500/10 transition-transform group-hover/vq:scale-105">
                     {ver.proName.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div className="flex-1 min-w-0">

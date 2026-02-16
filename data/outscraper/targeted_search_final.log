@@ -1,0 +1,60 @@
+[2026-02-16 12:41:15] ======================================================================
+[2026-02-16 12:41:15] TARGETED BROKER SEARCH — Outscraper Name-Based Matching
+[2026-02-16 12:41:15] ======================================================================
+[2026-02-16 12:41:17] Starting balance: $25.87
+[2026-02-16 12:41:17] Loading IDFPR brokers...
+[2026-02-16 12:41:17] Total IDFPR brokers: 62166
+[2026-02-16 12:41:17] Already have Google match: 2050
+[2026-02-16 12:41:17] Unmatched brokers to search: 60098
+[2026-02-16 12:41:17] Previously searched (from progress file): 60054
+[2026-02-16 12:41:17] Remaining to search this run: 1191
+[2026-02-16 12:41:17] Existing matches: 4593
+[2026-02-16 12:41:17] Batches remaining: 80 (batch size 15)
+[2026-02-16 12:41:17] 
+[2026-02-16 12:41:17] Batch 1/80: 15 queries (progress 60455/61646)
+[2026-02-16 12:41:19]   Batch request id: ab-053d1122-b1e6-437e-8067-d3b101473765
+[2026-02-16 12:41:51]   Finished batch: 15 queries, 1 new matches | totalSearched=60470 matchesFound=4594
+[2026-02-16 12:41:52] Batch 2/80: 15 queries (progress 60470/61646)
+[2026-02-16 12:41:53]   Batch request id: ab-e8e538e5-b679-451d-a8ed-2918b84463de
+[2026-02-16 12:42:41]   Finished batch: 15 queries, 1 new matches | totalSearched=60485 matchesFound=4595
+[2026-02-16 12:42:42] Batch 3/80: 15 queries (progress 60485/61646)
+[2026-02-16 12:42:43]   Batch request id: ab-927f0ec4-d064-40c3-bedd-317492994b83
+[2026-02-16 12:43:15]   Finished batch: 15 queries, 0 new matches | totalSearched=60500 matchesFound=4595
+[2026-02-16 12:43:17] Batch 4/80: 15 queries (progress 60500/61646)
+[2026-02-16 12:43:17]   Batch request id: ab-8b15006d-0468-4b5b-be06-0484f0aa8431
+[2026-02-16 12:44:37]   Finished batch: 15 queries, 2 new matches | totalSearched=60515 matchesFound=4597
+[2026-02-16 12:44:38] Batch 5/80: 15 queries (progress 60515/61646)
+[2026-02-16 12:44:39]   Batch request id: ab-8a56c3c7-2d55-4d87-bcaa-cd063f0ebda5
+[2026-02-16 12:45:12]   Finished batch: 15 queries, 4 new matches | totalSearched=60530 matchesFound=4601
+[2026-02-16 12:45:13] Batch 6/80: 15 queries (progress 60530/61646)
+[2026-02-16 12:45:14]   Batch request id: ab-d07e886f-89b4-433a-be8f-03328907a54a
+[2026-02-16 12:46:18]   Finished batch: 15 queries, 2 new matches | totalSearched=60545 matchesFound=4603
+[2026-02-16 12:46:19] Batch 7/80: 15 queries (progress 60545/61646)
+[2026-02-16 12:46:20]   Batch request id: ab-25b08490-0899-4cf7-96c9-204eb6db21bb
+[2026-02-16 12:46:52]   Finished batch: 15 queries, 1 new matches | totalSearched=60560 matchesFound=4604
+[2026-02-16 12:46:53] Batch 8/80: 15 queries (progress 60560/61646)
+[2026-02-16 12:46:54]   Batch request id: ab-9b845862-239f-497d-95f9-fd1e8e15d314
+[2026-02-16 12:47:42]   Finished batch: 15 queries, 1 new matches | totalSearched=60575 matchesFound=4605
+[2026-02-16 12:47:43] Batch 9/80: 15 queries (progress 60575/61646)
+[2026-02-16 12:47:43]   Batch request id: ab-940a76cf-6208-4719-b87e-11dd21f1a427
+[2026-02-16 12:48:31]   Finished batch: 15 queries, 1 new matches | totalSearched=60590 matchesFound=4606
+[2026-02-16 12:48:32] Batch 10/80: 15 queries (progress 60590/61646)
+[2026-02-16 12:48:33]   Batch request id: ab-c7b40b74-ca7e-4e46-8734-bbbadf5b62eb
+[2026-02-16 12:49:21]   Finished batch: 15 queries, 1 new matches | totalSearched=60605 matchesFound=4607
+[2026-02-16 12:49:22] Batch 11/80: 15 queries (progress 60605/61646)
+[2026-02-16 12:49:23]   Batch request id: ab-fdf157d3-4b7c-44db-81a7-440d2665a361
+[2026-02-16 12:50:26]   Finished batch: 15 queries, 0 new matches | totalSearched=60620 matchesFound=4607
+[2026-02-16 12:50:27] Batch 12/80: 15 queries (progress 60620/61646)
+[2026-02-16 12:50:28]   Batch request id: ab-bfccb412-f1d2-44a0-af45-c8db50ccd12c
+[2026-02-16 12:51:00]   Finished batch: 15 queries, 1 new matches | totalSearched=60635 matchesFound=4608
+[2026-02-16 12:51:01] Batch 13/80: 15 queries (progress 60635/61646)
+[2026-02-16 12:51:02]   Batch request id: ab-01d70230-c1bd-4ae1-9416-a79c035fd419
+[2026-02-16 12:51:50]   Finished batch: 15 queries, 0 new matches | totalSearched=60650 matchesFound=4608
+[2026-02-16 12:51:51] Batch 14/80: 15 queries (progress 60650/61646)
+[2026-02-16 12:51:51]   Batch request id: ab-3fe11511-75d7-4cb5-9047-75cbd973b889
+[2026-02-16 12:52:39]   Finished batch: 15 queries, 1 new matches | totalSearched=60665 matchesFound=4609
+[2026-02-16 12:52:41] Batch 15/80: 15 queries (progress 60665/61646)
+[2026-02-16 12:52:41]   Batch request id: ab-39977cc0-5443-4b93-9609-8cc2ff37b7d6
+[2026-02-16 12:53:29]   Finished batch: 15 queries, 1 new matches | totalSearched=60680 matchesFound=4610
+[2026-02-16 12:53:30] Batch 16/80: 15 queries (progress 60680/61646)
+[2026-02-16 12:53:31]   Batch request id: ab-8f250c11-dd00-4bb4-957c-1a853a5fe279
