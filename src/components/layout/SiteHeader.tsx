@@ -3,6 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
+import { MessageBadge } from "@/components/notifications/MessageBadge";
 import { useAuth } from "@/lib/auth/provider";
 
 export function SiteHeader() {
@@ -60,9 +62,16 @@ export function SiteHeader() {
         </nav>
 
         {/* Right side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          {isAuthed && (
+            <>
+              <MessageBadge />
+              <NotificationBell />
+            </>
+          )}
+
           {isAuthed ? (
-            <div className="hidden items-center gap-2 md:flex">
+            <div className="hidden items-center gap-2 md:flex ml-2">
               <span className="text-xs text-slate-500">{state.user.email}</span>
               <Button variant="ghost" size="sm" onClick={logout}>
                 Log out
@@ -107,6 +116,8 @@ export function SiteHeader() {
                 <MobileLink href="/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</MobileLink>
                 <MobileLink href="/team" onClick={() => setMobileOpen(false)}>My Team</MobileLink>
                 <MobileLink href="/requests" onClick={() => setMobileOpen(false)}>Requests</MobileLink>
+                <MobileLink href="/messages" onClick={() => setMobileOpen(false)}>Messages</MobileLink>
+                <MobileLink href="/notifications" onClick={() => setMobileOpen(false)}>Notifications</MobileLink>
               </>
             )}
             {isPro && (
@@ -115,6 +126,8 @@ export function SiteHeader() {
                 <MobileLink href="/pro/journeys" onClick={() => setMobileOpen(false)}>Journeys</MobileLink>
                 <MobileLink href="/pro/requests" onClick={() => setMobileOpen(false)}>Requests</MobileLink>
                 <MobileLink href="/pro/profile" onClick={() => setMobileOpen(false)}>Profile</MobileLink>
+                <MobileLink href="/messages" onClick={() => setMobileOpen(false)}>Messages</MobileLink>
+                <MobileLink href="/notifications" onClick={() => setMobileOpen(false)}>Notifications</MobileLink>
               </>
             )}
             <div className="mt-2 border-t border-[var(--border)] pt-2">

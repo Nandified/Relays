@@ -1,4 +1,4 @@
-import { type Pro, type ProServiceCategory, type ServiceRequest, type TimelineEvent, type Journey, type TeamMember, type ProIncomingRequest, type TimeWindow } from "@/lib/types";
+import { type Pro, type ProServiceCategory, type ServiceRequest, type TimelineEvent, type Journey, type TeamMember, type ProIncomingRequest, type TimeWindow, type CuratedGroup, type CuratedGroupPartner, type GroupAuditEntry, type ReferralMoment, type JourneyAuditEntry, type NotificationPreference, type NotificationHistoryEntry, type JourneyDocument } from "@/lib/types";
 
 /* ── Pros (10 across categories) ──────────────────────────────── */
 
@@ -17,6 +17,7 @@ export const mockPros: Pro[] = [
     blurb: "Clear reports, fast turnaround, calm guidance for first-time buyers.",
     bio: "Alex Martinez has inspected over 2,000 homes across the Chicagoland area. Specializing in older construction and new builds alike, Alex delivers crystal-clear reports within 24 hours. Known for walking clients through every finding in plain English — no jargon, no scare tactics. Licensed, insured, and ASHI-certified.",
     videoUrl: null,
+    introVideoUrl: "https://placeholder.video/alex-intro.mp4",
     badges: [
       { type: "licensed", label: "ASHI Certified" },
       { type: "insured", label: "Fully Insured" },
@@ -27,6 +28,9 @@ export const mockPros: Pro[] = [
     availability: "accepting",
     username: "alexmartinez",
     topThree: ["pro_2", "pro_5", "pro_7"],
+    socialLinks: { instagram: "alexmartinez_inspections", linkedin: "alexmartinez" },
+    specialties: ["First-time Buyers", "Older Construction", "New Builds", "Radon Testing"],
+    licenseNumber: "HI-2019-045832",
   },
   {
     id: "pro_2",
@@ -42,6 +46,7 @@ export const mockPros: Pro[] = [
     blurb: "Pre-approvals that don't stall deals. Transparent options, no pressure.",
     bio: "Jordan Lee helps first-time buyers and seasoned investors navigate the mortgage process with confidence. Over 15 years in lending, Jordan has closed more than 4,000 loans across Chicagoland. Offers same-day pre-approval letters and keeps clients updated at every milestone. NMLS #123456.",
     videoUrl: null,
+    introVideoUrl: "https://placeholder.video/jordan-intro.mp4",
     badges: [
       { type: "licensed", label: "NMLS Licensed" },
       { type: "top-rated", label: "Top Rated 2025" },
@@ -51,6 +56,9 @@ export const mockPros: Pro[] = [
     availability: "accepting",
     username: "jordanlee",
     topThree: ["pro_1", "pro_4", "pro_8"],
+    socialLinks: { linkedin: "jordanlee-mortgage", youtube: "jordanleelending" },
+    specialties: ["First-time Buyers", "FHA Loans", "Conventional", "Refinancing"],
+    licenseNumber: "NMLS-123456",
   },
   {
     id: "pro_3",
@@ -221,6 +229,9 @@ export const mockPros: Pro[] = [
     availability: "accepting",
     username: "lisahartwell",
     topThree: ["pro_2", "pro_1", "pro_3"],
+    introVideoUrl: "https://placeholder.video/lisa-intro.mp4",
+    socialLinks: { instagram: "lisahartwell_realty", facebook: "hartwellrealty", tiktok: "lisahartwell" },
+    specialties: ["Luxury Homes", "North Side Expert", "First-time Buyers", "Investment Properties"],
   },
   {
     id: "pro_10",
@@ -319,6 +330,7 @@ export const mockJourneys: Journey[] = [
     createdByProId: "pro_9", // Lisa Hartwell (Realtor)
     client: { name: "Jamie Rodriguez", email: "jamie.r@email.com", phone: "(312) 555-0142" },
     status: "active",
+    stage: "under_contract",
     roles: [
       { category: "Realtor", status: "filled", assignedProId: "pro_9", recommendedProIds: [] },
       { category: "Mortgage Lender", status: "filled", assignedProId: "pro_2", recommendedProIds: [] },
@@ -327,7 +339,20 @@ export const mockJourneys: Journey[] = [
       { category: "Insurance Agent", status: "needed", assignedProId: null, recommendedProIds: [] },
     ],
     shareSlug: "j-oak-park-742",
+    groupId: "group_lisa_core",
     createdAt: "2026-02-01T10:00:00Z",
+    closingDate: "2026-03-15T10:00:00Z",
+    auditTrail: [
+      { id: "audit_j1_1", journeyId: "journey_1", timestamp: "2026-02-01T10:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", toStage: "pre_approval", description: "Journey created at pre-approval stage" },
+      { id: "audit_j1_2", journeyId: "journey_1", timestamp: "2026-02-03T14:00:00Z", actor: "pro", actorId: "pro_9", type: "role_filled", description: "Mortgage Lender filled: Jordan Lee" },
+      { id: "audit_j1_3", journeyId: "journey_1", timestamp: "2026-02-05T09:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "pre_approval", toStage: "house_hunting", description: "Stage advanced to House Hunting" },
+      { id: "audit_j1_4", journeyId: "journey_1", timestamp: "2026-02-08T11:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "house_hunting", toStage: "offer_made", description: "Stage advanced to Offer Made" },
+      { id: "audit_j1_5", journeyId: "journey_1", timestamp: "2026-02-10T16:30:00Z", actor: "system", type: "moment_triggered", description: "Attorney moment triggered — Offer Made" },
+      { id: "audit_j1_6", journeyId: "journey_1", timestamp: "2026-02-12T09:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "offer_made", toStage: "offer_accepted", description: "Stage advanced to Offer Accepted" },
+      { id: "audit_j1_7", journeyId: "journey_1", timestamp: "2026-02-12T09:05:00Z", actor: "system", type: "moment_triggered", description: "Home Inspector moment triggered — schedule within 10 days" },
+      { id: "audit_j1_8", journeyId: "journey_1", timestamp: "2026-02-14T14:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "offer_accepted", toStage: "under_contract", description: "Stage advanced to Under Contract" },
+      { id: "audit_j1_9", journeyId: "journey_1", timestamp: "2026-02-14T14:05:00Z", actor: "system", type: "moment_triggered", description: "Insurance Agent moment triggered — get quotes before closing" },
+    ],
     // Legacy compat
     pendingAction: "Choose your attorney",
     nextStep: "Lisa recommended 2 attorneys — pick the one that fits",
@@ -341,10 +366,11 @@ export const mockJourneys: Journey[] = [
     id: "journey_2",
     title: "Lincoln Park Condo",
     address: "1455 N Wells St, Chicago, IL 60614",
-    property: { address: "1455 N Wells St, Chicago, IL 60614", type: "buying" },
+    property: { address: "1455 N Wells St, Chicago, IL 60614", type: "selling" },
     createdByProId: "pro_10", // Frank Johnson (Realtor)
     client: { name: "Sam Patel", email: "sam.patel@email.com", phone: "(773) 555-0198" },
     status: "active",
+    stage: "offer_made",
     roles: [
       { category: "Realtor", status: "filled", assignedProId: "pro_10", recommendedProIds: [] },
       { category: "Mortgage Lender", status: "filled", assignedProId: "pro_2", recommendedProIds: [] },
@@ -353,7 +379,14 @@ export const mockJourneys: Journey[] = [
       { category: "Insurance Agent", status: "recommended", assignedProId: null, recommendedProIds: ["pro_3", "pro_6"] },
     ],
     shareSlug: "j-lincoln-park-1455",
+    groupId: "group_frank_zillow",
     createdAt: "2026-01-28T14:00:00Z",
+    auditTrail: [
+      { id: "audit_j2_1", journeyId: "journey_2", timestamp: "2026-01-28T14:00:00Z", actor: "pro", actorId: "pro_10", type: "stage_change", toStage: "pre_approval", description: "Journey created at pre-approval stage" },
+      { id: "audit_j2_2", journeyId: "journey_2", timestamp: "2026-01-30T10:00:00Z", actor: "pro", actorId: "pro_10", type: "stage_change", fromStage: "pre_approval", toStage: "house_hunting", description: "Stage advanced to House Hunting" },
+      { id: "audit_j2_3", journeyId: "journey_2", timestamp: "2026-02-05T15:00:00Z", actor: "pro", actorId: "pro_10", type: "stage_change", fromStage: "house_hunting", toStage: "offer_made", description: "Stage advanced to Offer Made" },
+      { id: "audit_j2_4", journeyId: "journey_2", timestamp: "2026-02-05T15:05:00Z", actor: "system", type: "moment_triggered", description: "Attorney moment triggered — review contract" },
+    ],
     // Legacy compat
     pendingAction: "Book a home inspector",
     nextStep: "Frank recommended 2 inspectors — schedule yours",
@@ -372,6 +405,8 @@ export const mockJourneys: Journey[] = [
     createdByProId: "pro_9", // Lisa Hartwell (Realtor)
     client: { name: "Morgan Davis", email: "morgan.d@email.com", phone: "(847) 555-0267" },
     status: "completed",
+    stage: "closed",
+    closingDate: "2026-02-20T10:00:00Z",
     roles: [
       { category: "Realtor", status: "filled", assignedProId: "pro_9", recommendedProIds: [] },
       { category: "Mortgage Lender", status: "filled", assignedProId: "pro_2", recommendedProIds: [] },
@@ -380,7 +415,22 @@ export const mockJourneys: Journey[] = [
       { category: "Insurance Agent", status: "filled", assignedProId: "pro_3", recommendedProIds: [] },
     ],
     shareSlug: "j-evanston-824",
+    groupId: "group_lisa_core",
     createdAt: "2026-01-15T09:00:00Z",
+    auditTrail: [
+      { id: "audit_j3_1", journeyId: "journey_3", timestamp: "2026-01-15T09:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", toStage: "pre_approval", description: "Journey created" },
+      { id: "audit_j3_2", journeyId: "journey_3", timestamp: "2026-01-16T10:00:00Z", actor: "pro", actorId: "pro_9", type: "role_filled", description: "Mortgage Lender filled: Jordan Lee" },
+      { id: "audit_j3_3", journeyId: "journey_3", timestamp: "2026-01-18T09:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "pre_approval", toStage: "house_hunting", description: "Stage advanced to House Hunting" },
+      { id: "audit_j3_4", journeyId: "journey_3", timestamp: "2026-01-22T14:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "house_hunting", toStage: "offer_made", description: "Stage advanced to Offer Made" },
+      { id: "audit_j3_5", journeyId: "journey_3", timestamp: "2026-01-22T14:05:00Z", actor: "pro", actorId: "pro_9", type: "role_filled", description: "Attorney filled: Marcus Williams" },
+      { id: "audit_j3_6", journeyId: "journey_3", timestamp: "2026-01-25T11:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "offer_made", toStage: "offer_accepted", description: "Offer accepted!" },
+      { id: "audit_j3_7", journeyId: "journey_3", timestamp: "2026-01-26T09:00:00Z", actor: "pro", actorId: "pro_9", type: "role_filled", description: "Home Inspector filled: Mike Chen" },
+      { id: "audit_j3_8", journeyId: "journey_3", timestamp: "2026-01-30T14:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "offer_accepted", toStage: "under_contract", description: "Under contract" },
+      { id: "audit_j3_9", journeyId: "journey_3", timestamp: "2026-02-02T10:00:00Z", actor: "pro", actorId: "pro_9", type: "role_filled", description: "Insurance Agent filled: Sarah Chen" },
+      { id: "audit_j3_10", journeyId: "journey_3", timestamp: "2026-02-10T09:00:00Z", actor: "pro", actorId: "pro_9", type: "stage_change", fromStage: "under_contract", toStage: "closing_scheduled", description: "Closing scheduled for Feb 20" },
+      { id: "audit_j3_11", journeyId: "journey_3", timestamp: "2026-02-20T10:00:00Z", actor: "system", type: "stage_change", fromStage: "closing_scheduled", toStage: "closed", description: "Closed! Congratulations!" },
+      { id: "audit_j3_12", journeyId: "journey_3", timestamp: "2026-02-20T10:05:00Z", actor: "system", type: "moment_triggered", description: "Post-close moments: handyman, insurance review" },
+    ],
     // Legacy compat
     pendingAction: "All set!",
     nextStep: "Your team is complete — you're ready for closing",
@@ -534,3 +584,841 @@ export function getJourneysForPro(proId: string): Journey[] {
 export function getProsByCategory(category: string): Pro[] {
   return mockPros.filter((p) => p.categories.includes(category as ProServiceCategory));
 }
+
+/* ── Curated Groups (mock data) ───────────────────────────────── */
+
+export const mockCuratedGroups: CuratedGroup[] = [
+  // ── Lisa Hartwell (pro_9, Realtor) groups ──
+  {
+    id: "group_lisa_core",
+    name: "Core Team",
+    slug: "core",
+    description: "My go-to referral partners for standard buyer transactions in Chicago.",
+    tags: ["scenario"],
+    proId: "pro_9",
+    isDefault: true,
+    createdAt: "2026-01-05T10:00:00Z",
+    partners: [
+      { proId: "pro_2", category: "Mortgage Lender", position: 1, addedAt: "2026-01-05T10:00:00Z" },
+      { proId: "pro_7", category: "Mortgage Lender", position: 2, addedAt: "2026-01-06T10:00:00Z" },
+      { proId: "pro_4", category: "Attorney", position: 1, addedAt: "2026-01-05T10:00:00Z" },
+      { proId: "pro_5", category: "Attorney", position: 2, addedAt: "2026-01-05T10:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 1, addedAt: "2026-01-05T10:00:00Z" },
+      { proId: "pro_8", category: "Home Inspector", position: 2, addedAt: "2026-01-06T10:00:00Z" },
+      { proId: "pro_3", category: "Insurance Agent", position: 1, addedAt: "2026-01-05T10:00:00Z" },
+      { proId: "pro_6", category: "Insurance Agent", position: 2, addedAt: "2026-01-07T10:00:00Z" },
+    ],
+  },
+  {
+    id: "group_lisa_zillow",
+    name: "Zillow Leads",
+    slug: "zillow",
+    description: "Optimized partner set for Zillow buyer leads — fast responders only.",
+    tags: ["lead_source"],
+    proId: "pro_9",
+    isDefault: false,
+    createdAt: "2026-01-12T14:00:00Z",
+    partners: [
+      { proId: "pro_7", category: "Mortgage Lender", position: 1, addedAt: "2026-01-12T14:00:00Z" },
+      { proId: "pro_2", category: "Mortgage Lender", position: 2, addedAt: "2026-01-12T14:00:00Z" },
+      { proId: "pro_5", category: "Attorney", position: 1, addedAt: "2026-01-12T14:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 1, addedAt: "2026-01-12T14:00:00Z" },
+      { proId: "pro_8", category: "Home Inspector", position: 2, addedAt: "2026-01-12T14:00:00Z" },
+      { proId: "pro_6", category: "Insurance Agent", position: 1, addedAt: "2026-01-12T14:00:00Z" },
+      { proId: "pro_3", category: "Insurance Agent", position: 2, addedAt: "2026-01-12T14:00:00Z" },
+    ],
+  },
+  {
+    id: "group_lisa_spanish",
+    name: "Spanish",
+    slug: "spanish",
+    description: "Spanish-speaking referral partners for bilingual clients.",
+    tags: ["language"],
+    proId: "pro_9",
+    isDefault: false,
+    createdAt: "2026-01-18T09:00:00Z",
+    partners: [
+      { proId: "pro_7", category: "Mortgage Lender", position: 1, addedAt: "2026-01-18T09:00:00Z" },
+      { proId: "pro_5", category: "Attorney", position: 1, addedAt: "2026-01-18T09:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 1, addedAt: "2026-01-18T09:00:00Z" },
+      { proId: "pro_6", category: "Insurance Agent", position: 1, addedAt: "2026-01-18T09:00:00Z" },
+    ],
+  },
+  {
+    id: "group_lisa_luxury",
+    name: "Luxury",
+    slug: "luxury",
+    description: "Premium partners for luxury ($1M+) transactions. White-glove service.",
+    tags: ["scenario"],
+    proId: "pro_9",
+    isDefault: false,
+    createdAt: "2026-01-22T11:00:00Z",
+    partners: [
+      { proId: "pro_2", category: "Mortgage Lender", position: 1, addedAt: "2026-01-22T11:00:00Z" },
+      { proId: "pro_4", category: "Attorney", position: 1, addedAt: "2026-01-22T11:00:00Z" },
+      { proId: "pro_5", category: "Attorney", position: 2, addedAt: "2026-01-22T11:00:00Z" },
+      { proId: "pro_8", category: "Home Inspector", position: 1, addedAt: "2026-01-22T11:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 2, addedAt: "2026-01-22T11:00:00Z" },
+      { proId: "pro_3", category: "Insurance Agent", position: 1, addedAt: "2026-01-22T11:00:00Z" },
+    ],
+  },
+  // ── Frank Johnson (pro_10, Realtor) groups ──
+  {
+    id: "group_frank_core",
+    name: "Core Team",
+    slug: "core",
+    description: "Standard referral partners for downtown and south side transactions.",
+    tags: ["scenario"],
+    proId: "pro_10",
+    isDefault: true,
+    createdAt: "2026-01-08T10:00:00Z",
+    partners: [
+      { proId: "pro_2", category: "Mortgage Lender", position: 1, addedAt: "2026-01-08T10:00:00Z" },
+      { proId: "pro_7", category: "Mortgage Lender", position: 2, addedAt: "2026-01-09T10:00:00Z" },
+      { proId: "pro_4", category: "Attorney", position: 1, addedAt: "2026-01-08T10:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 1, addedAt: "2026-01-08T10:00:00Z" },
+      { proId: "pro_8", category: "Home Inspector", position: 2, addedAt: "2026-01-08T10:00:00Z" },
+      { proId: "pro_3", category: "Insurance Agent", position: 1, addedAt: "2026-01-08T10:00:00Z" },
+      { proId: "pro_6", category: "Insurance Agent", position: 2, addedAt: "2026-01-08T10:00:00Z" },
+    ],
+  },
+  {
+    id: "group_frank_zillow",
+    name: "Zillow Leads",
+    slug: "zillow",
+    description: "Zillow buyer leads — fast close partners.",
+    tags: ["lead_source"],
+    proId: "pro_10",
+    isDefault: false,
+    createdAt: "2026-01-14T14:00:00Z",
+    partners: [
+      { proId: "pro_2", category: "Mortgage Lender", position: 1, addedAt: "2026-01-14T14:00:00Z" },
+      { proId: "pro_5", category: "Attorney", position: 1, addedAt: "2026-01-14T14:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 1, addedAt: "2026-01-14T14:00:00Z" },
+      { proId: "pro_6", category: "Insurance Agent", position: 1, addedAt: "2026-01-14T14:00:00Z" },
+      { proId: "pro_3", category: "Insurance Agent", position: 2, addedAt: "2026-01-14T14:00:00Z" },
+    ],
+  },
+  {
+    id: "group_frank_facebook",
+    name: "Facebook Leads",
+    slug: "facebook",
+    description: "Optimized for Facebook ad leads — nurture flow partners.",
+    tags: ["lead_source"],
+    proId: "pro_10",
+    isDefault: false,
+    createdAt: "2026-01-20T16:00:00Z",
+    partners: [
+      { proId: "pro_7", category: "Mortgage Lender", position: 1, addedAt: "2026-01-20T16:00:00Z" },
+      { proId: "pro_2", category: "Mortgage Lender", position: 2, addedAt: "2026-01-20T16:00:00Z" },
+      { proId: "pro_4", category: "Attorney", position: 1, addedAt: "2026-01-20T16:00:00Z" },
+      { proId: "pro_8", category: "Home Inspector", position: 1, addedAt: "2026-01-20T16:00:00Z" },
+      { proId: "pro_3", category: "Insurance Agent", position: 1, addedAt: "2026-01-20T16:00:00Z" },
+    ],
+  },
+  {
+    id: "group_frank_investor",
+    name: "Investor",
+    slug: "investor",
+    description: "Partners experienced with investment properties and multi-units.",
+    tags: ["scenario"],
+    proId: "pro_10",
+    isDefault: false,
+    createdAt: "2026-01-25T09:00:00Z",
+    partners: [
+      { proId: "pro_7", category: "Mortgage Lender", position: 1, addedAt: "2026-01-25T09:00:00Z" },
+      { proId: "pro_4", category: "Attorney", position: 1, addedAt: "2026-01-25T09:00:00Z" },
+      { proId: "pro_5", category: "Attorney", position: 2, addedAt: "2026-01-25T09:00:00Z" },
+      { proId: "pro_1", category: "Home Inspector", position: 1, addedAt: "2026-01-25T09:00:00Z" },
+      { proId: "pro_6", category: "Insurance Agent", position: 1, addedAt: "2026-01-25T09:00:00Z" },
+    ],
+  },
+];
+
+/* ── Group audit log entries ──────────────────────────────────── */
+
+export const mockGroupAuditLog: GroupAuditEntry[] = [
+  {
+    id: "audit_1",
+    journeyId: "journey_2",
+    fromGroupId: "group_frank_core",
+    toGroupId: "group_frank_zillow",
+    changedBy: "pro_10",
+    reason: "Client came from Zillow ad — switching to Zillow partners",
+    timestamp: "2026-01-28T14:30:00Z",
+  },
+  {
+    id: "audit_2",
+    journeyId: "journey_1",
+    fromGroupId: null,
+    toGroupId: "group_lisa_core",
+    changedBy: "pro_9",
+    reason: "Journey created with Core group",
+    timestamp: "2026-02-01T10:00:00Z",
+  },
+  {
+    id: "audit_3",
+    journeyId: "journey_3",
+    fromGroupId: null,
+    toGroupId: "group_lisa_core",
+    changedBy: "pro_9",
+    reason: "Journey created with Core group",
+    timestamp: "2026-01-15T09:00:00Z",
+  },
+];
+
+/* ── Curated Group helpers ────────────────────────────────────── */
+
+export function getGroupById(id: string): CuratedGroup | undefined {
+  return mockCuratedGroups.find((g) => g.id === id);
+}
+
+export function getGroupsForPro(proId: string): CuratedGroup[] {
+  return mockCuratedGroups.filter((g) => g.proId === proId);
+}
+
+export function getDefaultGroupForPro(proId: string): CuratedGroup | undefined {
+  return mockCuratedGroups.find((g) => g.proId === proId && g.isDefault);
+}
+
+export function getGroupBySlug(proId: string, slug: string): CuratedGroup | undefined {
+  return mockCuratedGroups.find((g) => g.proId === proId && g.slug === slug);
+}
+
+export function getGroupPartnersByCategory(group: CuratedGroup, category: string): CuratedGroupPartner[] {
+  return group.partners
+    .filter((p) => p.category === category)
+    .sort((a, b) => a.position - b.position);
+}
+
+export function getAuditLogForJourney(journeyId: string): GroupAuditEntry[] {
+  return mockGroupAuditLog.filter((e) => e.journeyId === journeyId);
+}
+
+/** Get unique categories present in a group */
+export function getGroupCategories(group: CuratedGroup): ProServiceCategory[] {
+  const cats = new Set(group.partners.map((p) => p.category));
+  return Array.from(cats) as ProServiceCategory[];
+}
+
+/** Count partners in a group */
+export function getGroupPartnerCount(group: CuratedGroup): number {
+  return group.partners.length;
+}
+
+/* ── Journey Documents (mock data) ────────────────────────────── */
+
+export const mockDocuments: JourneyDocument[] = [
+  // Journey 1: Oak Park Bungalow — early stage (pre-approval + offer)
+  {
+    id: "doc_1",
+    journeyId: "journey_1",
+    category: "pre_approval_letter",
+    title: "Pre-Approval Letter",
+    description: "Mortgage pre-approval from Sunrise Mortgage",
+    status: "approved",
+    uploadedBy: "Jordan Lee",
+    uploadedAt: "2026-02-02T14:30:00Z",
+    fileUrl: "/mock/docs/pre-approval-letter.pdf",
+    fileType: "application/pdf",
+    fileSize: 245_000,
+    requestedBy: "Lisa Hartwell",
+    requestedAt: "2026-02-01T16:00:00Z",
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-02-02T16:00:00Z",
+    notes: "Approved for $425,000. Valid through March 15.",
+  },
+  {
+    id: "doc_2",
+    journeyId: "journey_1",
+    category: "purchase_agreement",
+    title: "Purchase Agreement",
+    description: "Signed purchase contract for 742 Maple Ave",
+    status: "uploaded",
+    uploadedBy: "Jamie Rodriguez",
+    uploadedAt: "2026-02-05T10:15:00Z",
+    fileUrl: "/mock/docs/purchase-agreement.pdf",
+    fileType: "application/pdf",
+    fileSize: 892_000,
+    requestedBy: "Lisa Hartwell",
+    requestedAt: "2026-02-04T09:00:00Z",
+  },
+  {
+    id: "doc_3",
+    journeyId: "journey_1",
+    category: "inspection_report",
+    title: "Home Inspection Report",
+    description: "Full property inspection for 742 Maple Ave",
+    status: "requested",
+    requestedBy: "Lisa Hartwell",
+    requestedAt: "2026-02-08T11:00:00Z",
+    notes: "Please upload once the inspection is completed this week.",
+  },
+  {
+    id: "doc_4",
+    journeyId: "journey_1",
+    category: "insurance_binder",
+    title: "Insurance Binder",
+    status: "needed",
+  },
+  {
+    id: "doc_5",
+    journeyId: "journey_1",
+    category: "closing_disclosure",
+    title: "Closing Disclosure",
+    status: "needed",
+  },
+
+  // Journey 2: Lincoln Park Condo — further along
+  {
+    id: "doc_6",
+    journeyId: "journey_2",
+    category: "pre_approval_letter",
+    title: "Pre-Approval Letter",
+    description: "Mortgage pre-approval from Sunrise Mortgage",
+    status: "approved",
+    uploadedBy: "Jordan Lee",
+    uploadedAt: "2026-01-29T10:00:00Z",
+    fileUrl: "/mock/docs/pre-approval-sam.pdf",
+    fileType: "application/pdf",
+    fileSize: 198_000,
+    reviewedBy: "Frank Johnson",
+    reviewedAt: "2026-01-29T14:00:00Z",
+  },
+  {
+    id: "doc_7",
+    journeyId: "journey_2",
+    category: "purchase_agreement",
+    title: "Purchase Agreement",
+    description: "Signed condo purchase contract",
+    status: "approved",
+    uploadedBy: "Sam Patel",
+    uploadedAt: "2026-02-01T09:30:00Z",
+    fileUrl: "/mock/docs/purchase-agreement-condo.pdf",
+    fileType: "application/pdf",
+    fileSize: 1_245_000,
+    reviewedBy: "Frank Johnson",
+    reviewedAt: "2026-02-01T15:00:00Z",
+    notes: "Contract reviewed and approved by attorney.",
+  },
+  {
+    id: "doc_8",
+    journeyId: "journey_2",
+    category: "inspection_report",
+    title: "Home Inspection Report",
+    status: "requested",
+    requestedBy: "Frank Johnson",
+    requestedAt: "2026-02-09T08:00:00Z",
+    notes: "Inspection scheduled for Feb 12. Please upload the report after.",
+  },
+  {
+    id: "doc_9",
+    journeyId: "journey_2",
+    category: "amendment",
+    title: "Inspection Contingency Amendment",
+    description: "Amendment extending inspection deadline",
+    status: "uploaded",
+    uploadedBy: "Priya Kapoor",
+    uploadedAt: "2026-02-07T16:45:00Z",
+    fileUrl: "/mock/docs/amendment-inspection.pdf",
+    fileType: "application/pdf",
+    fileSize: 156_000,
+  },
+  {
+    id: "doc_10",
+    journeyId: "journey_2",
+    category: "insurance_binder",
+    title: "Insurance Binder",
+    status: "needed",
+  },
+  {
+    id: "doc_11",
+    journeyId: "journey_2",
+    category: "title_commitment",
+    title: "Title Commitment",
+    status: "needed",
+  },
+  {
+    id: "doc_12",
+    journeyId: "journey_2",
+    category: "closing_disclosure",
+    title: "Closing Disclosure",
+    status: "needed",
+  },
+
+  // Journey 3: Evanston Victorian — completed, all approved
+  {
+    id: "doc_13",
+    journeyId: "journey_3",
+    category: "pre_approval_letter",
+    title: "Pre-Approval Letter",
+    status: "approved",
+    uploadedBy: "Jordan Lee",
+    uploadedAt: "2026-01-16T10:00:00Z",
+    fileUrl: "/mock/docs/pre-approval-morgan.pdf",
+    fileType: "application/pdf",
+    fileSize: 210_000,
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-01-16T14:00:00Z",
+  },
+  {
+    id: "doc_14",
+    journeyId: "journey_3",
+    category: "purchase_agreement",
+    title: "Purchase Agreement",
+    status: "approved",
+    uploadedBy: "Morgan Davis",
+    uploadedAt: "2026-01-18T11:30:00Z",
+    fileUrl: "/mock/docs/purchase-evanston.pdf",
+    fileType: "application/pdf",
+    fileSize: 934_000,
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-01-18T16:00:00Z",
+  },
+  {
+    id: "doc_15",
+    journeyId: "journey_3",
+    category: "inspection_report",
+    title: "Home Inspection Report",
+    status: "approved",
+    uploadedBy: "Mike Chen",
+    uploadedAt: "2026-01-22T09:00:00Z",
+    fileUrl: "/mock/docs/inspection-evanston.pdf",
+    fileType: "application/pdf",
+    fileSize: 3_456_000,
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-01-22T17:00:00Z",
+    notes: "Minor roof repairs recommended. See page 12.",
+  },
+  {
+    id: "doc_16",
+    journeyId: "journey_3",
+    category: "insurance_binder",
+    title: "Insurance Binder",
+    status: "approved",
+    uploadedBy: "Sarah Chen",
+    uploadedAt: "2026-01-25T14:00:00Z",
+    fileUrl: "/mock/docs/insurance-evanston.pdf",
+    fileType: "application/pdf",
+    fileSize: 178_000,
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-01-25T16:30:00Z",
+  },
+  {
+    id: "doc_17",
+    journeyId: "journey_3",
+    category: "closing_disclosure",
+    title: "Closing Disclosure",
+    status: "approved",
+    uploadedBy: "Jordan Lee",
+    uploadedAt: "2026-01-28T10:00:00Z",
+    fileUrl: "/mock/docs/closing-disclosure-evanston.pdf",
+    fileType: "application/pdf",
+    fileSize: 567_000,
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-01-28T15:00:00Z",
+  },
+  {
+    id: "doc_18",
+    journeyId: "journey_3",
+    category: "title_commitment",
+    title: "Title Commitment",
+    status: "approved",
+    uploadedBy: "Marcus Williams",
+    uploadedAt: "2026-01-26T11:00:00Z",
+    fileUrl: "/mock/docs/title-commitment-evanston.pdf",
+    fileType: "application/pdf",
+    fileSize: 412_000,
+    reviewedBy: "Lisa Hartwell",
+    reviewedAt: "2026-01-26T14:00:00Z",
+  },
+];
+
+/* ── Document helpers ─────────────────────────────────────────── */
+
+export function getDocumentsForJourney(journeyId: string): JourneyDocument[] {
+  return mockDocuments.filter((d) => d.journeyId === journeyId);
+}
+
+export function getDocumentById(docId: string): JourneyDocument | undefined {
+  return mockDocuments.find((d) => d.id === docId);
+}
+
+export function getDocumentsByStatus(status: JourneyDocument["status"]): JourneyDocument[] {
+  return mockDocuments.filter((d) => d.status === status);
+}
+
+export function getDocumentStats(journeyId: string) {
+  const docs = getDocumentsForJourney(journeyId);
+  const total = docs.length;
+  const approved = docs.filter((d) => d.status === "approved").length;
+  const uploaded = docs.filter((d) => d.status === "uploaded" || d.status === "reviewed").length;
+  const requested = docs.filter((d) => d.status === "requested").length;
+  const needed = docs.filter((d) => d.status === "needed").length;
+  return { total, approved, uploaded, requested, needed };
+}
+
+/** All docs across all journeys that need attention (for pro dashboard) */
+export function getPendingDocumentsForPro(): (JourneyDocument & { journeyTitle: string; clientName: string })[] {
+  const pending: (JourneyDocument & { journeyTitle: string; clientName: string })[] = [];
+  for (const doc of mockDocuments) {
+    if (doc.status === "uploaded" || doc.status === "requested") {
+      const journey = getJourneyById(doc.journeyId);
+      if (journey) {
+        pending.push({
+          ...doc,
+          journeyTitle: journey.title,
+          clientName: journey.client.name,
+        });
+      }
+    }
+  }
+  return pending;
+}
+
+/** All docs that a consumer needs to act on */
+export function getConsumerActionableDocuments(): (JourneyDocument & { journeyTitle: string })[] {
+  const actionable: (JourneyDocument & { journeyTitle: string })[] = [];
+  for (const doc of mockDocuments) {
+    if (doc.status === "requested" || doc.status === "needed") {
+      const journey = getJourneyById(doc.journeyId);
+      if (journey) {
+        actionable.push({
+          ...doc,
+          journeyTitle: journey.title,
+        });
+      }
+    }
+  }
+  return actionable;
+}
+
+/* ── Mock Referral Moments ────────────────────────────────────── */
+
+export const mockReferralMoments: ReferralMoment[] = [
+  // Journey 1 — Oak Park Bungalow (under_contract)
+  {
+    id: "moment_j1_lender",
+    journeyId: "journey_1",
+    stage: "pre_approval",
+    category: "Mortgage Lender",
+    title: "Get Pre-Approved",
+    description: "Connect with a lender to get your pre-approval letter.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-02-03T14:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j1_realtor",
+    journeyId: "journey_1",
+    stage: "pre_approval",
+    category: "Realtor",
+    title: "Find Your Realtor",
+    description: "Your realtor guides every step of the journey.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-02-01T10:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j1_attorney",
+    journeyId: "journey_1",
+    stage: "offer_made",
+    category: "Attorney",
+    title: "Engage a Real Estate Attorney",
+    description: "An attorney will review your purchase contract and protect your interests.",
+    priority: "urgent",
+    triggerType: "stage_based",
+    action: "send_top_3",
+    status: "active",
+  },
+  {
+    id: "moment_j1_inspector",
+    journeyId: "journey_1",
+    stage: "offer_accepted",
+    category: "Home Inspector",
+    title: "Schedule Home Inspection",
+    description: "Book a home inspector within 10 days to uncover any issues before closing.",
+    priority: "urgent",
+    triggerType: "stage_based",
+    action: "send_top_3",
+    status: "active",
+  },
+  {
+    id: "moment_j1_insurance",
+    journeyId: "journey_1",
+    stage: "under_contract",
+    category: "Insurance Agent",
+    title: "Get Homeowner's Insurance",
+    description: "You'll need proof of insurance before closing. Get quotes now.",
+    priority: "urgent",
+    triggerType: "stage_based",
+    action: "send_top_3",
+    status: "active",
+  },
+  // Journey 2 — Lincoln Park Condo (offer_made, selling)
+  {
+    id: "moment_j2_lender",
+    journeyId: "journey_2",
+    stage: "pre_approval",
+    category: "Mortgage Lender",
+    title: "Get Pre-Approved",
+    description: "Connect with a lender for financing.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-01-29T10:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j2_realtor",
+    journeyId: "journey_2",
+    stage: "pre_approval",
+    category: "Realtor",
+    title: "Find Your Realtor",
+    description: "Your realtor guides the selling process.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-01-28T14:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j2_attorney",
+    journeyId: "journey_2",
+    stage: "offer_made",
+    category: "Attorney",
+    title: "Engage a Real Estate Attorney",
+    description: "Review the offer contract with an attorney before accepting.",
+    priority: "urgent",
+    triggerType: "stage_based",
+    completedAt: "2026-02-05T15:30:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j2_inspector",
+    journeyId: "journey_2",
+    stage: "offer_accepted",
+    category: "Home Inspector",
+    title: "Schedule Home Inspection",
+    description: "Buyer may request inspection — be prepared.",
+    priority: "upcoming",
+    triggerType: "stage_based",
+    action: "send_top_3",
+    status: "pending",
+  },
+  // Journey 3 — Evanston Victorian (closed)
+  {
+    id: "moment_j3_lender",
+    journeyId: "journey_3",
+    stage: "pre_approval",
+    category: "Mortgage Lender",
+    title: "Get Pre-Approved",
+    description: "Pre-approval secured.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-01-16T10:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j3_realtor",
+    journeyId: "journey_3",
+    stage: "pre_approval",
+    category: "Realtor",
+    title: "Find Your Realtor",
+    description: "Realtor assigned.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-01-15T09:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j3_attorney",
+    journeyId: "journey_3",
+    stage: "offer_made",
+    category: "Attorney",
+    title: "Engage a Real Estate Attorney",
+    description: "Contract reviewed and approved.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-01-22T14:05:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j3_inspector",
+    journeyId: "journey_3",
+    stage: "offer_accepted",
+    category: "Home Inspector",
+    title: "Schedule Home Inspection",
+    description: "Inspection completed — no major issues found.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-01-28T16:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j3_insurance",
+    journeyId: "journey_3",
+    stage: "under_contract",
+    category: "Insurance Agent",
+    title: "Get Homeowner's Insurance",
+    description: "Policy secured before closing.",
+    priority: "completed",
+    triggerType: "stage_based",
+    completedAt: "2026-02-04T11:00:00Z",
+    action: "send_top_3",
+    status: "completed",
+  },
+  {
+    id: "moment_j3_postclose_handyman",
+    journeyId: "journey_3",
+    stage: "post_close",
+    category: "Home Inspector",
+    title: "Find a Handyman / Contractor",
+    description: "Now that you've moved in, connect with trusted contractors.",
+    priority: "upcoming",
+    triggerType: "stage_based",
+    action: "send_top_3",
+    status: "pending",
+  },
+];
+
+export function getMomentsForJourney(journeyId: string): ReferralMoment[] {
+  return mockReferralMoments.filter((m) => m.journeyId === journeyId);
+}
+
+/* ── Mock Notification Preferences ────────────────────────────── */
+
+export const mockNotificationPreferences: NotificationPreference[] = [
+  {
+    momentType: "stage_advancement",
+    label: "Stage Advancement",
+    description: "When your journey moves to a new stage",
+    channels: { email: true, sms: true, push: true, in_app: true },
+  },
+  {
+    momentType: "moment_triggered",
+    label: "New Action Needed",
+    description: "When a new referral moment is triggered for your journey",
+    channels: { email: true, sms: false, push: true, in_app: true },
+  },
+  {
+    momentType: "top_3_sent",
+    label: "Top 3 Recommendations",
+    description: "When your agent sends you a top 3 recommendation list",
+    channels: { email: true, sms: true, push: true, in_app: true },
+  },
+  {
+    momentType: "booking_requested",
+    label: "Booking Requests",
+    description: "When a booking is requested or confirmed",
+    channels: { email: true, sms: true, push: true, in_app: true },
+  },
+  {
+    momentType: "document_uploaded",
+    label: "Document Uploads",
+    description: "When documents are uploaded to your journey",
+    channels: { email: true, sms: false, push: false, in_app: true },
+  },
+  {
+    momentType: "review_requested",
+    label: "Review Requests",
+    description: "When you're asked to review something",
+    channels: { email: true, sms: false, push: true, in_app: true },
+  },
+  {
+    momentType: "role_filled",
+    label: "Team Updates",
+    description: "When a team member is added to your journey",
+    channels: { email: true, sms: false, push: true, in_app: true },
+  },
+  {
+    momentType: "reminder",
+    label: "Reminders",
+    description: "Gentle nudges about upcoming deadlines and actions",
+    channels: { email: false, sms: false, push: true, in_app: true },
+  },
+];
+
+export const mockNotificationHistory: NotificationHistoryEntry[] = [
+  {
+    id: "notif_1",
+    momentType: "stage_advancement",
+    channel: "in_app",
+    title: "Journey advanced to Under Contract",
+    body: "Oak Park Bungalow is now Under Contract. Time to get insurance quotes!",
+    sentAt: "2026-02-14T14:00:00Z",
+    read: true,
+  },
+  {
+    id: "notif_2",
+    momentType: "moment_triggered",
+    channel: "push",
+    title: "Action needed: Get Homeowner's Insurance",
+    body: "You'll need proof of insurance before closing on 742 Maple Ave.",
+    sentAt: "2026-02-14T14:05:00Z",
+    read: false,
+  },
+  {
+    id: "notif_3",
+    momentType: "top_3_sent",
+    channel: "email",
+    title: "Lisa sent you 3 Attorney recommendations",
+    body: "Lisa Hartwell recommended Marcus Williams, Priya Kapoor, and one more.",
+    sentAt: "2026-02-10T16:30:00Z",
+    read: true,
+  },
+  {
+    id: "notif_4",
+    momentType: "role_filled",
+    channel: "in_app",
+    title: "Jordan Lee joined your team",
+    body: "Jordan Lee (Sunrise Mortgage) is now your Mortgage Lender for Oak Park Bungalow.",
+    sentAt: "2026-02-03T14:00:00Z",
+    read: true,
+  },
+  {
+    id: "notif_5",
+    momentType: "booking_requested",
+    channel: "sms",
+    title: "Inspection booking confirmed",
+    body: "Mike Chen confirmed inspection for 824 Davis St on Jan 28 at 10:00 AM.",
+    sentAt: "2026-01-27T09:00:00Z",
+    read: true,
+  },
+  {
+    id: "notif_6",
+    momentType: "reminder",
+    channel: "push",
+    title: "Insurance deadline approaching",
+    body: "Your closing is in 4 weeks. Don't forget to secure homeowner's insurance.",
+    sentAt: "2026-02-15T09:00:00Z",
+    read: false,
+  },
+  {
+    id: "notif_7",
+    momentType: "document_uploaded",
+    channel: "in_app",
+    title: "Inspection report uploaded",
+    body: "Mike Chen uploaded the inspection report for Evanston Victorian.",
+    sentAt: "2026-01-29T16:00:00Z",
+    read: true,
+  },
+  {
+    id: "notif_8",
+    momentType: "stage_advancement",
+    channel: "in_app",
+    title: "Congratulations — Evanston Victorian is closed!",
+    body: "The journey is complete. Welcome home, Morgan!",
+    sentAt: "2026-02-20T10:00:00Z",
+    read: true,
+  },
+];

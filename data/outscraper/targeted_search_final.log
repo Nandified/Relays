@@ -58,3 +58,154 @@
 [2026-02-16 12:53:29]   Finished batch: 15 queries, 1 new matches | totalSearched=60680 matchesFound=4610
 [2026-02-16 12:53:30] Batch 16/80: 15 queries (progress 60680/61646)
 [2026-02-16 12:53:31]   Batch request id: ab-8f250c11-dd00-4bb4-957c-1a853a5fe279
+[2026-02-16 12:54:19]   Finished batch: 15 queries, 2 new matches | totalSearched=60695 matchesFound=4612
+[2026-02-16 12:54:20] Batch 17/80: 15 queries (progress 60695/61646)
+[2026-02-16 12:54:20]   Batch request id: ab-37b4144e-4204-4ab8-bd77-c1985293a0f4
+[2026-02-16 12:55:08]   Finished batch: 15 queries, 1 new matches | totalSearched=60710 matchesFound=4613
+[2026-02-16 12:55:09] Batch 18/80: 15 queries (progress 60710/61646)
+[2026-02-16 12:55:10]   Batch request id: ab-7c8de6eb-e24d-436b-925e-ae7c339ab343
+[2026-02-16 12:57:16]   Finished batch: 15 queries, 1 new matches | totalSearched=60725 matchesFound=4614
+[2026-02-16 12:57:17] Batch 19/80: 15 queries (progress 60725/61646)
+[2026-02-16 12:57:18]   Batch request id: ab-7aadae08-c158-4659-b0a4-d879dd91f478
+[2026-02-16 12:57:51]   Finished batch: 15 queries, 1 new matches | totalSearched=60740 matchesFound=4615
+[2026-02-16 12:57:52] Batch 20/80: 15 queries (progress 60740/61646)
+[2026-02-16 12:57:53]   Batch request id: ab-ae8681e2-7133-4b91-b629-d049c40385fe
+[2026-02-16 12:58:41]   Finished batch: 15 queries, 0 new matches | totalSearched=60755 matchesFound=4615
+[2026-02-16 12:58:42] Batch 21/80: 15 queries (progress 60755/61646)
+[2026-02-16 12:58:43]   Batch request id: ab-1b6a29a0-bd1b-4dbb-918b-e72c3a6bd68c
+[2026-02-16 12:59:15]   Finished batch: 15 queries, 0 new matches | totalSearched=60770 matchesFound=4615
+[2026-02-16 12:59:16] Batch 22/80: 15 queries (progress 60770/61646)
+[2026-02-16 12:59:17]   Batch request id: ab-9914ea99-1d17-44a9-96ed-fd0c14f825aa
+[2026-02-16 12:59:50]   Finished batch: 15 queries, 0 new matches | totalSearched=60785 matchesFound=4615
+[2026-02-16 12:59:51] Batch 23/80: 15 queries (progress 60785/61646)
+[2026-02-16 12:59:51]   Batch request id: ab-849b1e44-1795-429f-8034-43ecd8bea9e1
+[2026-02-16 13:00:24]   Finished batch: 15 queries, 0 new matches | totalSearched=60800 matchesFound=4615
+[2026-02-16 13:00:25] Batch 24/80: 15 queries (progress 60800/61646)
+[2026-02-16 13:00:27]   Batch request id: ab-915ba28b-65aa-4e6f-a43f-2c3410720c9c
+[2026-02-16 13:01:00]   Finished batch: 15 queries, 2 new matches | totalSearched=60815 matchesFound=4617
+[2026-02-16 13:01:01] Batch 25/80: 15 queries (progress 60815/61646)
+[2026-02-16 13:01:01]   Batch request id: ab-0d9e45ef-5dd1-44df-8aef-61abe7a7a2c4
+[2026-02-16 13:01:34]   Finished batch: 15 queries, 0 new matches | totalSearched=60830 matchesFound=4617
+[2026-02-16 13:01:35] Batch 26/80: 15 queries (progress 60830/61646)
+[2026-02-16 13:01:36]   Batch request id: ab-547ec1a0-fe63-446d-8a95-8c7c15511375
+[2026-02-16 13:02:08]   Finished batch: 15 queries, 1 new matches | totalSearched=60845 matchesFound=4618
+[2026-02-16 13:02:09] Batch 27/80: 15 queries (progress 60845/61646)
+[2026-02-16 13:02:10]   Batch request id: ab-b5def136-5f59-45d9-8df3-7feb0ffaeda6
+[2026-02-16 13:02:42]   Finished batch: 15 queries, 1 new matches | totalSearched=60860 matchesFound=4619
+[2026-02-16 13:02:43] Batch 28/80: 15 queries (progress 60860/61646)
+[2026-02-16 13:02:44]   Batch request id: ab-a2585d88-6b3c-41fe-9379-5fd055bc0868
+[2026-02-16 13:03:16]   Finished batch: 15 queries, 1 new matches | totalSearched=60875 matchesFound=4620
+[2026-02-16 13:03:17] Batch 29/80: 15 queries (progress 60875/61646)
+[2026-02-16 13:03:18]   Batch request id: ab-2de59716-662e-42da-b6f6-370c9f25049f
+[2026-02-16 13:03:51]   Finished batch: 15 queries, 2 new matches | totalSearched=60890 matchesFound=4622
+[2026-02-16 13:03:52] Batch 30/80: 15 queries (progress 60890/61646)
+[2026-02-16 13:03:52]   Batch request id: ab-e41d7bbc-866f-4eeb-af17-878349f51f4b
+[2026-02-16 13:04:25]   Finished batch: 15 queries, 1 new matches | totalSearched=60905 matchesFound=4623
+[2026-02-16 13:04:26] Batch 31/80: 15 queries (progress 60905/61646)
+[2026-02-16 13:04:27]   Batch request id: ab-6a4bab66-6bcf-4400-aba8-658ae6fed8a2
+[2026-02-16 13:04:59]   Finished batch: 15 queries, 1 new matches | totalSearched=60920 matchesFound=4624
+[2026-02-16 13:05:00] Batch 32/80: 15 queries (progress 60920/61646)
+[2026-02-16 13:05:01]   Batch request id: ab-db8a283b-a94b-4e83-8bb1-33dff6988d15
+[2026-02-16 13:06:05]   Finished batch: 15 queries, 4 new matches | totalSearched=60935 matchesFound=4628
+[2026-02-16 13:06:06] Batch 33/80: 15 queries (progress 60935/61646)
+[2026-02-16 13:06:07]   Batch request id: ab-2968e025-2f55-4f08-b248-582f8e412581
+[2026-02-16 13:06:55]   Finished batch: 15 queries, 0 new matches | totalSearched=60950 matchesFound=4628
+[2026-02-16 13:06:56] Batch 34/80: 15 queries (progress 60950/61646)
+[2026-02-16 13:06:57]   Batch request id: ab-edd91633-4870-47f0-b9c7-69c951b266b4
+[2026-02-16 13:07:29]   Finished batch: 15 queries, 0 new matches | totalSearched=60965 matchesFound=4628
+[2026-02-16 13:07:30] Batch 35/80: 15 queries (progress 60965/61646)
+[2026-02-16 13:07:31]   Batch request id: ab-e41522b2-cc12-46f5-960c-3d683a2bf3a1
+[2026-02-16 13:08:19]   Finished batch: 15 queries, 2 new matches | totalSearched=60980 matchesFound=4630
+[2026-02-16 13:08:20] Batch 36/80: 15 queries (progress 60980/61646)
+[2026-02-16 13:08:20]   Batch request id: ab-2c55f6f6-c760-401d-872b-8878c84b9174
+[2026-02-16 13:08:53]   Finished batch: 15 queries, 4 new matches | totalSearched=60995 matchesFound=4634
+[2026-02-16 13:08:54] Batch 37/80: 15 queries (progress 60995/61646)
+[2026-02-16 13:08:54]   Batch request id: ab-b7bb5aa6-66a8-4ef8-bb0c-07a220c86dda
+[2026-02-16 13:09:27]   Finished batch: 15 queries, 1 new matches | totalSearched=61010 matchesFound=4635
+[2026-02-16 13:09:28] Batch 38/80: 15 queries (progress 61010/61646)
+[2026-02-16 13:09:29]   Batch request id: ab-dbeed5e2-f50a-4962-815a-a5d4201f03e2
+[2026-02-16 13:10:02]   Finished batch: 15 queries, 2 new matches | totalSearched=61025 matchesFound=4637
+[2026-02-16 13:10:03] Batch 39/80: 15 queries (progress 61025/61646)
+[2026-02-16 13:10:03]   Batch request id: ab-154b31e0-a99c-454f-bf4b-023630ad969e
+[2026-02-16 13:10:35]   Finished batch: 15 queries, 1 new matches | totalSearched=61040 matchesFound=4638
+[2026-02-16 13:10:36] Batch 40/80: 15 queries (progress 61040/61646)
+[2026-02-16 13:10:37]   Batch request id: ab-f328eb65-248b-4c62-94ab-16e94563a758
+[2026-02-16 13:11:09]   Finished batch: 15 queries, 0 new matches | totalSearched=61055 matchesFound=4638
+[2026-02-16 13:11:10] Batch 41/80: 15 queries (progress 61055/61646)
+[2026-02-16 13:11:11]   Batch request id: ab-f20f97b2-b9a0-4cad-a592-8443b1b21d05
+[2026-02-16 13:11:43]   Finished batch: 15 queries, 1 new matches | totalSearched=61070 matchesFound=4639
+[2026-02-16 13:11:44] Batch 42/80: 15 queries (progress 61070/61646)
+[2026-02-16 13:11:45]   Batch request id: ab-06963115-4b88-4ef9-b45d-0274179fa9fc
+[2026-02-16 13:12:33]   Finished batch: 15 queries, 0 new matches | totalSearched=61085 matchesFound=4639
+[2026-02-16 13:12:34] Batch 43/80: 15 queries (progress 61085/61646)
+[2026-02-16 13:12:34]   Batch request id: ab-c9d3f0e8-67b3-4695-85be-23d234661a71
+[2026-02-16 13:13:22]   Finished batch: 15 queries, 2 new matches | totalSearched=61100 matchesFound=4641
+[2026-02-16 13:13:23] Batch 44/80: 15 queries (progress 61100/61646)
+[2026-02-16 13:13:24]   Batch request id: ab-4c0d60ef-aaae-41b8-aa11-ec966e412035
+[2026-02-16 13:14:12]   Finished batch: 15 queries, 2 new matches | totalSearched=61115 matchesFound=4643
+[2026-02-16 13:14:13] Batch 45/80: 15 queries (progress 61115/61646)
+[2026-02-16 13:14:14]   Batch request id: ab-1c80ef0e-5f87-4bcc-8bec-49a969c0b046
+[2026-02-16 13:14:46]   Finished batch: 15 queries, 1 new matches | totalSearched=61130 matchesFound=4644
+[2026-02-16 13:14:47] Batch 46/80: 15 queries (progress 61130/61646)
+[2026-02-16 13:14:48]   Batch request id: ab-f7ef1641-854a-4d0f-aef7-7bdfcba6e9ff
+[2026-02-16 13:15:20]   Finished batch: 15 queries, 3 new matches | totalSearched=61145 matchesFound=4647
+[2026-02-16 13:15:21] Batch 47/80: 15 queries (progress 61145/61646)
+[2026-02-16 13:15:22]   Batch request id: ab-9b0e9409-aa82-4440-84e4-120287db7923
+[2026-02-16 13:16:09]   Finished batch: 15 queries, 2 new matches | totalSearched=61160 matchesFound=4649
+[2026-02-16 13:16:10] Batch 48/80: 15 queries (progress 61160/61646)
+[2026-02-16 13:16:11]   Batch request id: ab-62f3e5e2-b596-470d-92b2-44fe18c44e71
+[2026-02-16 13:16:59]   Finished batch: 15 queries, 2 new matches | totalSearched=61175 matchesFound=4651
+[2026-02-16 13:17:00] Batch 49/80: 15 queries (progress 61175/61646)
+[2026-02-16 13:17:04]   Batch request id: ab-60b6b160-3c57-4edf-8779-b6b7ec644bee
+[2026-02-16 13:17:52]   Finished batch: 15 queries, 2 new matches | totalSearched=61190 matchesFound=4653
+[2026-02-16 13:17:53] Batch 50/80: 15 queries (progress 61190/61646)
+[2026-02-16 13:17:54]   Batch request id: ab-04724268-2b13-4447-a64c-92ea924ef392
+[2026-02-16 13:18:26]   Finished batch: 15 queries, 0 new matches | totalSearched=61205 matchesFound=4653
+[2026-02-16 13:18:28]   Outscraper balance: $24.17
+[2026-02-16 13:18:29] Batch 51/80: 15 queries (progress 61205/61646)
+[2026-02-16 13:18:29]   Batch request id: ab-006f07c2-273f-4edd-bb7e-8dce21958c75
+[2026-02-16 13:19:02]   Finished batch: 15 queries, 0 new matches | totalSearched=61220 matchesFound=4653
+[2026-02-16 13:19:03] Batch 52/80: 15 queries (progress 61220/61646)
+[2026-02-16 13:19:04]   Batch request id: ab-2a0698c7-2307-4f98-a9c5-f9e4b98e5dbe
+[2026-02-16 13:19:36]   Finished batch: 15 queries, 0 new matches | totalSearched=61235 matchesFound=4653
+[2026-02-16 13:19:37] Batch 53/80: 15 queries (progress 61235/61646)
+[2026-02-16 13:19:38]   Batch request id: ab-44af099a-3261-48d5-b1d4-7e3f9285e762
+[2026-02-16 13:20:26]   Finished batch: 15 queries, 0 new matches | totalSearched=61250 matchesFound=4653
+[2026-02-16 13:20:27] Batch 54/80: 15 queries (progress 61250/61646)
+[2026-02-16 13:20:28]   Batch request id: ab-0fa8d5aa-3a69-4f9f-bdb9-aa7e7037d01e
+[2026-02-16 13:21:00]   Finished batch: 15 queries, 3 new matches | totalSearched=61265 matchesFound=4656
+[2026-02-16 13:21:02] Batch 55/80: 15 queries (progress 61265/61646)
+[2026-02-16 13:21:02]   Batch request id: ab-c4ae9bb3-78c9-4c07-bda6-8b92985b6db7
+[2026-02-16 13:21:35]   Finished batch: 15 queries, 3 new matches | totalSearched=61280 matchesFound=4659
+[2026-02-16 13:21:36] Batch 56/80: 15 queries (progress 61280/61646)
+[2026-02-16 13:21:36]   Batch request id: ab-5ffcf6f5-12e6-4ee2-b276-4dd637312054
+[2026-02-16 13:22:24]   Finished batch: 15 queries, 5 new matches | totalSearched=61295 matchesFound=4664
+[2026-02-16 13:22:25] Batch 57/80: 15 queries (progress 61295/61646)
+[2026-02-16 13:22:26]   Batch request id: ab-3b24ce8a-e1ee-4582-89b5-49314cdd65e7
+[2026-02-16 13:23:14]   Finished batch: 15 queries, 0 new matches | totalSearched=61310 matchesFound=4664
+[2026-02-16 13:23:15] Batch 58/80: 15 queries (progress 61310/61646)
+[2026-02-16 13:23:16]   Batch request id: ab-7b4c7206-82b0-4e46-bbd0-c55ef3fe2e67
+[2026-02-16 13:23:48]   Finished batch: 15 queries, 2 new matches | totalSearched=61325 matchesFound=4666
+[2026-02-16 13:23:49] Batch 59/80: 15 queries (progress 61325/61646)
+[2026-02-16 13:23:50]   Batch request id: ab-b90b5d47-1296-4c2d-a05f-df943a0289b1
+[2026-02-16 13:24:38]   Finished batch: 15 queries, 3 new matches | totalSearched=61340 matchesFound=4669
+[2026-02-16 13:24:39] Batch 60/80: 15 queries (progress 61340/61646)
+[2026-02-16 13:24:39]   Batch request id: ab-de48006e-ae89-4005-8ae2-5a99d87de30a
+[2026-02-16 13:25:12]   Finished batch: 15 queries, 0 new matches | totalSearched=61355 matchesFound=4669
+[2026-02-16 13:25:13] Batch 61/80: 15 queries (progress 61355/61646)
+[2026-02-16 13:25:14]   Batch request id: ab-5412d546-b5d9-4035-ad3d-42f8dbb163a6
+[2026-02-16 13:26:48]   Finished batch: 15 queries, 3 new matches | totalSearched=61370 matchesFound=4672
+[2026-02-16 13:26:50] Batch 62/80: 15 queries (progress 61370/61646)
+[2026-02-16 13:26:50]   Batch request id: ab-39f4daea-879c-432e-83f1-47413d951cf5
+[2026-02-16 13:27:54]   Finished batch: 15 queries, 1 new matches | totalSearched=61385 matchesFound=4673
+[2026-02-16 13:27:55] Batch 63/80: 15 queries (progress 61385/61646)
+[2026-02-16 13:27:55]   Batch request id: ab-459d585e-7744-47bd-ad73-15f90bbe1c2e
+[2026-02-16 13:28:43]   Finished batch: 15 queries, 0 new matches | totalSearched=61400 matchesFound=4673
+[2026-02-16 13:28:44] Batch 64/80: 15 queries (progress 61400/61646)
+[2026-02-16 13:28:45]   Batch request id: ab-4e9adf8e-1f77-4317-a10c-8d63134a1885
+[2026-02-16 13:29:17]   Finished batch: 15 queries, 1 new matches | totalSearched=61415 matchesFound=4674
+[2026-02-16 13:29:18] Batch 65/80: 15 queries (progress 61415/61646)
+[2026-02-16 13:29:19]   Batch request id: ab-b97c3917-9134-473b-b4b6-43b6fc00b5d4
+[2026-02-16 13:29:51]   Finished batch: 15 queries, 0 new matches | totalSearched=61430 matchesFound=4674
+[2026-02-16 13:29:52] Batch 66/80: 15 queries (progress 61430/61646)
+[2026-02-16 13:29:53]   Batch request id: ab-2a2904af-dd50-402f-b5ae-1d9d53837c64

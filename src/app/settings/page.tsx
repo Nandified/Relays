@@ -1,0 +1,318 @@
+"use client";
+
+import * as React from "react";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Modal } from "@/components/ui/Modal";
+
+/* ── Toggle Component ────────────────────────────────────────── */
+
+function Toggle({ enabled, onChange, label }: { enabled: boolean; onChange: (v: boolean) => void; label?: string }) {
+  return (
+    <button
+      role="switch"
+      aria-checked={enabled}
+      aria-label={label}
+      onClick={() => onChange(!enabled)}
+      className={`
+        relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200
+        ${enabled ? "bg-blue-500" : "bg-white/10 border border-white/10"}
+      `}
+    >
+      <span
+        className={`
+          inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200
+          ${enabled ? "translate-x-6" : "translate-x-1"}
+        `}
+      />
+    </button>
+  );
+}
+
+/* ── Section Component ───────────────────────────────────────── */
+
+function SettingsSection({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
+  return (
+    <Card padding="lg" className="mb-4">
+      <div className="mb-4">
+        <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
+        {description && <p className="mt-0.5 text-xs text-slate-500">{description}</p>}
+      </div>
+      {children}
+    </Card>
+  );
+}
+
+/* ── Main Settings Page ──────────────────────────────────────── */
+
+export default function ConsumerSettingsPage() {
+  // Profile state
+  const [name, setName] = React.useState("Jamie Rodriguez");
+  const [email, setEmail] = React.useState("jamie.r@email.com");
+  const [phone, setPhone] = React.useState("(312) 555-0142");
+  const [saved, setSaved] = React.useState(false);
+
+  // Notification preferences
+  const [channels, setChannels] = React.useState({
+    email: true,
+    sms: true,
+    push: true,
+    inApp: true,
+  });
+  const [types, setTypes] = React.useState({
+    moments: true,
+    bookings: true,
+    messages: true,
+    documents: true,
+    marketing: false,
+  });
+  const [frequency, setFrequency] = React.useState<"realtime" | "daily" | "weekly">("realtime");
+
+  // Privacy
+  const [profileVisibility, setProfileVisibility] = React.useState<"public" | "team-only" | "private">("team-only");
+  const [dataSharing, setDataSharing] = React.useState(true);
+
+  // Delete modal
+  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = React.useState("");
+
+  const handleSave = () => {
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-6">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-100">Settings</h1>
+          <p className="mt-1 text-sm text-slate-400">Manage your account and preferences</p>
+        </div>
+        <Button onClick={handleSave}>
+          {saved ? "✓ Saved!" : "Save Changes"}
+        </Button>
+      </div>
+
+      {/* ── Profile ── */}
+      <SettingsSection title="Profile" description="Your personal information">
+        <div className="space-y-4">
+          {/* Avatar */}
+          <div className="flex items-center gap-4">
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-[var(--border)] flex items-center justify-center text-xl font-bold text-slate-300">
+              JR
+            </div>
+            <div>
+              <Button size="sm" variant="secondary">Change Photo</Button>
+              <p className="mt-1 text-xs text-slate-600">JPG, PNG. Max 2MB.</p>
+            </div>
+          </div>
+
+          <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input label="Email Address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input label="Phone Number" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        </div>
+      </SettingsSection>
+
+      {/* ── Notifications ── */}
+      <SettingsSection title="Notification Preferences" description="Choose how and when you want to hear from us">
+        {/* Channels */}
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
+          <div className="space-y-3">
+            {([
+              ["email", "Email", "Receive email notifications"],
+              ["sms", "SMS", "Text message alerts"],
+              ["push", "Push Notifications", "Browser and mobile push"],
+              ["inApp", "In-App", "Notifications inside Relays"],
+            ] as const).map(([key, label, desc]) => (
+              <div key={key} className="flex items-center justify-between">
+                <div>
+                  <div className="text-sm text-slate-200">{label}</div>
+                  <div className="text-xs text-slate-500">{desc}</div>
+                </div>
+                <Toggle
+                  enabled={channels[key]}
+                  onChange={(v) => setChannels((prev) => ({ ...prev, [key]: v }))}
+                  label={label}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Types */}
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Notification Types</h3>
+          <div className="space-y-3">
+            {([
+              ["moments", "Moments", "Journey milestone updates"],
+              ["bookings", "Bookings", "Appointment confirmations and reminders"],
+              ["messages", "Messages", "New messages from your team"],
+              ["documents", "Documents", "Document requests and uploads"],
+              ["marketing", "Marketing", "Tips, promotions, and product updates"],
+            ] as const).map(([key, label, desc]) => (
+              <div key={key} className="flex items-center justify-between">
+                <div>
+                  <div className="text-sm text-slate-200">{label}</div>
+                  <div className="text-xs text-slate-500">{desc}</div>
+                </div>
+                <Toggle
+                  enabled={types[key]}
+                  onChange={(v) => setTypes((prev) => ({ ...prev, [key]: v }))}
+                  label={label}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Frequency */}
+        <div>
+          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
+          <div className="flex gap-2">
+            {([
+              ["realtime", "Real-time"],
+              ["daily", "Daily Digest"],
+              ["weekly", "Weekly Digest"],
+            ] as const).map(([val, label]) => (
+              <button
+                key={val}
+                onClick={() => setFrequency(val)}
+                className={`
+                  rounded-xl px-4 py-2 text-sm font-medium transition-all border
+                  ${frequency === val
+                    ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                    : "bg-[var(--bg-card)] text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                  }
+                `}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </SettingsSection>
+
+      {/* ── Privacy ── */}
+      <SettingsSection title="Privacy" description="Control who can see your information">
+        <div className="space-y-5">
+          <div>
+            <h3 className="text-sm text-slate-200 mb-2">Profile Visibility</h3>
+            <p className="text-xs text-slate-500 mb-3">Who can see your team and journey details</p>
+            <div className="flex gap-2">
+              {([
+                ["public", "Public"],
+                ["team-only", "Team Only"],
+                ["private", "Private"],
+              ] as const).map(([val, label]) => (
+                <button
+                  key={val}
+                  onClick={() => setProfileVisibility(val)}
+                  className={`
+                    rounded-xl px-4 py-2 text-sm font-medium transition-all border
+                    ${profileVisibility === val
+                      ? "bg-[var(--accent)] text-white border-[var(--accent)]"
+                      : "bg-[var(--bg-card)] text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                    }
+                  `}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-sm text-slate-200">Data Sharing</div>
+              <div className="text-xs text-slate-500">Allow Relays to use anonymized data to improve recommendations</div>
+            </div>
+            <Toggle enabled={dataSharing} onChange={setDataSharing} label="Data sharing" />
+          </div>
+        </div>
+      </SettingsSection>
+
+      {/* ── Connected Accounts ── */}
+      <SettingsSection title="Connected Accounts" description="Link external accounts for a faster experience">
+        <div className="space-y-3">
+          {/* Google */}
+          <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-slate-200">Google</div>
+                <div className="text-xs text-slate-500">Not connected</div>
+              </div>
+            </div>
+            <Button size="sm" variant="secondary">Connect</Button>
+          </div>
+
+          {/* Apple */}
+          <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+                <svg width="18" height="18" fill="#999" viewBox="0 0 24 24">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-slate-200">Apple</div>
+                <div className="text-xs text-slate-500">Not connected</div>
+              </div>
+            </div>
+            <Button size="sm" variant="secondary">Connect</Button>
+          </div>
+        </div>
+      </SettingsSection>
+
+      {/* ── Danger Zone ── */}
+      <Card padding="lg" className="border-red-500/10 bg-red-500/[0.02]">
+        <h2 className="text-sm font-semibold text-red-400 mb-1">Danger Zone</h2>
+        <p className="text-xs text-slate-500 mb-4">Permanently delete your account and all associated data. This action cannot be undone.</p>
+        <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
+          Delete Account
+        </Button>
+      </Card>
+
+      {/* Delete confirmation modal */}
+      <Modal open={showDeleteModal} title="Delete Account" onClose={() => setShowDeleteModal(false)}>
+        <div className="space-y-4">
+          <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3">
+            <p className="text-sm text-red-400 font-medium">⚠️ This action is permanent</p>
+            <p className="text-xs text-slate-400 mt-1">All your journeys, team connections, bookings, and documents will be permanently deleted.</p>
+          </div>
+
+          <div>
+            <label className="block text-sm text-slate-300 mb-1.5">
+              Type <span className="font-mono text-red-400">DELETE</span> to confirm
+            </label>
+            <input
+              type="text"
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-slate-200 outline-none focus:border-red-500/50 focus:ring-2 focus:ring-red-500/10"
+              placeholder="DELETE"
+            />
+          </div>
+
+          <div className="flex gap-3 justify-end">
+            <Button variant="secondary" onClick={() => { setShowDeleteModal(false); setDeleteConfirmText(""); }}>
+              Cancel
+            </Button>
+            <Button variant="danger" disabled={deleteConfirmText !== "DELETE"}>
+              Delete My Account
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </div>
+  );
+}

@@ -1,18 +1,33 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { StageTimeline } from "@/components/journey/StageTimeline";
+import { HeroMomentCard, UpcomingMomentCard, CompletedMomentCard } from "@/components/journey/MomentCard";
+import { StageAdvancement } from "@/components/journey/StageAdvancement";
 import {
   getJourneyById,
   getProById,
   getFilledRoleCount,
   getTotalRoleCount,
+  mockJourneys,
 } from "@/lib/mock-data";
-import { type JourneyRole, type Pro, JOURNEY_ROLE_CATEGORIES } from "@/lib/types";
+import {
+  type JourneyRole,
+  type Pro,
+  type JourneyStage,
+  type Journey,
+  JOURNEY_ROLE_CATEGORIES,
+  JOURNEY_STAGES,
+  JOURNEY_STAGE_LABELS,
+  JOURNEY_STAGE_ICONS,
+} from "@/lib/types";
+import { computeMoments, advanceStage } from "@/lib/moments-engine";
+import { useAuth } from "@/lib/auth/provider";
 
 /* ── Role category metadata ──────────────────────────────────── */
 const roleMeta: Record<string, { icon: string; color: string; colorBg: string; description: string }> = {
@@ -59,7 +74,6 @@ function ProgressRing({ filled, total, size = 80 }: { filled: number; total: num
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        {/* Background track */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -68,7 +82,6 @@ function ProgressRing({ filled, total, size = 80 }: { filled: number; total: num
           stroke="rgba(255,255,255,0.06)"
           strokeWidth={strokeWidth}
         />
-        {/* Progress arc */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -96,7 +109,6 @@ function FilledProCard({ pro, category }: { pro: Pro; category: string }) {
   return (
     <div className="glow-success rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.03] p-4 transition-all duration-300">
       <div className="flex items-center gap-3">
-        {/* Checkmark */}
         <div className="relative flex-shrink-0">
           <div className="h-12 w-12 overflow-hidden rounded-2xl border border-emerald-500/20 bg-[var(--bg-elevated)]">
             <Image src={pro.headshotUrl} alt={pro.name} width={48} height={48} />
@@ -138,7 +150,6 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
   return (
     <div className="glass-card rounded-2xl p-4 hover-lift cursor-pointer group">
       <div className="flex flex-col items-center text-center">
-        {/* Photo */}
         <div className="relative mb-3">
           <div className="h-16 w-16 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] group-hover:border-blue-500/30 transition-colors">
             <Image src={pro.headshotUrl} alt={pro.name} width={64} height={64} />
@@ -151,10 +162,8 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
             </div>
           )}
         </div>
-        {/* Info */}
         <h4 className="text-sm font-semibold text-slate-100 group-hover:text-white transition-colors">{pro.name}</h4>
         <p className="text-[11px] text-slate-500 mt-0.5">{pro.companyName}</p>
-        {/* Rating */}
         <div className="flex items-center gap-1 mt-2">
           <div className="flex">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -171,7 +180,6 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
           </div>
           <span className="text-[11px] text-slate-500 tabular-nums">({pro.reviewCount})</span>
         </div>
-        {/* CTA */}
         <div className="flex gap-2 mt-3 w-full">
           <Button size="sm" className="flex-1 text-xs">Select</Button>
           <Link href={`/pros/${pro.slug}`} className="flex-1">
@@ -184,7 +192,7 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
 }
 
 /* ── Role Panel ──────────────────────────────────────────────── */
-function RolePanel({ role, index }: { role: JourneyRole; index: number }) {
+function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: number; journeyId?: string }) {
   const meta = roleMeta[role.category];
   const assignedPro = role.assignedProId ? getProById(role.assignedProId) : null;
   const recommendedPros = role.recommendedProIds
@@ -200,7 +208,6 @@ function RolePanel({ role, index }: { role: JourneyRole; index: number }) {
       } p-5 sm:p-6 transition-all duration-500`}
       style={{ animationDelay: `${index * 0.08}s` }}
     >
-      {/* Role header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${meta.colorBg} text-lg`}>
@@ -231,12 +238,10 @@ function RolePanel({ role, index }: { role: JourneyRole; index: number }) {
         </div>
       </div>
 
-      {/* Filled state: single pro card */}
       {role.status === "filled" && assignedPro && (
         <FilledProCard pro={assignedPro} category={role.category} />
       )}
 
-      {/* Recommended state: up to 3 cards */}
       {role.status === "recommended" && recommendedPros.length > 0 && (
         <div>
           <p className="text-xs text-slate-400 mb-3">
@@ -261,7 +266,6 @@ function RolePanel({ role, index }: { role: JourneyRole; index: number }) {
         </div>
       )}
 
-      {/* Needed state: empty slot */}
       {role.status === "needed" && (
         <div className="flex flex-col items-center py-6">
           <div className="h-14 w-14 rounded-2xl border border-dashed border-[var(--border)] bg-white/[0.02] flex items-center justify-center mb-3 animate-gentle-pulse">
@@ -285,10 +289,122 @@ function RolePanel({ role, index }: { role: JourneyRole; index: number }) {
   );
 }
 
+/* ── Stage Info Panel ────────────────────────────────────────── */
+function StageInfoPanel({ stage }: { stage: JourneyStage }) {
+  const stageInfo: Record<JourneyStage, { title: string; description: string; tips: string[] }> = {
+    pre_approval: {
+      title: "Pre-Approval",
+      description: "Getting your finances in order before the search begins.",
+      tips: ["Get pre-approved with a lender", "Find your realtor", "Set your budget range"],
+    },
+    house_hunting: {
+      title: "House Hunting",
+      description: "The exciting part — finding your perfect home.",
+      tips: ["Tour homes with your realtor", "Research neighborhoods", "Keep notes on favorites"],
+    },
+    offer_made: {
+      title: "Offer Made",
+      description: "You've found the one! Now to secure it.",
+      tips: ["Engage an attorney for contract review", "Be ready for counter-offers", "Stay patient"],
+    },
+    offer_accepted: {
+      title: "Offer Accepted",
+      description: "Congratulations! Now the real work begins.",
+      tips: ["Schedule home inspection within 10 days", "Start insurance quotes", "Begin document gathering"],
+    },
+    under_contract: {
+      title: "Under Contract",
+      description: "You're locked in. Time to complete due diligence.",
+      tips: ["Get homeowner's insurance quotes", "Complete attorney review", "Prepare for appraisal"],
+    },
+    inspection: {
+      title: "Inspection",
+      description: "Understanding exactly what you're buying.",
+      tips: ["Attend the inspection if possible", "Review the report carefully", "Negotiate repairs if needed"],
+    },
+    appraisal: {
+      title: "Appraisal",
+      description: "The lender confirms the property value.",
+      tips: ["Wait for appraisal results", "Be prepared for adjustments", "Keep your finances stable"],
+    },
+    closing_scheduled: {
+      title: "Closing Scheduled",
+      description: "The finish line is in sight!",
+      tips: ["Confirm your attorney for closing", "Do final walk-through", "Arrange movers and utilities"],
+    },
+    closed: {
+      title: "Closed!",
+      description: "Welcome home! The keys are yours.",
+      tips: ["Move in and celebrate!", "Set up utilities", "Consider a home warranty"],
+    },
+    post_close: {
+      title: "Post-Close",
+      description: "Settling in and making it your own.",
+      tips: ["Find a handyman for repairs", "Review insurance coverage", "Leave reviews for your team"],
+    },
+  };
+
+  const info = stageInfo[stage];
+
+  return (
+    <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-5 animate-in">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-lg">{JOURNEY_STAGE_ICONS[stage]}</span>
+        <h3 className="text-sm font-semibold text-slate-200">{info.title}</h3>
+      </div>
+      <p className="text-xs text-slate-400 mb-3">{info.description}</p>
+      <div className="space-y-1.5">
+        {info.tips.map((tip, i) => (
+          <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
+            <div className="h-1 w-1 rounded-full bg-blue-400/60 flex-shrink-0" />
+            {tip}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ── Main Page ───────────────────────────────────────────────── */
 export default function JourneyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const journey = getJourneyById(id);
+  const { state: authState } = useAuth();
+  const isPro = authState.status === "authed" && authState.user.role === "pro";
+
+  // Use local state for journey so stage advancement works in demo
+  const initialJourney = getJourneyById(id);
+  const [journey, setJourney] = useState<Journey | undefined>(initialJourney);
+  const [selectedStage, setSelectedStage] = useState<JourneyStage | null>(null);
+
+  const currentUserId = authState.status === "authed" ? authState.user.id : "pro_9";
+
+  const handleAdvanceStage = useCallback((j: Journey) => {
+    const updated = advanceStage(j, currentUserId);
+    setJourney(updated);
+  }, [currentUserId]);
+
+  const handleSetStage = useCallback((j: Journey, stage: JourneyStage) => {
+    const now = new Date().toISOString();
+    setJourney({
+      ...j,
+      stage,
+      status: stage === "closed" || stage === "post_close" ? "completed" : "active",
+      auditTrail: [
+        ...j.auditTrail,
+        {
+          id: `audit_${j.id}_${Date.now()}`,
+          journeyId: j.id,
+          timestamp: now,
+          actor: "pro",
+          actorId: currentUserId,
+          type: "stage_change",
+          fromStage: j.stage,
+          toStage: stage,
+          description: `Stage set to ${JOURNEY_STAGE_LABELS[stage]}`,
+        },
+      ],
+    });
+  }, [currentUserId]);
 
   if (!journey) {
     return (
@@ -309,19 +425,43 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
   const totalCount = getTotalRoleCount();
   const createdByPro = getProById(journey.createdByProId);
   const allFilled = filledCount === totalCount;
+  const moments = computeMoments(journey);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 pb-20">
+      {/* Stage Timeline */}
+      <div className="mb-6 rounded-3xl border border-[var(--border)] liquid-glass p-5 sm:p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="text-blue-400">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+            Journey Progress
+          </h2>
+          <Badge variant="accent" className="text-[10px]">
+            {JOURNEY_STAGE_ICONS[journey.stage]} {JOURNEY_STAGE_LABELS[journey.stage]}
+          </Badge>
+        </div>
+        <StageTimeline
+          currentStage={journey.stage}
+          onStageClick={(stage) => setSelectedStage(stage === selectedStage ? null : stage)}
+        />
+        {/* Stage info panel on click */}
+        {selectedStage && (
+          <div className="mt-5 pt-4 border-t border-[var(--border)]">
+            <StageInfoPanel stage={selectedStage} />
+          </div>
+        )}
+      </div>
+
       {/* Property Hero */}
       <div className="relative mb-8 overflow-hidden rounded-3xl border border-[var(--border)] liquid-glass">
-        {/* Ambient glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl" />
           <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-purple-500/8 blur-3xl" />
         </div>
 
         <div className="relative p-6 sm:p-8">
-          {/* Property type badge */}
           <div className="flex items-center gap-2 mb-4">
             <Badge variant={journey.property.type === "buying" ? "accent" : "success"}>
               {journey.property.type === "buying" ? "🏠 Buying" : "📤 Selling"}
@@ -331,7 +471,6 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
             )}
           </div>
 
-          {/* Address */}
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
             {journey.title}
           </h1>
@@ -343,7 +482,6 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
             {journey.property.address}
           </p>
 
-          {/* Progress + Created by */}
           <div className="flex items-center justify-between mt-6 pt-5 border-t border-[var(--border)]">
             <div className="flex items-center gap-4">
               <ProgressRing filled={filledCount} total={totalCount} size={64} />
@@ -370,24 +508,71 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
         </div>
       </div>
 
-      {/* What's next callout (if not complete) */}
-      {!allFilled && (
-        <div className="mb-6 rounded-2xl border border-blue-500/10 bg-blue-500/[0.04] p-4">
-          <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20">
-              <svg width="16" height="16" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-blue-300">What&apos;s next</h3>
-              <p className="text-xs text-slate-400 mt-0.5">{journey.nextStep}</p>
-            </div>
+      {/* What's Next Moments Section */}
+      {moments.active.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            What&apos;s Next
+          </h2>
+          <div className="space-y-3">
+            {moments.active.map((moment) => (
+              <HeroMomentCard key={moment.id} moment={moment} />
+            ))}
           </div>
         </div>
       )}
 
+      {/* Upcoming Moments */}
+      {moments.upcoming.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+            Coming Up
+          </h2>
+          <div className="space-y-2">
+            {moments.upcoming.map((moment) => (
+              <UpcomingMomentCard key={moment.id} moment={moment} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Completed Moments */}
+      {moments.completed.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg width="12" height="12" fill="#10b981" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+            </svg>
+            Completed
+          </h2>
+          <div className="space-y-2">
+            {moments.completed.map((moment) => (
+              <CompletedMomentCard key={moment.id} moment={moment} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Pro: Stage Advancement Controls */}
+      {isPro && (
+        <div className="mb-8">
+          <StageAdvancement
+            journey={journey}
+            onAdvanceStage={handleAdvanceStage}
+            onSetStage={handleSetStage}
+          />
+        </div>
+      )}
+
       {/* Role panels */}
+      <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Your Team</h2>
       <div className="space-y-4 stagger-children">
         {JOURNEY_ROLE_CATEGORIES.map((cat, i) => {
           const role = journey.roles.find((r) => r.category === cat);
@@ -402,9 +587,12 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
           Need help? Your {createdByPro?.categories[0] || "pro"} is just a message away.
         </p>
         {createdByPro && (
-          <Link href={`/pros/${createdByPro.slug}`}>
+          <Link href={`/messages/conv_1`}>
             <Button variant="secondary" size="sm">
-              Contact {createdByPro.name}
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="mr-1.5">
+                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              Message {createdByPro.name}
             </Button>
           </Link>
         )}

@@ -27,7 +27,16 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
       >
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">
-          <Avatar src={pro.headshotUrl} alt={pro.name} size={44} rounded="xl" />
+          <div className="relative flex-shrink-0">
+            <Avatar src={pro.headshotUrl} alt={pro.name} size={44} rounded="xl" />
+            {pro.introVideoUrl && (
+              <div className="absolute -bottom-1 -right-1 flex items-center justify-center w-5 h-5 rounded-full bg-blue-500/90 border-2 border-[var(--bg-card)] shadow-sm">
+                <svg width="8" height="8" fill="white" viewBox="0 0 24 24">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </div>
+            )}
+          </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">

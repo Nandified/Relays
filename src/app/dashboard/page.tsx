@@ -5,13 +5,16 @@ import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { StageTimeline } from "@/components/journey/StageTimeline";
+import { HeroMomentCard, UpcomingMomentCard, CompletedMomentCard } from "@/components/journey/MomentCard";
 import {
   mockJourneys,
   getProById,
   getFilledRoleCount,
   getTotalRoleCount,
 } from "@/lib/mock-data";
-import { type Journey } from "@/lib/types";
+import { type Journey, JOURNEY_STAGE_LABELS, JOURNEY_STAGE_ICONS } from "@/lib/types";
+import { computeMoments, getHeroMoment } from "@/lib/moments-engine";
 
 function statusBadge(status: Journey["status"]) {
   switch (status) {
@@ -55,14 +58,11 @@ function JourneyCard({ journey }: { journey: Journey }) {
   const total = getTotalRoleCount();
   const allFilled = filled === total;
   const createdBy = getProById(journey.createdByProId);
-
-  // Next unfilled role for the "what's next" prompt
   const nextUnfilled = journey.roles.find((r) => r.status !== "filled");
 
   return (
     <Link href={`/journey/${journey.id}`}>
       <Card padding="none" hover className="overflow-hidden">
-        {/* Subtle top accent bar */}
         <div className={`h-0.5 ${allFilled ? "bg-gradient-to-r from-emerald-500/60 to-emerald-500/0" : "bg-gradient-to-r from-blue-500/60 to-purple-500/0"}`} />
 
         <div className="p-5">
@@ -85,6 +85,9 @@ function JourneyCard({ journey }: { journey: Journey }) {
                 <Badge variant={journey.property.type === "buying" ? "accent" : "success"} className="text-[10px]">
                   {journey.property.type === "buying" ? "Buying" : "Selling"}
                 </Badge>
+                <Badge variant="outline" className="text-[10px]">
+                  {JOURNEY_STAGE_ICONS[journey.stage]} {JOURNEY_STAGE_LABELS[journey.stage]}
+                </Badge>
                 {createdBy && (
                   <span className="text-[11px] text-slate-600">
                     via {createdBy.name}
@@ -92,6 +95,11 @@ function JourneyCard({ journey }: { journey: Journey }) {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Mini Stage Timeline */}
+          <div className="mb-4">
+            <StageTimeline currentStage={journey.stage} compact />
           </div>
 
           {/* What's next callout */}
@@ -161,6 +169,21 @@ export default function DashboardPage() {
   const journeys = mockJourneys;
   const activeCount = journeys.filter((j) => j.status === "active").length;
 
+  // Gather all moments across active journeys for the hero section
+  const activeJourneys = journeys.filter((j) => j.status === "active");
+  const allActiveMoments = activeJourneys.flatMap((j) => {
+    const moments = computeMoments(j);
+    return moments.active.map((m) => ({ moment: m, journey: j }));
+  });
+  const allUpcomingMoments = activeJourneys.flatMap((j) => {
+    const moments = computeMoments(j);
+    return moments.upcoming.slice(0, 2).map((m) => ({ moment: m, journey: j }));
+  });
+  const allCompletedMoments = activeJourneys.flatMap((j) => {
+    const moments = computeMoments(j);
+    return moments.completed.map((m) => ({ moment: m, journey: j }));
+  });
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       {/* Header */}
@@ -170,6 +193,67 @@ export default function DashboardPage() {
           Your home journey at a glance — {activeCount} active {activeCount === 1 ? "journey" : "journeys"}
         </p>
       </div>
+
+      {/* ── What's Next Hero Section ──────────────────────────── */}
+      {allActiveMoments.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/15 border border-blue-500/20">
+              <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h2 className="text-lg font-bold text-slate-100">What&apos;s Next</h2>
+            <Badge variant="danger" className="text-[10px]">
+              {allActiveMoments.length} action{allActiveMoments.length > 1 ? "s" : ""}
+            </Badge>
+          </div>
+          <div className="space-y-3">
+            {allActiveMoments.slice(0, 3).map(({ moment, journey }) => (
+              <HeroMomentCard
+                key={moment.id}
+                moment={moment}
+                journeyTitle={journey.title}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Upcoming moments */}
+      {allUpcomingMoments.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+            Coming Up
+          </h2>
+          <div className="space-y-2">
+            {allUpcomingMoments.slice(0, 4).map(({ moment }) => (
+              <UpcomingMomentCard key={moment.id} moment={moment} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Completed moments (collapsed) */}
+      {allCompletedMoments.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg width="12" height="12" fill="#10b981" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+            </svg>
+            Completed
+          </h2>
+          <div className="space-y-2">
+            {allCompletedMoments.slice(0, 5).map(({ moment }) => (
+              <CompletedMomentCard key={moment.id} moment={moment} />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Quick actions */}
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -205,14 +289,14 @@ export default function DashboardPage() {
             <div className="text-xs font-medium text-slate-300">Requests</div>
           </Card>
         </Link>
-        <Link href="/marketplace">
+        <Link href="/settings/notifications">
           <Card hover padding="sm" className="text-center py-4">
             <div className="mx-auto h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/10 flex items-center justify-center mb-2">
               <svg width="18" height="18" fill="none" stroke="#f59e0b" strokeWidth="1.5" viewBox="0 0 24 24">
-                <path d="M12 4v16m8-8H4" />
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
               </svg>
             </div>
-            <div className="text-xs font-medium text-slate-300">Browse All</div>
+            <div className="text-xs font-medium text-slate-300">Notifications</div>
           </Card>
         </Link>
       </div>

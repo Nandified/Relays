@@ -378,3 +378,164 @@ html {
 .animate-step-pop {
   animation: stepPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ── Notification / Badge Animations ──────────────────────────── */
+
+/* Badge appear with pop */
+@keyframes badgeAppear {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-badge-appear {
+  animation: badgeAppear 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Dropdown slide-in */
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-dropdown-in {
+  animation: dropdownIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Bell ring animation (can be triggered on new notification) */
+@keyframes bellRing {
+  0% { transform: rotate(0); }
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-14deg); }
+  45% { transform: rotate(10deg); }
+  60% { transform: rotate(-8deg); }
+  75% { transform: rotate(4deg); }
+  90% { transform: rotate(-2deg); }
+  100% { transform: rotate(0); }
+}
+.animate-bell-ring {
+  animation: bellRing 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Message bubble slide-in from left/right */
+@keyframes bubbleInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes bubbleInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Subtle glow pulse for unread badges */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); }
+  50% { box-shadow: 0 0 14px rgba(59, 130, 246, 0.6); }
+}
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* ── Referral Moment Animations ───────────────────────────────── */
+
+/* Subtle pulse for active stage dot */
+@keyframes momentPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
+}
+.animate-moment-pulse {
+  animation: momentPulse 2.5s ease-in-out infinite;
+}
+
+/* Very subtle pulse for hero moment card border */
+@keyframes momentPulseSubtle {
+  0%, 100% { border-color: rgba(59, 130, 246, 0.15); }
+  50% { border-color: rgba(59, 130, 246, 0.3); }
+}
+.animate-moment-pulse-subtle {
+  animation: momentPulseSubtle 3s ease-in-out infinite;
+}
+
+/* Red glow for urgent items */
+.glow-urgent {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.12), 0 0 60px rgba(239, 68, 68, 0.04);
+}
+
+/* Amber glow for upcoming items */
+.glow-upcoming {
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.10), 0 0 40px rgba(245, 158, 11, 0.04);
+}
+
+/* Green glow for completed items */
+.glow-recent {
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.10), 0 0 40px rgba(16, 185, 129, 0.04);
+}
+
+/* Ping animation for active indicator */
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Notification toggle switch */
+.toggle-switch {
+  transition: background-color 0.2s ease;
+}
+.toggle-switch[data-state="checked"] {
+  background-color: #3b82f6;
+}
+.toggle-switch[data-state="unchecked"] {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.toggle-dot {
+  transition: transform 0.2s ease;
+}
+
+/* ── Document Workflow Animations ─────────────────────────────── */
+
+/* Amber pulse for requested docs */
+@keyframes docPulseAmber {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  50% { box-shadow: 0 0 8px 2px rgba(245, 158, 11, 0.15); }
+}
+.animate-doc-pulse-amber {
+  animation: docPulseAmber 3s ease-in-out infinite;
+}
+
+/* Green glow for approved docs */
+.doc-glow-green {
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.15), 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Blue glow for uploaded docs */
+.doc-glow-blue {
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.15), 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Upload zone drag-over glow */
+@keyframes uploadGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
+}
+.animate-upload-glow {
+  animation: uploadGlow 2s ease-in-out infinite;
+}
+
+/* Document progress bar fill */
+@keyframes docProgressFill {
+  from { width: 0%; }
+}
+.animate-doc-progress {
+  animation: docProgressFill 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Slide down for expand */
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; transform: translateY(-4px); }
+  to { opacity: 1; max-height: 300px; transform: translateY(0); }
+}
+.animate-slide-down {
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}

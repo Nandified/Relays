@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { VerifiedBadge } from "@/components/verified-badge";
+import { ProMomentCard } from "@/components/journey/MomentCard";
+import { StageTimeline } from "@/components/journey/StageTimeline";
 import {
   mockProIncomingRequests,
   mockJourneys,
@@ -15,6 +17,8 @@ import {
   getTotalRoleCount,
 } from "@/lib/mock-data";
 import { getVerificationStatus, getVerificationDate } from "@/lib/mock-verification-data";
+import { getProMoments } from "@/lib/moments-engine";
+import { JOURNEY_STAGE_LABELS, JOURNEY_STAGE_ICONS } from "@/lib/types";
 
 export default function ProDashboardPage() {
   const pending = mockProIncomingRequests.filter((r) => r.status === "pending");
@@ -24,6 +28,9 @@ export default function ProDashboardPage() {
   const proId = "pro_9";
   const myJourneys = mockJourneys.filter((j) => j.createdByProId === proId);
   const totalRoles = getTotalRoleCount();
+
+  // Compute moments across all journeys
+  const proMoments = getProMoments(myJourneys);
 
   // Verification status (demo using pro_1 = Alex Martinez = verified)
   const [demoVerifiedProId, setDemoVerifiedProId] = React.useState("pro_1");
@@ -48,14 +55,95 @@ export default function ProDashboardPage() {
           <div className="text-xs text-slate-500 mt-1">Journeys</div>
         </Card>
         <Card padding="md">
-          <div className="text-2xl font-bold text-emerald-400">{accepted.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Active Jobs</div>
+          <div className="text-2xl font-bold text-red-400">{proMoments.urgent.length}</div>
+          <div className="text-xs text-slate-500 mt-1">Actions Needed</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-slate-300">4.9</div>
           <div className="text-xs text-slate-500 mt-1">Rating</div>
         </Card>
       </div>
+
+      {/* ── Action Needed — Moments Section ──────────────────── */}
+      {(proMoments.urgent.length > 0 || proMoments.upcoming.length > 0) && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-red-500/15 border border-red-500/20">
+                <svg width="14" height="14" fill="none" stroke="#ef4444" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h2 className="text-lg font-bold text-slate-100">Action Needed</h2>
+              {proMoments.urgent.length > 0 && (
+                <Badge variant="danger" className="text-[10px] animate-gentle-pulse">
+                  {proMoments.urgent.length} urgent
+                </Badge>
+              )}
+            </div>
+          </div>
+
+          {/* Urgent moments */}
+          {proMoments.urgent.length > 0 && (
+            <div className="space-y-3 mb-4">
+              <h3 className="text-[11px] text-red-400/80 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-400 animate-ping-slow" />
+                Urgent
+              </h3>
+              {proMoments.urgent.map((m) => (
+                <ProMomentCard
+                  key={m.id}
+                  moment={m}
+                  clientName={m.journey.client.name}
+                  propertyAddress={m.journey.address}
+                  journeyId={m.journey.id}
+                  urgency="urgent"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Upcoming moments */}
+          {proMoments.upcoming.length > 0 && (
+            <div className="space-y-3 mb-4">
+              <h3 className="text-[11px] text-amber-400/80 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+                Upcoming
+              </h3>
+              {proMoments.upcoming.map((m) => (
+                <ProMomentCard
+                  key={m.id}
+                  moment={m}
+                  clientName={m.journey.client.name}
+                  propertyAddress={m.journey.address}
+                  journeyId={m.journey.id}
+                  urgency="upcoming"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Recent completions */}
+          {proMoments.recent.length > 0 && (
+            <div className="space-y-3">
+              <h3 className="text-[11px] text-emerald-400/80 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Recently Completed
+              </h3>
+              {proMoments.recent.map((m) => (
+                <ProMomentCard
+                  key={m.id}
+                  moment={m}
+                  clientName={m.journey.client.name}
+                  propertyAddress={m.journey.address}
+                  journeyId={m.journey.id}
+                  urgency="recent"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Journey management section */}
       <div className="mb-8">
@@ -74,42 +162,54 @@ export default function ProDashboardPage() {
 
               return (
                 <Link key={journey.id} href={`/journey/${journey.id}`}>
-                  <Card hover padding="md" className="mb-3">
-                    <div className="flex items-center gap-4">
-                      <div className="relative h-10 w-10 flex-shrink-0">
-                        <svg viewBox="0 0 36 36" className="h-10 w-10">
-                          <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
-                          <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke={filled === totalRoles ? "#10b981" : "#3b82f6"} strokeWidth="3" strokeLinecap="round" strokeDasharray={`${pct}, 100`} />
-                        </svg>
-                        <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">{filled}/{totalRoles}</div>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-sm font-semibold text-slate-100 truncate">{journey.title}</h3>
-                          <Badge variant={journey.status === "completed" ? "success" : journey.status === "active" ? "accent" : "warning"}>
-                            {journey.status === "completed" ? "Complete" : journey.status === "active" ? "Active" : "Pending"}
-                          </Badge>
+                  <Card hover padding="none" className="mb-3 overflow-hidden">
+                    <div className={`h-0.5 ${filled === totalRoles ? "bg-gradient-to-r from-emerald-500/60 to-emerald-500/0" : "bg-gradient-to-r from-blue-500/60 to-purple-500/0"}`} />
+                    <div className="p-4">
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className="relative h-10 w-10 flex-shrink-0">
+                          <svg viewBox="0 0 36 36" className="h-10 w-10">
+                            <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
+                            <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke={filled === totalRoles ? "#10b981" : "#3b82f6"} strokeWidth="3" strokeLinecap="round" strokeDasharray={`${pct}, 100`} />
+                          </svg>
+                          <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">{filled}/{totalRoles}</div>
                         </div>
-                        <p className="text-xs text-slate-500 mt-0.5">
-                          {journey.client.name} • {journey.address}
-                        </p>
-                      </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-sm font-semibold text-slate-100 truncate">{journey.title}</h3>
+                            <Badge variant={journey.status === "completed" ? "success" : journey.status === "active" ? "accent" : "warning"}>
+                              {journey.status === "completed" ? "Complete" : journey.status === "active" ? "Active" : "Pending"}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <p className="text-xs text-slate-500">
+                              {journey.client.name} • {journey.address}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Badge variant="outline" className="text-[10px]">
+                              {JOURNEY_STAGE_ICONS[journey.stage]} {JOURNEY_STAGE_LABELS[journey.stage]}
+                            </Badge>
+                          </div>
+                        </div>
 
-                      {/* Filled member avatars */}
-                      <div className="hidden sm:flex -space-x-2">
-                        {journey.roles
-                          .filter((r) => r.status === "filled" && r.assignedProId)
-                          .slice(0, 3)
-                          .map((r) => {
-                            const pro = getProById(r.assignedProId!);
-                            if (!pro) return null;
-                            return (
-                              <div key={r.category} className="h-6 w-6 overflow-hidden rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)]">
-                                <Image src={pro.headshotUrl} alt={pro.name} width={24} height={24} />
-                              </div>
-                            );
-                          })}
+                        {/* Filled member avatars */}
+                        <div className="hidden sm:flex -space-x-2">
+                          {journey.roles
+                            .filter((r) => r.status === "filled" && r.assignedProId)
+                            .slice(0, 3)
+                            .map((r) => {
+                              const pro = getProById(r.assignedProId!);
+                              if (!pro) return null;
+                              return (
+                                <div key={r.category} className="h-6 w-6 overflow-hidden rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)]">
+                                  <Image src={pro.headshotUrl} alt={pro.name} width={24} height={24} />
+                                </div>
+                              );
+                            })}
+                        </div>
                       </div>
+                      {/* Inline stage timeline */}
+                      <StageTimeline currentStage={journey.stage} compact />
                     </div>
                   </Card>
                 </Link>
@@ -123,7 +223,6 @@ export default function ProDashboardPage() {
           </Card>
         )}
 
-        {/* Create new journey CTA */}
         <div className="mt-3">
           <Link href="/pro/journey/new">
             <Card hover padding="md" className="border-dashed text-center">
