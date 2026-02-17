@@ -65,12 +65,12 @@ function BookingCard({
             </div>
             <div>
               <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{booking.consumerName}</div>
-              <div className="text-xs text-slate-600 dark:text-slate-500">{booking.consumerEmail}</div>
+              <div className="text-xs text-slate-600 dark:text-slate-400">{booking.consumerEmail}</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>
-            <span className="text-[10px] text-slate-500 dark:text-slate-500">{timeAgo(booking.createdAt)}</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400">{timeAgo(booking.createdAt)}</span>
           </div>
         </div>
 
@@ -78,7 +78,7 @@ function BookingCard({
         <div className="flex items-center gap-2 mb-3">
           <Badge variant="outline" className="text-[10px]">{getBookingTypeLabel(booking.type)}</Badge>
           {booking.property && (
-            <span className="text-xs text-slate-600 dark:text-slate-500 flex items-center gap-1">
+            <span className="text-xs text-slate-600 dark:text-slate-400 flex items-center gap-1">
               <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               {booking.property.address}
             </span>
@@ -116,7 +116,7 @@ function BookingCard({
                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500/10 text-[10px] font-bold text-amber-400">{i + 1}</div>
                   <div className="flex-1 rounded-lg bg-black/[0.03] dark:bg-white/[0.03] border border-[var(--border)] px-3 py-1.5 text-xs">
                     <span className="text-slate-800 dark:text-slate-200">{formatDate(w.date)}</span>
-                    <span className="text-slate-600 dark:text-slate-500 ml-2">{formatTime(w.startTime)} – {formatTime(w.endTime)}</span>
+                    <span className="text-slate-600 dark:text-slate-400 ml-2">{formatTime(w.startTime)} – {formatTime(w.endTime)}</span>
                   </div>
                   <Button size="sm" onClick={() => onAccept(booking, w)} className="text-[10px] h-7 px-2">
                     Accept
@@ -137,7 +137,7 @@ function BookingCard({
 
         {/* Notes */}
         {booking.notes && (
-          <button onClick={() => setExpanded(!expanded)} className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1 mb-3">
+          <button onClick={() => setExpanded(!expanded)} className="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1 mb-3">
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={`transition-transform ${expanded ? "rotate-90" : ""}`}><path d="M9 5l7 7-7 7" /></svg>
             {expanded ? "Hide notes" : "Show notes"}
           </button>
@@ -208,7 +208,7 @@ function CalendarMiniView({ bookings }: { bookings: Booking[] }) {
       {/* Day headers */}
       <div className="grid grid-cols-7 gap-1 mb-1">
         {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
-          <div key={d} className="text-center text-[10px] text-slate-500 dark:text-slate-500 font-medium py-1">{d}</div>
+          <div key={d} className="text-center text-[10px] text-slate-500 dark:text-slate-400 font-medium py-1">{d}</div>
         ))}
       </div>
 
@@ -238,8 +238,8 @@ function CalendarMiniView({ bookings }: { bookings: Booking[] }) {
 
       {/* Legend */}
       <div className="flex items-center gap-4 mt-3 pt-3 border-t border-[var(--border)]">
-        <div className="flex items-center gap-1.5"><div className="h-2 w-2 rounded-full bg-emerald-500" /><span className="text-[10px] text-slate-600 dark:text-slate-500">Confirmed</span></div>
-        <div className="flex items-center gap-1.5"><div className="h-2 w-2 rounded-full bg-amber-500" /><span className="text-[10px] text-slate-600 dark:text-slate-500">Pending</span></div>
+        <div className="flex items-center gap-1.5"><div className="h-2 w-2 rounded-full bg-emerald-500" /><span className="text-[10px] text-slate-600 dark:text-slate-400">Confirmed</span></div>
+        <div className="flex items-center gap-1.5"><div className="h-2 w-2 rounded-full bg-amber-500" /><span className="text-[10px] text-slate-600 dark:text-slate-400">Pending</span></div>
       </div>
     </Card>
   );
@@ -298,10 +298,10 @@ export default function ProBookingsPage() {
         <div className="flex items-center gap-2">
           {/* View toggle */}
           <div className="flex rounded-xl border border-[var(--border)] overflow-hidden">
-            <button onClick={() => setViewMode("list")} className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === "list" ? "bg-[var(--bg-card)] text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"}`}>
+            <button onClick={() => setViewMode("list")} className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === "list" ? "bg-[var(--bg-card)] text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"}`}>
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>
             </button>
-            <button onClick={() => setViewMode("calendar")} className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === "calendar" ? "bg-[var(--bg-card)] text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"}`}>
+            <button onClick={() => setViewMode("calendar")} className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === "calendar" ? "bg-[var(--bg-card)] text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"}`}>
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
             </button>
           </div>
@@ -319,7 +319,7 @@ export default function ProBookingsPage() {
         ].map((stat) => (
           <Card key={stat.label} padding="sm" className="text-center py-3">
             <div className={`text-2xl font-bold text-${stat.color}-400`}>{stat.value}</div>
-            <div className="text-[10px] text-slate-600 dark:text-slate-500 mt-0.5">{stat.label}</div>
+            <div className="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">{stat.label}</div>
           </Card>
         ))}
       </div>
@@ -356,7 +356,7 @@ export default function ProBookingsPage() {
               <div className="text-sm text-slate-800 dark:text-slate-200">{formatDate(actionModal.window.date)}</div>
               <div className="text-xs text-slate-600 dark:text-slate-400">{formatTime(actionModal.window.startTime)} – {formatTime(actionModal.window.endTime)}</div>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-500">The client will be notified and a calendar event will be created.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">The client will be notified and a calendar event will be created.</p>
             <div className="flex gap-3 justify-end">
               <Button variant="secondary" onClick={() => setActionModal(null)}>Cancel</Button>
               <Button onClick={confirmAction}>Confirm Booking</Button>
@@ -381,7 +381,7 @@ export default function ProBookingsPage() {
         )}
         {actionModal?.type === "suggest" && (
           <div className="space-y-4">
-            <p className="text-xs text-slate-600 dark:text-slate-500">Suggest a different time for {actionModal.booking.consumerName}:</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Suggest a different time for {actionModal.booking.consumerName}:</p>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs text-slate-600 dark:text-slate-400 mb-1">Date</label>

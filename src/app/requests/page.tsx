@@ -52,7 +52,7 @@ export default function RequestsPage() {
                       <Badge variant={statusVariant(req.status)}>{statusLabel(req.status)}</Badge>
                     </div>
                     <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{req.description}</p>
-                    <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
+                    <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
                       <span>{req.addressOrArea}</span>
                       <span>•</span>
                       <span>{new Date(req.createdAt).toLocaleDateString()}</span>

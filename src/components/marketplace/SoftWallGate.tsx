@@ -70,7 +70,7 @@ export function SoftWallGate({
 
           <div className="relative py-2">
             <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[var(--border)]" /></div>
-            <div className="relative flex justify-center"><span className="bg-[var(--bg-card)] px-3 text-xs text-slate-600 dark:text-slate-500">or</span></div>
+            <div className="relative flex justify-center"><span className="bg-[var(--bg-card)] px-3 text-xs text-slate-600 dark:text-slate-400">or</span></div>
           </div>
 
           <Button variant="secondary" className="w-full" onClick={completeSignup}>
@@ -90,7 +90,7 @@ export function SoftWallGate({
             Continue with Apple
           </Button>
 
-          <p className="text-[11px] text-slate-500 dark:text-slate-500 text-center">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 text-center">
             By continuing, you agree to our Terms and Privacy Policy.
           </p>
         </div>

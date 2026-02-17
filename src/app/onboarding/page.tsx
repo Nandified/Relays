@@ -69,7 +69,7 @@ export default function ConsumerOnboardingPage() {
 
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-500 mb-2">
+        <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 mb-2">
           <span>Step {step} of {totalSteps}</span>
           <button onClick={handleSkip} className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors cursor-pointer">
             Skip — I&apos;ll explore on my own
@@ -104,7 +104,7 @@ export default function ConsumerOnboardingPage() {
                   <span className={`text-sm font-medium ${goal === g.id ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                     {g.label}
                   </span>
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{g.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{g.description}</p>
                 </div>
                 {goal === g.id && (
                   <div className="ml-auto h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
@@ -160,13 +160,13 @@ export default function ConsumerOnboardingPage() {
                 value={realtorSearch}
                 onChange={(e) => setRealtorSearch(e.target.value)}
               />
-              <p className="text-xs text-slate-600 dark:text-slate-500 mt-2">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
                 You can also find them later in the marketplace
               </p>
             </div>
           )}
           {hasRealtor === false && (
-            <p className="text-xs text-slate-600 dark:text-slate-500 animate-in">
+            <p className="text-xs text-slate-600 dark:text-slate-400 animate-in">
               No worries! After setup, we&apos;ll take you to the marketplace to browse top-rated Realtors in your area.
             </p>
           )}
@@ -184,7 +184,7 @@ export default function ConsumerOnboardingPage() {
             value={propertyInfo}
             onChange={(e) => setPropertyInfo(e.target.value)}
           />
-          <p className="text-xs text-slate-600 dark:text-slate-500 mt-3">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-3">
             Don&apos;t know yet? That&apos;s totally fine — skip this step.
           </p>
         </Card>
@@ -222,7 +222,7 @@ export default function ConsumerOnboardingPage() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-600 dark:text-slate-500 mt-4">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-4">
             Not sure? No worries — you can add professionals at any time.
           </p>
         </Card>

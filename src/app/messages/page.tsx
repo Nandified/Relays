@@ -43,7 +43,7 @@ export default function MessagesPage() {
       {/* Pending connect requests */}
       {connectRequests.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">Pending Introductions</h2>
+          <h2 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Pending Introductions</h2>
           {connectRequests.map((req) => (
             <Link key={req.id} href={`/messages/connect/${req.id}`}>
               <Card hover padding="none" className="overflow-hidden border-indigo-500/15 mb-2">
@@ -59,11 +59,11 @@ export default function MessagesPage() {
                       <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">Request to Connect</span>
                       <Badge variant="accent" className="text-[10px]">Pending</Badge>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5 truncate">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 truncate">
                       To {req.proName} • {req.message.slice(0, 60)}…
                     </p>
                   </div>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-500 flex-shrink-0">{timeAgo(req.createdAt)}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 flex-shrink-0">{timeAgo(req.createdAt)}</span>
                 </div>
               </Card>
             </Link>
@@ -72,7 +72,7 @@ export default function MessagesPage() {
       )}
 
       {/* Conversations */}
-      <h2 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">Conversations</h2>
+      <h2 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Conversations</h2>
       
       {conversations.length === 0 ? (
         <Card padding="lg" className="text-center">
@@ -83,7 +83,7 @@ export default function MessagesPage() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">No conversations yet</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-500">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               Start a conversation from your journey page by messaging a pro.
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function MessagesPage() {
                             {meta.otherPartyRole}
                           </Badge>
                         </div>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-500 flex-shrink-0">{timeAgo(conv.lastMessageAt)}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 flex-shrink-0">{timeAgo(conv.lastMessageAt)}</span>
                       </div>
                       
                       {/* Journey context */}
@@ -135,11 +135,11 @@ export default function MessagesPage() {
                         <svg width="10" height="10" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
                           <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-500 truncate">{meta.journeyTitle}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{meta.journeyTitle}</span>
                       </div>
 
                       {/* Last message preview */}
-                      <p className={`mt-1 text-xs truncate ${conv.unreadCount > 0 ? "text-slate-700 dark:text-slate-300" : "text-slate-600 dark:text-slate-500"}`}>
+                      <p className={`mt-1 text-xs truncate ${conv.unreadCount > 0 ? "text-slate-700 dark:text-slate-300" : "text-slate-600 dark:text-slate-400"}`}>
                         {conv.lastMessage}
                       </p>
                     </div>

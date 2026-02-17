@@ -143,7 +143,7 @@ export default function SignupPage() {
         <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
           <button
             onClick={() => setStep("role")}
-            className="flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-4"
+            className="flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 mb-4"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -192,7 +192,7 @@ export default function SignupPage() {
                 <div className="w-full border-t border-[var(--border)]" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-600 dark:text-slate-500">or continue with</span>
+                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-600 dark:text-slate-400">or continue with</span>
               </div>
             </div>
 
@@ -227,7 +227,7 @@ export default function SignupPage() {
         </Card>
       )}
 
-      <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-500">
+      <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
         Already have an account?{" "}
         <Link href="/login" className="text-blue-400 hover:underline font-medium">
           Log in

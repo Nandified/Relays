@@ -72,7 +72,7 @@ export default function ComplianceAuditPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Compliance & Audit Trail</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Full audit trail for RESPA compliance monitoring · {allLogs.length} entries
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function ComplianceAuditPage() {
         </div>
         <div>
           <p className="text-sm font-medium text-blue-600 dark:text-blue-300">RESPA Compliance Trail</p>
-          <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
             Every partner recommendation, referral routing, and disclosure is logged with immutable timestamps.
             Export this data to demonstrate compliance with RESPA requirements.
           </p>
@@ -118,7 +118,7 @@ export default function ComplianceAuditPage() {
               >
                 <span>{info.icon}</span>
                 <span>{info.label}</span>
-                <span className="text-slate-500 dark:text-slate-500 tabular-nums">{count}</span>
+                <span className="text-slate-500 dark:text-slate-400 tabular-nums">{count}</span>
               </button>
             );
           })}
@@ -146,11 +146,11 @@ export default function ComplianceAuditPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[var(--border)]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider w-40">Timestamp</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Performed By</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Action</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden md:table-cell">Journey</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden lg:table-cell">Details</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider w-40">Timestamp</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Performed By</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Action</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden md:table-cell">Journey</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden lg:table-cell">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -162,7 +162,7 @@ export default function ComplianceAuditPage() {
                       <div className="text-xs text-slate-600 dark:text-slate-400 tabular-nums whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-500 tabular-nums">
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400 tabular-nums">
                         {new Date(log.timestamp).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
                       </div>
                     </td>
@@ -174,7 +174,7 @@ export default function ComplianceAuditPage() {
                         <div className="min-w-0">
                           <p className="text-sm text-slate-800 dark:text-slate-200 truncate">{log.performedByName}</p>
                           {log.targetUserName && (
-                            <p className="text-[10px] text-slate-500 dark:text-slate-500 truncate">→ {log.targetUserName}</p>
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">→ {log.targetUserName}</p>
                           )}
                         </div>
                       </div>
@@ -188,18 +188,18 @@ export default function ComplianceAuditPage() {
                       {log.targetJourneyTitle ? (
                         <span className="text-xs text-slate-600 dark:text-slate-400">{log.targetJourneyTitle}</span>
                       ) : (
-                        <span className="text-xs text-slate-500 dark:text-slate-500">—</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3 hidden lg:table-cell">
-                      <p className="text-xs text-slate-600 dark:text-slate-500 max-w-xs truncate">{log.details}</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 max-w-xs truncate">{log.details}</p>
                     </td>
                   </tr>
                 );
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-12 text-center text-sm text-slate-600 dark:text-slate-500">
+                  <td colSpan={5} className="px-4 py-12 text-center text-sm text-slate-600 dark:text-slate-400">
                     No audit entries match your filters
                   </td>
                 </tr>

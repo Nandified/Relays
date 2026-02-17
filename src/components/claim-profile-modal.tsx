@@ -123,14 +123,14 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
               </h2>
               <button
                 onClick={onClose}
-                className="rounded-full p-1.5 text-slate-600 dark:text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                className="rounded-full p-1.5 text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
               >
                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-500">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               Verify your identity to take control of your listing
             </p>
 
@@ -146,7 +146,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                           ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
                           : i === currentIndex
                             ? "bg-[var(--accent-light)] text-blue-500 dark:text-blue-400 border border-blue-500/30 shadow-[0_0_12px_rgba(59,130,246,0.2)]"
-                            : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-500 border border-[var(--border)]"
+                            : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-400 border border-[var(--border)]"
                         }
                       `}
                     >
@@ -158,7 +158,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                         i + 1
                       )}
                     </div>
-                    <span className={`text-xs hidden sm:block ${i <= currentIndex ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"}`}>
+                    <span className={`text-xs hidden sm:block ${i <= currentIndex ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-400"}`}>
                       {s.label}
                     </span>
                   </div>
@@ -186,7 +186,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                     </div>
                     <div>
                       <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">Enter your license number</p>
-                      <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                         This is the number on your IDFPR license. Only the real license holder would know this.
                       </p>
                     </div>
@@ -223,7 +223,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                   </Button>
                 </div>
 
-                <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-4 text-center">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-4 text-center">
                   Your license number is verified against state records and is never shared publicly.
                 </p>
               </div>
@@ -241,7 +241,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                     </div>
                     <div>
                       <p className="text-sm text-emerald-400 font-medium">License number matched!</p>
-                      <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
                         Now confirm your identity with your email
                       </p>
                     </div>
@@ -267,7 +267,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                   )}
 
                   {idField && (
-                    <p className="text-[11px] text-slate-500 dark:text-slate-500">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
                       {idField.description}. This is optional and stored as an additional trust signal.
                     </p>
                   )}
@@ -306,7 +306,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                     </div>
                     <div>
                       <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">Create your password</p>
-                      <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                         Set a password to secure your account. You&apos;ll be able to edit your profile after claiming.
                       </p>
                     </div>
@@ -382,7 +382,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                 <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
                   Welcome to Relays, <span className="text-slate-800 dark:text-slate-200 font-medium">{professional.name}</span>
                 </p>
-                <p className="text-xs text-slate-600 dark:text-slate-500 mb-6">
+                <p className="text-xs text-slate-600 dark:text-slate-400 mb-6">
                   Your verified badge is now live. Complete your profile to attract more clients.
                 </p>
 
@@ -404,7 +404,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                         />
                       </svg>
                     </div>
-                    <span className="text-xs text-slate-600 dark:text-slate-500">{professional.category}</span>
+                    <span className="text-xs text-slate-600 dark:text-slate-400">{professional.category}</span>
                   </div>
                 </div>
 

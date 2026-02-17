@@ -48,19 +48,19 @@ export default function ProDashboardPage() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-8">
         <Card padding="md">
           <div className="text-2xl font-bold text-blue-400">{pending.length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">New Leads</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">New Leads</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-purple-400">{myJourneys.length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Journeys</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Journeys</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-red-400">{proMoments.urgent.length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Actions Needed</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Actions Needed</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-slate-700 dark:text-slate-300">4.9</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Rating</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Rating</div>
         </Card>
       </div>
 
@@ -148,7 +148,7 @@ export default function ProDashboardPage() {
       {/* Journey management section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Your Journeys</h2>
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Your Journeys</h2>
           <div className="flex items-center gap-2">
             <Link href="/pro/journeys" className="text-xs text-blue-500 dark:text-blue-400 hover:underline">View all →</Link>
           </div>
@@ -181,7 +181,7 @@ export default function ProDashboardPage() {
                             </Badge>
                           </div>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <p className="text-xs text-slate-600 dark:text-slate-500">
+                            <p className="text-xs text-slate-600 dark:text-slate-400">
                               {journey.client.name} • {journey.address}
                             </p>
                           </div>
@@ -238,7 +238,7 @@ export default function ProDashboardPage() {
       {/* Incoming leads */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Incoming Leads</h2>
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Incoming Leads</h2>
           <Link href="/pro/requests" className="text-xs text-blue-500 dark:text-blue-400 hover:underline">View all →</Link>
         </div>
         <div className="space-y-3">
@@ -252,7 +252,7 @@ export default function ProDashboardPage() {
                       <Badge variant="warning">New</Badge>
                     </div>
                     <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{req.description}</p>
-                    <div className="mt-1 text-xs text-slate-600 dark:text-slate-500">{req.addressOrArea} • {new Date(req.receivedAt).toLocaleDateString()}</div>
+                    <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">{req.addressOrArea} • {new Date(req.receivedAt).toLocaleDateString()}</div>
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0">
                     <Button size="sm">Accept</Button>
@@ -269,7 +269,7 @@ export default function ProDashboardPage() {
       <div className="mb-8">
         {/* Demo toggle */}
         <div className="mb-3 flex items-center gap-2 text-xs">
-          <span className="text-slate-500 dark:text-slate-500">Demo status:</span>
+          <span className="text-slate-500 dark:text-slate-400">Demo status:</span>
           {[
             { id: "pro_1", label: "Verified", color: "emerald" },
             { id: "pro_2", label: "Pending", color: "amber" },
@@ -280,7 +280,7 @@ export default function ProDashboardPage() {
               className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
                 demoVerifiedProId === opt.id
                   ? `border-${opt.color}-500/30 bg-${opt.color}-500/10 text-${opt.color}-400`
-                  : "border-[var(--border)] text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400"
+                  : "border-[var(--border)] text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
               onClick={() => setDemoVerifiedProId(opt.id)}
             >
@@ -349,7 +349,7 @@ export default function ProDashboardPage() {
 
       {/* Recent activity */}
       <div>
-        <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4">Recent Activity</h2>
+        <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-4">Recent Activity</h2>
         <Card padding="none">
           {[
             { icon: "✅", text: "Morgan Davis — inspection accepted", time: "2 hours ago" },
@@ -362,7 +362,7 @@ export default function ProDashboardPage() {
               <div className="flex-1 min-w-0">
                 <div className="text-sm text-slate-700 dark:text-slate-300 truncate">{activity.text}</div>
               </div>
-              <span className="text-xs text-slate-500 dark:text-slate-500 flex-shrink-0">{activity.time}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 flex-shrink-0">{activity.time}</span>
             </div>
           ))}
         </Card>

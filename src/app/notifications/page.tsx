@@ -190,7 +190,7 @@ export default function NotificationsPage() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">All caught up!</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-500">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               {activeFilter === "all"
                 ? "No notifications to show. We'll let you know when something happens."
                 : `No ${activeFilter} notifications right now.`}
@@ -245,10 +245,10 @@ function NotificationCard({
                 <p className={`text-sm leading-snug ${!n.read ? "font-semibold text-slate-900 dark:text-slate-100" : "font-medium text-slate-700 dark:text-slate-300"}`}>
                   {n.title}
                 </p>
-                <p className="mt-1 text-xs text-slate-600 dark:text-slate-500 line-clamp-2">{n.body}</p>
+                <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{n.body}</p>
               </div>
               <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                <span className="text-[11px] text-slate-500 dark:text-slate-500">{timeAgo(n.createdAt)}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">{timeAgo(n.createdAt)}</span>
                 {!n.read && (
                   <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.5)]" />
                 )}

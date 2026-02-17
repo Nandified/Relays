@@ -53,7 +53,7 @@ export function LicensedPreviewPanel({ professional }: { professional: Unclaimed
         )}
         <div className="min-w-0 flex-1">
           <div className="truncate text-base font-semibold text-slate-900 dark:text-slate-100">{professional.name}</div>
-          <div className="truncate text-sm text-slate-600 dark:text-slate-500">
+          <div className="truncate text-sm text-slate-600 dark:text-slate-400">
             {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
             {professional.city ? ` · ${professional.city}, ${professional.state}` : ""}
           </div>
@@ -72,7 +72,7 @@ export function LicensedPreviewPanel({ professional }: { professional: Unclaimed
           </div>
           <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{professional.rating.toFixed(1)}</span>
           {professional.reviewCount && (
-            <span className="text-xs text-slate-600 dark:text-slate-500">({professional.reviewCount} reviews)</span>
+            <span className="text-xs text-slate-600 dark:text-slate-400">({professional.reviewCount} reviews)</span>
           )}
         </div>
       )}
@@ -124,7 +124,7 @@ export function LicensedPreviewPanel({ professional }: { professional: Unclaimed
 
       {/* Subtle claim link */}
       <div className="mt-5 pt-3 border-t border-[var(--border)]">
-        <a href="/pro/onboarding" className="text-[11px] text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors">
+        <a href="/pro/onboarding" className="text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
           Are you {professional.name.split(" ")[0]}? <span className="underline underline-offset-2">Claim this profile</span> →
         </a>
       </div>

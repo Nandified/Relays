@@ -358,7 +358,7 @@ export function AdminDonutChart({ data, height = 220 }: ChartProps) {
                 {d.label}
               </span>
               <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{d.value}</span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-500 tabular-nums w-10 text-right">{pct}%</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 tabular-nums w-10 text-right">{pct}%</span>
             </div>
           );
         })}
@@ -395,7 +395,7 @@ export function AdminBarChart({ data, height = 200, color = "#8b5cf6", colorMap 
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <span className={`text-xs w-20 truncate text-right transition-colors ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-500"}`}>
+            <span className={`text-xs w-20 truncate text-right transition-colors ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-400"}`}>
               {d.label}
             </span>
             <div className="flex-1 h-6 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden relative">
@@ -459,7 +459,7 @@ export function AdminFunnelChart({ data, height = 200 }: ChartProps) {
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <span className={`text-xs w-28 truncate text-right transition-colors ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-500"}`}>
+              <span className={`text-xs w-28 truncate text-right transition-colors ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-600 dark:text-slate-400"}`}>
                 {d.label}
               </span>
               <div className="flex-1 flex items-center gap-2">
@@ -491,7 +491,7 @@ export function AdminFunnelChart({ data, height = 200 }: ChartProps) {
                     }`}>
                       {prevPct}%
                     </span>
-                    <span className="text-[9px] text-slate-500 dark:text-slate-500 tabular-nums">-{dropoff}</span>
+                    <span className="text-[9px] text-slate-500 dark:text-slate-400 tabular-nums">-{dropoff}</span>
                   </div>
                 )}
               </div>

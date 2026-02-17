@@ -104,7 +104,7 @@ export function ReviewCard({
             </div>
             <div className="flex items-center gap-2 mt-0.5">
               <StarRating rating={review.rating} size={12} />
-              <span className="text-[11px] text-slate-500 dark:text-slate-500">{timeAgo(review.createdAt)}</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">{timeAgo(review.createdAt)}</span>
             </div>
           </div>
         </div>
@@ -143,7 +143,7 @@ export function ReviewCard({
               {pro?.name ?? "Pro"} responded
             </span>
             <Badge variant="accent" className="text-[9px] py-0">Pro</Badge>
-            <span className="text-[10px] text-slate-500 dark:text-slate-500">
+            <span className="text-[10px] text-slate-500 dark:text-slate-400">
               {timeAgo(review.proResponse.respondedAt)}
             </span>
           </div>
@@ -161,7 +161,7 @@ export function ReviewCard({
           className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs transition-all duration-200 ${
             hasVoted
               ? "bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20"
-              : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 border border-transparent"
+              : "text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 border border-transparent"
           }`}
         >
           <svg
@@ -189,7 +189,7 @@ export function ReviewCard({
           {onFlag && (
             <button
               onClick={() => onFlag(review.id)}
-              className="text-xs text-slate-500 dark:text-slate-500 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+              className="text-xs text-slate-500 dark:text-slate-400 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
             >
               Flag
             </button>
@@ -205,7 +205,7 @@ export function ReviewCard({
             onChange={(e) => setResponseText(e.target.value)}
             placeholder="Write your public response..."
             rows={3}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 dark:text-slate-500 focus:border-blue-500/30 focus:outline-none focus:ring-1 focus:ring-blue-500/20 resize-none"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 dark:text-slate-400 focus:border-blue-500/30 focus:outline-none focus:ring-1 focus:ring-blue-500/20 resize-none"
           />
           <div className="flex items-center justify-end gap-2 mt-2">
             <button
@@ -213,7 +213,7 @@ export function ReviewCard({
                 setIsResponding(false);
                 setResponseText("");
               }}
-              className="rounded-xl px-3 py-1.5 text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+              className="rounded-xl px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               Cancel
             </button>

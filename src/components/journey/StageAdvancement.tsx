@@ -45,7 +45,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
             </svg>
             Stage Controls
           </h3>
-          <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-0.5">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
             Advance the journey stage to trigger new referral moments
           </p>
         </div>
@@ -91,7 +91,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
           {showDropdown && (
             <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] shadow-[var(--shadow-elevated)] z-50 overflow-hidden animate-in">
               <div className="p-2">
-                <div className="text-[10px] text-slate-500 dark:text-slate-500 uppercase tracking-wider px-2 py-1 mb-1">
+                <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider px-2 py-1 mb-1">
                   Jump to Stage
                 </div>
                 {JOURNEY_STAGES.map((stage, idx) => {
@@ -136,7 +136,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
 
       {/* Closing date input */}
       <div className="mt-4 pt-4 border-t border-[var(--border)]">
-        <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
+        <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
           <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <path d="M16 2v4M8 2v4M3 10h18" />
@@ -154,7 +154,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
       {/* Recent audit trail */}
       {journey.auditTrail.length > 0 && (
         <div className="mt-4 pt-4 border-t border-[var(--border)]">
-          <h4 className="text-[11px] text-slate-500 dark:text-slate-500 uppercase tracking-wider mb-2">Recent Activity</h4>
+          <h4 className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Recent Activity</h4>
           <div className="space-y-2 max-h-40 overflow-y-auto scrollbar-none">
             {journey.auditTrail.slice(-4).reverse().map((entry) => (
               <div key={entry.id} className="flex items-start gap-2">
@@ -166,7 +166,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
                 }`} />
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate">{entry.description}</p>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-500">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400">
                     {new Date(entry.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
                   </span>
                 </div>

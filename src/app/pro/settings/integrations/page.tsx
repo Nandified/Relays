@@ -77,7 +77,7 @@ function DeliveryRow({ d }: { d: WebhookDelivery }) {
     delivered: <span className="text-emerald-400">✓</span>,
     failed: <span className="text-red-400">✗</span>,
     retrying: <span className="text-amber-400">↻</span>,
-    pending: <span className="text-slate-600 dark:text-slate-500">◌</span>,
+    pending: <span className="text-slate-600 dark:text-slate-400">◌</span>,
   };
   const vars: Record<string, "success" | "danger" | "warning" | "default"> = {
     delivered: "success", failed: "danger", retrying: "warning", pending: "default",
@@ -87,12 +87,12 @@ function DeliveryRow({ d }: { d: WebhookDelivery }) {
       <div className="w-5 text-center">{icons[d.status]}</div>
       <div className="flex-1 min-w-0">
         <code className="text-xs font-mono text-slate-700 dark:text-slate-300">{d.eventType}</code>
-        <div className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{d.eventId}</div>
+        <div className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">{d.eventId}</div>
       </div>
       <Badge variant={vars[d.status]}>{d.status}{d.statusCode ? ` · ${d.statusCode}` : ""}</Badge>
-      <div className="text-xs text-slate-600 dark:text-slate-500 tabular-nums w-16 text-right">{d.responseMs ? `${d.responseMs}ms` : "—"}</div>
-      <div className="text-xs text-slate-600 dark:text-slate-500 tabular-nums w-10 text-right">×{d.attempts}</div>
-      <div className="text-xs text-slate-600 dark:text-slate-500 w-16 text-right">{timeAgo(d.createdAt)}</div>
+      <div className="text-xs text-slate-600 dark:text-slate-400 tabular-nums w-16 text-right">{d.responseMs ? `${d.responseMs}ms` : "—"}</div>
+      <div className="text-xs text-slate-600 dark:text-slate-400 tabular-nums w-10 text-right">×{d.attempts}</div>
+      <div className="text-xs text-slate-600 dark:text-slate-400 w-16 text-right">{timeAgo(d.createdAt)}</div>
     </div>
   );
 }
@@ -126,23 +126,23 @@ function AddWebhookModal({ open, onClose }: { open: boolean; onClose: () => void
       <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
         <Input label="Endpoint URL" placeholder="https://your-app.com/webhooks/relays" value={url} onChange={(e) => setUrl(e.target.value)} />
         <Input label="Signing Secret" placeholder="whsec_your_secret_key" value={secret} onChange={(e) => setSecret(e.target.value)} />
-        <p className="text-[11px] text-slate-600 dark:text-slate-500 -mt-2">Used to sign payloads with HMAC-SHA256. Store securely.</p>
+        <p className="text-[11px] text-slate-600 dark:text-slate-400 -mt-2">Used to sign payloads with HMAC-SHA256. Store securely.</p>
 
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Subscribe to Events</span>
             <div className="flex gap-2">
               <button onClick={() => setSel(cats.flatMap((c) => c.events))} className="text-[11px] text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">All</button>
-              <button onClick={() => setSel([])} className="text-[11px] text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400">Clear</button>
+              <button onClick={() => setSel([])} className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">Clear</button>
             </div>
           </div>
           <div className="space-y-3">
             {cats.map((cat) => (
               <div key={cat.label}>
-                <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1.5">{cat.label}</div>
+                <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">{cat.label}</div>
                 <div className="flex flex-wrap gap-1.5">
                   {cat.events.map((evt) => (
-                    <button key={evt} onClick={() => toggle(evt)} className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all ${sel.includes(evt) ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/30" : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-500 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10"}`}>
+                    <button key={evt} onClick={() => toggle(evt)} className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all ${sel.includes(evt) ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/30" : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10"}`}>
                       {evt}
                     </button>
                   ))}
@@ -184,7 +184,7 @@ function EndpointDetailModal({ open, onClose, endpoint }: { open: boolean; onClo
             <span className="text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wide">{endpoint.status}</span>
           </div>
           <code className="text-sm font-mono text-slate-800 dark:text-slate-200 break-all">{endpoint.url}</code>
-          <div className="flex items-center gap-3 mt-3 text-xs text-slate-600 dark:text-slate-500">
+          <div className="flex items-center gap-3 mt-3 text-xs text-slate-600 dark:text-slate-400">
             <span>Created {timeAgo(endpoint.createdAt)}</span>
             {endpoint.lastDeliveryAt && <span>Last delivery {timeAgo(endpoint.lastDeliveryAt)}</span>}
             {endpoint.failureCount > 0 && <span className="text-red-400">{endpoint.failureCount} failures</span>}
@@ -215,7 +215,7 @@ function EndpointDetailModal({ open, onClose, endpoint }: { open: boolean; onClo
           <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden">
             {deliveries.length > 0
               ? deliveries.map((d) => <DeliveryRow key={d.id} d={d} />)
-              : <div className="px-4 py-6 text-center text-xs text-slate-600 dark:text-slate-500">No deliveries yet</div>}
+              : <div className="px-4 py-6 text-center text-xs text-slate-600 dark:text-slate-400">No deliveries yet</div>}
           </div>
         </div>
       </div>
@@ -266,7 +266,7 @@ function EventPreview({ entry }: { entry: (typeof eventCatalog)[number] }) {
       <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center gap-3 px-4 py-3 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors text-left">
         <code className="text-xs font-mono text-blue-500 dark:text-blue-400 shrink-0">{entry.type}.{entry.version}</code>
         <span className="text-xs text-slate-600 dark:text-slate-400 flex-1 truncate">{entry.description}</span>
-        <svg className={`w-4 h-4 text-slate-600 dark:text-slate-500 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <svg className={`w-4 h-4 text-slate-600 dark:text-slate-400 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </button>
@@ -305,15 +305,15 @@ export default function IntegrationsPage() {
     <div className="mx-auto max-w-5xl px-4 py-8">
       {/* Header */}
       <div className="mb-6">
-        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500 mb-2">
-          <a href="/pro/settings" className="hover:text-slate-700 dark:hover:text-slate-400 transition-colors">Settings</a>
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 mb-2">
+          <a href="/pro/settings" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors">Settings</a>
           <span>/</span>
           <span className="text-slate-700 dark:text-slate-300">Integrations</span>
         </div>
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Integrations &amp; API</h1>
-            <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">Connect Relays to your CRM, automate workflows, and manage API access.</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Connect Relays to your CRM, automate workflows, and manage API access.</p>
           </div>
           <a href="/developers/events" className="flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
@@ -340,8 +340,8 @@ export default function IntegrationsPage() {
                         <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{i.name}</span>
                         <StatusDot status={i.status || "connected"} />
                       </div>
-                      <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5 line-clamp-2">{i.description}</p>
-                      {i.lastSyncAt && <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-1.5">Synced {timeAgo(i.lastSyncAt)}</p>}
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">{i.description}</p>
+                      {i.lastSyncAt && <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5">Synced {timeAgo(i.lastSyncAt)}</p>}
                     </div>
                   </div>
                   <div className="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04] flex gap-2">
@@ -363,7 +363,7 @@ export default function IntegrationsPage() {
                     <IntIcon name={i.name} />
                     <div className="flex-1 min-w-0">
                       <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{i.name}</span>
-                      <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5 line-clamp-2">{i.description}</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">{i.description}</p>
                     </div>
                   </div>
                   <div className="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04]">
@@ -375,12 +375,12 @@ export default function IntegrationsPage() {
               {/* Build Custom Card */}
               <Card hover padding="lg" className="group border-dashed border-black/10 dark:border-white/10">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.04] border border-dashed border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-500">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.04] border border-dashed border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-400">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                   </div>
                   <div className="flex-1 min-w-0">
                     <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Build Custom</span>
-                    <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Use webhooks and our API to build your own integration.</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Use webhooks and our API to build your own integration.</p>
                   </div>
                 </div>
                 <div className="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04] flex gap-2">
@@ -399,7 +399,7 @@ export default function IntegrationsPage() {
       {tab === "webhooks" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-600 dark:text-slate-500">Receive real-time event notifications via HTTP POST.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Receive real-time event notifications via HTTP POST.</p>
             <Button size="sm" onClick={() => setAddWH(true)}>
               <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 4v16m8-8H4" /></svg>
               Add Endpoint
@@ -417,13 +417,13 @@ export default function IntegrationsPage() {
                         <code className="text-sm font-mono text-slate-800 dark:text-slate-200 truncate block">{ep.url}</code>
                         <div className="flex items-center gap-2 flex-wrap mt-1">
                           <Badge variant={ep.status === "active" ? "success" : ep.status === "paused" ? "warning" : "danger"}>{ep.status}</Badge>
-                          <span className="text-xs text-slate-600 dark:text-slate-500">{ep.events.length} events</span>
-                          {ep.lastDeliveryAt && <span className="text-xs text-slate-600 dark:text-slate-500">Last: {timeAgo(ep.lastDeliveryAt)}</span>}
+                          <span className="text-xs text-slate-600 dark:text-slate-400">{ep.events.length} events</span>
+                          {ep.lastDeliveryAt && <span className="text-xs text-slate-600 dark:text-slate-400">Last: {timeAgo(ep.lastDeliveryAt)}</span>}
                           {ep.failureCount > 0 && <span className="text-xs text-red-400">{ep.failureCount} failures</span>}
                         </div>
                       </div>
                     </div>
-                    <svg className="h-4 w-4 text-slate-500 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition-colors shrink-0 mt-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 5l7 7-7 7" /></svg>
+                    <svg className="h-4 w-4 text-slate-500 dark:text-slate-400 group-hover:text-slate-500 dark:group-hover:text-slate-200 transition-colors shrink-0 mt-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 5l7 7-7 7" /></svg>
                   </div>
                 </Card>
               </button>
@@ -434,7 +434,7 @@ export default function IntegrationsPage() {
           <div>
             <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 mt-6">All Deliveries</h3>
             <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden">
-              <div className="flex items-center gap-4 px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.06] text-[11px] text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+              <div className="flex items-center gap-4 px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.06] text-[11px] text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                 <div className="w-5" />
                 <div className="flex-1">Event</div>
                 <div>Status</div>
@@ -454,7 +454,7 @@ export default function IntegrationsPage() {
       {tab === "api-keys" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-600 dark:text-slate-500">Manage API keys for server-to-server authentication.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Manage API keys for server-to-server authentication.</p>
             <Button size="sm" onClick={() => setGenKey(true)}>
               <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 4v16m8-8H4" /></svg>
               Generate Key
@@ -469,9 +469,9 @@ export default function IntegrationsPage() {
                     <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{k.name}</span>
                     <Badge variant={k.status === "active" ? "success" : "danger"}>{k.status}</Badge>
                   </div>
-                  <code className="text-xs font-mono text-slate-600 dark:text-slate-500 mt-0.5 block">{k.prefix}••••••••{k.lastFour}</code>
+                  <code className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5 block">{k.prefix}••••••••{k.lastFour}</code>
                 </div>
-                <div className="text-xs text-slate-600 dark:text-slate-500">{k.lastUsedAt ? `Used ${timeAgo(k.lastUsedAt)}` : "Never used"}</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">{k.lastUsedAt ? `Used ${timeAgo(k.lastUsedAt)}` : "Never used"}</div>
                 {k.status === "active" && (
                   <Button size="sm" variant="ghost" onClick={() => setKeys((p) => p.map((x) => x.id === k.id ? { ...x, status: "revoked" as const } : x))} className="text-red-400 hover:text-red-300">
                     Revoke
@@ -489,7 +489,7 @@ export default function IntegrationsPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-slate-800 dark:text-slate-200">Authentication</p>
-                <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Include your API key in the <code className="text-blue-600 dark:text-blue-400/80 bg-blue-500/5 px-1 rounded">Authorization: Bearer rl_live_...</code> header of every request.</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Include your API key in the <code className="text-blue-600 dark:text-blue-400/80 bg-blue-500/5 px-1 rounded">Authorization: Bearer rl_live_...</code> header of every request.</p>
               </div>
             </div>
           </Card>
@@ -500,7 +500,7 @@ export default function IntegrationsPage() {
       {tab === "events" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-600 dark:text-slate-500">All {eventCatalog.length} event types available for webhook subscriptions.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">All {eventCatalog.length} event types available for webhook subscriptions.</p>
             <a href="/developers/events">
               <Button size="sm" variant="secondary">Full Documentation →</Button>
             </a>

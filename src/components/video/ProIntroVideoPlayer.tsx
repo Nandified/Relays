@@ -131,7 +131,7 @@ export function ProIntroVideoPlayer({ videoUrl, proName, compact = false }: ProI
             </button>
 
             <p className="relative z-20 mt-3 text-sm text-slate-600 dark:text-slate-400">{proName}&apos;s intro video</p>
-            <p className="relative z-20 mt-1 text-xs text-slate-500 dark:text-slate-500">15–30 seconds</p>
+            <p className="relative z-20 mt-1 text-xs text-slate-500 dark:text-slate-400">15–30 seconds</p>
 
             {/* Duration badge */}
             <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300 border border-black/10 dark:border-white/10">

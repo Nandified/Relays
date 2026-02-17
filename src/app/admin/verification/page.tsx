@@ -38,7 +38,7 @@ function ConfidenceBar({ score }: { score: number }) {
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[10px] text-slate-600 dark:text-slate-500 uppercase tracking-wide font-medium">Confidence</span>
+        <span className="text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-wide font-medium">Confidence</span>
         <div className="flex items-center gap-1.5">
           <span className="text-xs font-semibold tabular-nums" style={{ color }}>{score}%</span>
           <span className="text-[9px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: `${color}18`, color }}>
@@ -122,21 +122,21 @@ export default function VerificationPage() {
           <div className="absolute -top-4 -right-4 h-12 w-12 rounded-full bg-amber-500/10 blur-xl" />
           <div className="relative">
             <div className="text-2xl font-bold text-amber-400 tabular-nums">{pending.length}</div>
-            <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Pending Review</div>
+            <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Pending Review</div>
           </div>
         </div>
         <div className="rounded-2xl border border-emerald-500/10 bg-gradient-to-b from-emerald-500/8 to-transparent p-4 relative overflow-hidden">
           <div className="absolute -top-4 -right-4 h-12 w-12 rounded-full bg-emerald-500/10 blur-xl" />
           <div className="relative">
             <div className="text-2xl font-bold text-emerald-400 tabular-nums">{autoApproved.length}</div>
-            <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">AI Auto-Approved</div>
+            <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">AI Auto-Approved</div>
           </div>
         </div>
         <div className="rounded-2xl border border-violet-500/10 bg-gradient-to-b from-violet-500/8 to-transparent p-4 relative overflow-hidden">
           <div className="absolute -top-4 -right-4 h-12 w-12 rounded-full bg-violet-500/10 blur-xl" />
           <div className="relative">
             <div className="text-2xl font-bold text-violet-400 tabular-nums">{approved.length + autoApproved.length}</div>
-            <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Total Verified</div>
+            <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Total Verified</div>
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@ export default function VerificationPage() {
                           </Badge>
                         )}
                       </div>
-                      <div className="text-xs text-slate-600 dark:text-slate-500">{ver.companyName}</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-400">{ver.companyName}</div>
                     </div>
                   </div>
                   <Badge variant={badge.variant}>{badge.label}</Badge>
@@ -191,19 +191,19 @@ export default function VerificationPage() {
                 {/* Details grid */}
                 <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                   <div>
-                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Category</div>
+                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Category</div>
                     <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.category}</div>
                   </div>
                   <div>
-                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">License #</div>
+                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">License #</div>
                     <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300 font-mono">{ver.licenseNumber}</div>
                   </div>
                   <div>
-                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Type</div>
+                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Type</div>
                     <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.licenseType}</div>
                   </div>
                   <div>
-                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Submitted</div>
+                    <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Submitted</div>
                     <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{formatTimeAgo(ver.submittedAt)}</div>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export default function VerificationPage() {
                         {/* Extracted fields */}
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Extracted Name</div>
+                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Extracted Name</div>
                             <div className="mt-0.5 flex items-center gap-1.5">
                               <span className="text-sm text-slate-700 dark:text-slate-300">{ver.ocrData.extractedName}</span>
                               {ver.ocrData.nameMatch ? (
@@ -247,7 +247,7 @@ export default function VerificationPage() {
                             </div>
                           </div>
                           <div>
-                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Extracted License #</div>
+                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Extracted License #</div>
                             <div className="mt-0.5 flex items-center gap-1.5">
                               <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">{ver.ocrData.extractedLicenseNumber}</span>
                               {ver.ocrData.licenseMatch ? (
@@ -264,23 +264,23 @@ export default function VerificationPage() {
                             </div>
                           </div>
                           <div>
-                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Expiration</div>
+                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Expiration</div>
                             <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.ocrData.extractedExpiry ?? "Not found"}</div>
                           </div>
                           <div>
-                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">State</div>
+                            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">State</div>
                             <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.ocrData.extractedState}</div>
                           </div>
                         </div>
 
                         {/* Document preview placeholder */}
                         <div className="rounded-xl border border-dashed border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] p-6 text-center">
-                          <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-500">
+                          <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
                             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                               <path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
                           </div>
-                          <p className="text-xs text-slate-600 dark:text-slate-500">
+                          <p className="text-xs text-slate-600 dark:text-slate-400">
                             {ver.documentType === "pdf" ? "PDF Document" : "Image Document"} uploaded
                           </p>
                           <button className="mt-2 text-xs text-violet-400 hover:text-violet-300 transition-colors hover:underline">View document →</button>
@@ -302,7 +302,7 @@ export default function VerificationPage() {
 
                 {/* Reviewed info */}
                 {ver.reviewedBy && (
-                  <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-500">
+                  <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                     <div className="h-1 w-1 rounded-full bg-slate-200 dark:bg-slate-700" />
                     {ver.autoVerified ? (
                       <>AI auto-verified in {Math.floor(Math.random() * 15 + 5)}s · {ver.reviewedAt ? formatDate(ver.reviewedAt) : ""}</>
@@ -340,7 +340,7 @@ export default function VerificationPage() {
                   </Button>
                   <div className="flex-1" />
                   {ver.ocrData && (
-                    <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-500">
+                    <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
                       <span>Confidence:</span>
                       <span className={`font-semibold tabular-nums ${
                         ver.ocrData.confidenceScore >= 90 ? "text-emerald-400" : ver.ocrData.confidenceScore >= 70 ? "text-amber-400" : "text-red-400"
@@ -358,13 +358,13 @@ export default function VerificationPage() {
         {/* Empty state */}
         {filtered.length === 0 && (
           <Card padding="lg" className="text-center py-16">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-500">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400">No verification requests</p>
-            <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">There are no items in this category right now.</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">There are no items in this category right now.</p>
           </Card>
         )}
       </div>

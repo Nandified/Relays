@@ -60,7 +60,7 @@ export default function ProJourneysPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-3">
+          <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-3">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
             Back to Dashboard
           </Link>
@@ -81,15 +81,15 @@ export default function ProJourneysPage() {
       <div className="grid grid-cols-3 gap-3 mb-8">
         <Card padding="md">
           <div className="text-2xl font-bold text-blue-400">{allJourneys.filter((j) => j.status === "active").length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Active</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Active</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-amber-400">{allJourneys.filter((j) => j.status === "pending").length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Pending</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Pending</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-emerald-400">{allJourneys.filter((j) => j.status === "completed").length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Complete</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Complete</div>
         </Card>
       </div>
 
@@ -109,7 +109,7 @@ export default function ProJourneysPage() {
                       <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{journey.title}</h3>
                       {statusBadge(journey.status)}
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-500 flex items-center gap-1">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 flex items-center gap-1">
                       <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
                         <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -117,13 +117,13 @@ export default function ProJourneysPage() {
                       {journey.address}
                     </p>
                     <div className="flex items-center gap-4 mt-2">
-                      <span className="text-[11px] text-slate-600 dark:text-slate-500">
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400">
                         Client: <span className="text-slate-700 dark:text-slate-300">{journey.client.name}</span>
                       </span>
-                      <span className="text-[11px] text-slate-600 dark:text-slate-500">
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400">
                         {journey.property.type === "buying" ? "Buying" : "Selling"}
                       </span>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-500">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400">
                         {new Date(journey.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                       </span>
                     </div>
@@ -150,7 +150,7 @@ export default function ProJourneysPage() {
                         })}
                     </div>
                     {filled > 4 && (
-                      <span className="text-[11px] text-slate-600 dark:text-slate-500 ml-1">+{filled - 4}</span>
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400 ml-1">+{filled - 4}</span>
                     )}
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export default function ProJourneysPage() {
             <svg width="24" height="24" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" /></svg>
           </div>
           <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">No journeys yet</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Create your first journey to get started</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Create your first journey to get started</p>
           <Link href="/pro/journey/new"><Button>Create Journey</Button></Link>
         </div>
       )}

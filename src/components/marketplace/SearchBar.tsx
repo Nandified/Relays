@@ -72,7 +72,7 @@ export function SearchBar({
 
         <div className="relative flex items-center">
           {/* Search icon */}
-          <div className={`flex items-center pl-4 transition-colors duration-200 ${focused ? "text-blue-400/80" : "text-slate-600 dark:text-slate-500"}`}>
+          <div className={`flex items-center pl-4 transition-colors duration-200 ${focused ? "text-blue-400/80" : "text-slate-600 dark:text-slate-400"}`}>
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8" />
               <path d="M21 21l-4.35-4.35" />
@@ -87,7 +87,7 @@ export function SearchBar({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder={placeholder}
-            className="flex-1 min-w-0 bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 outline-none focus:outline-none focus-visible:outline-none"
+            className="flex-1 min-w-0 bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 dark:placeholder:text-slate-400/80 outline-none focus:outline-none focus-visible:outline-none"
             style={{ outline: "none" }}
           />
 
@@ -96,7 +96,7 @@ export function SearchBar({
             <button
               type="button"
               onClick={() => onChange("")}
-              className="flex h-6 w-6 items-center justify-center rounded-full text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-1"
+              className="flex h-6 w-6 items-center justify-center rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-1"
             >
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M18 6L6 18M6 6l12 12" />
@@ -109,7 +109,7 @@ export function SearchBar({
 
           {/* Zip code field */}
           <div className="flex items-center">
-            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="ml-3 text-slate-500/80 flex-shrink-0">
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="ml-3 text-slate-500/80 dark:text-slate-400/80 flex-shrink-0">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
@@ -126,7 +126,7 @@ export function SearchBar({
                 }
               }}
               placeholder="Zip code"
-              className="w-20 bg-transparent py-3.5 pl-2 pr-3 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 outline-none focus:outline-none focus-visible:outline-none"
+              className="w-20 bg-transparent py-3.5 pl-2 pr-3 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 dark:placeholder:text-slate-400/80 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
               inputMode="numeric"
               enterKeyHint="done"
@@ -137,7 +137,7 @@ export function SearchBar({
               <button
                 type="button"
                 onClick={() => onZipChange?.("")}
-                className="flex h-5 w-5 items-center justify-center rounded-full text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-2"
+                className="flex h-5 w-5 items-center justify-center rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-2"
               >
                 <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path d="M18 6L6 18M6 6l12 12" />

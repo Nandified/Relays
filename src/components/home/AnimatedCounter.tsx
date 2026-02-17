@@ -89,7 +89,7 @@ export function AnimatedCounter({ value, label }: AnimatedCounterProps) {
   return (
     <div ref={ref} className="text-center">
       <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{displayValue}</div>
-      <div className="mt-1 text-sm text-slate-600 dark:text-slate-500">{label}</div>
+      <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">{label}</div>
     </div>
   );
 }

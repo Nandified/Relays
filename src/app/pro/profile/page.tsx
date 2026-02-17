@@ -166,7 +166,7 @@ export default function ProProfileEditPage() {
               onChange={(e) => setBlurb(e.target.value)}
               placeholder="One-liner about your services..."
             />
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">{blurb.length}/200 characters</p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{blurb.length}/200 characters</p>
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Full Bio</label>
@@ -183,7 +183,7 @@ export default function ProProfileEditPage() {
       {/* ── Intro Video (Enhanced) ── */}
       <Card padding="lg" className="mb-6">
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">Intro Video</h2>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Upload a 15–30 second intro video. Shown on your profile above your bio.</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Upload a 15–30 second intro video. Shown on your profile above your bio.</p>
 
         {videoUploaded ? (
           /* Video preview + controls */
@@ -208,7 +208,7 @@ export default function ProProfileEditPage() {
               </div>
             </div>
             <div className="mt-3 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
+              <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
@@ -238,7 +238,7 @@ export default function ProProfileEditPage() {
                   </svg>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Drop a video here or click to upload</p>
-                <p className="text-xs text-slate-500 dark:text-slate-500 mb-3">MP4 or MOV · Max 30 seconds · 16:9 or 9:16</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">MP4 or MOV · Max 30 seconds · 16:9 or 9:16</p>
                 <div className="flex gap-2 justify-center">
                   <Button size="sm" variant="secondary" onClick={(e) => { e.stopPropagation(); handleVideoUpload(); }}>
                     Upload Video
@@ -282,7 +282,7 @@ export default function ProProfileEditPage() {
       {/* ── Specialties / Tags (NEW) ── */}
       <Card padding="lg" className="mb-6">
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">Specialties</h2>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Select tags that describe your expertise. Shown on your profile and used for matching.</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Select tags that describe your expertise. Shown on your profile and used for matching.</p>
         <div className="flex flex-wrap gap-2">
           {SPECIALTIES.map((spec) => (
             <button
@@ -292,7 +292,7 @@ export default function ProProfileEditPage() {
                 rounded-full px-3 py-1.5 text-xs font-medium transition-all border
                 ${selectedSpecialties.includes(spec)
                   ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.1)]"
-                  : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-500 border-[var(--border)] hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
+                  : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
                 }
               `}
             >
@@ -302,14 +302,14 @@ export default function ProProfileEditPage() {
           ))}
         </div>
         {selectedSpecialties.length > 0 && (
-          <p className="mt-2 text-xs text-slate-500 dark:text-slate-500">{selectedSpecialties.length} selected</p>
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{selectedSpecialties.length} selected</p>
         )}
       </Card>
 
       {/* Service areas (enhanced with city chips) */}
       <Card padding="lg" className="mb-6">
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">Service Areas</h2>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Cities and neighborhoods you serve</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Cities and neighborhoods you serve</p>
         <Input
           label="Areas (comma-separated)"
           value={areas}
@@ -328,7 +328,7 @@ export default function ProProfileEditPage() {
               <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <p className="text-xs text-slate-500 dark:text-slate-500">Map visualization coming soon</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Map visualization coming soon</p>
           </div>
         </div>
       </Card>
@@ -336,16 +336,16 @@ export default function ProProfileEditPage() {
       {/* ── Social Links (NEW) ── */}
       <Card padding="lg" className="mb-6">
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">Social Links</h2>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Connect your social profiles. Displayed on your public profile.</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Connect your social profiles. Displayed on your public profile.</p>
         <div className="space-y-3">
           {SOCIAL_PLATFORMS.map((platform) => (
             <div key={platform.key} className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center text-slate-600 dark:text-slate-500 flex-shrink-0">
+              <div className="h-9 w-9 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center text-slate-600 dark:text-slate-400 flex-shrink-0">
                 {platform.icon}
               </div>
               <div className="flex-1">
                 <div className="flex items-center rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] overflow-hidden focus-within:border-[var(--accent)]/50 focus-within:ring-2 focus-within:ring-[var(--accent-light)]">
-                  <span className="text-xs text-slate-500 dark:text-slate-500 pl-3 pr-1 whitespace-nowrap">{platform.prefix}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 pl-3 pr-1 whitespace-nowrap">{platform.prefix}</span>
                   <input
                     type="text"
                     value={socialLinks[platform.key] ?? ""}

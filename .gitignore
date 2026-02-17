@@ -58,3 +58,6 @@ data/*/dora_re_professionals.csv
 data/*/dora_real_estate.csv
 data/*/test.csv
 data/*/ct_*.csv
+
+# Exclude all raw data files (too large for GitHub, served from Supabase in production)
+data/

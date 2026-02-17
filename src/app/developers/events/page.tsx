@@ -41,11 +41,11 @@ function JsonBlock({ data }: { data: Record<string, unknown> }) {
             <div className="w-2.5 h-2.5 rounded-full bg-amber-500/40" />
             <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
           </div>
-          <span className="text-[11px] text-slate-600 dark:text-slate-500 ml-2">Sample Payload</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-400 ml-2">Sample Payload</span>
         </div>
         <button
           onClick={() => navigator.clipboard?.writeText(json)}
-          className="text-[11px] text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors flex items-center gap-1"
+          className="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors flex items-center gap-1"
         >
           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -95,7 +95,7 @@ function EventTypeCard({ entry }: { entry: (typeof eventCatalog)[number] }) {
             <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{entry.description}</p>
           </div>
           <svg
-            className={`w-4 h-4 text-slate-600 dark:text-slate-500 transition-transform duration-200 mt-1 shrink-0 ${expanded ? "rotate-180" : ""}`}
+            className={`w-4 h-4 text-slate-600 dark:text-slate-400 transition-transform duration-200 mt-1 shrink-0 ${expanded ? "rotate-180" : ""}`}
             fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
           >
             <path d="M19 9l-7 7-7-7" />
@@ -107,7 +107,7 @@ function EventTypeCard({ entry }: { entry: (typeof eventCatalog)[number] }) {
           <div className="px-5 pb-5 animate-in space-y-4">
             {/* Trigger conditions */}
             <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] px-4 py-3">
-              <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-1">Trigger Conditions</div>
+              <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">Trigger Conditions</div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{entry.triggerConditions}</p>
             </div>
 
@@ -116,13 +116,13 @@ function EventTypeCard({ entry }: { entry: (typeof eventCatalog)[number] }) {
 
             {/* Webhook Headers */}
             <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] px-4 py-3">
-              <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">HTTP Headers</div>
+              <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">HTTP Headers</div>
               <div className="space-y-1 text-xs font-mono">
-                <div><span className="text-slate-600 dark:text-slate-500">Content-Type:</span> <span className="text-slate-700 dark:text-slate-300">application/json</span></div>
-                <div><span className="text-slate-600 dark:text-slate-500">X-Relays-Event:</span> <span className="text-blue-400">{entry.type}</span></div>
-                <div><span className="text-slate-600 dark:text-slate-500">X-Relays-Signature:</span> <span className="text-emerald-600 dark:text-emerald-400/60">sha256=...</span></div>
-                <div><span className="text-slate-600 dark:text-slate-500">X-Relays-Delivery:</span> <span className="text-slate-600 dark:text-slate-400">del_...</span></div>
-                <div><span className="text-slate-600 dark:text-slate-500">X-Relays-Timestamp:</span> <span className="text-slate-600 dark:text-slate-400">2026-02-16T14:30:00Z</span></div>
+                <div><span className="text-slate-600 dark:text-slate-400">Content-Type:</span> <span className="text-slate-700 dark:text-slate-300">application/json</span></div>
+                <div><span className="text-slate-600 dark:text-slate-400">X-Relays-Event:</span> <span className="text-blue-400">{entry.type}</span></div>
+                <div><span className="text-slate-600 dark:text-slate-400">X-Relays-Signature:</span> <span className="text-emerald-600 dark:text-emerald-400/60">sha256=...</span></div>
+                <div><span className="text-slate-600 dark:text-slate-400">X-Relays-Delivery:</span> <span className="text-slate-600 dark:text-slate-400">del_...</span></div>
+                <div><span className="text-slate-600 dark:text-slate-400">X-Relays-Timestamp:</span> <span className="text-slate-600 dark:text-slate-400">2026-02-16T14:30:00Z</span></div>
               </div>
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function EventCatalogPage() {
       {/* Search + Filter */}
       <div className="mb-8 space-y-4">
         <div className="relative">
-          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
           </svg>
           <input
@@ -185,7 +185,7 @@ export default function EventCatalogPage() {
             className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeCategory === "all"
                 ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/30"
-                : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-500 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10 hover:text-slate-700 dark:hover:text-slate-400"
+                : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10 hover:text-slate-700 dark:hover:text-slate-200"
             }`}
           >
             All ({eventCatalog.length})
@@ -199,7 +199,7 @@ export default function EventCatalogPage() {
                 className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
                   activeCategory === cat
                     ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/30"
-                    : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-500 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10 hover:text-slate-700 dark:hover:text-slate-400"
+                    : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10 hover:text-slate-700 dark:hover:text-slate-200"
                 }`}
               >
                 <span>{CATEGORY_META[cat].icon}</span>
@@ -236,7 +236,7 @@ export default function EventCatalogPage() {
             </div>
             <div>
               <h3 className="text-sm font-medium text-slate-800 dark:text-slate-200">Signed Webhooks</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
                 Every delivery is signed with HMAC-SHA256 using your endpoint secret. Verify the <code className="text-emerald-600 dark:text-emerald-400/80 bg-emerald-500/5 px-1 rounded">X-Relays-Signature</code> header before processing.
               </p>
             </div>
@@ -250,7 +250,7 @@ export default function EventCatalogPage() {
             </div>
             <div>
               <h3 className="text-sm font-medium text-slate-800 dark:text-slate-200">Automatic Retries</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
                 Failed deliveries retry up to 5 times with exponential backoff (1m → 4m → 16m → 1h → 4h). Idempotency keys prevent duplicate processing.
               </p>
             </div>

@@ -109,7 +109,7 @@ export default function AboutPage() {
                   ].map((stat) => (
                     <div key={stat.label} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-4 text-center">
                       <div className="text-xl font-bold text-slate-900 dark:text-white">{stat.num}</div>
-                      <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">{stat.label}</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -163,7 +163,7 @@ export default function AboutPage() {
                     {member.initials}
                   </div>
                   <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{member.name}</h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">{member.role}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{member.role}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -177,10 +177,10 @@ export default function AboutPage() {
               <h2 className="text-lg font-semibold text-slate-700 dark:text-slate-300 text-center mb-8">In the Press</h2>
               <div className="flex flex-wrap items-center justify-center gap-8">
                 {["TechCrunch", "Inman News", "HousingWire", "RealTrends"].map((pub) => (
-                  <span key={pub} className="text-lg font-semibold text-slate-500 dark:text-slate-500/60">{pub}</span>
+                  <span key={pub} className="text-lg font-semibold text-slate-500 dark:text-slate-400/60">{pub}</span>
                 ))}
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-500 text-center mt-4">Coming soon</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-4">Coming soon</p>
             </AnimatedSection>
           </div>
         </section>
@@ -200,7 +200,7 @@ export default function AboutPage() {
                   <a href="mailto:hello@relaysapp.com" className="hover-scale inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] dark:bg-white px-6 py-3 text-base font-medium text-white dark:text-slate-900 shadow-[var(--shadow-card)] hover:opacity-90 transition-all">
                     hello@relaysapp.com
                   </a>
-                  <Link href="/help" className="hover-scale inline-flex items-center justify-center rounded-2xl border border-black/10 dark:border-white/20 px-6 py-3 text-base font-medium text-slate-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all">
+                  <Link href="/help" className="hover-scale inline-flex items-center justify-center rounded-2xl border border-slate-300 dark:border-white/30 bg-white/80 dark:bg-white/10 px-6 py-3 text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/20 transition-all">
                     Help Center
                   </Link>
                 </div>

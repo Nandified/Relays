@@ -202,13 +202,13 @@ export function NotificationBell() {
               <div className="flex flex-col items-center py-10 px-4">
                 <div className="text-3xl mb-2">🎉</div>
                 <p className="text-sm text-slate-600 dark:text-slate-400">All caught up!</p>
-                <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">No new notifications</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">No new notifications</p>
               </div>
             ) : (
               grouped.map((group) => (
                 <div key={group.label}>
                   <div className="sticky top-0 bg-[var(--bg-card)]/95 backdrop-blur-sm px-4 py-2 border-b border-[var(--border-subtle)]">
-                    <span className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wider">{group.label}</span>
+                    <span className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">{group.label}</span>
                   </div>
                   {group.items.map((notif) => (
                     <NotificationRow
@@ -280,8 +280,8 @@ function NotificationRow({
             <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.5)]" />
           )}
         </div>
-        <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-500 line-clamp-2">{n.body}</p>
-        <span className="mt-1 block text-[11px] text-slate-500 dark:text-slate-500">{timeAgo(n.createdAt)}</span>
+        <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{n.body}</p>
+        <span className="mt-1 block text-[11px] text-slate-500 dark:text-slate-400">{timeAgo(n.createdAt)}</span>
       </div>
     </Link>
   );

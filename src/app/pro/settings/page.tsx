@@ -49,7 +49,7 @@ function SettingsSection({ title, description, children, accent }: { title: stri
           <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{title}</h2>
           {accent && <Badge variant="success">Pro</Badge>}
         </div>
-        {description && <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-500">{description}</p>}
+        {description && <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">{description}</p>}
       </div>
       {children}
     </Card>
@@ -180,7 +180,7 @@ export default function ProSettingsPage() {
             <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-blue-500/20 border border-[var(--border)] flex items-center justify-center text-xl font-bold text-slate-700 dark:text-slate-300">AM</div>
             <div>
               <Button size="sm" variant="secondary">Change Photo</Button>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">JPG, PNG. Max 2MB.</p>
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">JPG, PNG. Max 2MB.</p>
             </div>
           </div>
           <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -221,7 +221,7 @@ export default function ProSettingsPage() {
                       <div className="flex items-center gap-1.5">
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                         <span className="text-xs text-emerald-400">{connection.email}</span>
-                        {connection.lastSyncAt && <span className="text-[10px] text-slate-500 dark:text-slate-500">• Synced {new Date(connection.lastSyncAt).toLocaleDateString()}</span>}
+                        {connection.lastSyncAt && <span className="text-[10px] text-slate-500 dark:text-slate-400">• Synced {new Date(connection.lastSyncAt).toLocaleDateString()}</span>}
                       </div>
                     ) : isExpired ? (
                       <div className="flex items-center gap-1.5">
@@ -229,7 +229,7 @@ export default function ProSettingsPage() {
                         <span className="text-xs text-amber-400">Connection expired — re-authorize</span>
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-600 dark:text-slate-500">{provider.desc}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-400">{provider.desc}</span>
                     )}
                   </div>
                 </div>
@@ -254,17 +254,17 @@ export default function ProSettingsPage() {
                 return (
                   <div key={day} className="flex items-center gap-3">
                     <Toggle enabled={hours.enabled} onChange={(v) => setBusinessHours((prev) => ({ ...prev, [day]: { ...prev[day], enabled: v } }))} label={day} />
-                    <span className={`text-xs font-medium w-8 ${hours.enabled ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"}`}>{DAY_LABELS[day]}</span>
+                    <span className={`text-xs font-medium w-8 ${hours.enabled ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-400"}`}>{DAY_LABELS[day]}</span>
                     {hours.enabled ? (
                       <div className="flex items-center gap-2 flex-1">
                         <input type="time" value={hours.start} onChange={(e) => setBusinessHours((prev) => ({ ...prev, [day]: { ...prev[day], start: e.target.value } }))}
                           className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-2 py-1 text-xs text-slate-800 dark:text-slate-200 outline-none w-24" />
-                        <span className="text-xs text-slate-500 dark:text-slate-500">to</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">to</span>
                         <input type="time" value={hours.end} onChange={(e) => setBusinessHours((prev) => ({ ...prev, [day]: { ...prev[day], end: e.target.value } }))}
                           className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-2 py-1 text-xs text-slate-800 dark:text-slate-200 outline-none w-24" />
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-500 dark:text-slate-500 flex-1">Unavailable</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 flex-1">Unavailable</span>
                     )}
                   </div>
                 );
@@ -305,7 +305,7 @@ export default function ProSettingsPage() {
                   </button>
                 </div>
               ))}
-              {blockedDates.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-500">No blocked dates</span>}
+              {blockedDates.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-400">No blocked dates</span>}
             </div>
             <div className="flex gap-2">
               <input type="date" value={newBlockDate} onChange={(e) => setNewBlockDate(e.target.value)}
@@ -350,7 +350,7 @@ export default function ProSettingsPage() {
             <div key={reminder.label} className="flex items-center justify-between">
               <div>
                 <div className="text-sm text-slate-800 dark:text-slate-200">{reminder.label}</div>
-                <div className="text-xs text-slate-600 dark:text-slate-500">{reminder.desc}</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">{reminder.desc}</div>
               </div>
               <Toggle enabled={reminder.defaultOn} onChange={() => {}} label={reminder.label} />
             </div>
@@ -368,7 +368,7 @@ export default function ProSettingsPage() {
               </div>
               <div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">CRM Integration</div>
-                <div className="text-xs text-slate-600 dark:text-slate-500">Connect Follow Up Boss, kvCORE, or other CRMs</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">Connect Follow Up Boss, kvCORE, or other CRMs</div>
               </div>
             </div>
             <Button size="sm" variant="secondary">Connect</Button>
@@ -378,7 +378,7 @@ export default function ProSettingsPage() {
               <div className="h-10 w-10 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center text-lg">⚡</div>
               <div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Zapier / Make</div>
-                <div className="text-xs text-slate-600 dark:text-slate-500">Custom automations via webhooks</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">Custom automations via webhooks</div>
               </div>
             </div>
             <Button size="sm" variant="secondary">Connect</Button>
@@ -392,9 +392,9 @@ export default function ProSettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2"><h3 className="text-sm font-semibold text-emerald-400">Pro Plan</h3><Badge variant="success">Active</Badge></div>
-              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Includes marketplace presence, unlimited journeys, and booking management</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Includes marketplace presence, unlimited journeys, and booking management</p>
             </div>
-            <div className="text-right"><div className="text-2xl font-bold text-slate-900 dark:text-slate-100">$0</div><div className="text-xs text-slate-600 dark:text-slate-500">/ month</div></div>
+            <div className="text-right"><div className="text-2xl font-bold text-slate-900 dark:text-slate-100">$0</div><div className="text-xs text-slate-600 dark:text-slate-400">/ month</div></div>
           </div>
         </div>
         <div className="space-y-3 mb-4">
@@ -411,7 +411,7 @@ export default function ProSettingsPage() {
           <div className="space-y-3">
             {([["email", "Email", "Receive email notifications"], ["sms", "SMS", "Text message alerts"], ["push", "Push Notifications", "Browser and mobile push"], ["inApp", "In-App", "Notifications inside Relays"]] as const).map(([key, label, desc]) => (
               <div key={key} className="flex items-center justify-between">
-                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-600 dark:text-slate-500">{desc}</div></div>
+                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-600 dark:text-slate-400">{desc}</div></div>
                 <Toggle enabled={channels[key]} onChange={(v) => setChannels((prev) => ({ ...prev, [key]: v }))} label={label} />
               </div>
             ))}
@@ -422,7 +422,7 @@ export default function ProSettingsPage() {
           <div className="space-y-3">
             {([["newRequests", "New Requests", "Incoming referral and booking requests"], ["journeyUpdates", "Journey Updates", "Status changes on your active journeys"], ["bookings", "Bookings", "Appointment confirmations and reminders"], ["messages", "Messages", "New messages from clients"], ["documents", "Documents", "Document requests and uploads"]] as const).map(([key, label, desc]) => (
               <div key={key} className="flex items-center justify-between">
-                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-600 dark:text-slate-500">{desc}</div></div>
+                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-600 dark:text-slate-400">{desc}</div></div>
                 <Toggle enabled={types[key as keyof typeof types]} onChange={(v) => setTypes((prev) => ({ ...prev, [key]: v }))} label={label} />
               </div>
             ))}
@@ -456,7 +456,7 @@ export default function ProSettingsPage() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <div><div className="text-sm text-slate-800 dark:text-slate-200">Data Sharing</div><div className="text-xs text-slate-600 dark:text-slate-500">Allow Relays to use anonymized data to improve recommendations</div></div>
+            <div><div className="text-sm text-slate-800 dark:text-slate-200">Data Sharing</div><div className="text-xs text-slate-600 dark:text-slate-400">Allow Relays to use anonymized data to improve recommendations</div></div>
             <Toggle enabled={dataSharing} onChange={setDataSharing} label="Data sharing" />
           </div>
         </div>
@@ -465,7 +465,7 @@ export default function ProSettingsPage() {
       {/* ── Danger Zone ── */}
       <Card padding="lg" className="border-red-500/10 bg-red-500/[0.02]">
         <h2 className="text-sm font-semibold text-red-400 mb-1">Danger Zone</h2>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Permanently delete your professional account and all associated data.</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">Permanently delete your professional account and all associated data.</p>
         <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>Delete Account</Button>
       </Card>
 
@@ -478,7 +478,7 @@ export default function ProSettingsPage() {
                 {CALENDAR_PROVIDERS.find((p) => p.id === connectModal)?.icon}
               </div>
               <p className="text-sm text-slate-700 dark:text-slate-300">You&apos;ll be redirected to authorize access to your calendar.</p>
-              <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">We only read free/busy data and create booking events.</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">We only read free/busy data and create booking events.</p>
             </div>
             <div className="flex gap-3 justify-end">
               <Button variant="secondary" onClick={() => { setConnectModal(null); setConnectStep("auth"); }}>Cancel</Button>
@@ -491,7 +491,7 @@ export default function ProSettingsPage() {
               <svg width="28" height="28" fill="none" stroke="#10b981" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </div>
             <p className="text-sm text-emerald-400 font-medium">Calendar connected successfully!</p>
-            <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">Your availability will sync automatically.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Your availability will sync automatically.</p>
           </div>
         )}
       </Modal>

@@ -41,9 +41,9 @@ function MetricCard({
     <Card hover className={`group ${a.glow}`}>
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wider">{label}</p>
+          <p className="text-xs font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">{label}</p>
           <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{value}</p>
-          {subtext && <p className="mt-1 text-xs text-slate-600 dark:text-slate-500">{subtext}</p>}
+          {subtext && <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{subtext}</p>}
         </div>
         <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${a.bg} ${a.text}`}>
           {icon}
@@ -88,7 +88,7 @@ function QuickLinkCard({ href, label, description, icon }: { href: string; label
           </div>
           <div>
             <p className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-white transition-colors">{label}</p>
-            <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{description}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{description}</p>
           </div>
         </div>
       </Card>
@@ -125,14 +125,14 @@ export default function OrgDashboard() {
               <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{org.name}</h1>
               <div className="flex items-center gap-2 mt-0.5">
                 <Badge variant="accent">{org.tier.charAt(0).toUpperCase() + org.tier.slice(1)}</Badge>
-                <span className="text-xs text-slate-600 dark:text-slate-500">{org.type.charAt(0).toUpperCase() + org.type.slice(1)}</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">{org.type.charAt(0).toUpperCase() + org.type.slice(1)}</span>
               </div>
             </div>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <p className="text-xs text-slate-600 dark:text-slate-500">Seats Used</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Seats Used</p>
             <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{org.currentSeats} / {org.maxSeats}</p>
           </div>
           <div className="w-32 h-2 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
@@ -197,9 +197,9 @@ export default function OrgDashboard() {
                       <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{log.performedByName}</span>
                       <AuditActionBadge action={log.action} />
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5 truncate">{log.details}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 truncate">{log.details}</p>
                   </div>
-                  <time className="text-[10px] text-slate-500 dark:text-slate-500 shrink-0 tabular-nums">
+                  <time className="text-[10px] text-slate-500 dark:text-slate-400 shrink-0 tabular-nums">
                     {formatRelativeTime(log.timestamp)}
                   </time>
                 </div>

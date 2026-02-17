@@ -104,7 +104,7 @@ export default function NewJourneyPage() {
           recommendations and can start building their team.
         </p>
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-4 mb-6 max-w-sm mx-auto">
-          <div className="text-xs text-slate-600 dark:text-slate-500 mb-1">Share link</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">Share link</div>
           <div className="flex items-center gap-2">
             <code className="flex-1 truncate rounded-xl bg-[var(--bg-elevated)] px-3 py-2 text-xs text-blue-400">
               relays.co/journey/j-{slug}
@@ -124,7 +124,7 @@ export default function NewJourneyPage() {
     <div className="mx-auto max-w-3xl px-4 py-6 pb-20">
       {/* Header */}
       <div className="mb-8">
-        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-4">
+        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-4">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
           Back to Dashboard
         </Link>
@@ -146,7 +146,7 @@ export default function NewJourneyPage() {
                     ? "bg-[var(--accent)] text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] scale-110"
                     : s.id < step
                     ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-400"
-                    : "bg-black/5 dark:bg-white/5 border border-[var(--border)] text-slate-600 dark:text-slate-500"
+                    : "bg-black/5 dark:bg-white/5 border border-[var(--border)] text-slate-600 dark:text-slate-400"
                 }`}>
                   {s.id < step ? (
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
@@ -154,7 +154,7 @@ export default function NewJourneyPage() {
                     </svg>
                   ) : s.icon}
                 </div>
-                <span className={`text-[11px] font-medium ${s.id === step ? "text-blue-400" : "text-slate-600 dark:text-slate-500"}`}>{s.label}</span>
+                <span className={`text-[11px] font-medium ${s.id === step ? "text-blue-400" : "text-slate-600 dark:text-slate-400"}`}>{s.label}</span>
               </button>
               {i < STEPS.length - 1 && (
                 <div className={`flex-1 h-px mx-2 mt-[-18px] transition-colors duration-500 ${s.id < step ? "bg-emerald-500/30" : "bg-[var(--border)]"}`} />
@@ -209,7 +209,7 @@ function StepProperty({ form, onChange }: { form: FormData; onChange: (u: Partia
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20 text-lg">🏠</div>
         <div>
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Property Details</h2>
-          <p className="text-xs text-slate-600 dark:text-slate-500">Where is your client&apos;s transaction?</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">Where is your client&apos;s transaction?</p>
         </div>
       </div>
       <div className="space-y-4">
@@ -229,7 +229,7 @@ function StepProperty({ form, onChange }: { form: FormData; onChange: (u: Partia
               >
                 <div className="text-xl mb-1">{type === "buying" ? "🏠" : "📤"}</div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200 capitalize">{type}</div>
-                <div className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{type === "buying" ? "Client is purchasing a home" : "Client is selling their home"}</div>
+                <div className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">{type === "buying" ? "Client is purchasing a home" : "Client is selling their home"}</div>
               </button>
             ))}
           </div>
@@ -247,7 +247,7 @@ function StepClient({ form, onChange }: { form: FormData; onChange: (u: Partial<
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10 border border-purple-500/20 text-lg">👤</div>
         <div>
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Client Information</h2>
-          <p className="text-xs text-slate-600 dark:text-slate-500">Who is this journey for?</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">Who is this journey for?</p>
         </div>
       </div>
       <div className="space-y-4">
@@ -287,7 +287,7 @@ function StepRecommendations({
           </div>
           <div>
             <div className="text-sm font-medium text-emerald-400">{currentProCategory}</div>
-            <div className="text-xs text-slate-600 dark:text-slate-500">Auto-filled — that&apos;s you!</div>
+            <div className="text-xs text-slate-600 dark:text-slate-400">Auto-filled — that&apos;s you!</div>
           </div>
           <Badge variant="success" className="ml-auto">Filled</Badge>
         </div>
@@ -309,7 +309,7 @@ function StepRecommendations({
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] text-sm">{meta.icon}</div>
                 <div className="text-left">
                   <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{category}</div>
-                  <div className="text-[11px] text-slate-600 dark:text-slate-500">{selected.length === 0 ? "Pick up to 3 to recommend" : `${selected.length} selected`}</div>
+                  <div className="text-[11px] text-slate-600 dark:text-slate-400">{selected.length === 0 ? "Pick up to 3 to recommend" : `${selected.length} selected`}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -326,7 +326,7 @@ function StepRecommendations({
                     })}
                   </div>
                 )}
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={`text-slate-600 dark:text-slate-500 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={`text-slate-600 dark:text-slate-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>
                   <path d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
@@ -369,9 +369,9 @@ function StepRecommendations({
                               </svg>
                             )}
                           </div>
-                          <div className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
+                          <div className="text-xs text-slate-600 dark:text-slate-400">{pro.companyName}</div>
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 flex-shrink-0">
+                        <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 flex-shrink-0">
                           <svg width="10" height="10" fill="#f59e0b" viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" /></svg>
                           {pro.rating.toFixed(1)} ({pro.reviewCount})
                         </div>
@@ -380,7 +380,7 @@ function StepRecommendations({
                   })}
                 </div>
                 {selected.length >= 3 && (
-                  <p className="mt-2 text-center text-[11px] text-slate-600 dark:text-slate-500">Maximum 3 recommendations per category</p>
+                  <p className="mt-2 text-center text-[11px] text-slate-600 dark:text-slate-400">Maximum 3 recommendations per category</p>
                 )}
               </div>
             )}
@@ -408,13 +408,13 @@ function StepReview({
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20 text-lg">✨</div>
           <div>
             <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Review &amp; Send</h2>
-            <p className="text-xs text-slate-600 dark:text-slate-500">Everything look good? Let&apos;s send it to your client.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Everything look good? Let&apos;s send it to your client.</p>
           </div>
         </div>
 
         {/* Property */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4 mb-4">
-          <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500 mb-1">
+          <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 mb-1">
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             {form.propertyType === "buying" ? "Buying" : "Selling"}
           </div>
@@ -423,21 +423,21 @@ function StepReview({
 
         {/* Client */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4 mb-4">
-          <div className="text-xs text-slate-600 dark:text-slate-500 mb-1">Client</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mb-1">Client</div>
           <div className="text-sm font-medium text-slate-900 dark:text-slate-100">{form.clientName || "—"}</div>
           <div className="text-xs text-slate-600 dark:text-slate-400">{form.clientEmail} • {form.clientPhone}</div>
         </div>
 
         {/* Team */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4">
-          <div className="text-xs text-slate-600 dark:text-slate-500 mb-3">Team</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mb-3">Team</div>
           <div className="flex items-center gap-2 mb-3 pb-3 border-b border-[var(--border)]">
             <div className="h-8 w-8 overflow-hidden rounded-lg border border-emerald-500/20 bg-[var(--bg-elevated)]">
               <Image src={currentPro.headshotUrl} alt={currentPro.name} width={32} height={32} />
             </div>
             <div className="flex-1 min-w-0">
               <span className="text-sm text-slate-800 dark:text-slate-200">{currentPro.name}</span>
-              <span className="text-xs text-slate-600 dark:text-slate-500 ml-1">({currentProCategory})</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400 ml-1">({currentProCategory})</span>
             </div>
             <Badge variant="success" className="text-[10px]">You</Badge>
           </div>
@@ -463,7 +463,7 @@ function StepReview({
                     <span className="text-[11px] text-blue-400">{selected.length} rec&apos;d</span>
                   </div>
                 ) : (
-                  <span className="text-[11px] text-slate-500 dark:text-slate-500">No recommendations</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400">No recommendations</span>
                 )}
               </div>
             );

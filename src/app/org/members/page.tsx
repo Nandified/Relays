@@ -63,7 +63,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
           </div>
           <p className="text-sm text-slate-800 dark:text-slate-200">Invite sent to {email}</p>
-          <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">They&apos;ll receive an email with a link to join.</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">They&apos;ll receive an email with a link to join.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -87,7 +87,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           />
           <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3">
             <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Role Permissions</p>
-            <p className="text-xs text-slate-600 dark:text-slate-500">{ROLE_META[role].description}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">{ROLE_META[role].description}</p>
           </div>
           <div className="flex gap-3 pt-2">
             <Button variant="secondary" onClick={onClose} className="flex-1">Cancel</Button>
@@ -119,11 +119,11 @@ function ChangeRoleModal({ open, member, onClose }: { open: boolean; member: Org
           </div>
           <div>
             <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{member.name}</p>
-            <p className="text-xs text-slate-600 dark:text-slate-500">{member.email}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">{member.email}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
           <RoleBadge role={member.role} />
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
           <RoleBadge role={newRole} />
@@ -144,7 +144,7 @@ function ChangeRoleModal({ open, member, onClose }: { open: boolean; member: Org
 
         <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3">
           <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">{ROLE_META[newRole].label} Permissions</p>
-          <p className="text-xs text-slate-600 dark:text-slate-500">{ROLE_META[newRole].description}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">{ROLE_META[newRole].description}</p>
         </div>
 
         <div className="flex gap-3 pt-2">
@@ -186,7 +186,7 @@ function DeactivateModal({ open, member, onClose }: { open: boolean; member: Org
               </div>
               <div>
                 <p className="text-sm font-medium text-red-300">This action cannot be undone</p>
-                <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                   Deactivating <strong className="text-slate-700 dark:text-slate-300">{member.name}</strong> will revoke their access to the organization.
                   {memberJourneys.length > 0 && ` They have ${memberJourneys.length} active journey${memberJourneys.length > 1 ? "s" : ""} that need to be reassigned.`}
                 </p>
@@ -248,7 +248,7 @@ function DeactivateModal({ open, member, onClose }: { open: boolean; member: Org
           </div>
           <p className="text-sm text-slate-800 dark:text-slate-200">{member.name} has been deactivated</p>
           {memberJourneys.length > 0 && (
-            <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">{memberJourneys.length} journey{memberJourneys.length > 1 ? "s" : ""} transferred successfully.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{memberJourneys.length} journey{memberJourneys.length > 1 ? "s" : ""} transferred successfully.</p>
           )}
           <Button variant="secondary" onClick={onClose} className="mt-4">Close</Button>
         </div>
@@ -283,11 +283,11 @@ export default function OrgMembersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Members</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">Manage your team&apos;s roles and access</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Manage your team&apos;s roles and access</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-2 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] px-3 py-1.5">
-            <span className="text-xs text-slate-600 dark:text-slate-500">Seats:</span>
+            <span className="text-xs text-slate-600 dark:text-slate-400">Seats:</span>
             <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{org.currentSeats}/{org.maxSeats}</span>
             <div className="w-16 h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
               <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${seatPercentage}%` }} />
@@ -330,12 +330,12 @@ export default function OrgMembersPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[var(--border)]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Member</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Role</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden sm:table-cell">Status</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden md:table-cell">Journeys</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden lg:table-cell">Last Active</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Actions</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Member</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Role</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden sm:table-cell">Status</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden md:table-cell">Journeys</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden lg:table-cell">Last Active</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -348,7 +348,7 @@ export default function OrgMembersPage() {
                       </div>
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{member.name}</p>
-                        <p className="text-xs text-slate-600 dark:text-slate-500 truncate">{member.email}</p>
+                        <p className="text-xs text-slate-600 dark:text-slate-400 truncate">{member.email}</p>
                       </div>
                     </div>
                   </td>
@@ -365,7 +365,7 @@ export default function OrgMembersPage() {
                     <span className="text-sm text-slate-700 dark:text-slate-300 tabular-nums">{member.journeyCount}</span>
                   </td>
                   <td className="px-4 py-3 hidden lg:table-cell">
-                    <span className="text-xs text-slate-600 dark:text-slate-500 tabular-nums">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 tabular-nums">
                       {member.lastActiveAt ? formatDate(member.lastActiveAt) : "—"}
                     </span>
                   </td>
@@ -405,7 +405,7 @@ export default function OrgMembersPage() {
             return (
               <div key={role} className="flex items-start gap-2">
                 <RoleBadge role={role} />
-                <span className="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">{meta.description}</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{meta.description}</span>
               </div>
             );
           })}

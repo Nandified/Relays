@@ -18,7 +18,7 @@ export function ProPreviewPanel({ pro }: { pro: Pro }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="truncate text-base font-semibold text-slate-900 dark:text-slate-100">{pro.name}</div>
-          <div className="truncate text-sm text-slate-600 dark:text-slate-500">{pro.companyName}</div>
+          <div className="truncate text-sm text-slate-600 dark:text-slate-400">{pro.companyName}</div>
         </div>
         <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
           <Image src={pro.companyLogoUrl} alt={pro.companyName} width={40} height={40} />
@@ -35,7 +35,7 @@ export function ProPreviewPanel({ pro }: { pro: Pro }) {
           ))}
         </div>
         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{pro.rating.toFixed(1)}</span>
-        <span className="text-xs text-slate-600 dark:text-slate-500">({pro.reviewCount} reviews)</span>
+        <span className="text-xs text-slate-600 dark:text-slate-400">({pro.reviewCount} reviews)</span>
       </div>
 
       {/* Blurb */}
@@ -55,7 +55,7 @@ export function ProPreviewPanel({ pro }: { pro: Pro }) {
       </div>
 
       {/* Service areas */}
-      <div className="mt-3 text-xs text-slate-600 dark:text-slate-500">
+      <div className="mt-3 text-xs text-slate-600 dark:text-slate-400">
         <span className="font-medium text-slate-600 dark:text-slate-400">Service areas: </span>
         {pro.serviceAreas.join(", ")}
       </div>

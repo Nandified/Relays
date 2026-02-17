@@ -76,7 +76,7 @@ function CategorySection({
                         <Badge variant="success" className="text-[9px] py-0">✓</Badge>
                       )}
                     </div>
-                    <div className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-400">{pro.companyName}</div>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="flex items-center gap-0.5 text-xs text-amber-400">
                         <svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20">
@@ -84,7 +84,7 @@ function CategorySection({
                         </svg>
                         {pro.rating.toFixed(1)}
                       </span>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-500">{pro.reviewCount} reviews</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400">{pro.reviewCount} reviews</span>
                     </div>
                   </div>
                   <div className="flex-shrink-0">
@@ -154,7 +154,7 @@ export function SharePageContent({
         </div>
 
         <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{pro.name}</h1>
-        <p className="text-sm text-slate-600 dark:text-slate-500">{pro.companyName}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400">{pro.companyName}</p>
 
         <div className="mt-2 flex items-center justify-center gap-2">
           <div className="flex items-center gap-0.5">
@@ -176,7 +176,7 @@ export function SharePageContent({
 
         <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">{pro.blurb}</p>
 
-        <div className="mt-4 flex flex-wrap justify-center gap-1.5 text-xs text-slate-600 dark:text-slate-500">
+        <div className="mt-4 flex flex-wrap justify-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
           {pro.serviceAreas.map((area, i) => (
             <span key={area}>
               {area}{i < pro.serviceAreas.length - 1 ? " •" : ""}
@@ -201,7 +201,7 @@ export function SharePageContent({
       {/* Group-based curated partners (NO group labels visible to client) */}
       {hasGroup && activeGroup && (
         <div>
-          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4 text-center">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-4 text-center">
             Recommended Professionals
           </h2>
           {DISPLAY_CATEGORIES.map((cat) => (
@@ -213,7 +213,7 @@ export function SharePageContent({
       {/* Legacy fallback: plain topThree list */}
       {!hasGroup && topThreePros.length > 0 && (
         <div>
-          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3 text-center">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3 text-center">
             Recommended Professionals
           </h2>
           <div className="space-y-3">
@@ -228,7 +228,7 @@ export function SharePageContent({
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{recPro.name}</div>
-                        <div className="text-xs text-slate-600 dark:text-slate-500">{recPro.companyName}</div>
+                        <div className="text-xs text-slate-600 dark:text-slate-400">{recPro.companyName}</div>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {recPro.categories.map((c) => (
                             <Badge key={c} variant="outline" className="text-[10px]">{c}</Badge>
@@ -249,7 +249,7 @@ export function SharePageContent({
 
       {/* Powered by Relays */}
       <div className="mt-10 text-center">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
           <div className="flex h-5 w-5 items-center justify-center rounded-md bg-[var(--accent)] text-[8px] font-bold text-white shadow-[0_0_10px_rgba(59,130,246,0.2)]">R</div>
           Powered by Relays
         </Link>

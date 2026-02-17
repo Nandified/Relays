@@ -117,25 +117,25 @@ export default function DataImportPage() {
           <div className="text-2xl font-bold text-violet-400 tabular-nums">
             {totalRecords.toLocaleString()}
           </div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Total Records</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Total Records</div>
         </div>
         <div className="rounded-2xl border border-blue-500/10 bg-gradient-to-b from-blue-500/8 to-transparent p-4">
           <div className="text-2xl font-bold text-blue-500 dark:text-blue-400 tabular-nums">
             {mockStateDataStats.length}
           </div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">States Loaded</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">States Loaded</div>
         </div>
         <div className="rounded-2xl border border-emerald-500/10 bg-gradient-to-b from-emerald-500/8 to-transparent p-4">
           <div className="text-2xl font-bold text-emerald-400 tabular-nums">
             {totalCategories}
           </div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Category Types</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Category Types</div>
         </div>
         <div className="rounded-2xl border border-amber-500/10 bg-gradient-to-b from-amber-500/8 to-transparent p-4">
           <div className="text-2xl font-bold text-amber-400 tabular-nums">
             {mockImportHistory.length}
           </div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Total Imports</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Total Imports</div>
         </div>
       </div>
 
@@ -169,7 +169,7 @@ export default function DataImportPage() {
                             <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                               {state.state}
                             </div>
-                            <div className="text-[11px] text-slate-600 dark:text-slate-500">
+                            <div className="text-[11px] text-slate-600 dark:text-slate-400">
                               Updated {formatRelative(state.lastUpdated)}
                             </div>
                           </div>
@@ -178,7 +178,7 @@ export default function DataImportPage() {
                           <div className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">
                             {state.totalRecords.toLocaleString()}
                           </div>
-                          <div className="text-[10px] text-slate-600 dark:text-slate-500">
+                          <div className="text-[10px] text-slate-600 dark:text-slate-400">
                             total records
                           </div>
                         </div>
@@ -192,7 +192,7 @@ export default function DataImportPage() {
                               key={cat}
                               className="flex items-center gap-3"
                             >
-                              <span className="text-[11px] text-slate-600 dark:text-slate-500 w-28 truncate text-right">
+                              <span className="text-[11px] text-slate-600 dark:text-slate-400 w-28 truncate text-right">
                                 {cat}
                               </span>
                               <div className="flex-1 h-3 rounded-full bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden">
@@ -220,7 +220,7 @@ export default function DataImportPage() {
               {/* Placeholder for upcoming states */}
               <Card padding="none" className="overflow-hidden opacity-50">
                 <div className="px-5 py-6 text-center">
-                  <div className="text-slate-500 dark:text-slate-500 mb-2">
+                  <div className="text-slate-500 dark:text-slate-400 mb-2">
                     <svg
                       width="28"
                       height="28"
@@ -233,7 +233,7 @@ export default function DataImportPage() {
                       <path d="M12 4v16m8-8H4" />
                     </svg>
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-500">
+                  <p className="text-xs text-slate-600 dark:text-slate-400">
                     More states coming soon — Indiana, Wisconsin, Michigan
                   </p>
                 </div>
@@ -249,22 +249,22 @@ export default function DataImportPage() {
             <Card padding="none" className="overflow-hidden">
               {/* Table header */}
               <div className="hidden sm:grid sm:grid-cols-[1fr_100px_80px_90px_80px_70px] gap-3 items-center border-b border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] px-4 py-2.5">
-                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                   File
                 </div>
-                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                   Category
                 </div>
-                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                   Records
                 </div>
-                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                   Imported By
                 </div>
-                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                   Date
                 </div>
-                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">
+                <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">
                   Status
                 </div>
               </div>
@@ -276,7 +276,7 @@ export default function DataImportPage() {
                     className="sm:grid sm:grid-cols-[1fr_100px_80px_90px_80px_70px] gap-3 items-center px-4 py-3 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/[0.04] dark:bg-white/[0.04] text-slate-600 dark:text-slate-500">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/[0.04] dark:bg-white/[0.04] text-slate-600 dark:text-slate-400">
                         <svg
                           width="14"
                           height="14"
@@ -292,7 +292,7 @@ export default function DataImportPage() {
                         <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
                           {entry.filename}
                         </div>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-500">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">
                           {entry.state} · {entry.duration}s
                         </div>
                       </div>
@@ -308,7 +308,7 @@ export default function DataImportPage() {
                     <div className="mt-1 sm:mt-0 text-xs text-slate-600 dark:text-slate-400 truncate">
                       {entry.importedBy}
                     </div>
-                    <div className="mt-1 sm:mt-0 text-[11px] text-slate-600 dark:text-slate-500">
+                    <div className="mt-1 sm:mt-0 text-[11px] text-slate-600 dark:text-slate-400">
                       {formatRelative(entry.importedAt)}
                     </div>
                     <div className="mt-1 sm:mt-0">
@@ -388,7 +388,7 @@ export default function DataImportPage() {
                 className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
                   dragOver
                     ? "bg-violet-500/15 text-violet-400"
-                    : "bg-black/[0.04] dark:bg-white/[0.04] text-slate-600 dark:text-slate-500"
+                    : "bg-black/[0.04] dark:bg-white/[0.04] text-slate-600 dark:text-slate-400"
                 }`}
               >
                 <svg
@@ -407,7 +407,7 @@ export default function DataImportPage() {
                   <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
                     {file.name}
                   </p>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-500 mt-1">
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">
                     {(file.size / 1024).toFixed(1)} KB · Click to change
                   </p>
                 </div>
@@ -417,7 +417,7 @@ export default function DataImportPage() {
                     Drop CSV here or{" "}
                     <span className="text-violet-400 font-medium">browse</span>
                   </p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-1">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                     CSV files up to 50MB
                   </p>
                 </div>
@@ -454,7 +454,7 @@ export default function DataImportPage() {
                         {row.map((cell, j) => (
                           <td
                             key={j}
-                            className="px-2.5 py-1.5 text-slate-600 dark:text-slate-500 whitespace-nowrap max-w-[120px] truncate"
+                            className="px-2.5 py-1.5 text-slate-600 dark:text-slate-400 whitespace-nowrap max-w-[120px] truncate"
                           >
                             {cell}
                           </td>
@@ -539,7 +539,7 @@ export default function DataImportPage() {
             <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
               Expected CSV Format
             </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-500 leading-relaxed">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
               Headers:{" "}
               <code className="text-violet-400/70">
                 name, license_number, type, company, city, state, zip, county,

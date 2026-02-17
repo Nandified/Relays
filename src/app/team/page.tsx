@@ -77,8 +77,8 @@ export default function TeamPage() {
                 {filledCount}/{totalRoles}
               </div>
             </div>
-            <div className="mt-2 text-xs text-slate-600 dark:text-slate-500 tabular-nums">{filledCount} of {totalRoles} roles filled</div>
-            <div className="mt-1 text-[11px] text-slate-600 dark:text-slate-500 tabular-nums">Your team is {filledCount}/{totalRoles} complete</div>
+            <div className="mt-2 text-xs text-slate-600 dark:text-slate-400 tabular-nums">{filledCount} of {totalRoles} roles filled</div>
+            <div className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 tabular-nums">Your team is {filledCount}/{totalRoles} complete</div>
           </div>
 
           <Link href="/marketplace">
@@ -96,7 +96,7 @@ export default function TeamPage() {
       <div className="space-y-8">
         {byRole.map(({ role, members }) => (
           <div key={role}>
-            <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">
+            <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">
               {role}
             </h2>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -115,15 +115,15 @@ export default function TeamPage() {
                             <span className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{pro.name}</span>
                             {pro.verified && <Badge variant="success" className="text-[10px]">✓</Badge>}
                           </div>
-                          <div className="truncate text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
+                          <div className="truncate text-xs text-slate-600 dark:text-slate-400">{pro.companyName}</div>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="flex items-center gap-0.5 text-xs text-slate-600 dark:text-slate-500">
+                            <span className="flex items-center gap-0.5 text-xs text-slate-600 dark:text-slate-400">
                               <svg width="10" height="10" fill="#f59e0b" viewBox="0 0 20 20">
                                 <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                               </svg>
                               {pro.rating.toFixed(1)}
                             </span>
-                            <span className="text-xs text-slate-500 dark:text-slate-500">{pro.reviewCount} reviews</span>
+                            <span className="text-xs text-slate-500 dark:text-slate-400">{pro.reviewCount} reviews</span>
                           </div>
                         </div>
                         <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
@@ -142,7 +142,7 @@ export default function TeamPage() {
       {/* Empty role slots */}
       {emptyRoles.length > 0 && (
         <div className="mt-10">
-          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">
             Still Looking For
           </h2>
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -157,7 +157,7 @@ export default function TeamPage() {
                     </div>
                     <div>
                       <div className="text-sm font-medium text-slate-700 dark:text-slate-300">{role}</div>
-                      <div className="text-xs text-slate-500 dark:text-slate-500">{emptyRoleCopy[role]}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">{emptyRoleCopy[role]}</div>
                     </div>
                   </div>
                 </Card>

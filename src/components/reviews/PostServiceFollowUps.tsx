@@ -35,7 +35,7 @@ export function PostServiceFollowUps({ followUps }: PostServiceFollowUpsProps) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider flex items-center gap-2">
+      <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
         <svg
           width="14"
           height="14"

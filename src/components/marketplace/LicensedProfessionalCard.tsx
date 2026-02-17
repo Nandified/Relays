@@ -66,7 +66,7 @@ export function LicensedProfessionalCard({
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{professional.name}</div>
-                <div className="truncate text-xs text-slate-600 dark:text-slate-500">
+                <div className="truncate text-xs text-slate-600 dark:text-slate-400">
                   {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
                   {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
                   {professional.state ? `, ${professional.state}` : ""}
@@ -78,7 +78,7 @@ export function LicensedProfessionalCard({
               <Badge variant="outline" className="opacity-70">{professional.category}</Badge>
             </div>
 
-            <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
+            <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
               {professional.city && (
                 <span>{professional.city}, {professional.state}</span>
               )}

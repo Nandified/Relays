@@ -20,7 +20,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
         <div className="text-center">
           <div className="text-4xl mb-3">🔗</div>
           <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Request not found</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-500 mb-4">This connect request may have expired.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">This connect request may have expired.</p>
           <Link href="/messages"><Button>Back to Messages</Button></Link>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
   return (
     <div className="mx-auto max-w-lg px-4 py-6">
       {/* Back */}
-      <Link href="/messages" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-6">
+      <Link href="/messages" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-6">
         <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M15 19l-7-7 7-7" />
         </svg>
@@ -72,14 +72,14 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
             >
               {status === "pending" ? "⏳ Awaiting Response" : status === "accepted" ? "✓ Accepted" : "✗ Declined"}
             </Badge>
-            <span className="text-[11px] text-slate-500 dark:text-slate-500">
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
               {new Date(request.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
             </span>
           </div>
 
           {/* To */}
           <div className="mb-4">
-            <span className="text-[11px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-medium">To</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400 uppercase tracking-wider font-medium">To</span>
             <div className="mt-1.5 flex items-center gap-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] p-3">
               {pro && (
                 <>
@@ -88,7 +88,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{pro.name}</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName} • {pro.categories[0]}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">{pro.companyName} • {pro.categories[0]}</p>
                   </div>
                 </>
               )}
@@ -98,7 +98,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
           {/* Journey context */}
           {journey && (
             <div className="mb-4">
-              <span className="text-[11px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-medium">Regarding</span>
+              <span className="text-[11px] text-slate-600 dark:text-slate-400 uppercase tracking-wider font-medium">Regarding</span>
               <div className="mt-1.5 flex items-center gap-2 rounded-xl bg-blue-500/[0.04] border border-blue-500/10 p-3">
                 <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -110,7 +110,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
 
           {/* Message */}
           <div className="mb-4">
-            <span className="text-[11px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-medium">Your Message</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400 uppercase tracking-wider font-medium">Your Message</span>
             <div className="mt-1.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] p-3">
               <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{request.message}</p>
             </div>
@@ -118,7 +118,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
 
           {/* Preferred contact */}
           <div className="mb-6">
-            <span className="text-[11px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-medium">Preferred Contact</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400 uppercase tracking-wider font-medium">Preferred Contact</span>
             <div className="mt-1.5">
               <Badge variant="outline">
                 {request.preferredContact === "in_app" ? "💬 In-App Messaging" : request.preferredContact === "email" ? "📧 Email" : "📱 Phone"}
@@ -130,7 +130,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
           {status === "pending" && (
             <div className="rounded-xl bg-amber-500/[0.04] border border-amber-500/10 p-3.5 text-center">
               <p className="text-sm text-amber-300/90">Waiting for {request.proName} to respond…</p>
-              <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">Pros typically respond within 24 hours</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Pros typically respond within 24 hours</p>
             </div>
           )}
 
@@ -138,7 +138,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
             <div className="space-y-3">
               <div className="rounded-xl bg-emerald-500/[0.04] border border-emerald-500/10 p-3.5 text-center">
                 <p className="text-sm text-emerald-400">🎉 {request.proName} accepted your request!</p>
-                <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">You can now message them directly.</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">You can now message them directly.</p>
               </div>
               <Link href="/messages/conv_1">
                 <Button className="w-full">Open Conversation</Button>
@@ -150,7 +150,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
             <div className="space-y-3">
               <div className="rounded-xl bg-red-500/[0.04] border border-red-500/10 p-3.5 text-center">
                 <p className="text-sm text-red-400">{request.proName} isn&apos;t available right now.</p>
-                <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">Try another professional from the marketplace.</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Try another professional from the marketplace.</p>
               </div>
               <Link href="/marketplace">
                 <Button variant="secondary" className="w-full">Browse Marketplace</Button>
@@ -160,7 +160,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
 
           {/* Demo controls */}
           <div className="mt-6 pt-4 border-t border-[var(--border)]">
-            <p className="text-[10px] text-slate-500 dark:text-slate-500 mb-2 text-center">Demo: simulate response</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-2 text-center">Demo: simulate response</p>
             <div className="flex gap-2">
               <button
                 onClick={() => setStatus("accepted")}

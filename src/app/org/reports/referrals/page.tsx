@@ -116,7 +116,7 @@ export default function ReferralRoutingReport() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Referral Routing</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">Track who refers whom and conversion rates</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Track who refers whom and conversion rates</p>
         </div>
         <Button variant="secondary">
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="mr-1.5">
@@ -129,15 +129,15 @@ export default function ReferralRoutingReport() {
       {/* Summary Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="text-center">
-          <p className="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider">Total Referrals</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">Total Referrals</p>
           <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{totalReferrals}</p>
         </Card>
         <Card className="text-center">
-          <p className="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider">Avg Conversion</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">Avg Conversion</p>
           <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{Math.round(avgConversion * 100)}%</p>
         </Card>
         <Card className="text-center">
-          <p className="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider">Unique Partners</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">Unique Partners</p>
           <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{partnerTotals.size}</p>
         </Card>
       </div>
@@ -182,7 +182,7 @@ export default function ReferralRoutingReport() {
               />
             ))}
             {topPartners.length === 0 && (
-              <p className="text-sm text-slate-600 dark:text-slate-500 text-center py-6">No data</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 text-center py-6">No data</p>
             )}
           </div>
         </Card>
@@ -201,7 +201,7 @@ export default function ReferralRoutingReport() {
               />
             ))}
             {agentBreakdown.length === 0 && (
-              <p className="text-sm text-slate-600 dark:text-slate-500 text-center py-6">No data</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 text-center py-6">No data</p>
             )}
           </div>
         </Card>
@@ -216,12 +216,12 @@ export default function ReferralRoutingReport() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[var(--border)]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Agent</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Partner</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden sm:table-cell">Category</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Count</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden md:table-cell">Conversion</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden lg:table-cell">Last Referral</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Agent</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Partner</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden sm:table-cell">Category</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Count</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden md:table-cell">Conversion</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider hidden lg:table-cell">Last Referral</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -241,7 +241,7 @@ export default function ReferralRoutingReport() {
                     <ConversionBadge rate={ref.conversionRate} />
                   </td>
                   <td className="px-4 py-3 text-right hidden lg:table-cell">
-                    <span className="text-xs text-slate-600 dark:text-slate-500 tabular-nums">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 tabular-nums">
                       {new Date(ref.lastReferralAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                   </td>
@@ -249,7 +249,7 @@ export default function ReferralRoutingReport() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-slate-600 dark:text-slate-500">
+                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-slate-600 dark:text-slate-400">
                     No referral data for selected filters
                   </td>
                 </tr>

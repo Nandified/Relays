@@ -36,7 +36,7 @@ function PricingCard({
 
       <div className="mb-5">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{tier.name}</h3>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">{tier.description}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{tier.description}</p>
       </div>
 
       <div className="mb-6">
@@ -45,7 +45,7 @@ function PricingCard({
             {isFree ? "Free" : `$${price}`}
           </span>
           {!isFree && (
-            <span className="text-sm text-slate-600 dark:text-slate-500">/mo</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400">/mo</span>
           )}
         </div>
         {!isFree && annual && (
@@ -54,7 +54,7 @@ function PricingCard({
           </p>
         )}
         {!isFree && !annual && (
-          <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-1">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
             or ${tier.annualPrice}/mo billed annually
           </p>
         )}
@@ -77,7 +77,7 @@ function PricingCard({
                 <path stroke="rgba(100,116,139,0.3)" strokeWidth="2" d="M5 10h10" />
               </svg>
             )}
-            <span className={`text-sm ${feat.included ? (feat.highlight ? "text-slate-900 dark:text-slate-100 font-medium" : "text-slate-700 dark:text-slate-300") : "text-slate-500 dark:text-slate-500"}`}>
+            <span className={`text-sm ${feat.included ? (feat.highlight ? "text-slate-900 dark:text-slate-100 font-medium" : "text-slate-700 dark:text-slate-300") : "text-slate-500 dark:text-slate-400"}`}>
               {feat.text}
             </span>
           </div>
@@ -108,7 +108,7 @@ function FAQAccordion({ question, answer }: { question: string; answer: string }
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between py-4 text-left cursor-pointer group"
       >
-        <span className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-600 dark:group-hover:text-white transition-colors pr-4">{question}</span>
+        <span className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-white transition-colors pr-4">{question}</span>
         <svg
           width="16"
           height="16"
@@ -116,7 +116,7 @@ function FAQAccordion({ question, answer }: { question: string; answer: string }
           stroke="currentColor"
           strokeWidth="2"
           viewBox="0 0 24 24"
-          className={`flex-shrink-0 text-slate-600 dark:text-slate-500 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`flex-shrink-0 text-slate-600 dark:text-slate-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         >
           <path d="M6 9l6 6 6-6" />
         </svg>
@@ -160,7 +160,7 @@ export default function PricingPage() {
                 className={`rounded-xl px-4 py-2 text-sm font-medium transition-all ${
                   !annual
                     ? "bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm"
-                    : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                 }`}
               >
                 Monthly
@@ -170,7 +170,7 @@ export default function PricingPage() {
                 className={`rounded-xl px-4 py-2 text-sm font-medium transition-all flex items-center gap-2 ${
                   annual
                     ? "bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm"
-                    : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                 }`}
               >
                 Annual
@@ -244,7 +244,7 @@ export default function PricingPage() {
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           ) : v === "—" ? (
-                            <span className="text-slate-500 dark:text-slate-500">—</span>
+                            <span className="text-slate-500 dark:text-slate-400">—</span>
                           ) : (
                             <span className="text-slate-700 dark:text-slate-300 font-medium">{v}</span>
                           )}

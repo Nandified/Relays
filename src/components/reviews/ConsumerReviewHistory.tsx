@@ -45,10 +45,10 @@ export function ConsumerReviewHistory({
     return (
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6 text-center">
         <div className="text-3xl mb-2">📝</div>
-        <p className="text-sm text-slate-600 dark:text-slate-500">
+        <p className="text-sm text-slate-600 dark:text-slate-400">
           You haven&apos;t written any reviews yet
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           After a booking or journey, you&apos;ll be prompted to review your
           pros
         </p>
@@ -98,7 +98,7 @@ export function ConsumerReviewHistory({
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
                     <StarRating rating={review.rating} size={12} />
-                    <span className="text-[11px] text-slate-500 dark:text-slate-500">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
                       {timeAgo(review.createdAt)}
                     </span>
                   </div>
@@ -124,7 +124,7 @@ export function ConsumerReviewHistory({
                 </div>
               )}
               {!editable && (
-                <span className="text-[10px] text-slate-500 dark:text-slate-500 flex-shrink-0">
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 flex-shrink-0">
                   Edit window closed
                 </span>
               )}
@@ -148,7 +148,7 @@ export function ConsumerReviewHistory({
                 </Badge>
               )}
               {review.helpful > 0 && (
-                <span className="text-[11px] text-slate-500 dark:text-slate-500">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
                   {review.helpful} people found this helpful
                 </span>
               )}

@@ -29,11 +29,11 @@ function ChecklistItem({ item, checked, onToggle }: { item: PostCloseChecklistIt
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="text-base">{item.icon}</span>
-          <h4 className={`text-sm font-medium transition-all ${checked ? "text-slate-600 dark:text-slate-500 line-through" : "text-slate-800 dark:text-slate-200"}`}>
+          <h4 className={`text-sm font-medium transition-all ${checked ? "text-slate-600 dark:text-slate-400 line-through" : "text-slate-800 dark:text-slate-200"}`}>
             {item.title}
           </h4>
         </div>
-        <p className="text-xs text-slate-600 dark:text-slate-500 mt-1 leading-relaxed">{item.description}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{item.description}</p>
         {item.link && item.linkLabel && !checked && (
           <a
             href={item.link}

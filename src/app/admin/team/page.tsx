@@ -104,7 +104,7 @@ export default function AdminTeamPage() {
           return (
             <div key={role} className="rounded-2xl border border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] p-3 text-center">
               <div className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">{count}</div>
-              <div className="text-[10px] text-slate-600 dark:text-slate-500 uppercase tracking-wide">{ROLE_LABELS[role]}s</div>
+              <div className="text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-wide">{ROLE_LABELS[role]}s</div>
             </div>
           );
         })}
@@ -137,19 +137,19 @@ export default function AdminTeamPage() {
                       </svg>
                     )}
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{member.email}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{member.email}</p>
                 </div>
 
                 {/* Meta */}
                 <div className="text-right hidden sm:block">
-                  <div className="text-xs text-slate-600 dark:text-slate-500">Last active {formatTimeAgo(member.lastActiveAt)}</div>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-500 mt-0.5">Joined {formatDate(member.joinedAt)}</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-400">Last active {formatTimeAgo(member.lastActiveAt)}</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Joined {formatDate(member.joinedAt)}</div>
                 </div>
 
                 {/* Expand arrow */}
                 <svg
                   width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-                  className={`text-slate-500 dark:text-slate-500 transition-transform ${isExpanded ? "rotate-90" : ""}`}
+                  className={`text-slate-500 dark:text-slate-400 transition-transform ${isExpanded ? "rotate-90" : ""}`}
                 >
                   <path d="M9 5l7 7-7 7" />
                 </svg>
@@ -158,7 +158,7 @@ export default function AdminTeamPage() {
                 {member.role !== "super_admin" && (
                   <button
                     onClick={(e) => { e.stopPropagation(); handleRemove(member.id); }}
-                    className="rounded-xl p-2 text-slate-500 dark:text-slate-500 hover:bg-red-500/10 hover:text-red-400 transition-colors"
+                    className="rounded-xl p-2 text-slate-500 dark:text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-colors"
                     title="Remove member"
                   >
                     <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -171,7 +171,7 @@ export default function AdminTeamPage() {
               {/* Activity Log (expandable) */}
               {isExpanded && member.activityLog.length > 0 && (
                 <div className="border-t border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] px-4 py-3 animate-in">
-                  <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide mb-2">Activity Log</div>
+                  <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">Activity Log</div>
                   <div className="space-y-2">
                     {member.activityLog.map((entry) => (
                       <div key={entry.id} className="flex items-start gap-3">
@@ -179,9 +179,9 @@ export default function AdminTeamPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{entry.action}</span>
-                            <span className="text-[10px] text-slate-500 dark:text-slate-500">{formatTimeAgo(entry.timestamp)}</span>
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400">{formatTimeAgo(entry.timestamp)}</span>
                           </div>
-                          <p className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{entry.details}</p>
+                          <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">{entry.details}</p>
                         </div>
                       </div>
                     ))}
@@ -189,7 +189,7 @@ export default function AdminTeamPage() {
                 </div>
               )}
               {isExpanded && member.activityLog.length === 0 && (
-                <div className="border-t border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] px-4 py-4 text-xs text-slate-500 dark:text-slate-500 text-center">
+                <div className="border-t border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] px-4 py-4 text-xs text-slate-500 dark:text-slate-400 text-center">
                   No activity recorded yet.
                 </div>
               )}
@@ -204,19 +204,19 @@ export default function AdminTeamPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
           <div>
             <Badge variant="accent" className="mb-2">Super Admin</Badge>
-            <p className="text-slate-600 dark:text-slate-500 leading-relaxed">Full access including team management, billing, and destructive actions.</p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Full access including team management, billing, and destructive actions.</p>
           </div>
           <div>
             <Badge variant="accent" className="mb-2">Admin</Badge>
-            <p className="text-slate-600 dark:text-slate-500 leading-relaxed">Full access to all settings, categories, verification queue, and data import.</p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Full access to all settings, categories, verification queue, and data import.</p>
           </div>
           <div>
             <Badge variant="success" className="mb-2">Support</Badge>
-            <p className="text-slate-600 dark:text-slate-500 leading-relaxed">Manage verifications, view metrics, handle support requests.</p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Manage verifications, view metrics, handle support requests.</p>
           </div>
           <div>
             <Badge variant="default" className="mb-2">Viewer</Badge>
-            <p className="text-slate-600 dark:text-slate-500 leading-relaxed">Read-only access to dashboard and metrics. Cannot modify data.</p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Read-only access to dashboard and metrics. Cannot modify data.</p>
           </div>
         </div>
       </div>

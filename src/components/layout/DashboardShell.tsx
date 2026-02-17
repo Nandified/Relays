@@ -58,7 +58,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
                   key={item.href}
                   href={item.href}
                   className={`flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-medium ${
-                    active ? "text-blue-400" : "text-slate-600 dark:text-slate-500"
+                    active ? "text-blue-400" : "text-slate-600 dark:text-slate-400"
                   }`}
                 >
                   {item.icon}

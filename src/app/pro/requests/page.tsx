@@ -41,9 +41,9 @@ export default function ProRequestsPage() {
                     {req.status.charAt(0).toUpperCase() + req.status.slice(1)}
                   </Badge>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-500">{req.clientEmail}</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400">{req.clientEmail}</p>
                 <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">{req.description}</p>
-                <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
+                <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
                   <span>{req.category}</span>
                   <span>•</span>
                   <span>{req.addressOrArea}</span>
@@ -73,7 +73,7 @@ export default function ProRequestsPage() {
 
         {filtered.length === 0 && (
           <Card padding="lg" className="text-center">
-            <p className="text-sm text-slate-600 dark:text-slate-500">No {tab} requests</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">No {tab} requests</p>
           </Card>
         )}
       </div>

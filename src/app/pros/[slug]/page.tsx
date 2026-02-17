@@ -49,7 +49,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
+      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
@@ -80,7 +80,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{professional.name}</h1>
-                <p className="text-sm text-slate-600 dark:text-slate-500">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {professional.officeName || professional.company || "Independent professional"}
                 </p>
               </div>
@@ -92,11 +92,11 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
                 <>
                   <Stars rating={professional.rating ?? 0} />
                   <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
-                  <span className="text-sm text-slate-600 dark:text-slate-500">({professional.reviewCount} reviews)</span>
+                  <span className="text-sm text-slate-600 dark:text-slate-400">({professional.reviewCount} reviews)</span>
                   <GoogleG className="opacity-60" />
                 </>
               ) : (
-                <span className="text-sm text-slate-600 dark:text-slate-500">No reviews yet</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">No reviews yet</span>
               )}
             </div>
           </div>
@@ -115,7 +115,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
         {/* About */}
         <div className="mt-6">
           <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">About</h2>
-          <p className="text-sm text-slate-600 dark:text-slate-500 italic leading-relaxed">This professional hasn&apos;t added a bio yet.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 italic leading-relaxed">This professional hasn&apos;t added a bio yet.</p>
         </div>
 
         {/* Services */}
@@ -134,12 +134,12 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
               {serviceAreaParts.map((area, i) => (
                 <span key={area}>
                   <span className="text-sm text-slate-600 dark:text-slate-400">{area}</span>
-                  {i < serviceAreaParts.length - 1 && <span className="text-slate-500 dark:text-slate-500 ml-2">•</span>}
+                  {i < serviceAreaParts.length - 1 && <span className="text-slate-500 dark:text-slate-400 ml-2">•</span>}
                 </span>
               ))}
             </div>
           ) : (
-            <p className="text-sm text-slate-600 dark:text-slate-500">Service areas not listed.</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">Service areas not listed.</p>
           )}
         </div>
 
@@ -150,7 +150,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
             <div className="space-y-2">
               {professional.phone && (
                 <div className="flex items-center gap-3 text-sm">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600 dark:text-slate-500">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600 dark:text-slate-400">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                   </svg>
                   <a href={`tel:${professional.phone}`} className="text-blue-400 hover:underline">{professional.phone}</a>
@@ -158,7 +158,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
               )}
               {professional.website && (
                 <div className="flex items-center gap-3 text-sm">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600 dark:text-slate-500">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600 dark:text-slate-400">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
                     <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
@@ -183,27 +183,27 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
           <div className="flex items-center gap-2">
             <Stars rating={professional.rating ?? 0} size={14} />
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
-            <span className="text-sm text-slate-600 dark:text-slate-500">({professional.reviewCount} reviews)</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400">({professional.reviewCount} reviews)</span>
 
             {googleMapsUrl ? (
               <a
                 href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
               >
                 <GoogleG className="opacity-60" />
                 <span>Google Reviews</span>
               </a>
             ) : (
-              <span className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500">
+              <span className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
                 <GoogleG className="opacity-60" />
                 <span>Google Reviews</span>
               </span>
             )}
           </div>
         ) : (
-          <p className="text-sm text-slate-600 dark:text-slate-500">No reviews yet</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400">No reviews yet</p>
         )}
       </Card>
     </main>

@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tell Tailwind v4 to use .dark class instead of prefers-color-scheme */
+@custom-variant dark (&:is(.dark *));
+
 /* ── Light Mode (default) ─────────────────────────────────────── */
 :root {
   /* Backgrounds — clean white/off-white */
@@ -71,8 +74,8 @@
   /* Text */
   --text: #f1f5f9;
   --text-muted: #94a3b8;
-  --text-secondary: #64748b;
-  --text-dim: #475569;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
 
   /* Accent */
   --accent: #3b82f6;

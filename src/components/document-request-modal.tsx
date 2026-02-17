@@ -93,7 +93,7 @@ export function DocumentRequestModal({
                 </svg>
               </div>
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Document Requested</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                 Your client will be notified to upload the document.
               </p>
             </div>
@@ -103,13 +103,13 @@ export function DocumentRequestModal({
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Request Document</h2>
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
                     Select a document type and add an optional note
                   </p>
                 </div>
                 <button
                   onClick={onClose}
-                  className="rounded-full p-1 text-slate-600 dark:text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300"
+                  className="rounded-full p-1 text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300"
                 >
                   <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M18 6L6 18M6 6l12 12" />
@@ -142,7 +142,7 @@ export function DocumentRequestModal({
                           <span className={`text-sm font-medium ${isSelected ? "text-blue-600 dark:text-blue-300" : "text-slate-700 dark:text-slate-300"}`}>
                             {meta.label}
                           </span>
-                          <span className="text-[11px] text-slate-500 dark:text-slate-500 block">{meta.description}</span>
+                          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{meta.description}</span>
                         </div>
                         {isSelected && (
                           <svg width="16" height="16" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24" className="flex-shrink-0">
@@ -153,7 +153,7 @@ export function DocumentRequestModal({
                     );
                   })}
                   {availableCategories.length === 0 && (
-                    <p className="text-sm text-slate-600 dark:text-slate-500 text-center py-4">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 text-center py-4">
                       All document types have been added to this journey.
                     </p>
                   )}

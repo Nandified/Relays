@@ -75,7 +75,7 @@ export function SiteHeader() {
 
           {isAuthed ? (
             <div className="hidden items-center gap-2 md:flex ml-2">
-              <span className="text-xs text-slate-600 dark:text-slate-500">{state.user.email}</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400">{state.user.email}</span>
               <Button variant="ghost" size="sm" onClick={logout}>
                 Log out
               </Button>
@@ -140,7 +140,7 @@ export function SiteHeader() {
               </div>
               {isAuthed ? (
                 <>
-                  <div className="px-3 py-1.5 text-xs text-slate-600 dark:text-slate-500">{state.user.email}</div>
+                  <div className="px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400">{state.user.email}</div>
                   <button onClick={() => { logout(); setMobileOpen(false); }} className="w-full rounded-xl px-3 py-2 text-left text-sm text-red-400 hover:bg-red-500/10">
                     Log out
                   </button>

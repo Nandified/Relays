@@ -224,14 +224,14 @@ export function SearchSuggestions({
         {showNoResults && (
           <div className="px-4 py-6 text-center">
             <div className="text-sm font-medium text-slate-600 dark:text-slate-400">No professionals found</div>
-            <div className="mt-1 text-xs text-slate-500 dark:text-slate-500">Try different terms or browse all categories</div>
+            <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">Try different terms or browse all categories</div>
           </div>
         )}
 
         {/* Relays pros section */}
         {!loading && matchedPros.length > 0 && (
           <div className="py-1.5">
-            <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500">
+            <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
               On Relays
             </div>
             {matchedPros.map((pro, i) => {
@@ -258,7 +258,7 @@ export function SearchSuggestions({
                         <span className="flex-shrink-0 text-[10px] text-emerald-400">✓</span>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
+                    <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                       <span className="truncate">{pro.companyName}</span>
                       <span className="flex-shrink-0">·</span>
                       <span className="flex-shrink-0">{pro.categories[0]}</span>
@@ -285,7 +285,7 @@ export function SearchSuggestions({
               <div className="mx-3 mb-1.5 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                 Licensed Professionals
               </span>
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-40">
@@ -323,7 +323,7 @@ export function SearchSuggestions({
                         Licensed
                       </span>
                     </div>
-                    <div className="truncate text-xs text-slate-600 dark:text-slate-500">
+                    <div className="truncate text-xs text-slate-600 dark:text-slate-400">
                       {prof.category}
                       {prof.officeName ? ` · ${prof.officeName}` : ""}
                       {prof.city ? ` · ${prof.city}, ${prof.state}` : ""}
@@ -343,7 +343,7 @@ export function SearchSuggestions({
               <div className="mx-3 mb-1.5 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                 {matchedPros.length === 0 && matchedLicensed.length === 0 ? "Not on Relays yet — invite them!" : "More from Google"}
               </span>
               <svg width="12" height="12" viewBox="0 0 24 24" className="opacity-50">
@@ -379,7 +379,7 @@ export function SearchSuggestions({
                         Unclaimed
                       </span>
                     </div>
-                    <div className="truncate text-xs text-slate-600 dark:text-slate-500">{place.address}</div>
+                    <div className="truncate text-xs text-slate-600 dark:text-slate-400">{place.address}</div>
                   </div>
                   {/* Rating */}
                   <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-600 dark:text-slate-400">
@@ -405,7 +405,7 @@ export function SearchSuggestions({
                 w-full px-3 py-2.5 text-center text-xs font-medium transition-colors
                 ${activeIndex === matchedPros.length + matchedLicensed.length + matchedPlaces.length
                   ? "bg-black/[0.08] dark:bg-white/[0.08] text-blue-400"
-                  : "text-slate-600 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
+                  : "text-slate-600 dark:text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
               `}
             >
               Browse all professionals →

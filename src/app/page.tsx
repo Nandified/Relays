@@ -286,8 +286,8 @@ export default function HomePage() {
                   </svg>
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{t.quote}</p>
                   <div className="mt-4 border-t border-[var(--border)] pt-3">
-                    <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">{t.name}</div>
-                    <div className="text-xs text-slate-500 dark:text-slate-500">{t.role}</div>
+                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t.name}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">{t.role}</div>
                   </div>
                 </div>
               </AnimatedSection>
@@ -318,7 +318,7 @@ export default function HomePage() {
                       </svg>
                       Free Forever
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
                       Are you a real estate professional?
                     </h2>
                     <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -374,7 +374,7 @@ export default function HomePage() {
                   </Link>
                   <Link
                     href="/signup"
-                    className="hover-scale inline-flex items-center justify-center rounded-2xl border border-black/10 dark:border-white/20 px-6 py-3 text-base font-medium text-slate-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all"
+                    className="hover-scale inline-flex items-center justify-center rounded-2xl border border-slate-300 dark:border-white/30 bg-white/80 dark:bg-white/10 px-6 py-3 text-base font-medium text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/20 transition-all"
                   >
                     List Your Business
                   </Link>

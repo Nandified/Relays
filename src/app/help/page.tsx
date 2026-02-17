@@ -95,12 +95,12 @@ function FAQAccordion({ faq }: { faq: FAQItem }) {
   return (
     <div className="border-b border-[var(--border)] last:border-b-0">
       <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between py-4 text-left cursor-pointer group">
-        <span className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-600 dark:group-hover:text-white transition-colors pr-4">
+        <span className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-white transition-colors pr-4">
           {faq.question}
         </span>
         <svg
           width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-          className={`flex-shrink-0 text-slate-600 dark:text-slate-500 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`flex-shrink-0 text-slate-600 dark:text-slate-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         >
           <path d="M6 9l6 6 6-6" />
         </svg>
@@ -148,7 +148,7 @@ export default function HelpPage() {
 
             {/* Search */}
             <div className="mt-8 max-w-md mx-auto relative">
-              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-500">
+              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-400">
                 <circle cx="11" cy="11" r="8" />
                 <path d="M21 21l-4.35-4.35" />
               </svg>
@@ -197,7 +197,7 @@ export default function HelpPage() {
                 <ol className="space-y-2">
                   {guide.steps.map((s, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black/5 dark:bg-white/5 text-[10px] font-bold text-slate-600 dark:text-slate-500 flex-shrink-0 mt-0.5">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black/5 dark:bg-white/5 text-[10px] font-bold text-slate-600 dark:text-slate-400 flex-shrink-0 mt-0.5">
                         {i + 1}
                       </span>
                       {s}
@@ -311,8 +311,8 @@ export default function HelpPage() {
             ].map((item) => (
               <Link key={item.title} href={item.link} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-5 hover:border-[var(--border-hover)] transition-all hover-lift group">
                 <span className="text-2xl">{item.icon}</span>
-                <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-3 group-hover:text-blue-600 dark:group-hover:text-blue-600 dark:group-hover:text-white transition-colors">{item.title}</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">{item.desc}</p>
+                <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-3 group-hover:text-blue-600 dark:group-hover:text-white transition-colors">{item.title}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{item.desc}</p>
               </Link>
             ))}
           </div>

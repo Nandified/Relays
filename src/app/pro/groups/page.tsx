@@ -103,11 +103,11 @@ function GroupCard({ group }: { group: CuratedGroup }) {
                   )}
                 </div>
                 {group.description && (
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5 line-clamp-1">{group.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-1">{group.description}</p>
                 )}
               </div>
             </div>
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-500 flex-shrink-0 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition-colors mt-1">
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-400 flex-shrink-0 group-hover:text-slate-500 dark:group-hover:text-slate-200 transition-colors mt-1">
               <path d="M9 5l7 7-7 7" />
             </svg>
           </div>
@@ -140,7 +140,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
                   );
                 })}
               </div>
-              <span className="text-[11px] text-slate-600 dark:text-slate-500">{partnerCount} partner{partnerCount !== 1 ? "s" : ""}</span>
+              <span className="text-[11px] text-slate-600 dark:text-slate-400">{partnerCount} partner{partnerCount !== 1 ? "s" : ""}</span>
             </div>
 
             {/* Avatar stack */}
@@ -157,7 +157,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
                 );
               })}
               {previewPartners.length > 4 && (
-                <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)] text-[9px] text-slate-600 dark:text-slate-500">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-[var(--bg-card)] bg-[var(--bg-elevated)] text-[9px] text-slate-600 dark:text-slate-400">
                   +{previewPartners.length - 4}
                 </div>
               )}
@@ -166,7 +166,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
 
           {/* Share link preview */}
           <div className="mt-3 pt-3 border-t border-[var(--border)]">
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-500 font-mono">
+            <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400 font-mono">
               <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="flex-shrink-0">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
@@ -240,7 +240,7 @@ function CreateGroupModal({
                   className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium border transition-all duration-200 ${
                     isSelected
                       ? `${meta.bgColor} ${meta.color} ring-1 ring-current/20`
-                      : "border-[var(--border)] text-slate-600 dark:text-slate-500 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
+                      : "border-[var(--border)] text-slate-600 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
                   }`}
                 >
                   <span>{meta.icon}</span>
@@ -272,7 +272,7 @@ function CreateGroupModal({
         {/* Preview slug */}
         {name.trim() && (
           <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-[var(--border)] p-3">
-            <div className="text-[10px] text-slate-600 dark:text-slate-500 mb-1">Share link preview</div>
+            <div className="text-[10px] text-slate-600 dark:text-slate-400 mb-1">Share link preview</div>
             <div className="text-xs text-slate-600 dark:text-slate-400 font-mono">
               relaysapp.com/u/lisahartwell/
               <span className="text-blue-400">
@@ -319,7 +319,7 @@ export default function ProGroupsPage() {
         <div>
           <Link
             href="/pro/dashboard"
-            className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-3"
+            className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-3"
           >
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M15 19l-7-7 7-7" />
@@ -361,17 +361,17 @@ export default function ProGroupsPage() {
       <div className="grid grid-cols-3 gap-3 mb-8">
         <Card padding="md">
           <div className="text-2xl font-bold text-blue-400">{groups.length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Groups</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Groups</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-emerald-400">
             {groups.reduce((sum, g) => sum + getGroupPartnerCount(g), 0)}
           </div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Total Partners</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Total Partners</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-amber-400">{groups.length}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Share Links</div>
+          <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Share Links</div>
         </Card>
       </div>
 
@@ -387,12 +387,12 @@ export default function ProGroupsPage() {
           className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] p-8 hover:border-[var(--border-hover)] hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all duration-300 cursor-pointer group"
         >
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border)] group-hover:border-blue-500/30 group-hover:bg-blue-500/5 transition-all duration-300 mb-3">
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="text-slate-600 dark:text-slate-500 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="text-slate-600 dark:text-slate-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
               <path d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <span className="text-sm text-slate-600 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Create a new group</span>
-          <span className="text-[11px] text-slate-500 dark:text-slate-500 mt-0.5">Add partners by lead source, language, or scenario</span>
+          <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Create a new group</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Add partners by lead source, language, or scenario</span>
         </button>
       </div>
 

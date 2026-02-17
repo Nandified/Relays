@@ -106,7 +106,7 @@ export default function ProVerificationPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="mb-8">
-        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-4">
+        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 mb-4">
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
@@ -120,15 +120,15 @@ export default function ProVerificationPage() {
 
       {/* Demo scenario toggle */}
       <div className="mb-6 flex items-center gap-2 text-xs">
-        <span className="text-slate-500 dark:text-slate-500">Demo:</span>
+        <span className="text-slate-500 dark:text-slate-400">Demo:</span>
         <button
-          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "high" ? "border-blue-500/30 bg-blue-500/10 text-blue-400" : "border-[var(--border)] text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400"}`}
+          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "high" ? "border-blue-500/30 bg-blue-500/10 text-blue-400" : "border-[var(--border)] text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"}`}
           onClick={() => { setScenario("high"); resetFlow(); }}
         >
           High Confidence
         </button>
         <button
-          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "low" ? "border-amber-500/30 bg-amber-500/10 text-amber-400" : "border-[var(--border)] text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400"}`}
+          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "low" ? "border-amber-500/30 bg-amber-500/10 text-amber-400" : "border-[var(--border)] text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"}`}
           onClick={() => { setScenario("low"); resetFlow(); }}
         >
           Low Confidence
@@ -145,7 +145,7 @@ export default function ProVerificationPage() {
               </svg>
             </div>
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Upload Your License</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
               We&apos;ll automatically verify your document using AI. Most pros are verified instantly.
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function ProVerificationPage() {
             <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
               {isDragging ? "Drop your file here" : "Drop your license here, or click to browse"}
             </p>
-            <p className="text-xs text-slate-600 dark:text-slate-500 mt-2">
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
               Supports images (JPG, PNG) and PDFs • Max 10MB
             </p>
           </div>
@@ -206,7 +206,7 @@ export default function ProVerificationPage() {
         <Card padding="lg" className="animate-in">
           <div className="text-center mb-6">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Analyzing Document</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">Our AI is extracting and verifying your license details</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Our AI is extracting and verifying your license details</p>
           </div>
 
           <div className="relative rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] aspect-[4/3] mb-6">
@@ -282,7 +282,7 @@ export default function ProVerificationPage() {
                 {scanPhase === "analyzing" && "Extracting license data…"}
                 {scanPhase === "matching" && "Matching against profile…"}
               </span>
-              <span className="text-xs text-slate-600 dark:text-slate-500 font-mono">{Math.round(scanProgress)}%</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400 font-mono">{Math.round(scanProgress)}%</span>
             </div>
             <div className="h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
               <div
@@ -297,7 +297,7 @@ export default function ProVerificationPage() {
           </div>
 
           {fileName && (
-            <div className="mt-4 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-500">
+            <div className="mt-4 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
               </svg>
@@ -312,7 +312,7 @@ export default function ProVerificationPage() {
         <Card padding="lg" className="animate-in">
           <div className="text-center mb-6">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Extraction Complete</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">Here&apos;s what we found in your document</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Here&apos;s what we found in your document</p>
           </div>
 
           {/* Confidence meter */}
@@ -348,7 +348,7 @@ export default function ProVerificationPage() {
             {ocrFields.map((field) => (
               <div key={field.label} className="flex items-center justify-between p-3 rounded-xl border border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02]">
                 <div>
-                  <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">{field.label}</div>
+                  <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">{field.label}</div>
                   <div className="text-sm text-slate-800 dark:text-slate-200 font-mono mt-0.5">{field.value}</div>
                 </div>
                 <div className={`flex items-center gap-1.5 text-xs font-medium ${field.matched ? "text-emerald-400" : "text-amber-400"}`}>
@@ -382,7 +382,7 @@ export default function ProVerificationPage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-emerald-400">All checks passed!</p>
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Your license has been automatically verified</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Your license has been automatically verified</p>
                 </div>
               </div>
             </div>
@@ -396,7 +396,7 @@ export default function ProVerificationPage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-amber-400">Some fields couldn&apos;t be read clearly</p>
-                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">We&apos;ll submit this for manual review by our team</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">We&apos;ll submit this for manual review by our team</p>
                 </div>
               </div>
             </div>
@@ -444,7 +444,7 @@ export default function ProVerificationPage() {
                   <span className="text-base font-semibold text-slate-900 dark:text-slate-100">Alex Martinez</span>
                   <VerifiedBadge status="verified" size="md" />
                 </div>
-                <span className="text-xs text-slate-600 dark:text-slate-500">Blue Peak Inspections</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Blue Peak Inspections</span>
               </div>
             </div>
 
@@ -496,7 +496,7 @@ export default function ProVerificationPage() {
               <Link href="/pro/dashboard">
                 <Button size="lg" className="w-full">Back to Dashboard</Button>
               </Link>
-              <button onClick={resetFlow} className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors cursor-pointer">
+              <button onClick={resetFlow} className="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors cursor-pointer">
                 Try uploading a different document
               </button>
             </div>
