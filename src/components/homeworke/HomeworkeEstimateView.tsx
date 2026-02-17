@@ -8,7 +8,7 @@ import { mockHomeworkeEstimate, type HomeworkeRepairItem } from "@/lib/mock-data
 const priorityConfig: Record<string, { label: string; color: string; bg: string }> = {
   critical: { label: "Critical", color: "text-red-400", bg: "bg-red-500/10 border-red-500/20" },
   recommended: { label: "Recommended", color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/20" },
-  optional: { label: "Optional", color: "text-slate-500 dark:text-slate-400", bg: "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 border-slate-300 dark:border-slate-500/20" },
+  optional: { label: "Optional", color: "text-slate-600 dark:text-slate-400", bg: "bg-slate-200 dark:bg-slate-500/10 border-slate-300 dark:border-slate-500/20" },
 };
 
 const categoryIcons: Record<string, string> = {
@@ -56,12 +56,12 @@ function RepairItemCard({ item, selected, onToggle }: { item: HomeworkeRepairIte
               {p.label}
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.description}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-500 mt-1 leading-relaxed">{item.description}</p>
           <div className="flex items-center gap-4 mt-2">
             <span className="text-sm font-semibold text-amber-400">
               {formatCost(item.estimatedCostLow)} – {formatCost(item.estimatedCostHigh)}
             </span>
-            <span className="text-[11px] text-slate-500 dark:text-slate-600">⏱ {item.timelineEstimate}</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-500">⏱ {item.timelineEstimate}</span>
           </div>
         </div>
       </div>
@@ -104,10 +104,10 @@ export function HomeworkeEstimateView() {
               <Badge variant="success" className="text-[10px]">AI Estimate Ready</Badge>
             </div>
             <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Repair & Renovation Estimates</h3>
-            <p className="text-xs text-slate-500 mt-0.5">{estimate.propertyAddress}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{estimate.propertyAddress}</p>
           </div>
           <div className="text-right">
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider">Total Range</div>
+            <div className="text-[10px] text-slate-600 dark:text-slate-500 uppercase tracking-wider">Total Range</div>
             <div className="text-lg font-bold text-amber-400">
               {formatCost(estimate.totalLow)} – {formatCost(estimate.totalHigh)}
             </div>
@@ -120,7 +120,7 @@ export function HomeworkeEstimateView() {
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300">{estimate.items.length} items found</h4>
           <button
-            className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+            className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
             onClick={() => {
               if (selectedIds.size === estimate.items.length) {
                 setSelectedIds(new Set());
@@ -148,7 +148,7 @@ export function HomeworkeEstimateView() {
         <div className="sticky bottom-4 rounded-2xl border border-amber-500/20 bg-[var(--bg-card)]/95 backdrop-blur-xl p-4 shadow-[0_-8px_32px_rgba(0,0,0,0.3)] animate-in">
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
-              <div className="text-xs text-slate-500">{selectedIds.size} item{selectedIds.size > 1 ? "s" : ""} selected</div>
+              <div className="text-xs text-slate-600 dark:text-slate-500">{selectedIds.size} item{selectedIds.size > 1 ? "s" : ""} selected</div>
               <div className="text-lg font-bold text-amber-400">
                 {formatCost(selectedTotal.low)} – {formatCost(selectedTotal.high)}
               </div>

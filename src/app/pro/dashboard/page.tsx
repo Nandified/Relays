@@ -41,26 +41,26 @@ export default function ProDashboardPage() {
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Pro Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Welcome back! Here&apos;s what needs your attention.</p>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Welcome back! Here&apos;s what needs your attention.</p>
       </div>
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-8">
         <Card padding="md">
           <div className="text-2xl font-bold text-blue-400">{pending.length}</div>
-          <div className="text-xs text-slate-500 mt-1">New Leads</div>
+          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">New Leads</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-purple-400">{myJourneys.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Journeys</div>
+          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Journeys</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-red-400">{proMoments.urgent.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Actions Needed</div>
+          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Actions Needed</div>
         </Card>
         <Card padding="md">
           <div className="text-2xl font-bold text-slate-700 dark:text-slate-300">4.9</div>
-          <div className="text-xs text-slate-500 mt-1">Rating</div>
+          <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">Rating</div>
         </Card>
       </div>
 
@@ -126,7 +126,7 @@ export default function ProDashboardPage() {
           {/* Recent completions */}
           {proMoments.recent.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-[11px] text-emerald-400/80 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+              <h3 className="text-[11px] text-emerald-600 dark:text-emerald-400/80 uppercase tracking-wider font-semibold flex items-center gap-1.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 Recently Completed
               </h3>
@@ -148,9 +148,9 @@ export default function ProDashboardPage() {
       {/* Journey management section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Your Journeys</h2>
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Your Journeys</h2>
           <div className="flex items-center gap-2">
-            <Link href="/pro/journeys" className="text-xs text-blue-400 hover:underline">View all →</Link>
+            <Link href="/pro/journeys" className="text-xs text-blue-500 dark:text-blue-400 hover:underline">View all →</Link>
           </div>
         </div>
 
@@ -181,7 +181,7 @@ export default function ProDashboardPage() {
                             </Badge>
                           </div>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <p className="text-xs text-slate-500">
+                            <p className="text-xs text-slate-600 dark:text-slate-500">
                               {journey.client.name} • {journey.address}
                             </p>
                           </div>
@@ -218,7 +218,7 @@ export default function ProDashboardPage() {
           </div>
         ) : (
           <Card padding="lg" className="text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">Create your first journey to guide clients through the home buying process</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Create your first journey to guide clients through the home buying process</p>
             <Link href="/pro/journey/new"><Button>Create Journey</Button></Link>
           </Card>
         )}
@@ -238,8 +238,8 @@ export default function ProDashboardPage() {
       {/* Incoming leads */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Incoming Leads</h2>
-          <Link href="/pro/requests" className="text-xs text-blue-400 hover:underline">View all →</Link>
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Incoming Leads</h2>
+          <Link href="/pro/requests" className="text-xs text-blue-500 dark:text-blue-400 hover:underline">View all →</Link>
         </div>
         <div className="space-y-3">
           {pending.slice(0, 3).map((req) => (
@@ -251,8 +251,8 @@ export default function ProDashboardPage() {
                       <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{req.clientName}</span>
                       <Badge variant="warning">New</Badge>
                     </div>
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{req.description}</p>
-                    <div className="mt-1 text-xs text-slate-500">{req.addressOrArea} • {new Date(req.receivedAt).toLocaleDateString()}</div>
+                    <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{req.description}</p>
+                    <div className="mt-1 text-xs text-slate-600 dark:text-slate-500">{req.addressOrArea} • {new Date(req.receivedAt).toLocaleDateString()}</div>
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0">
                     <Button size="sm">Accept</Button>
@@ -269,7 +269,7 @@ export default function ProDashboardPage() {
       <div className="mb-8">
         {/* Demo toggle */}
         <div className="mb-3 flex items-center gap-2 text-xs">
-          <span className="text-slate-500 dark:text-slate-600">Demo status:</span>
+          <span className="text-slate-500 dark:text-slate-500">Demo status:</span>
           {[
             { id: "pro_1", label: "Verified", color: "emerald" },
             { id: "pro_2", label: "Pending", color: "amber" },
@@ -280,7 +280,7 @@ export default function ProDashboardPage() {
               className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
                 demoVerifiedProId === opt.id
                   ? `border-${opt.color}-500/30 bg-${opt.color}-500/10 text-${opt.color}-400`
-                  : "border-[var(--border)] text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
+                  : "border-[var(--border)] text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400"
               }`}
               onClick={() => setDemoVerifiedProId(opt.id)}
             >
@@ -300,7 +300,7 @@ export default function ProDashboardPage() {
                   <h3 className="text-sm font-semibold text-emerald-400">License Verified</h3>
                   <VerifiedBadge status="verified" size="sm" showLabel />
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                   Verified since {vDate ? new Date(vDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "recently"}. Your badge is live on your profile.
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function ProDashboardPage() {
                   <h3 className="text-sm font-semibold text-amber-400">Verification Under Review</h3>
                   <VerifiedBadge status="pending" size="sm" showLabel />
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                   Your license is being reviewed by our team. This usually takes 1-2 business days.
                 </p>
               </div>
@@ -337,7 +337,7 @@ export default function ProDashboardPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Get Verified — Upload Your License</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Verified pros get more leads and rank higher in search results. Most are verified instantly.</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Verified pros get more leads and rank higher in search results. Most are verified instantly.</p>
                 <Link href="/pro/verification">
                   <Button size="sm" className="mt-3">Upload License</Button>
                 </Link>
@@ -349,7 +349,7 @@ export default function ProDashboardPage() {
 
       {/* Recent activity */}
       <div>
-        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Recent Activity</h2>
+        <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4">Recent Activity</h2>
         <Card padding="none">
           {[
             { icon: "✅", text: "Morgan Davis — inspection accepted", time: "2 hours ago" },
@@ -362,7 +362,7 @@ export default function ProDashboardPage() {
               <div className="flex-1 min-w-0">
                 <div className="text-sm text-slate-700 dark:text-slate-300 truncate">{activity.text}</div>
               </div>
-              <span className="text-xs text-slate-500 dark:text-slate-600 flex-shrink-0">{activity.time}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-500 flex-shrink-0">{activity.time}</span>
             </div>
           ))}
         </Card>

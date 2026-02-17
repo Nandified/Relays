@@ -44,7 +44,7 @@ export function ReviewStatsHeader({ stats, className = "" }: ReviewStatsHeaderPr
             {stats.averageRating.toFixed(1)}
           </div>
           <StarRating rating={stats.averageRating} size={18} className="mt-2" />
-          <div className="text-sm text-slate-500 mt-1">
+          <div className="text-sm text-slate-600 dark:text-slate-500 mt-1">
             {stats.totalReviews.toLocaleString()} review{stats.totalReviews !== 1 ? "s" : ""}
           </div>
           {/* Response rate badge */}
@@ -71,7 +71,7 @@ export function ReviewStatsHeader({ stats, className = "" }: ReviewStatsHeaderPr
             return (
               <div key={star} className="flex items-center gap-3">
                 <div className="flex items-center gap-1 w-8 justify-end flex-shrink-0">
-                  <span className="text-xs text-slate-500 tabular-nums">
+                  <span className="text-xs text-slate-600 dark:text-slate-500 tabular-nums">
                     {star}
                   </span>
                   <svg
@@ -101,7 +101,7 @@ export function ReviewStatsHeader({ stats, className = "" }: ReviewStatsHeaderPr
                     }}
                   />
                 </div>
-                <span className="text-[11px] text-slate-500 dark:text-slate-600 tabular-nums w-8 text-right">
+                <span className="text-[11px] text-slate-500 dark:text-slate-500 tabular-nums w-8 text-right">
                   {count}
                 </span>
               </div>

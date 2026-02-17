@@ -64,14 +64,14 @@ export default function ConsumerOnboardingPage() {
           🏠
         </div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Welcome to Relays</h1>
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Let&apos;s personalize your experience — this takes about 60 seconds</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Let&apos;s personalize your experience — this takes about 60 seconds</p>
       </div>
 
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
+        <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-500 mb-2">
           <span>Step {step} of {totalSteps}</span>
-          <button onClick={handleSkip} className="text-blue-400 hover:text-blue-300 transition-colors cursor-pointer">
+          <button onClick={handleSkip} className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors cursor-pointer">
             Skip — I&apos;ll explore on my own
           </button>
         </div>
@@ -87,7 +87,7 @@ export default function ConsumerOnboardingPage() {
       {step === 1 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">What brings you to Relays?</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This helps us tailor your experience</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">This helps us tailor your experience</p>
           <div className="grid gap-3">
             {consumerOnboardingGoals.map((g) => (
               <button
@@ -104,7 +104,7 @@ export default function ConsumerOnboardingPage() {
                   <span className={`text-sm font-medium ${goal === g.id ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                     {g.label}
                   </span>
-                  <p className="text-xs text-slate-500 mt-0.5">{g.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{g.description}</p>
                 </div>
                 {goal === g.id && (
                   <div className="ml-auto h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
@@ -123,7 +123,7 @@ export default function ConsumerOnboardingPage() {
       {step === 2 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Do you already have a Realtor?</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">We can help you find one or connect with yours</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">We can help you find one or connect with yours</p>
           <div className="grid gap-3 sm:grid-cols-2 mb-4">
             <button
               onClick={() => setHasRealtor(true)}
@@ -160,13 +160,13 @@ export default function ConsumerOnboardingPage() {
                 value={realtorSearch}
                 onChange={(e) => setRealtorSearch(e.target.value)}
               />
-              <p className="text-xs text-slate-500 mt-2">
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-2">
                 You can also find them later in the marketplace
               </p>
             </div>
           )}
           {hasRealtor === false && (
-            <p className="text-xs text-slate-500 animate-in">
+            <p className="text-xs text-slate-600 dark:text-slate-500 animate-in">
               No worries! After setup, we&apos;ll take you to the marketplace to browse top-rated Realtors in your area.
             </p>
           )}
@@ -177,14 +177,14 @@ export default function ConsumerOnboardingPage() {
       {step === 3 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Where are you looking?</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Optional — helps us show relevant professionals</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">Optional — helps us show relevant professionals</p>
           <Input
             label="City, ZIP, or neighborhood"
             placeholder="e.g., Oak Park, IL or 60302"
             value={propertyInfo}
             onChange={(e) => setPropertyInfo(e.target.value)}
           />
-          <p className="text-xs text-slate-500 mt-3">
+          <p className="text-xs text-slate-600 dark:text-slate-500 mt-3">
             Don&apos;t know yet? That&apos;s totally fine — skip this step.
           </p>
         </Card>
@@ -194,7 +194,7 @@ export default function ConsumerOnboardingPage() {
       {step === 4 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">What professionals do you need?</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Select all that apply — we&apos;ll help you find them</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">Select all that apply — we&apos;ll help you find them</p>
           <div className="grid gap-3">
             {consumerServiceNeeds.map((need) => (
               <button
@@ -222,7 +222,7 @@ export default function ConsumerOnboardingPage() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-500 mt-4">
+          <p className="text-xs text-slate-600 dark:text-slate-500 mt-4">
             Not sure? No worries — you can add professionals at any time.
           </p>
         </Card>
@@ -233,7 +233,7 @@ export default function ConsumerOnboardingPage() {
         <Card padding="lg" className="animate-in text-center">
           <div className="text-5xl mb-4">🎉</div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">You&apos;re all set!</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-xs mx-auto">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-8 max-w-xs mx-auto">
             Your personalized dashboard is ready. Here&apos;s what happens next:
           </p>
           <div className="space-y-3 text-left max-w-sm mx-auto mb-8">

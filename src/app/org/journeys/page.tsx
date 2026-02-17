@@ -72,9 +72,9 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
           <div className="flex items-start justify-between">
             <div>
               <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{journey.title}</h2>
-              <p className="text-xs text-slate-500 mt-0.5">{journey.address}</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{journey.address}</p>
             </div>
-            <button onClick={onClose} className="rounded-full p-1 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300">
+            <button onClick={onClose} className="rounded-full p-1 text-slate-600 dark:text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" /></svg>
             </button>
           </div>
@@ -88,20 +88,20 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
 
           {/* Client Info */}
           <Card>
-            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Client</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">Client</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-slate-800 dark:text-slate-200">{journey.client.name}</span>
                 <Badge variant={journey.property.type === "buying" ? "accent" : "warning"}>{journey.property.type}</Badge>
               </div>
-              <p className="text-xs text-slate-500">{journey.client.email}</p>
-              <p className="text-xs text-slate-500">{journey.client.phone}</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500">{journey.client.email}</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500">{journey.client.phone}</p>
             </div>
           </Card>
 
           {/* Journey Roles */}
           <div>
-            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Service Team</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">Service Team</h3>
             <div className="space-y-2">
               {journey.roles.map((role, i) => (
                 <div key={i} className={`rounded-xl border p-3 ${
@@ -118,10 +118,10 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
                     </Badge>
                   </div>
                   {role.assignedProId && (
-                    <p className="text-xs text-slate-500 mt-1">Assigned: {role.assignedProId}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">Assigned: {role.assignedProId}</p>
                   )}
                   {role.recommendedProIds.length > 0 && (
-                    <p className="text-xs text-slate-500 mt-1">{role.recommendedProIds.length} recommended</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">{role.recommendedProIds.length} recommended</p>
                   )}
                 </div>
               ))}
@@ -130,18 +130,18 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
 
           {/* Status */}
           <Card>
-            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Status</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3">Status</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500">Created</span>
+                <span className="text-xs text-slate-600 dark:text-slate-500">Created</span>
                 <span className="text-xs text-slate-700 dark:text-slate-300">{new Date(journey.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500">Next Step</span>
+                <span className="text-xs text-slate-600 dark:text-slate-500">Next Step</span>
                 <span className="text-xs text-slate-700 dark:text-slate-300">{journey.nextStep}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500">Agent</span>
+                <span className="text-xs text-slate-600 dark:text-slate-500">Agent</span>
                 <span className="text-xs text-slate-700 dark:text-slate-300">{journey.owner}</span>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function OrgJourneysPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Journeys</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
             {allJourneys.length} total · {activeCount} active · {completedCount} completed
           </p>
         </div>
@@ -224,12 +224,12 @@ export default function OrgJourneysPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[var(--border)]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Property</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:table-cell">Client</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden md:table-cell">Agent</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Stage</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Roles</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden xl:table-cell">Created</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Property</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden sm:table-cell">Client</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden md:table-cell">Agent</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Stage</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden lg:table-cell">Roles</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden xl:table-cell">Created</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -241,15 +241,15 @@ export default function OrgJourneysPage() {
                 >
                   <td className="px-4 py-3">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-white transition-colors truncate">{journey.title}</p>
-                      <p className="text-xs text-slate-500 truncate">{journey.address}</p>
+                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-white transition-colors truncate">{journey.title}</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-500 truncate">{journey.address}</p>
                     </div>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
                     <span className="text-sm text-slate-700 dark:text-slate-300">{journey.client.name}</span>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <span className="text-sm text-slate-500 dark:text-slate-400">{journey.owner}</span>
+                    <span className="text-sm text-slate-600 dark:text-slate-400">{journey.owner}</span>
                   </td>
                   <td className="px-4 py-3">
                     <StageBadge journey={journey} />
@@ -258,7 +258,7 @@ export default function OrgJourneysPage() {
                     <RoleDots journey={journey} />
                   </td>
                   <td className="px-4 py-3 hidden xl:table-cell">
-                    <span className="text-xs text-slate-500 tabular-nums">
+                    <span className="text-xs text-slate-600 dark:text-slate-500 tabular-nums">
                       {new Date(journey.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                   </td>
@@ -266,7 +266,7 @@ export default function OrgJourneysPage() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-slate-500">
+                  <td colSpan={6} className="px-4 py-12 text-center text-sm text-slate-600 dark:text-slate-500">
                     No journeys match your filters
                   </td>
                 </tr>

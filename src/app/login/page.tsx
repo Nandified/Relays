@@ -81,7 +81,7 @@ export default function LoginPage() {
           R
         </div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Welcome back</h1>
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Sign in to your Relays account</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Sign in to your Relays account</p>
       </div>
 
       <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
@@ -93,11 +93,11 @@ export default function LoginPage() {
               </svg>
             </div>
             <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Check your email</h2>
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
               We sent a magic link to <strong className="text-slate-800 dark:text-slate-200">{email}</strong>. Click it to sign in.
             </p>
             {!isSupabase && (
-              <p className="mt-3 text-xs text-slate-500 dark:text-slate-600">(Demo: auto-signing you in...)</p>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-500">(Demo: auto-signing you in...)</p>
             )}
           </div>
         ) : (
@@ -136,7 +136,7 @@ export default function LoginPage() {
                 </Button>
                 <button
                   onClick={() => setMode("password")}
-                  className="w-full text-center text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                  className="w-full text-center text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                 >
                   Use password instead
                 </button>
@@ -148,7 +148,7 @@ export default function LoginPage() {
                 </Button>
                 <button
                   onClick={() => setMode("magic")}
-                  className="w-full text-center text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                  className="w-full text-center text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                 >
                   Use magic link instead
                 </button>
@@ -160,7 +160,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-[var(--border)]" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-500">or continue with</span>
+                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-600 dark:text-slate-500">or continue with</span>
               </div>
             </div>
 
@@ -195,7 +195,7 @@ export default function LoginPage() {
         )}
       </Card>
 
-      <p className="mt-6 text-center text-sm text-slate-500">
+      <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-500">
         Don&apos;t have an account?{" "}
         <Link href="/signup" className="text-blue-400 hover:underline font-medium">
           Sign up

@@ -25,13 +25,13 @@ export function Tabs({ tabs, activeId, onChange }: TabsProps) {
             flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-medium transition-all
             ${activeId === tab.id
               ? "bg-[var(--bg-card)] text-slate-900 dark:text-slate-100 shadow-sm border border-[var(--border)]"
-              : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             }
           `}
         >
           {tab.label}
           {tab.count !== undefined && (
-            <span className={`text-xs ${activeId === tab.id ? "text-[var(--accent)]" : "text-slate-500 dark:text-slate-600"}`}>
+            <span className={`text-xs ${activeId === tab.id ? "text-[var(--accent)]" : "text-slate-500 dark:text-slate-500"}`}>
               {tab.count}
             </span>
           )}

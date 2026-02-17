@@ -27,7 +27,7 @@ export default function RequestDetailPage() {
     return (
       <main className="mx-auto max-w-3xl px-4 py-16 text-center">
         <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Request not found</h1>
-        <Link href="/requests" className="mt-4 inline-block text-sm text-blue-400 hover:underline">
+        <Link href="/requests" className="mt-4 inline-block text-sm text-blue-500 dark:text-blue-400 hover:underline">
           ← Back to Requests
         </Link>
       </main>
@@ -38,7 +38,7 @@ export default function RequestDetailPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <Link href="/requests" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
+      <Link href="/requests" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
@@ -46,7 +46,7 @@ export default function RequestDetailPage() {
       </Link>
 
       <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{request.category}</h1>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{request.addressOrArea}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">{request.addressOrArea}</p>
 
       {/* Status stepper */}
       <Card padding="lg" className="mb-6">
@@ -64,7 +64,7 @@ export default function RequestDetailPage() {
                       ? "bg-[var(--accent)] text-white ring-4 ring-[var(--accent-light)]"
                       : isPast
                         ? "bg-emerald-500 text-white"
-                        : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-600"
+                        : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-500"
                     }
                   `}>
                     {isPast && !isCurrent ? (
@@ -75,7 +75,7 @@ export default function RequestDetailPage() {
                       i + 1
                     )}
                   </div>
-                  <span className={`mt-1 text-[10px] font-medium whitespace-nowrap ${isCurrent ? "text-blue-400" : isPast ? "text-emerald-400" : "text-slate-500 dark:text-slate-600"}`}>
+                  <span className={`mt-1 text-[10px] font-medium whitespace-nowrap ${isCurrent ? "text-blue-400" : isPast ? "text-emerald-400" : "text-slate-500 dark:text-slate-500"}`}>
                     {stepLabels[step]}
                   </span>
                 </div>
@@ -97,8 +97,8 @@ export default function RequestDetailPage() {
               <Image src={pro.headshotUrl} alt={pro.name} width={48} height={48} />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-400 transition-colors">{pro.name}</div>
-              <div className="text-xs text-slate-500">{pro.companyName}</div>
+              <div className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">{pro.name}</div>
+              <div className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
             </div>
             <div className="h-9 w-9 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
               <Image src={pro.companyLogoUrl} alt={pro.companyName} width={36} height={36} />
@@ -112,7 +112,7 @@ export default function RequestDetailPage() {
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Details</h2>
         <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">{request.description}</p>
         {request.notes && (
-          <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3 text-sm text-slate-500 dark:text-slate-400">
+          <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3 text-sm text-slate-600 dark:text-slate-400">
             <span className="font-medium text-slate-700 dark:text-slate-300">Notes: </span>
             {request.notes}
           </div>
@@ -134,8 +134,8 @@ export default function RequestDetailPage() {
                   <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{event.label}</span>
                   <Badge variant="default" className="text-[10px]">{event.actor}</Badge>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{event.description}</p>
-                <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-0.5">
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{event.description}</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-500 mt-0.5">
                   {new Date(event.timestamp).toLocaleString()}
                 </p>
               </div>

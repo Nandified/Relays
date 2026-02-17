@@ -126,11 +126,11 @@ export default function AdminDashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Command Center</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-500">
             Platform overview and recent activity.
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-600">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-500">
           <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_4px_rgba(16,185,129,0.4)]" />
           All systems operational
         </div>
@@ -155,20 +155,20 @@ export default function AdminDashboardPage() {
                 {typeof metric.value === "number" ? metric.value.toLocaleString() : metric.value}
               </div>
               {/* Label */}
-              <div className="relative mt-0.5 text-xs text-slate-500">{metric.label}</div>
+              <div className="relative mt-0.5 text-xs text-slate-600 dark:text-slate-500">{metric.label}</div>
               {/* Change badge */}
               {metric.change && (
                 <div className={`relative mt-2 inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
                   metric.changeUp
                     ? "bg-emerald-500/10 text-emerald-400"
-                    : "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 text-slate-500"
+                    : "bg-slate-200 dark:bg-slate-500/10 text-slate-600 dark:text-slate-500"
                 }`}>
                   {metric.changeUp && "↑"} {metric.change}
                 </div>
               )}
               {/* Arrow for linked cards */}
               {metric.href && (
-                <div className="absolute top-3 right-3 text-slate-500 dark:text-slate-600 transition-all group-hover:text-slate-500 dark:group-hover:text-slate-400 group-hover:translate-x-0.5">
+                <div className="absolute top-3 right-3 text-slate-500 dark:text-slate-500 transition-all group-hover:text-slate-700 dark:group-hover:text-slate-400 group-hover:translate-x-0.5">
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
                 </div>
               )}
@@ -190,7 +190,7 @@ export default function AdminDashboardPage() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Signup Trend</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Daily signups over last 30 days</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Daily signups over last 30 days</p>
             </div>
             <Badge variant="accent">30 days</Badge>
           </div>
@@ -202,7 +202,7 @@ export default function AdminDashboardPage() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Pro Distribution</h3>
-              <p className="text-xs text-slate-500 mt-0.5">By service category</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">By service category</p>
             </div>
             <Badge variant="accent">{mockAdminMetrics.totalPros} total</Badge>
           </div>
@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Top Cities</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Professionals by metro area</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Professionals by metro area</p>
             </div>
           </div>
           <AdminBarChart data={topCitiesData} color="#3b82f6" height={220} />
@@ -225,7 +225,7 @@ export default function AdminDashboardPage() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Requests by Status</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Service request pipeline</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Service request pipeline</p>
             </div>
           </div>
           <AdminBarChart data={requestStatusData} height={220} colorMap={{
@@ -245,11 +245,11 @@ export default function AdminDashboardPage() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Recent Activity</h2>
-            <span className="text-xs text-slate-500 dark:text-slate-600">{mockActivityFeed.length} events</span>
+            <span className="text-xs text-slate-500 dark:text-slate-500">{mockActivityFeed.length} events</span>
           </div>
           <Card padding="none" className="divide-y divide-[var(--border)]">
             {mockActivityFeed.map((event, idx) => {
-              const typeInfo = activityTypeConfig[event.type] ?? { icon: "📌", color: "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 border-slate-300 dark:border-slate-500/10" };
+              const typeInfo = activityTypeConfig[event.type] ?? { icon: "📌", color: "bg-slate-200 dark:bg-slate-500/10 border-slate-300 dark:border-slate-500/10" };
               return (
                 <div
                   key={event.id}
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-slate-700 dark:text-slate-300 leading-snug">{event.description}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[11px] text-slate-500 dark:text-slate-600">{formatTimeAgo(event.timestamp)}</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-500">{formatTimeAgo(event.timestamp)}</span>
                       {event.type === "verification_auto_approved" && (
                         <Badge variant="success" className="text-[9px] px-1.5 py-0">AI Verified</Badge>
                       )}
@@ -287,7 +287,7 @@ export default function AdminDashboardPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Review Verifications</div>
-                    <div className="text-xs text-slate-500">{mockVerificationQueue.filter(v => v.status === "pending").length} pending review</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-500">{mockVerificationQueue.filter(v => v.status === "pending").length} pending review</div>
                   </div>
                   <Badge variant="warning">{mockVerificationQueue.filter(v => v.status === "pending").length}</Badge>
                 </Card>
@@ -300,7 +300,7 @@ export default function AdminDashboardPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Manage Pros</div>
-                    <div className="text-xs text-slate-500">{mockAdminMetrics.totalPros} registered</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-500">{mockAdminMetrics.totalPros} registered</div>
                   </div>
                 </Card>
               </Link>
@@ -312,7 +312,7 @@ export default function AdminDashboardPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Data Import</div>
-                    <div className="text-xs text-slate-500">9,001 records across IL</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-500">9,001 records across IL</div>
                   </div>
                 </Card>
               </Link>
@@ -324,7 +324,7 @@ export default function AdminDashboardPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Detailed Analytics</div>
-                    <div className="text-xs text-slate-500">Funnels, health, growth</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-500">Funnels, health, growth</div>
                   </div>
                 </Card>
               </Link>
@@ -347,7 +347,7 @@ export default function AdminDashboardPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{ver.proName}</div>
-                    <div className="text-[11px] text-slate-500">{ver.category}</div>
+                    <div className="text-[11px] text-slate-600 dark:text-slate-500">{ver.category}</div>
                   </div>
                   {ver.ocrData && (
                     <div className={`text-[10px] font-medium tabular-nums ${

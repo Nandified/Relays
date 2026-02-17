@@ -76,7 +76,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
                 <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 truncate">{journey.title}</h3>
                 {statusBadge(journey.status)}
               </div>
-              <p className="text-xs text-slate-500 flex items-center gap-1">
+              <p className="text-xs text-slate-600 dark:text-slate-500 flex items-center gap-1">
                 <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
                   <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -91,7 +91,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
                   {JOURNEY_STAGE_ICONS[journey.stage]} {JOURNEY_STAGE_LABELS[journey.stage]}
                 </Badge>
                 {createdBy && (
-                  <span className="text-[11px] text-slate-500 dark:text-slate-600">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-500">
                     via {createdBy.name}
                   </span>
                 )}
@@ -115,7 +115,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
                 </div>
                 <div>
                   <div className="text-sm font-medium text-blue-400">{journey.pendingAction}</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{journey.nextStep}</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{journey.nextStep}</div>
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
                     );
                   })}
               </div>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-slate-600 dark:text-slate-500">
                 {filled} team member{filled !== 1 ? "s" : ""}
               </span>
             </div>
@@ -191,7 +191,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           Your home journey at a glance — {activeCount} active {activeCount === 1 ? "journey" : "journeys"}
         </p>
       </div>
@@ -225,8 +225,8 @@ export default function DashboardPage() {
       {/* Upcoming moments */}
       {allUpcomingMoments.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-500">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 6v6l4 2" />
             </svg>
@@ -243,7 +243,7 @@ export default function DashboardPage() {
       {/* Completed moments (collapsed) */}
       {allCompletedMoments.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
             <svg width="12" height="12" fill="#10b981" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
             </svg>
@@ -307,7 +307,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Journey cards */}
-      <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Your Journeys</h2>
+      <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4">Your Journeys</h2>
       <div className="space-y-4 stagger-children">
         {journeys.map((journey) => (
           <JourneyCard key={journey.id} journey={journey} />

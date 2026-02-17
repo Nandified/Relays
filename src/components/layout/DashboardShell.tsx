@@ -35,8 +35,8 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
                   className={`
                     flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors
                     ${active
-                      ? "bg-[var(--accent-light)] text-blue-400 border border-blue-500/10"
-                      : "text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200"
+                      ? "bg-[var(--accent-light)] text-blue-500 dark:text-blue-400 border border-blue-500/10"
+                      : "text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200"
                     }
                   `}
                 >
@@ -58,7 +58,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
                   key={item.href}
                   href={item.href}
                   className={`flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-medium ${
-                    active ? "text-blue-400" : "text-slate-500"
+                    active ? "text-blue-400" : "text-slate-600 dark:text-slate-500"
                   }`}
                 >
                   {item.icon}

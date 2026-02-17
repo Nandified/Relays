@@ -58,7 +58,7 @@ const userPaths = [
       </svg>
     ),
     accent: "from-blue-500/20 to-blue-600/10",
-    iconColor: "text-blue-400",
+    iconColor: "text-blue-500 dark:text-blue-400",
     borderGlow: "hover:border-blue-500/30",
   },
   {
@@ -172,7 +172,7 @@ export default function HomePage() {
 
           <div className="relative mx-auto max-w-3xl text-center">
             <AnimatedSection delay={0}>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 shadow-sm mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 shadow-sm mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Now in Chicago Metro
               </div>
@@ -188,7 +188,7 @@ export default function HomePage() {
             </AnimatedSection>
 
             <AnimatedSection delay={160}>
-              <p className="mx-auto mt-5 max-w-xl text-lg text-slate-500 dark:text-slate-400">
+              <p className="mx-auto mt-5 max-w-xl text-lg text-slate-600 dark:text-slate-400">
                 Buying or selling a home? Find verified pros, build your team, and get guided through every step — so nothing falls through the cracks.
               </p>
             </AnimatedSection>
@@ -218,7 +218,7 @@ export default function HomePage() {
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">Three Ways to Get Started</h2>
-              <p className="mt-3 text-slate-500 dark:text-slate-400">However you got here, Relays meets you where you are</p>
+              <p className="mt-3 text-slate-600 dark:text-slate-400">However you got here, Relays meets you where you are</p>
             </div>
           </AnimatedSection>
           <div className="grid gap-6 md:grid-cols-3">
@@ -233,7 +233,7 @@ export default function HomePage() {
                       {path.icon}
                     </div>
                     <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-slate-100">{path.title}</h3>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{path.desc}</p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{path.desc}</p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -247,7 +247,7 @@ export default function HomePage() {
             <AnimatedSection>
               <div className="text-center mb-12">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">How Relays Works</h2>
-                <p className="mt-3 text-slate-500 dark:text-slate-400">Three steps to your perfect team</p>
+                <p className="mt-3 text-slate-600 dark:text-slate-400">Three steps to your perfect team</p>
               </div>
             </AnimatedSection>
             <div className="grid gap-6 md:grid-cols-3">
@@ -257,11 +257,11 @@ export default function HomePage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent-light)] border border-blue-500/10">
                       {step.icon}
                     </div>
-                    <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-blue-400">
+                    <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-blue-500 dark:text-blue-400">
                       Step {step.num}
                     </div>
                     <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{step.title}</h3>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{step.desc}</p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.desc}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -274,7 +274,7 @@ export default function HomePage() {
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">Trusted by Buyers, Sellers & Pros</h2>
-              <p className="mt-3 text-slate-500 dark:text-slate-400">Real people, real experiences</p>
+              <p className="mt-3 text-slate-600 dark:text-slate-400">Real people, real experiences</p>
             </div>
           </AnimatedSection>
           <div className="grid gap-6 md:grid-cols-3">
@@ -287,7 +287,7 @@ export default function HomePage() {
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{t.quote}</p>
                   <div className="mt-4 border-t border-[var(--border)] pt-3">
                     <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">{t.name}</div>
-                    <div className="text-xs text-slate-500">{t.role}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-500">{t.role}</div>
                   </div>
                 </div>
               </AnimatedSection>
@@ -311,7 +311,7 @@ export default function HomePage() {
                 <div className="grid gap-8 md:grid-cols-2 md:items-center">
                   {/* Copy */}
                   <div>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400 mb-4">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-4">
                       <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <path d="M22 4L12 14.01l-3-3" />
@@ -321,7 +321,7 @@ export default function HomePage() {
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">
                       Are you a real estate professional?
                     </h2>
-                    <p className="mt-3 text-slate-500 dark:text-slate-400 leading-relaxed">
+                    <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
                       List your business on Relays and get discovered by buyers and sellers in your area. If your business is already here via Google Places, claim your profile and start receiving referrals.
                     </p>
                     <Link
@@ -339,7 +339,7 @@ export default function HomePage() {
                   <div className="space-y-4">
                     {proFeatures.map((f, i) => (
                       <div key={i} className="flex items-start gap-3">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/15 text-emerald-400">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/15 text-emerald-600 dark:text-emerald-400">
                           {f.icon}
                         </div>
                         <span className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed pt-1.5">{f.text}</span>
@@ -362,13 +362,13 @@ export default function HomePage() {
 
               <div className="relative">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Ready to build your dream team?</h2>
-                <p className="mt-3 text-blue-200/70 max-w-lg mx-auto">
+                <p className="mt-3 text-slate-600 dark:text-blue-200/70 max-w-lg mx-auto">
                   Whether you&apos;re buying your first home or selling your forever home, Relays guides you to the right professionals every step of the way.
                 </p>
                 <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                   <Link
                     href="/marketplace"
-                    className="hover-scale inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-medium text-slate-900 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-slate-100 transition-all"
+                    className="hover-scale inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] dark:bg-white px-6 py-3 text-base font-medium text-white dark:text-slate-900 shadow-[var(--shadow-card)] hover:opacity-90 transition-all"
                   >
                     Get Started Free
                   </Link>

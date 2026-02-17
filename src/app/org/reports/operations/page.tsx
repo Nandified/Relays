@@ -69,7 +69,7 @@ export default function OperationsDashboardPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Operations Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           Track overdue milestones, pending bookings, and missing documents across all active journeys.
         </p>
       </div>
@@ -85,7 +85,7 @@ export default function OperationsDashboardPage() {
                 <span className={`text-xs font-medium ${urgencyConfig[urgency].color}`}>{urgencyConfig[urgency].label}</span>
               </div>
               <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">{counts[urgency]}</div>
-              <div className="text-xs text-slate-500 mt-0.5">
+              <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
                 {urgency === "red" ? "issues" : urgency === "amber" ? "warnings" : "on track"}
               </div>
             </div>
@@ -101,7 +101,7 @@ export default function OperationsDashboardPage() {
       {/* Operations table */}
       <Card padding="none" className="overflow-hidden">
         {/* Table header */}
-        <div className="hidden sm:grid grid-cols-[1fr_140px_140px_1fr_80px_80px] gap-3 px-4 py-3 border-b border-[var(--border)] text-xs font-medium text-slate-500 uppercase tracking-wider">
+        <div className="hidden sm:grid grid-cols-[1fr_140px_140px_1fr_80px_80px] gap-3 px-4 py-3 border-b border-[var(--border)] text-xs font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wider">
           <div>Journey / Client</div>
           <div>Agent</div>
           <div>Type</div>
@@ -128,12 +128,12 @@ export default function OperationsDashboardPage() {
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 ${uc.dot}`} />
                     <div className="min-w-0">
                       <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{item.journey}</div>
-                      <div className="text-xs text-slate-500 truncate">{item.client}</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-500 truncate">{item.client}</div>
                     </div>
                   </div>
 
                   {/* Agent */}
-                  <div className="text-sm text-slate-500 dark:text-slate-400 truncate hidden sm:block">{item.agent}</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400 truncate hidden sm:block">{item.agent}</div>
 
                   {/* Type */}
                   <div className="hidden sm:block">
@@ -143,7 +143,7 @@ export default function OperationsDashboardPage() {
                   </div>
 
                   {/* Issue */}
-                  <div className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1 hidden sm:block">{item.issue}</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400 line-clamp-1 hidden sm:block">{item.issue}</div>
 
                   {/* Days overdue */}
                   <div className={`text-center text-sm font-semibold hidden sm:block ${uc.color}`}>
@@ -152,7 +152,7 @@ export default function OperationsDashboardPage() {
 
                   {/* Action */}
                   <div className="text-right hidden sm:block">
-                    <button className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                    <button className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors">
                       View →
                     </button>
                   </div>
@@ -165,14 +165,14 @@ export default function OperationsDashboardPage() {
                 >
                   <div className="overflow-hidden">
                     <div className="px-4 pb-3 space-y-2">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                      <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
                         <span>Agent: <span className="text-slate-700 dark:text-slate-300">{item.agent}</span></span>
                         <span>•</span>
                         <Badge variant={item.issueType === "overdue_milestone" ? "danger" : item.issueType === "pending_booking" ? "warning" : "accent"}>
                           {issueTypeLabels[item.issueType]}
                         </Badge>
                       </div>
-                      <p className="text-sm text-slate-500 dark:text-slate-400">{item.issue}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{item.issue}</p>
                       <div className="flex items-center justify-between">
                         <span className={`text-sm font-semibold ${uc.color}`}>{item.daysOverdue} days overdue</span>
                         <Button size="sm">View Journey</Button>
@@ -187,8 +187,8 @@ export default function OperationsDashboardPage() {
 
         {filteredIssues.length === 0 && (
           <div className="p-8 text-center">
-            <div className="text-sm text-slate-500 dark:text-slate-400">No issues found</div>
-            <div className="text-xs text-slate-500 dark:text-slate-600 mt-1">All journeys are on track 🎉</div>
+            <div className="text-sm text-slate-600 dark:text-slate-400">No issues found</div>
+            <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">All journeys are on track 🎉</div>
           </div>
         )}
       </Card>

@@ -95,7 +95,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                   `}>
                     <span className={`
                       text-[10px] font-medium
-                      ${isCompleted ? "text-emerald-400" : isCurrent ? "text-blue-400" : "text-slate-500 dark:text-slate-600"}
+                      ${isCompleted ? "text-emerald-400" : isCurrent ? "text-blue-400" : "text-slate-500 dark:text-slate-500"}
                     `}>
                       {JOURNEY_STAGE_LABELS[stage]}
                     </span>
@@ -136,8 +136,8 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                     ${isCompleted
                       ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
                       : isCurrent
-                        ? "bg-blue-500/15 text-blue-400 border border-blue-500/25 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
-                        : "text-slate-500 dark:text-slate-600 border border-transparent"
+                        ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/25 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
+                        : "text-slate-500 dark:text-slate-500 border border-transparent"
                     }
                     ${isFuture ? "opacity-40" : ""}
                   `}

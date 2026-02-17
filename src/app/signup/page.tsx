@@ -78,7 +78,7 @@ export default function SignupPage() {
           R
         </div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Create your account</h1>
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Join Relays and build your dream team</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Join Relays and build your dream team</p>
       </div>
 
       {step === "role" ? (
@@ -96,7 +96,7 @@ export default function SignupPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">I&apos;m buying a home</h3>
-                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                     Browse marketplace, build your dream team, and book with confidence.
                   </p>
                 </div>
@@ -117,7 +117,7 @@ export default function SignupPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">I&apos;m a real estate pro</h3>
-                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                     List your business, receive leads, and manage bookings. Free to start.
                   </p>
                 </div>
@@ -134,7 +134,7 @@ export default function SignupPage() {
               </svg>
             </div>
             <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Check your email</h2>
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
               We sent a confirmation link to <strong className="text-slate-800 dark:text-slate-200">{email}</strong>. Click it to activate your account.
             </p>
           </div>
@@ -143,7 +143,7 @@ export default function SignupPage() {
         <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
           <button
             onClick={() => setStep("role")}
-            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-4"
+            className="flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-4"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -151,7 +151,7 @@ export default function SignupPage() {
             Change role
           </button>
 
-          <div className="mb-4 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+          <div className="mb-4 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] px-3 py-2 text-sm text-slate-600 dark:text-slate-400">
             Signing up as: <span className="font-semibold text-slate-800 dark:text-slate-200">{role === "consumer" ? "Home Buyer" : "Professional"}</span>
           </div>
 
@@ -192,7 +192,7 @@ export default function SignupPage() {
                 <div className="w-full border-t border-[var(--border)]" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-500">or continue with</span>
+                <span className="bg-[var(--bg-card)] px-3 text-xs text-slate-600 dark:text-slate-500">or continue with</span>
               </div>
             </div>
 
@@ -227,7 +227,7 @@ export default function SignupPage() {
         </Card>
       )}
 
-      <p className="mt-6 text-center text-sm text-slate-500">
+      <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-500">
         Already have an account?{" "}
         <Link href="/login" className="text-blue-400 hover:underline font-medium">
           Log in

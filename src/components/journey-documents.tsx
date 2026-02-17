@@ -66,7 +66,7 @@ function StatusIndicator({ status }: { status: DocStatus }) {
 function statusLabel(status: DocStatus): { text: string; color: string } {
   switch (status) {
     case "needed":
-      return { text: "Needed", color: "text-slate-500" };
+      return { text: "Needed", color: "text-slate-600 dark:text-slate-500" };
     case "requested":
       return { text: "Requested", color: "text-amber-400" };
     case "uploaded":
@@ -90,7 +90,7 @@ function FileTypeChip({ type }: { type?: string }) {
     ? "text-red-400 bg-red-500/10 border-red-500/15"
     : type.startsWith("image/")
     ? "text-blue-400 bg-blue-500/10 border-blue-500/15"
-    : "text-slate-500 dark:text-slate-400 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10";
+    : "text-slate-600 dark:text-slate-400 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10";
   return (
     <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium border ${color}`}>
       {label}
@@ -145,19 +145,19 @@ function DocumentRow({
           {doc.uploadedBy && (
             <>
               <span className="text-[10px] text-slate-700">•</span>
-              <span className="text-[11px] text-slate-500">by {doc.uploadedBy}</span>
+              <span className="text-[11px] text-slate-600 dark:text-slate-500">by {doc.uploadedBy}</span>
             </>
           )}
           {doc.fileSize && (
             <>
               <span className="text-[10px] text-slate-700">•</span>
-              <span className="text-[11px] text-slate-500">{formatFileSize(doc.fileSize)}</span>
+              <span className="text-[11px] text-slate-600 dark:text-slate-500">{formatFileSize(doc.fileSize)}</span>
             </>
           )}
           {doc.uploadedAt && (
             <>
               <span className="text-[10px] text-slate-700 hidden sm:inline">•</span>
-              <span className="text-[11px] text-slate-500 hidden sm:inline">
+              <span className="text-[11px] text-slate-600 dark:text-slate-500 hidden sm:inline">
                 {new Date(doc.uploadedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
               </span>
             </>
@@ -175,7 +175,7 @@ function DocumentRow({
         {hasFile && (
           <button
             onClick={() => onView(doc)}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
             title="View document"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -219,7 +219,7 @@ function DocumentProgress({ journeyId }: { journeyId: string }) {
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap">
+      <span className="text-xs text-slate-600 dark:text-slate-400 tabular-nums whitespace-nowrap">
         {stats.approved}/{stats.total} approved
       </span>
     </div>
@@ -273,7 +273,7 @@ export function JourneyDocumentsSection({ journeyId }: { journeyId: string }) {
             Documents
           </h2>
           <div className="flex items-center gap-3 mt-1">
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-600 dark:text-slate-500">
               {stats.approved} approved · {stats.uploaded} pending review · {stats.requested + stats.needed} outstanding
             </span>
           </div>
@@ -326,8 +326,8 @@ export function JourneyDocumentsSection({ journeyId }: { journeyId: string }) {
                 <path d="M14 2v6h6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">No documents yet</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-600">
+            <h3 className="text-sm font-medium text-slate-600 dark:text-slate-400">No documents yet</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-500">
               Documents will appear here as your journey progresses
             </p>
             <Button size="sm" variant="secondary" onClick={() => setRequestOpen(true)} className="mt-2">

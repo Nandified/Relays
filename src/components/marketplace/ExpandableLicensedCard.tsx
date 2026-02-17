@@ -23,7 +23,7 @@ function getInitials(name: string): string {
 }
 
 const AVATAR_COLORS = [
-  "from-blue-600/30 to-blue-500/10 text-blue-300",
+  "from-blue-600/30 to-blue-500/10 text-blue-700 dark:text-blue-300",
   "from-violet-600/30 to-violet-500/10 text-violet-300",
   "from-emerald-600/30 to-emerald-500/10 text-emerald-300",
   "from-amber-600/30 to-amber-500/10 text-amber-300",
@@ -83,7 +83,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{professional.name}</div>
-                <div className="truncate text-xs text-slate-500">
+                <div className="truncate text-xs text-slate-600 dark:text-slate-500">
                   {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
                   {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
                 </div>
@@ -95,7 +95,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
                 stroke="currentColor"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                className={`text-slate-500 transition-transform duration-300 flex-shrink-0 ${expanded ? "rotate-180" : ""}`}
+                className={`text-slate-600 dark:text-slate-500 transition-transform duration-300 flex-shrink-0 ${expanded ? "rotate-180" : ""}`}
               >
                 <path d="M6 9l6 6 6-6" />
               </svg>
@@ -105,7 +105,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
               <Badge variant="outline">{professional.category}</Badge>
             </div>
 
-            <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
+            <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
               {hasRating && (
                 <>
                   <span className="flex items-center gap-1">
@@ -146,14 +146,14 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
                   </div>
                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{professional.rating!.toFixed(1)}</span>
                   {professional.reviewCount && (
-                    <span className="text-xs text-slate-500">({professional.reviewCount} reviews)</span>
+                    <span className="text-xs text-slate-600 dark:text-slate-500">({professional.reviewCount} reviews)</span>
                   )}
                   <GoogleG className="opacity-50" />
                 </div>
               )}
 
               {/* Bio placeholder */}
-              <p className="mt-3 text-sm text-slate-500 italic leading-relaxed">
+              <p className="mt-3 text-sm text-slate-600 dark:text-slate-500 italic leading-relaxed">
                 This professional hasn&apos;t added a bio yet.
               </p>
 
@@ -166,14 +166,14 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
               </div>
 
               {/* Service areas */}
-              <div className="mt-3 text-xs text-slate-500">
-                <span className="font-medium text-slate-500 dark:text-slate-400">Service areas: </span>
+              <div className="mt-3 text-xs text-slate-600 dark:text-slate-500">
+                <span className="font-medium text-slate-600 dark:text-slate-400">Service areas: </span>
                 {[professional.city, professional.county ? `${professional.county} County` : null].filter(Boolean).join(", ") || "Not listed"}
               </div>
 
               {/* Contact (if enriched) */}
               {(professional.phone || professional.website) && (
-                <div className="mt-3 flex flex-wrap gap-4 text-xs text-slate-500">
+                <div className="mt-3 flex flex-wrap gap-4 text-xs text-slate-600 dark:text-slate-500">
                   {professional.phone && (
                     <span className="flex items-center gap-1.5">
                       <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-50">
@@ -183,7 +183,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
                     </span>
                   )}
                   {professional.website && (
-                    <span className="flex items-center gap-1.5 text-blue-400/70">
+                    <span className="flex items-center gap-1.5 text-blue-500 dark:text-blue-400/70">
                       <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-50">
                         <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
                       </svg>
@@ -202,7 +202,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
 
               {/* Subtle claim link */}
               <div className="pt-2 pb-1" onClick={(e) => e.stopPropagation()}>
-                <a href="/pro/onboarding" className="text-[11px] text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors">
+                <a href="/pro/onboarding" className="text-[11px] text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors">
                   Are you {professional.name.split(" ")[0]}? <span className="underline underline-offset-2">Claim this profile</span> →
                 </a>
               </div>

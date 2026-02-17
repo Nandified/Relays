@@ -109,12 +109,12 @@ export default function ProOnboardingPage() {
           🚀
         </div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Set up your profile</h1>
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Let&apos;s get your business listed on Relays</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Let&apos;s get your business listed on Relays</p>
       </div>
 
       {/* Progress bar */}
       <div className="mb-8 px-4">
-        <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
+        <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-500 mb-2">
           <span>Step {step} of {totalSteps}</span>
           <span className="text-emerald-400">{Math.round((step / totalSteps) * 100)}%</span>
         </div>
@@ -130,7 +130,7 @@ export default function ProOnboardingPage() {
       {step === 1 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">What type of service do you provide?</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Select your primary service category</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">Select your primary service category</p>
 
           <div className="grid gap-3">
             {categories.map((cat) => (
@@ -166,7 +166,7 @@ export default function ProOnboardingPage() {
       {step === 2 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Tell us about your business</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This will appear on your public profile</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">This will appear on your public profile</p>
 
           <div className="space-y-4">
             <Input
@@ -189,7 +189,7 @@ export default function ProOnboardingPage() {
       {step === 2 && showClaimStep && matchingPlaces.length > 0 && (
         <div className="animate-in space-y-3 mt-4">
           <div className="text-center mb-2">
-            <p className="text-sm text-slate-500 dark:text-slate-400">We found businesses matching your category. Is one of these yours?</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">We found businesses matching your category. Is one of these yours?</p>
           </div>
           {matchingPlaces.slice(0, 3).map((place) => (
             <ClaimProfileBanner
@@ -221,7 +221,7 @@ export default function ProOnboardingPage() {
       {step === 3 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Where do you serve?</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Enter your primary service area</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">Enter your primary service area</p>
 
           <div className="space-y-4">
             <Input
@@ -230,7 +230,7 @@ export default function ProOnboardingPage() {
               value={serviceArea}
               onChange={(e) => setServiceArea(e.target.value)}
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-600 dark:text-slate-500">
               You can add more service areas after completing setup.
             </p>
           </div>
@@ -241,7 +241,7 @@ export default function ProOnboardingPage() {
       {step === 4 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Upload your photos</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">These help clients recognize you</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">These help clients recognize you</p>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {/* Headshot */}
@@ -272,7 +272,7 @@ export default function ProOnboardingPage() {
                 <div className={`text-sm font-medium ${headshotUploaded ? "text-emerald-400" : "text-slate-700 dark:text-slate-300"}`}>
                   {headshotUploaded ? "Headshot uploaded" : "Upload headshot"}
                 </div>
-                <div className="text-xs text-slate-500 mt-0.5">
+                <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
                   {headshotUploaded ? "Click to change" : "Professional photo"}
                 </div>
               </div>
@@ -307,14 +307,14 @@ export default function ProOnboardingPage() {
                 <div className={`text-sm font-medium ${logoUploaded ? "text-emerald-400" : "text-slate-700 dark:text-slate-300"}`}>
                   {logoUploaded ? "Logo uploaded" : "Upload company logo"}
                 </div>
-                <div className="text-xs text-slate-500 mt-0.5">
+                <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
                   {logoUploaded ? "Click to change" : "Square format preferred"}
                 </div>
               </div>
             </button>
           </div>
 
-          <p className="mt-4 text-xs text-slate-500">
+          <p className="mt-4 text-xs text-slate-600 dark:text-slate-500">
             You can skip this step and upload photos later from your profile settings.
           </p>
         </Card>
@@ -324,7 +324,7 @@ export default function ProOnboardingPage() {
       {step === 5 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Add your social links</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Help clients find and verify you online</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">Help clients find and verify you online</p>
           <div className="space-y-4">
             <Input
               label="LinkedIn"
@@ -377,12 +377,12 @@ export default function ProOnboardingPage() {
                   </>
                 )}
               </button>
-              <p className="text-xs text-slate-500 dark:text-slate-600 mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-500 mt-2">
                 Auto-fill from your Google Business Profile
               </p>
             </div>
           </div>
-          <p className="mt-4 text-xs text-slate-500">
+          <p className="mt-4 text-xs text-slate-600 dark:text-slate-500">
             All social links are optional. You can add or edit them later.
           </p>
         </Card>
@@ -392,7 +392,7 @@ export default function ProOnboardingPage() {
       {step === 6 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Expand your reach</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Add more service areas and an intro video</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">Add more service areas and an intro video</p>
           <div className="space-y-6">
             <div>
               <Input
@@ -401,7 +401,7 @@ export default function ProOnboardingPage() {
                 value={additionalAreas}
                 onChange={(e) => setAdditionalAreas(e.target.value)}
               />
-              <p className="text-xs text-slate-500 mt-1">Separate with commas. Currently serving: {serviceArea || "Not set"}</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">Separate with commas. Currently serving: {serviceArea || "Not set"}</p>
             </div>
 
             {/* Intro Video Upload */}
@@ -424,7 +424,7 @@ export default function ProOnboardingPage() {
                     </div>
                     <div className="text-left">
                       <div className="text-sm font-medium text-emerald-400">Video uploaded!</div>
-                      <div className="text-xs text-slate-500">Click to replace</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-500">Click to replace</div>
                     </div>
                   </div>
                 ) : (
@@ -437,7 +437,7 @@ export default function ProOnboardingPage() {
                     </div>
                     <div className="text-center">
                       <div className="text-sm font-medium text-slate-700 dark:text-slate-300">Upload an intro video</div>
-                      <div className="text-xs text-slate-500 mt-0.5">30-60 seconds — let clients see the real you</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">30-60 seconds — let clients see the real you</div>
                     </div>
                   </>
                 )}
@@ -451,7 +451,7 @@ export default function ProOnboardingPage() {
       {step === 7 && (
         <Card padding="lg" className="animate-in">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Preview your profile</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This is how clients will see you on Relays</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">This is how clients will see you on Relays</p>
 
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-5">
             {/* Preview Card */}
@@ -468,9 +468,9 @@ export default function ProOnboardingPage() {
                     {selectedCategory || "Category"}
                   </span>
                 </div>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{companyName || "Your Company"}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">{companyName || "Your Company"}</p>
                 <div className="flex items-center gap-3 mt-2">
-                  <span className="flex items-center gap-1 text-xs text-slate-500">
+                  <span className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500">
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                       <circle cx="12" cy="10" r="3" />
@@ -481,10 +481,10 @@ export default function ProOnboardingPage() {
                 {(socialLinks.linkedin || socialLinks.instagram) && (
                   <div className="flex items-center gap-2 mt-2">
                     {socialLinks.linkedin && (
-                      <span className="text-[10px] text-slate-500 bg-black/5 dark:bg-white/5 rounded-md px-2 py-0.5">LinkedIn</span>
+                      <span className="text-[10px] text-slate-600 dark:text-slate-500 bg-black/5 dark:bg-white/5 rounded-md px-2 py-0.5">LinkedIn</span>
                     )}
                     {socialLinks.instagram && (
-                      <span className="text-[10px] text-slate-500 bg-black/5 dark:bg-white/5 rounded-md px-2 py-0.5">Instagram</span>
+                      <span className="text-[10px] text-slate-600 dark:text-slate-500 bg-black/5 dark:bg-white/5 rounded-md px-2 py-0.5">Instagram</span>
                     )}
                   </div>
                 )}
@@ -503,20 +503,20 @@ export default function ProOnboardingPage() {
             <div className="mt-4 pt-4 border-t border-[var(--border)] grid grid-cols-3 gap-3 text-center">
               <div>
                 <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">New</div>
-                <div className="text-[10px] text-slate-500">Rating</div>
+                <div className="text-[10px] text-slate-600 dark:text-slate-500">Rating</div>
               </div>
               <div>
                 <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">0</div>
-                <div className="text-[10px] text-slate-500">Reviews</div>
+                <div className="text-[10px] text-slate-600 dark:text-slate-500">Reviews</div>
               </div>
               <div>
                 <div className="text-sm font-semibold text-emerald-400">✓</div>
-                <div className="text-[10px] text-slate-500">Accepting</div>
+                <div className="text-[10px] text-slate-600 dark:text-slate-500">Accepting</div>
               </div>
             </div>
           </div>
 
-          <p className="mt-4 text-xs text-slate-500 text-center">
+          <p className="mt-4 text-xs text-slate-600 dark:text-slate-500 text-center">
             Looks good? Complete your setup and start receiving referrals!
           </p>
         </Card>

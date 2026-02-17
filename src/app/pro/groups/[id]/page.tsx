@@ -35,7 +35,7 @@ const PARTNER_CATEGORIES: ProServiceCategory[] = ["Mortgage Lender", "Attorney",
 const POSITION_LABELS = ["1st", "2nd", "3rd"];
 const POSITION_GLOW = ["shadow-[0_0_12px_rgba(245,158,11,0.25)]", "shadow-[0_0_10px_rgba(148,163,184,0.15)]", "shadow-[0_0_8px_rgba(168,113,72,0.15)]"];
 const POSITION_BORDER = ["border-amber-400/40", "border-slate-300 dark:border-slate-400/30", "border-amber-700/30"];
-const POSITION_TEXT = ["text-amber-400", "text-slate-500 dark:text-slate-400", "text-amber-700"];
+const POSITION_TEXT = ["text-amber-400", "text-slate-600 dark:text-slate-400", "text-amber-700"];
 
 function AddPartnerModal({ open, onClose, category, existingProIds, onAdd }: {
   open: boolean; onClose: () => void; category: ProServiceCategory; existingProIds: string[]; onAdd: (proId: string) => void;
@@ -62,15 +62,15 @@ function AddPartnerModal({ open, onClose, category, existingProIds, onAdd }: {
                   <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{pro.name}</span>
                   {pro.verified && <Badge variant="accent" className="text-[9px] py-0">✓</Badge>}
                 </div>
-                <div className="text-xs text-slate-500">{pro.companyName}</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
               </div>
-              <div className="flex items-center gap-1 text-xs text-slate-500 flex-shrink-0">
+              <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 flex-shrink-0">
                 <svg width="10" height="10" fill="#f59e0b" viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" /></svg>
                 {pro.rating.toFixed(1)}
               </div>
             </button>
           ))}
-          {availablePros.length === 0 && <div className="py-6 text-center text-sm text-slate-500">No {category.toLowerCase()}s available to add.</div>}
+          {availablePros.length === 0 && <div className="py-6 text-center text-sm text-slate-600 dark:text-slate-500">No {category.toLowerCase()}s available to add.</div>}
         </div>
       </div>
     </Modal>
@@ -88,7 +88,7 @@ function PartnerCard({ proId, position, onMoveUp, onMoveDown, onRemove, isFirst,
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/80 p-3.5 group hover:border-[var(--border-hover)] transition-all duration-200">
       <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border font-bold text-xs ${POSITION_BORDER[posIdx] || "border-[var(--border)]"} ${POSITION_GLOW[posIdx] || ""} bg-black/5 dark:bg-white/5`}>
-        <span className={POSITION_TEXT[posIdx] || "text-slate-500"}>{label}</span>
+        <span className={POSITION_TEXT[posIdx] || "text-slate-600 dark:text-slate-500"}>{label}</span>
       </div>
       <div className="h-10 w-10 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] flex-shrink-0">
         <Image src={pro.headshotUrl} alt={pro.name} width={40} height={40} />
@@ -98,23 +98,23 @@ function PartnerCard({ proId, position, onMoveUp, onMoveDown, onRemove, isFirst,
           <span className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{pro.name}</span>
           {pro.verified && <Badge variant="accent" className="text-[9px] py-0">✓</Badge>}
         </div>
-        <div className="text-xs text-slate-500">{pro.companyName}</div>
+        <div className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
         <div className="flex items-center gap-1.5 mt-0.5">
           <span className="flex items-center gap-0.5 text-[11px] text-amber-400">
             <svg width="9" height="9" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" /></svg>
             {pro.rating.toFixed(1)}
           </span>
-          <span className="text-[10px] text-slate-500 dark:text-slate-600">{pro.reviewCount} reviews</span>
+          <span className="text-[10px] text-slate-500 dark:text-slate-500">{pro.reviewCount} reviews</span>
         </div>
       </div>
       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0">
-        <button onClick={onMoveUp} disabled={isFirst} className="rounded-lg p-1.5 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors" title="Move up">
+        <button onClick={onMoveUp} disabled={isFirst} className="rounded-lg p-1.5 text-slate-600 dark:text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors" title="Move up">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" /></svg>
         </button>
-        <button onClick={onMoveDown} disabled={isLast} className="rounded-lg p-1.5 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors" title="Move down">
+        <button onClick={onMoveDown} disabled={isLast} className="rounded-lg p-1.5 text-slate-600 dark:text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors" title="Move down">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
         </button>
-        <button onClick={onRemove} className="rounded-lg p-1.5 text-slate-500 hover:bg-red-500/10 hover:text-red-400 transition-colors" title="Remove partner">
+        <button onClick={onRemove} className="rounded-lg p-1.5 text-slate-600 dark:text-slate-500 hover:bg-red-500/10 hover:text-red-400 transition-colors" title="Remove partner">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" /></svg>
         </button>
       </div>
@@ -125,14 +125,14 @@ function PartnerCard({ proId, position, onMoveUp, onMoveDown, onRemove, isFirst,
 function ShareLinkPreview({ group }: { group: CuratedGroup }) {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4 mt-4">
-      <div className="text-[10px] text-slate-500 dark:text-slate-600 uppercase tracking-wider mb-3">Client preview</div>
+      <div className="text-[10px] text-slate-500 dark:text-slate-500 uppercase tracking-wider mb-3">Client preview</div>
       <div className="space-y-2">
         {PARTNER_CATEGORIES.map((cat) => {
           const partners = getGroupPartnersByCategory(group, cat);
           if (partners.length === 0) return null;
           return (
             <div key={cat} className="flex items-center gap-2">
-              <span className="text-[10px] text-slate-500 w-24 flex-shrink-0 truncate">{cat}</span>
+              <span className="text-[10px] text-slate-600 dark:text-slate-500 w-24 flex-shrink-0 truncate">{cat}</span>
               <div className="flex -space-x-1">
                 {partners.slice(0, 3).map((p) => {
                   const pro = getProById(p.proId);
@@ -140,7 +140,7 @@ function ShareLinkPreview({ group }: { group: CuratedGroup }) {
                   return <div key={p.proId} className="h-5 w-5 overflow-hidden rounded-full border border-[var(--bg-elevated)] bg-[var(--bg-card)]"><Image src={pro.headshotUrl} alt={pro.name} width={20} height={20} /></div>;
                 })}
               </div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-600">{partners.slice(0, 3).map((p) => getProById(p.proId)?.name.split(" ")[0]).filter(Boolean).join(", ")}</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-500">{partners.slice(0, 3).map((p) => getProById(p.proId)?.name.split(" ")[0]).filter(Boolean).join(", ")}</span>
             </div>
           );
         })}
@@ -170,7 +170,7 @@ export default function GroupDetailPage({ params }: { params: Promise<{ id: stri
         <div className="text-center">
           <div className="text-4xl mb-3">📋</div>
           <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Group not found</h1>
-          <p className="text-sm text-slate-500">This group may have been removed.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-500">This group may have been removed.</p>
           <Link href="/pro/groups"><Button className="mt-4">Back to Groups</Button></Link>
         </div>
       </div>
@@ -234,7 +234,7 @@ export default function GroupDetailPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 pb-20">
       <div className="mb-6">
-        <Link href="/pro/groups" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-4">
+        <Link href="/pro/groups" className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-4">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
           All Groups
         </Link>
@@ -271,28 +271,28 @@ export default function GroupDetailPage({ params }: { params: Promise<{ id: stri
           ) : (
             <button onClick={() => setEditingName(true)} className="group/name flex items-center gap-2 mb-2">
               <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{group.name}</h1>
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600 opacity-0 group-hover/name:opacity-100 transition-opacity"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-500 opacity-0 group-hover/name:opacity-100 transition-opacity"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
             </button>
           )}
 
           {editingDesc ? (
             <div className="mb-4">
-              <textarea autoFocus className="w-full bg-transparent text-sm text-slate-500 dark:text-slate-400 outline-none border border-[var(--border)] rounded-xl p-2 resize-none" value={descValue} rows={2}
+              <textarea autoFocus className="w-full bg-transparent text-sm text-slate-600 dark:text-slate-400 outline-none border border-[var(--border)] rounded-xl p-2 resize-none" value={descValue} rows={2}
                 onChange={(e) => setDescValue(e.target.value)} onBlur={handleSaveDesc} />
             </div>
           ) : (
             <button onClick={() => setEditingDesc(true)} className="group/desc flex items-center gap-2 mb-4">
-              <p className="text-sm text-slate-500 dark:text-slate-400 text-left">{group.description || "Add a description..."}</p>
-              <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600 opacity-0 group-hover/desc:opacity-100 transition-opacity flex-shrink-0"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+              <p className="text-sm text-slate-600 dark:text-slate-400 text-left">{group.description || "Add a description..."}</p>
+              <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-500 opacity-0 group-hover/desc:opacity-100 transition-opacity flex-shrink-0"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
             </button>
           )}
 
           <div className="flex items-center gap-3 pt-4 border-t border-[var(--border)]">
-            <button onClick={handleToggleDefault} className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium border transition-all duration-200 ${group.isDefault ? "bg-amber-500/10 border-amber-500/20 text-amber-400" : "border-[var(--border)] text-slate-500 hover:border-amber-500/20 hover:text-amber-400"}`}>
+            <button onClick={handleToggleDefault} className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium border transition-all duration-200 ${group.isDefault ? "bg-amber-500/10 border-amber-500/20 text-amber-400" : "border-[var(--border)] text-slate-600 dark:text-slate-500 hover:border-amber-500/20 hover:text-amber-400"}`}>
               <svg width="12" height="12" fill={group.isDefault ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               {group.isDefault ? "Default Group" : "Set as Default"}
             </button>
-            <span className="text-xs text-slate-500">{group.partners.length} partner{group.partners.length !== 1 ? "s" : ""}</span>
+            <span className="text-xs text-slate-600 dark:text-slate-500">{group.partners.length} partner{group.partners.length !== 1 ? "s" : ""}</span>
           </div>
         </div>
       </div>
@@ -305,11 +305,11 @@ export default function GroupDetailPage({ params }: { params: Promise<{ id: stri
           </div>
           <div>
             <h3 className="text-sm font-medium text-slate-800 dark:text-slate-200">Share Link</h3>
-            <p className="text-[11px] text-slate-500">Clients who visit this link see your curated partners</p>
+            <p className="text-[11px] text-slate-600 dark:text-slate-500">Clients who visit this link see your curated partners</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <code className="flex-1 truncate rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] px-3 py-2 text-xs text-blue-400 font-mono">https://{shareUrl}</code>
+          <code className="flex-1 truncate rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] px-3 py-2 text-xs text-blue-500 dark:text-blue-400 font-mono">https://{shareUrl}</code>
           <Button size="sm" variant="secondary" onClick={handleCopyLink}>
             {copied ? <><svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" className="mr-1 text-emerald-400"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" /></svg>Copied</> : "Copy"}
           </Button>
@@ -329,7 +329,7 @@ export default function GroupDetailPage({ params }: { params: Promise<{ id: stri
                   <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${meta.colorBg} text-lg`}>{meta.icon}</div>
                   <div>
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{category}</h3>
-                    <p className="text-[11px] text-slate-500">{partners.length}/3 partner{partners.length !== 1 ? "s" : ""}</p>
+                    <p className="text-[11px] text-slate-600 dark:text-slate-500">{partners.length}/3 partner{partners.length !== 1 ? "s" : ""}</p>
                   </div>
                 </div>
                 {partners.length < 3 && (
@@ -356,7 +356,7 @@ export default function GroupDetailPage({ params }: { params: Promise<{ id: stri
                   <button onClick={() => setAddingCategory(category)} className="flex w-full items-center justify-center rounded-2xl border border-dashed border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] p-6 hover:border-[var(--border-hover)] hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
                     <div className="text-center">
                       <svg width="18" height="18" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24" className="mx-auto mb-1"><path d="M12 4v16m8-8H4" /></svg>
-                      <span className="text-xs text-slate-500">Add a {category.toLowerCase()}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-500">Add a {category.toLowerCase()}</span>
                     </div>
                   </button>
                 )}

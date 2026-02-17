@@ -78,7 +78,7 @@ function ConsumerDocumentsView() {
               <h3 className="text-sm font-medium text-amber-300">
                 {actionableDocs.length} document{actionableDocs.length !== 1 ? "s" : ""} need your attention
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
                 Your pro team is waiting for these documents to keep your journey on track.
               </p>
             </div>
@@ -102,11 +102,11 @@ function ConsumerDocumentsView() {
                   >
                     {journey.title}
                   </Link>
-                  <p className="text-xs text-slate-500 mt-0.5">{journey.address}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">{journey.address}</p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
                   <div className="text-right hidden sm:block">
-                    <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{stats.approved}/{stats.total}</span>
+                    <span className="text-xs text-slate-600 dark:text-slate-400 tabular-nums">{stats.approved}/{stats.total}</span>
                     <div className="h-1.5 w-20 rounded-full bg-black/5 dark:bg-white/5 mt-1 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-700"
@@ -153,7 +153,7 @@ function ConsumerDocumentsView() {
                                 setViewerDoc(doc);
                                 setViewerOpen(true);
                               }}
-                              className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                              className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-600 dark:text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                             >
                               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" strokeLinecap="round"/>
@@ -242,7 +242,7 @@ function ProDocumentsView() {
             </div>
             <span className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{needsReview}</span>
           </div>
-          <span className="text-xs text-slate-500">Needs review</span>
+          <span className="text-xs text-slate-600 dark:text-slate-500">Needs review</span>
         </div>
         <div className="rounded-2xl border border-amber-500/10 bg-amber-500/[0.04] p-4">
           <div className="flex items-center gap-2 mb-1">
@@ -254,7 +254,7 @@ function ProDocumentsView() {
             </div>
             <span className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{awaiting}</span>
           </div>
-          <span className="text-xs text-slate-500">Awaiting upload</span>
+          <span className="text-xs text-slate-600 dark:text-slate-500">Awaiting upload</span>
         </div>
       </div>
 
@@ -273,7 +273,7 @@ function ProDocumentsView() {
                   >
                     {first.journeyTitle}
                   </Link>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">
                     Client: {first.clientName} · {docs.length} pending
                   </p>
                 </div>
@@ -298,7 +298,7 @@ function ProDocumentsView() {
                       <div className="min-w-0 flex-1">
                         <span className="text-sm text-slate-800 dark:text-slate-200">{doc.title}</span>
                         {doc.uploadedBy && (
-                          <p className="text-[11px] text-slate-500">
+                          <p className="text-[11px] text-slate-600 dark:text-slate-500">
                             Uploaded by {doc.uploadedBy}
                             {doc.uploadedAt && (
                               <> · {new Date(doc.uploadedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</>
@@ -342,7 +342,7 @@ function ProDocumentsView() {
               </svg>
             </div>
             <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300">All caught up!</h3>
-            <p className="text-xs text-slate-500">No pending documents to review.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-500">No pending documents to review.</p>
           </div>
         </div>
       )}
@@ -396,7 +396,7 @@ export default function DocumentsPage() {
           </div>
           Documents
         </h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
           Track, upload, and manage documents across your journeys
         </p>
       </div>

@@ -26,7 +26,7 @@ export function NPSSurveyCard({ onSubmit, onDismiss }: NPSSurveyCardProps) {
         <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
           Thanks for your feedback!
         </p>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
           Your input helps us improve Relays for everyone.
         </p>
       </div>
@@ -39,7 +39,7 @@ export function NPSSurveyCard({ onSubmit, onDismiss }: NPSSurveyCardProps) {
         <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
           How likely are you to recommend Relays?
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
           On a scale of 1-10, how likely would you recommend Relays to a friend
           buying or selling a home?
         </p>
@@ -58,7 +58,7 @@ export function NPSSurveyCard({ onSubmit, onDismiss }: NPSSurveyCardProps) {
                   : score >= 7
                     ? "bg-amber-500 text-white shadow-lg shadow-amber-500/30"
                     : "bg-red-500 text-white shadow-lg shadow-red-500/30"
-                : "bg-black/5 dark:bg-white/5 text-slate-500 border border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-slate-300"
+                : "bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-500 border border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
             {score}
@@ -68,8 +68,8 @@ export function NPSSurveyCard({ onSubmit, onDismiss }: NPSSurveyCardProps) {
 
       {/* Scale labels */}
       <div className="flex justify-between px-1 mb-4">
-        <span className="text-[10px] text-slate-500 dark:text-slate-600">Not likely</span>
-        <span className="text-[10px] text-slate-500 dark:text-slate-600">Very likely</span>
+        <span className="text-[10px] text-slate-500 dark:text-slate-500">Not likely</span>
+        <span className="text-[10px] text-slate-500 dark:text-slate-500">Very likely</span>
       </div>
 
       {/* Feedback label */}
@@ -105,7 +105,7 @@ export function NPSSurveyCard({ onSubmit, onDismiss }: NPSSurveyCardProps) {
         {onDismiss && (
           <button
             onClick={onDismiss}
-            className="text-xs text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors"
+            className="text-xs text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors"
           >
             Skip
           </button>

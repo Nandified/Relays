@@ -223,15 +223,15 @@ export function SearchSuggestions({
         {/* No results */}
         {showNoResults && (
           <div className="px-4 py-6 text-center">
-            <div className="text-sm font-medium text-slate-500 dark:text-slate-400">No professionals found</div>
-            <div className="mt-1 text-xs text-slate-500 dark:text-slate-600">Try different terms or browse all categories</div>
+            <div className="text-sm font-medium text-slate-600 dark:text-slate-400">No professionals found</div>
+            <div className="mt-1 text-xs text-slate-500 dark:text-slate-500">Try different terms or browse all categories</div>
           </div>
         )}
 
         {/* Relays pros section */}
         {!loading && matchedPros.length > 0 && (
           <div className="py-1.5">
-            <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+            <div className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500">
               On Relays
             </div>
             {matchedPros.map((pro, i) => {
@@ -258,14 +258,14 @@ export function SearchSuggestions({
                         <span className="flex-shrink-0 text-[10px] text-emerald-400">✓</span>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
                       <span className="truncate">{pro.companyName}</span>
                       <span className="flex-shrink-0">·</span>
                       <span className="flex-shrink-0">{pro.categories[0]}</span>
                     </div>
                   </div>
                   {/* Rating */}
-                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-600 dark:text-slate-400">
                     <svg width="11" height="11" fill="#f59e0b" viewBox="0 0 20 20">
                       <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                     </svg>
@@ -285,7 +285,7 @@ export function SearchSuggestions({
               <div className="mx-3 mb-1.5 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500">
                 Licensed Professionals
               </span>
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="opacity-40">
@@ -312,18 +312,18 @@ export function SearchSuggestions({
                   `}
                 >
                   {/* Initials avatar */}
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-semibold text-slate-600 dark:text-slate-400">
                     {initials}
                   </div>
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{prof.name}</span>
-                      <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 px-1.5 py-0 text-[9px] font-medium text-emerald-400/80">
+                      <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 px-1.5 py-0 text-[9px] font-medium text-emerald-600 dark:text-emerald-400/80">
                         Licensed
                       </span>
                     </div>
-                    <div className="truncate text-xs text-slate-500">
+                    <div className="truncate text-xs text-slate-600 dark:text-slate-500">
                       {prof.category}
                       {prof.officeName ? ` · ${prof.officeName}` : ""}
                       {prof.city ? ` · ${prof.city}, ${prof.state}` : ""}
@@ -343,7 +343,7 @@ export function SearchSuggestions({
               <div className="mx-3 mb-1.5 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500">
                 {matchedPros.length === 0 && matchedLicensed.length === 0 ? "Not on Relays yet — invite them!" : "More from Google"}
               </span>
               <svg width="12" height="12" viewBox="0 0 24 24" className="opacity-50">
@@ -379,10 +379,10 @@ export function SearchSuggestions({
                         Unclaimed
                       </span>
                     </div>
-                    <div className="truncate text-xs text-slate-500">{place.address}</div>
+                    <div className="truncate text-xs text-slate-600 dark:text-slate-500">{place.address}</div>
                   </div>
                   {/* Rating */}
-                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-600 dark:text-slate-400">
                     <svg width="11" height="11" fill="#f59e0b" viewBox="0 0 20 20">
                       <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                     </svg>
@@ -405,7 +405,7 @@ export function SearchSuggestions({
                 w-full px-3 py-2.5 text-center text-xs font-medium transition-colors
                 ${activeIndex === matchedPros.length + matchedLicensed.length + matchedPlaces.length
                   ? "bg-black/[0.08] dark:bg-white/[0.08] text-blue-400"
-                  : "text-slate-500 hover:text-blue-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
+                  : "text-slate-600 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
               `}
             >
               Browse all professionals →

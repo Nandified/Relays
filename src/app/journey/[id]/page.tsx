@@ -99,7 +99,7 @@ function ProgressRing({ filled, total, size = 80 }: { filled: number; total: num
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">{filled}/{total}</span>
-        <span className="text-[10px] text-slate-500">filled</span>
+        <span className="text-[10px] text-slate-600 dark:text-slate-500">filled</span>
       </div>
     </div>
   );
@@ -127,7 +127,7 @@ function FilledProCard({ pro, category }: { pro: Pro; category: string }) {
               <Badge variant="success" className="text-[10px] py-0">✓ Verified</Badge>
             )}
           </div>
-          <div className="text-xs text-slate-500">{pro.companyName}</div>
+          <div className="text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
           <div className="flex items-center gap-2 mt-1">
             <span className="flex items-center gap-0.5 text-xs text-amber-400">
               <svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20">
@@ -135,7 +135,7 @@ function FilledProCard({ pro, category }: { pro: Pro; category: string }) {
               </svg>
               {pro.rating.toFixed(1)}
             </span>
-            <span className="text-[11px] text-slate-500 dark:text-slate-600">{pro.reviewCount} reviews</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-500">{pro.reviewCount} reviews</span>
           </div>
         </div>
         <div className="flex-shrink-0">
@@ -163,8 +163,8 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
             </div>
           )}
         </div>
-        <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-white transition-colors">{pro.name}</h4>
-        <p className="text-[11px] text-slate-500 mt-0.5">{pro.companyName}</p>
+        <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-white transition-colors">{pro.name}</h4>
+        <p className="text-[11px] text-slate-600 dark:text-slate-500 mt-0.5">{pro.companyName}</p>
         <div className="flex items-center gap-1 mt-2">
           <div className="flex">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -179,7 +179,7 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
               </svg>
             ))}
           </div>
-          <span className="text-[11px] text-slate-500 tabular-nums">({pro.reviewCount})</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-500 tabular-nums">({pro.reviewCount})</span>
         </div>
         <div className="flex gap-2 mt-3 w-full">
           <Button size="sm" className="flex-1 text-xs">Select</Button>
@@ -216,7 +216,7 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
           </div>
           <div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{role.category}</h3>
-            <p className="text-[11px] text-slate-500">{meta.description}</p>
+            <p className="text-[11px] text-slate-600 dark:text-slate-500">{meta.description}</p>
           </div>
         </div>
         <div>
@@ -245,7 +245,7 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
 
       {role.status === "recommended" && recommendedPros.length > 0 && (
         <div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
             Recommended by your {role.category === "Realtor" ? "team" : "Realtor"} — pick the best fit
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -256,7 +256,7 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
           <div className="mt-3 text-center">
             <Link
               href={`/marketplace?category=${encodeURIComponent(role.category)}`}
-              className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-blue-400 transition-colors"
+              className="inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-500 hover:text-blue-500 dark:text-blue-400 transition-colors"
             >
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
@@ -274,8 +274,8 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
               <path d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">No one assigned yet</p>
-          <p className="text-xs text-slate-500 dark:text-slate-600 mb-3">Your pro will recommend someone, or find your own</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">No one assigned yet</p>
+          <p className="text-xs text-slate-500 dark:text-slate-500 mb-3">Your pro will recommend someone, or find your own</p>
           <Link href={`/marketplace?category=${encodeURIComponent(role.category)}`}>
             <Button size="sm" variant="secondary">
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-1">
@@ -353,10 +353,10 @@ function StageInfoPanel({ stage }: { stage: JourneyStage }) {
         <span className="text-lg">{JOURNEY_STAGE_ICONS[stage]}</span>
         <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{info.title}</h3>
       </div>
-      <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{info.description}</p>
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">{info.description}</p>
       <div className="space-y-1.5">
         {info.tips.map((tip, i) => (
-          <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
+          <div key={i} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
             <div className="h-1 w-1 rounded-full bg-blue-400/60 flex-shrink-0" />
             {tip}
           </div>
@@ -413,7 +413,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
         <div className="text-center">
           <div className="text-4xl mb-3">🔍</div>
           <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Journey not found</h1>
-          <p className="text-sm text-slate-500">This link may be expired or invalid.</p>
+          <p className="text-sm text-slate-600 dark:text-slate-500">This link may be expired or invalid.</p>
           <Link href="/dashboard">
             <Button className="mt-4">Go to Dashboard</Button>
           </Link>
@@ -475,7 +475,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
             {journey.title}
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+          <p className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
               <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -490,7 +490,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
                   {allFilled ? "Your team is complete!" : `${filledCount} of ${totalCount} roles filled`}
                 </div>
-                <div className="text-xs text-slate-500 mt-0.5">
+                <div className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
                   {allFilled
                     ? "You're ready for every step of your journey"
                     : `${totalCount - filledCount} more to go — you're making great progress`}
@@ -498,7 +498,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
             {createdByPro && (
-              <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
+              <div className="hidden sm:flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
                 <div className="h-7 w-7 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)]">
                   <Image src={createdByPro.headshotUrl} alt={createdByPro.name} width={28} height={28} />
                 </div>
@@ -512,7 +512,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       {/* What's Next Moments Section */}
       {moments.active.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
             <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -529,8 +529,8 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       {/* Upcoming Moments */}
       {moments.upcoming.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-500">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 6v6l4 2" />
             </svg>
@@ -547,7 +547,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       {/* Completed Moments */}
       {moments.completed.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
             <svg width="12" height="12" fill="#10b981" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
             </svg>
@@ -580,7 +580,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       )}
 
       {/* Role panels */}
-      <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Your Team</h2>
+      <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-4">Your Team</h2>
       <div className="space-y-4 stagger-children">
         {JOURNEY_ROLE_CATEGORIES.map((cat, i) => {
           const role = journey.roles.find((r) => r.category === cat);
@@ -591,7 +591,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
 
       {/* Bottom CTA */}
       <div className="mt-8 text-center">
-        <p className="text-xs text-slate-500 dark:text-slate-600 mb-3">
+        <p className="text-xs text-slate-500 dark:text-slate-500 mb-3">
           Need help? Your {createdByPro?.categories[0] || "pro"} is just a message away.
         </p>
         {createdByPro && (

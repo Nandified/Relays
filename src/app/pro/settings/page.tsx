@@ -49,7 +49,7 @@ function SettingsSection({ title, description, children, accent }: { title: stri
           <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{title}</h2>
           {accent && <Badge variant="success">Pro</Badge>}
         </div>
-        {description && <p className="mt-0.5 text-xs text-slate-500">{description}</p>}
+        {description && <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-500">{description}</p>}
       </div>
       {children}
     </Card>
@@ -168,7 +168,7 @@ export default function ProSettingsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Pro Settings</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Manage your professional account and preferences</p>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Manage your professional account and preferences</p>
         </div>
         <Button onClick={handleSave}>{saved ? "✓ Saved!" : "Save Changes"}</Button>
       </div>
@@ -180,7 +180,7 @@ export default function ProSettingsPage() {
             <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-blue-500/20 border border-[var(--border)] flex items-center justify-center text-xl font-bold text-slate-700 dark:text-slate-300">AM</div>
             <div>
               <Button size="sm" variant="secondary">Change Photo</Button>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-600">JPG, PNG. Max 2MB.</p>
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">JPG, PNG. Max 2MB.</p>
             </div>
           </div>
           <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -221,7 +221,7 @@ export default function ProSettingsPage() {
                       <div className="flex items-center gap-1.5">
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                         <span className="text-xs text-emerald-400">{connection.email}</span>
-                        {connection.lastSyncAt && <span className="text-[10px] text-slate-500 dark:text-slate-600">• Synced {new Date(connection.lastSyncAt).toLocaleDateString()}</span>}
+                        {connection.lastSyncAt && <span className="text-[10px] text-slate-500 dark:text-slate-500">• Synced {new Date(connection.lastSyncAt).toLocaleDateString()}</span>}
                       </div>
                     ) : isExpired ? (
                       <div className="flex items-center gap-1.5">
@@ -229,7 +229,7 @@ export default function ProSettingsPage() {
                         <span className="text-xs text-amber-400">Connection expired — re-authorize</span>
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-500">{provider.desc}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-500">{provider.desc}</span>
                     )}
                   </div>
                 </div>
@@ -247,24 +247,24 @@ export default function ProSettingsPage() {
         <div className="space-y-6">
           {/* Business hours per day */}
           <div>
-            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Business Hours</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Business Hours</h3>
             <div className="space-y-2">
               {DAYS.map((day) => {
                 const hours = businessHours[day] as { start: string; end: string; enabled: boolean };
                 return (
                   <div key={day} className="flex items-center gap-3">
                     <Toggle enabled={hours.enabled} onChange={(v) => setBusinessHours((prev) => ({ ...prev, [day]: { ...prev[day], enabled: v } }))} label={day} />
-                    <span className={`text-xs font-medium w-8 ${hours.enabled ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-600"}`}>{DAY_LABELS[day]}</span>
+                    <span className={`text-xs font-medium w-8 ${hours.enabled ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"}`}>{DAY_LABELS[day]}</span>
                     {hours.enabled ? (
                       <div className="flex items-center gap-2 flex-1">
                         <input type="time" value={hours.start} onChange={(e) => setBusinessHours((prev) => ({ ...prev, [day]: { ...prev[day], start: e.target.value } }))}
                           className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-2 py-1 text-xs text-slate-800 dark:text-slate-200 outline-none w-24" />
-                        <span className="text-xs text-slate-500 dark:text-slate-600">to</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-500">to</span>
                         <input type="time" value={hours.end} onChange={(e) => setBusinessHours((prev) => ({ ...prev, [day]: { ...prev[day], end: e.target.value } }))}
                           className="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] px-2 py-1 text-xs text-slate-800 dark:text-slate-200 outline-none w-24" />
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-500 dark:text-slate-600 flex-1">Unavailable</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-500 flex-1">Unavailable</span>
                     )}
                   </div>
                 );
@@ -274,28 +274,28 @@ export default function ProSettingsPage() {
 
           {/* Buffer time */}
           <div>
-            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Buffer Between Appointments</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Buffer Between Appointments</h3>
             <Slider value={bufferTime} options={[0, 15, 30, 60]} onChange={setBufferTime}
               labels={{ 0: "None", 15: "15 min", 30: "30 min", 60: "1 hour" }} />
           </div>
 
           {/* Minimum notice */}
           <div>
-            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Minimum Notice Period</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Minimum Notice Period</h3>
             <Slider value={minNotice} options={[1, 2, 24, 48]} onChange={setMinNotice}
               labels={{ 1: "1 hour", 2: "2 hours", 24: "24 hours", 48: "48 hours" }} />
           </div>
 
           {/* Maximum advance booking */}
           <div>
-            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Maximum Advance Booking</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Maximum Advance Booking</h3>
             <Slider value={maxAdvance} options={[7, 14, 30, 60]} onChange={setMaxAdvance}
               labels={{ 7: "1 week", 14: "2 weeks", 30: "1 month", 60: "2 months" }} />
           </div>
 
           {/* Blocked dates */}
           <div>
-            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Blocked Dates</h3>
+            <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">Blocked Dates</h3>
             <div className="flex flex-wrap gap-1.5 mb-2">
               {blockedDates.map((date) => (
                 <div key={date} className="flex items-center gap-1 rounded-lg bg-red-500/[0.06] border border-red-500/15 px-2 py-1">
@@ -305,7 +305,7 @@ export default function ProSettingsPage() {
                   </button>
                 </div>
               ))}
-              {blockedDates.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-600">No blocked dates</span>}
+              {blockedDates.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-500">No blocked dates</span>}
             </div>
             <div className="flex gap-2">
               <input type="date" value={newBlockDate} onChange={(e) => setNewBlockDate(e.target.value)}
@@ -323,14 +323,14 @@ export default function ProSettingsPage() {
         <div className="space-y-4">
           <div>
             <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Away Message</label>
-            <textarea className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 outline-none focus:border-[var(--accent)]/50 focus:ring-2 focus:ring-[var(--accent-light)] min-h-[80px] resize-y" value={awayMessage} onChange={(e) => setAwayMessage(e.target.value)} />
+            <textarea className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 dark:placeholder:text-slate-500 outline-none focus:border-[var(--accent)]/50 focus:ring-2 focus:ring-[var(--accent-light)] min-h-[80px] resize-y" value={awayMessage} onChange={(e) => setAwayMessage(e.target.value)} />
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Response Time Commitment</label>
             <div className="flex gap-2">
               {["30min", "1hr", "2hr", "4hr", "24hr"].map((time) => (
                 <button key={time} onClick={() => setResponseCommitment(time)}
-                  className={`rounded-xl px-3 py-1.5 text-sm font-medium transition-all border ${responseCommitment === time ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"}`}>
+                  className={`rounded-xl px-3 py-1.5 text-sm font-medium transition-all border ${responseCommitment === time ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"}`}>
                   {time}
                 </button>
               ))}
@@ -350,7 +350,7 @@ export default function ProSettingsPage() {
             <div key={reminder.label} className="flex items-center justify-between">
               <div>
                 <div className="text-sm text-slate-800 dark:text-slate-200">{reminder.label}</div>
-                <div className="text-xs text-slate-500">{reminder.desc}</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">{reminder.desc}</div>
               </div>
               <Toggle enabled={reminder.defaultOn} onChange={() => {}} label={reminder.label} />
             </div>
@@ -368,7 +368,7 @@ export default function ProSettingsPage() {
               </div>
               <div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">CRM Integration</div>
-                <div className="text-xs text-slate-500">Connect Follow Up Boss, kvCORE, or other CRMs</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">Connect Follow Up Boss, kvCORE, or other CRMs</div>
               </div>
             </div>
             <Button size="sm" variant="secondary">Connect</Button>
@@ -378,7 +378,7 @@ export default function ProSettingsPage() {
               <div className="h-10 w-10 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center text-lg">⚡</div>
               <div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Zapier / Make</div>
-                <div className="text-xs text-slate-500">Custom automations via webhooks</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">Custom automations via webhooks</div>
               </div>
             </div>
             <Button size="sm" variant="secondary">Connect</Button>
@@ -392,48 +392,48 @@ export default function ProSettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2"><h3 className="text-sm font-semibold text-emerald-400">Pro Plan</h3><Badge variant="success">Active</Badge></div>
-              <p className="text-xs text-slate-500 mt-0.5">Includes marketplace presence, unlimited journeys, and booking management</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">Includes marketplace presence, unlimited journeys, and booking management</p>
             </div>
-            <div className="text-right"><div className="text-2xl font-bold text-slate-900 dark:text-slate-100">$0</div><div className="text-xs text-slate-500">/ month</div></div>
+            <div className="text-right"><div className="text-2xl font-bold text-slate-900 dark:text-slate-100">$0</div><div className="text-xs text-slate-600 dark:text-slate-500">/ month</div></div>
           </div>
         </div>
         <div className="space-y-3 mb-4">
-          <div className="flex items-center justify-between text-sm"><span className="text-slate-500 dark:text-slate-400">Active Journeys</span><span className="text-slate-800 dark:text-slate-200 font-medium">12 / Unlimited</span></div>
-          <div className="flex items-center justify-between text-sm"><span className="text-slate-500 dark:text-slate-400">Referrals This Month</span><span className="text-slate-800 dark:text-slate-200 font-medium">8</span></div>
-          <div className="flex items-center justify-between text-sm"><span className="text-slate-500 dark:text-slate-400">Profile Views (30d)</span><span className="text-slate-800 dark:text-slate-200 font-medium">147</span></div>
+          <div className="flex items-center justify-between text-sm"><span className="text-slate-600 dark:text-slate-400">Active Journeys</span><span className="text-slate-800 dark:text-slate-200 font-medium">12 / Unlimited</span></div>
+          <div className="flex items-center justify-between text-sm"><span className="text-slate-600 dark:text-slate-400">Referrals This Month</span><span className="text-slate-800 dark:text-slate-200 font-medium">8</span></div>
+          <div className="flex items-center justify-between text-sm"><span className="text-slate-600 dark:text-slate-400">Profile Views (30d)</span><span className="text-slate-800 dark:text-slate-200 font-medium">147</span></div>
         </div>
       </SettingsSection>
 
       {/* ── Notifications ── */}
       <SettingsSection title="Notification Preferences" description="Choose how and when you want to hear from us">
         <div className="mb-6">
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
           <div className="space-y-3">
             {([["email", "Email", "Receive email notifications"], ["sms", "SMS", "Text message alerts"], ["push", "Push Notifications", "Browser and mobile push"], ["inApp", "In-App", "Notifications inside Relays"]] as const).map(([key, label, desc]) => (
               <div key={key} className="flex items-center justify-between">
-                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-500">{desc}</div></div>
+                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-600 dark:text-slate-500">{desc}</div></div>
                 <Toggle enabled={channels[key]} onChange={(v) => setChannels((prev) => ({ ...prev, [key]: v }))} label={label} />
               </div>
             ))}
           </div>
         </div>
         <div className="mb-6">
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Types</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Types</h3>
           <div className="space-y-3">
             {([["newRequests", "New Requests", "Incoming referral and booking requests"], ["journeyUpdates", "Journey Updates", "Status changes on your active journeys"], ["bookings", "Bookings", "Appointment confirmations and reminders"], ["messages", "Messages", "New messages from clients"], ["documents", "Documents", "Document requests and uploads"]] as const).map(([key, label, desc]) => (
               <div key={key} className="flex items-center justify-between">
-                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-500">{desc}</div></div>
+                <div><div className="text-sm text-slate-800 dark:text-slate-200">{label}</div><div className="text-xs text-slate-600 dark:text-slate-500">{desc}</div></div>
                 <Toggle enabled={types[key as keyof typeof types]} onChange={(v) => setTypes((prev) => ({ ...prev, [key]: v }))} label={label} />
               </div>
             ))}
           </div>
         </div>
         <div>
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
           <div className="flex gap-2">
             {([["realtime", "Real-time"], ["daily", "Daily Digest"], ["weekly", "Weekly Digest"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => setFrequency(val)}
-                className={`rounded-xl px-4 py-2 text-sm font-medium transition-all border ${frequency === val ? "bg-[var(--accent)] text-white border-[var(--accent)]" : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"}`}>
+                className={`rounded-xl px-4 py-2 text-sm font-medium transition-all border ${frequency === val ? "bg-[var(--accent)] text-white border-[var(--accent)]" : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"}`}>
                 {label}
               </button>
             ))}
@@ -449,14 +449,14 @@ export default function ProSettingsPage() {
             <div className="flex gap-2">
               {([["public", "Public"], ["team-only", "Clients Only"], ["private", "Private"]] as const).map(([val, label]) => (
                 <button key={val} onClick={() => setProfileVisibility(val)}
-                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-all border ${profileVisibility === val ? "bg-[var(--accent)] text-white border-[var(--accent)]" : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"}`}>
+                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-all border ${profileVisibility === val ? "bg-[var(--accent)] text-white border-[var(--accent)]" : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"}`}>
                   {label}
                 </button>
               ))}
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <div><div className="text-sm text-slate-800 dark:text-slate-200">Data Sharing</div><div className="text-xs text-slate-500">Allow Relays to use anonymized data to improve recommendations</div></div>
+            <div><div className="text-sm text-slate-800 dark:text-slate-200">Data Sharing</div><div className="text-xs text-slate-600 dark:text-slate-500">Allow Relays to use anonymized data to improve recommendations</div></div>
             <Toggle enabled={dataSharing} onChange={setDataSharing} label="Data sharing" />
           </div>
         </div>
@@ -465,7 +465,7 @@ export default function ProSettingsPage() {
       {/* ── Danger Zone ── */}
       <Card padding="lg" className="border-red-500/10 bg-red-500/[0.02]">
         <h2 className="text-sm font-semibold text-red-400 mb-1">Danger Zone</h2>
-        <p className="text-xs text-slate-500 mb-4">Permanently delete your professional account and all associated data.</p>
+        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Permanently delete your professional account and all associated data.</p>
         <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>Delete Account</Button>
       </Card>
 
@@ -478,7 +478,7 @@ export default function ProSettingsPage() {
                 {CALENDAR_PROVIDERS.find((p) => p.id === connectModal)?.icon}
               </div>
               <p className="text-sm text-slate-700 dark:text-slate-300">You&apos;ll be redirected to authorize access to your calendar.</p>
-              <p className="text-xs text-slate-500 mt-1">We only read free/busy data and create booking events.</p>
+              <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">We only read free/busy data and create booking events.</p>
             </div>
             <div className="flex gap-3 justify-end">
               <Button variant="secondary" onClick={() => { setConnectModal(null); setConnectStep("auth"); }}>Cancel</Button>
@@ -491,7 +491,7 @@ export default function ProSettingsPage() {
               <svg width="28" height="28" fill="none" stroke="#10b981" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </div>
             <p className="text-sm text-emerald-400 font-medium">Calendar connected successfully!</p>
-            <p className="text-xs text-slate-500 mt-1">Your availability will sync automatically.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">Your availability will sync automatically.</p>
           </div>
         )}
       </Modal>
@@ -501,7 +501,7 @@ export default function ProSettingsPage() {
         <div className="space-y-4">
           <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3">
             <p className="text-sm text-red-400 font-medium">⚠️ This action is permanent</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Your profile, all active journeys, partner connections, and client data will be permanently deleted.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Your profile, all active journeys, partner connections, and client data will be permanently deleted.</p>
           </div>
           <div>
             <label className="block text-sm text-slate-700 dark:text-slate-300 mb-1.5">Type <span className="font-mono text-red-400">DELETE</span> to confirm</label>

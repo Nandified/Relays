@@ -130,8 +130,8 @@ export function ProIntroVideoPlayer({ videoUrl, proName, compact = false }: ProI
               </svg>
             </button>
 
-            <p className="relative z-20 mt-3 text-sm text-slate-500 dark:text-slate-400">{proName}&apos;s intro video</p>
-            <p className="relative z-20 mt-1 text-xs text-slate-500 dark:text-slate-600">15–30 seconds</p>
+            <p className="relative z-20 mt-3 text-sm text-slate-600 dark:text-slate-400">{proName}&apos;s intro video</p>
+            <p className="relative z-20 mt-1 text-xs text-slate-500 dark:text-slate-500">15–30 seconds</p>
 
             {/* Duration badge */}
             <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300 border border-black/10 dark:border-white/10">
@@ -194,7 +194,7 @@ export function ProIntroVideoPlayer({ videoUrl, proName, compact = false }: ProI
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <button onClick={togglePlay} className="text-white/80 hover:text-slate-900 dark:text-white transition-colors">
+                    <button onClick={togglePlay} className="text-white/80 hover:text-white transition-colors">
                       {isPlaying ? (
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                           <rect x="6" y="4" width="4" height="16" rx="1" />
@@ -211,7 +211,7 @@ export function ProIntroVideoPlayer({ videoUrl, proName, compact = false }: ProI
                     </span>
                   </div>
 
-                  <button onClick={toggleMute} className="text-white/80 hover:text-slate-900 dark:text-white transition-colors">
+                  <button onClick={toggleMute} className="text-white/80 hover:text-white transition-colors">
                     {isMuted ? (
                       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />

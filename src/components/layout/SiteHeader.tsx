@@ -28,34 +28,34 @@ export function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
-          <Link href="/marketplace" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+          <Link href="/marketplace" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
             Marketplace
           </Link>
           {isAuthed && !isPro && (
             <>
-              <Link href="/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 Dashboard
               </Link>
-              <Link href="/team" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/team" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 My Team
               </Link>
-              <Link href="/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 Requests
               </Link>
             </>
           )}
           {isPro && (
             <>
-              <Link href="/pro/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/pro/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 Dashboard
               </Link>
-              <Link href="/pro/journeys" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/pro/journeys" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 Journeys
               </Link>
-              <Link href="/pro/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/pro/requests" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 Requests
               </Link>
-              <Link href="/pro/profile" className="rounded-xl px-3 py-1.5 text-sm text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+              <Link href="/pro/profile" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 Profile
               </Link>
             </>
@@ -75,7 +75,7 @@ export function SiteHeader() {
 
           {isAuthed ? (
             <div className="hidden items-center gap-2 md:flex ml-2">
-              <span className="text-xs text-slate-500">{state.user.email}</span>
+              <span className="text-xs text-slate-600 dark:text-slate-500">{state.user.email}</span>
               <Button variant="ghost" size="sm" onClick={logout}>
                 Log out
               </Button>
@@ -94,7 +94,7 @@ export function SiteHeader() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 md:hidden"
           >
             {mobileOpen ? (
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -135,12 +135,12 @@ export function SiteHeader() {
             )}
             <div className="mt-2 border-t border-[var(--border)] pt-2 space-y-2">
               <div className="flex items-center justify-between px-3 py-1.5">
-                <span className="text-sm text-slate-500 dark:text-slate-400">Theme</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">Theme</span>
                 <ThemeToggle />
               </div>
               {isAuthed ? (
                 <>
-                  <div className="px-3 py-1.5 text-xs text-slate-500">{state.user.email}</div>
+                  <div className="px-3 py-1.5 text-xs text-slate-600 dark:text-slate-500">{state.user.email}</div>
                   <button onClick={() => { logout(); setMobileOpen(false); }} className="w-full rounded-xl px-3 py-2 text-left text-sm text-red-400 hover:bg-red-500/10">
                     Log out
                   </button>

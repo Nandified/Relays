@@ -58,7 +58,7 @@ export default function AboutPage() {
           <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-[radial-gradient(ellipse,rgba(59,130,246,0.06),transparent_70%)]" />
           <div className="relative text-center max-w-2xl mx-auto">
             <AnimatedSection>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 shadow-sm mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 shadow-sm mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
                 About Relays
               </div>
@@ -72,7 +72,7 @@ export default function AboutPage() {
               </h1>
             </AnimatedSection>
             <AnimatedSection delay={160}>
-              <p className="mt-5 text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="mt-5 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
                 Every home transaction involves 5+ professionals who have never worked together before.
                 Relays is the platform that connects them — creating trusted teams that guide buyers
                 and sellers through every step of the journey.
@@ -89,12 +89,12 @@ export default function AboutPage() {
               <div className="relative grid gap-8 md:grid-cols-2 md:items-center">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Our Mission</h2>
-                  <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                     Buying or selling a home is one of the most significant financial decisions people make. Yet the process
                     of finding and coordinating the right professionals — realtors, lenders, inspectors, attorneys, and insurance
                     agents — is broken. It&apos;s fragmented, opaque, and stressful.
                   </p>
-                  <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                     Relays was built to fix that. We&apos;re creating a world where every home transaction is guided by a
                     curated team of verified professionals, where referrals are transparent and trusted, and where no step
                     in the journey is missed.
@@ -109,7 +109,7 @@ export default function AboutPage() {
                   ].map((stat) => (
                     <div key={stat.label} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-4 text-center">
                       <div className="text-xl font-bold text-slate-900 dark:text-white">{stat.num}</div>
-                      <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
+                      <div className="text-xs text-slate-600 dark:text-slate-500 mt-1">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -132,7 +132,7 @@ export default function AboutPage() {
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mt-3 mb-4">{vp.audience}</h3>
                     <ul className="space-y-3">
                       {vp.items.map((item, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li key={j} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
                           <svg width="14" height="14" fill="#10b981" viewBox="0 0 20 20" className="mt-0.5 flex-shrink-0">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
@@ -151,7 +151,7 @@ export default function AboutPage() {
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <AnimatedSection>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 text-center mb-3">Meet the Team</h2>
-            <p className="text-slate-500 dark:text-slate-400 text-center mb-10 max-w-md mx-auto">
+            <p className="text-slate-600 dark:text-slate-400 text-center mb-10 max-w-md mx-auto">
               We&apos;re a small team obsessed with making real estate transactions better for everyone.
             </p>
           </AnimatedSection>
@@ -163,7 +163,7 @@ export default function AboutPage() {
                     {member.initials}
                   </div>
                   <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{member.name}</h3>
-                  <p className="text-xs text-slate-500 mt-1">{member.role}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">{member.role}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -177,10 +177,10 @@ export default function AboutPage() {
               <h2 className="text-lg font-semibold text-slate-700 dark:text-slate-300 text-center mb-8">In the Press</h2>
               <div className="flex flex-wrap items-center justify-center gap-8">
                 {["TechCrunch", "Inman News", "HousingWire", "RealTrends"].map((pub) => (
-                  <span key={pub} className="text-lg font-semibold text-slate-500 dark:text-slate-600/60">{pub}</span>
+                  <span key={pub} className="text-lg font-semibold text-slate-500 dark:text-slate-500/60">{pub}</span>
                 ))}
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-600 text-center mt-4">Coming soon</p>
+              <p className="text-xs text-slate-500 dark:text-slate-500 text-center mt-4">Coming soon</p>
             </AnimatedSection>
           </div>
         </section>
@@ -193,11 +193,11 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-[var(--bg-card)]/50 backdrop-blur-sm rounded-3xl" />
               <div className="relative">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Get in Touch</h2>
-                <p className="mt-3 text-blue-200/70 max-w-lg mx-auto">
+                <p className="mt-3 text-slate-600 dark:text-blue-200/70 max-w-lg mx-auto">
                   Questions about Relays? Want to partner with us? We&apos;d love to hear from you.
                 </p>
                 <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-                  <a href="mailto:hello@relaysapp.com" className="hover-scale inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-medium text-slate-900 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-slate-100 transition-all">
+                  <a href="mailto:hello@relaysapp.com" className="hover-scale inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] dark:bg-white px-6 py-3 text-base font-medium text-white dark:text-slate-900 shadow-[var(--shadow-card)] hover:opacity-90 transition-all">
                     hello@relaysapp.com
                   </a>
                   <Link href="/help" className="hover-scale inline-flex items-center justify-center rounded-2xl border border-black/10 dark:border-white/20 px-6 py-3 text-base font-medium text-slate-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all">

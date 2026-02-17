@@ -15,7 +15,7 @@ function getInitials(name: string): string {
 
 // Deterministic soft color from name for the initials avatar
 const AVATAR_COLORS = [
-  "from-blue-600/30 to-blue-500/10 text-blue-300",
+  "from-blue-600/30 to-blue-500/10 text-blue-700 dark:text-blue-300",
   "from-violet-600/30 to-violet-500/10 text-violet-300",
   "from-emerald-600/30 to-emerald-500/10 text-emerald-300",
   "from-amber-600/30 to-amber-500/10 text-amber-300",
@@ -66,7 +66,7 @@ export function LicensedProfessionalCard({
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{professional.name}</div>
-                <div className="truncate text-xs text-slate-500">
+                <div className="truncate text-xs text-slate-600 dark:text-slate-500">
                   {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
                   {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
                   {professional.state ? `, ${professional.state}` : ""}
@@ -78,7 +78,7 @@ export function LicensedProfessionalCard({
               <Badge variant="outline" className="opacity-70">{professional.category}</Badge>
             </div>
 
-            <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
+            <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
               {professional.city && (
                 <span>{professional.city}, {professional.state}</span>
               )}

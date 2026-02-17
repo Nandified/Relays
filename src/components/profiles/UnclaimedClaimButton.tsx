@@ -11,7 +11,7 @@ export function UnclaimedClaimButton({ professional }: { professional: Unclaimed
     <>
       <button
         onClick={() => setShowClaim(true)}
-        className="text-xs text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors cursor-pointer"
+        className="text-xs text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors cursor-pointer"
       >
         Is this your profile? <span className="underline underline-offset-2">Claim it</span> to manage your listing and receive referrals.
       </button>

@@ -135,7 +135,7 @@ export default function AdminProsPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Pro Management</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
             View and manage all professionals across the platform.
           </p>
         </div>
@@ -204,9 +204,9 @@ export default function AdminProsPage() {
 
       {/* Results count */}
       <div className="mb-3 flex items-center justify-between">
-        <span className="text-sm text-slate-500">
+        <span className="text-sm text-slate-600 dark:text-slate-500">
           {filtered.length} professional{filtered.length !== 1 ? "s" : ""}
-          {totalPages > 1 && <span className="text-slate-500 dark:text-slate-600"> · Page {currentPage} of {totalPages}</span>}
+          {totalPages > 1 && <span className="text-slate-500 dark:text-slate-500"> · Page {currentPage} of {totalPages}</span>}
         </span>
       </div>
 
@@ -223,17 +223,17 @@ export default function AdminProsPage() {
                 className="h-3.5 w-3.5 rounded border-[var(--border)] bg-transparent accent-violet-500"
               />
             </div>
-            <button onClick={() => handleSort("name")} className="flex items-center gap-1 text-[11px] font-medium text-slate-500 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <button onClick={() => handleSort("name")} className="flex items-center gap-1 text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               Professional <SortIcon field="name" />
             </button>
-            <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Category</div>
-            <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Location</div>
-            <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Status</div>
-            <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Verified</div>
-            <button onClick={() => handleSort("rating")} className="flex items-center gap-1 text-[11px] font-medium text-slate-500 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Category</div>
+            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Location</div>
+            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Status</div>
+            <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Verified</div>
+            <button onClick={() => handleSort("rating")} className="flex items-center gap-1 text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               Rating <SortIcon field="rating" />
             </button>
-            <button onClick={() => handleSort("joined")} className="flex items-center gap-1 text-[11px] font-medium text-slate-500 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            <button onClick={() => handleSort("joined")} className="flex items-center gap-1 text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
               Joined <SortIcon field="joined" />
             </button>
           </div>
@@ -263,13 +263,13 @@ export default function AdminProsPage() {
                   <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-xs font-bold border transition-transform group-hover:scale-105 ${
                     pro.claimed
                       ? "bg-violet-500/10 text-violet-400 border-violet-500/10"
-                      : "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 text-slate-500 border-slate-300 dark:border-slate-500/10"
+                      : "bg-slate-200 dark:bg-slate-500/10 text-slate-600 dark:text-slate-500 border-slate-300 dark:border-slate-500/10"
                   }`}>
                     {pro.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
                   </div>
                   <div className="min-w-0">
                     <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">{pro.name}</div>
-                    <div className="text-[11px] text-slate-500 truncate">{pro.companyName}</div>
+                    <div className="text-[11px] text-slate-600 dark:text-slate-500 truncate">{pro.companyName}</div>
                   </div>
                 </div>
 
@@ -279,7 +279,7 @@ export default function AdminProsPage() {
                 </div>
 
                 {/* Location */}
-                <div className="mt-1 lg:mt-0 text-xs text-slate-500 dark:text-slate-400">
+                <div className="mt-1 lg:mt-0 text-xs text-slate-600 dark:text-slate-400">
                   {pro.city}, {pro.state}
                 </div>
 
@@ -302,7 +302,7 @@ export default function AdminProsPage() {
                   ) : (
                     <div className="flex items-center gap-1">
                       <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" />
-                      <span className="text-xs text-slate-500">No</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-500">No</span>
                     </div>
                   )}
                 </div>
@@ -310,20 +310,20 @@ export default function AdminProsPage() {
                 {/* Rating */}
                 <div className="mt-1 lg:mt-0">
                   {pro.rating > 0 ? (
-                    <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
                       <svg width="12" height="12" fill="#f59e0b" viewBox="0 0 20 20">
                         <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                       </svg>
                       <span className="tabular-nums">{pro.rating.toFixed(1)}</span>
-                      <span className="text-slate-500 dark:text-slate-600">({pro.reviewCount})</span>
+                      <span className="text-slate-500 dark:text-slate-500">({pro.reviewCount})</span>
                     </div>
                   ) : (
-                    <span className="text-xs text-slate-500 dark:text-slate-600">—</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-500">—</span>
                   )}
                 </div>
 
                 {/* Joined */}
-                <div className="mt-1 lg:mt-0 text-[11px] text-slate-500">
+                <div className="mt-1 lg:mt-0 text-[11px] text-slate-600 dark:text-slate-500">
                   {formatDate(pro.joinedAt)}
                 </div>
               </div>
@@ -334,13 +334,13 @@ export default function AdminProsPage() {
         {/* Empty state */}
         {filtered.length === 0 && (
           <div className="px-4 py-16 text-center">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-600">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-500">
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">No professionals found</p>
-            <p className="text-xs text-slate-500 dark:text-slate-600 mt-1">Try adjusting your search or filters.</p>
+            <p className="text-sm font-medium text-slate-600 dark:text-slate-400">No professionals found</p>
+            <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">Try adjusting your search or filters.</p>
           </div>
         )}
 
@@ -363,7 +363,7 @@ export default function AdminProsPage() {
                   className={`h-7 min-w-[28px] rounded-lg text-xs font-medium transition-all ${
                     page === currentPage
                       ? "bg-violet-500/15 text-violet-300 border border-violet-500/20"
-                      : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.04] dark:hover:bg-white/[0.04]"
+                      : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.04] dark:hover:bg-white/[0.04]"
                   }`}
                 >
                   {page}
@@ -395,13 +395,13 @@ export default function AdminProsPage() {
               <div className={`flex h-14 w-14 items-center justify-center rounded-2xl text-lg font-bold border ${
                 selectedPro.claimed
                   ? "bg-violet-500/10 text-violet-400 border-violet-500/10"
-                  : "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 text-slate-500 border-slate-300 dark:border-slate-500/10"
+                  : "bg-slate-200 dark:bg-slate-500/10 text-slate-600 dark:text-slate-500 border-slate-300 dark:border-slate-500/10"
               }`}>
                 {selectedPro.name.split(" ").map(n => n[0]).join("")}
               </div>
               <div className="flex-1">
                 <div className="text-base font-semibold text-slate-900 dark:text-slate-100">{selectedPro.name}</div>
-                <div className="text-xs text-slate-500">{selectedPro.companyName}</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">{selectedPro.companyName}</div>
               </div>
             </div>
 
@@ -473,7 +473,7 @@ export default function AdminProsPage() {
 function InfoField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">{label}</div>
+      <div className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">{label}</div>
       <div className="mt-0.5 text-sm text-slate-800 dark:text-slate-200">{value}</div>
     </div>
   );

@@ -72,7 +72,7 @@ export function SearchBar({
 
         <div className="relative flex items-center">
           {/* Search icon */}
-          <div className={`flex items-center pl-4 transition-colors duration-200 ${focused ? "text-blue-400/80" : "text-slate-500"}`}>
+          <div className={`flex items-center pl-4 transition-colors duration-200 ${focused ? "text-blue-400/80" : "text-slate-600 dark:text-slate-500"}`}>
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8" />
               <path d="M21 21l-4.35-4.35" />
@@ -96,7 +96,7 @@ export function SearchBar({
             <button
               type="button"
               onClick={() => onChange("")}
-              className="flex h-6 w-6 items-center justify-center rounded-full text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-1"
+              className="flex h-6 w-6 items-center justify-center rounded-full text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-1"
             >
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M18 6L6 18M6 6l12 12" />
@@ -137,7 +137,7 @@ export function SearchBar({
               <button
                 type="button"
                 onClick={() => onZipChange?.("")}
-                className="flex h-5 w-5 items-center justify-center rounded-full text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-2"
+                className="flex h-5 w-5 items-center justify-center rounded-full text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-2"
               >
                 <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path d="M18 6L6 18M6 6l12 12" />

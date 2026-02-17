@@ -29,17 +29,17 @@ function ChecklistItem({ item, checked, onToggle }: { item: PostCloseChecklistIt
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="text-base">{item.icon}</span>
-          <h4 className={`text-sm font-medium transition-all ${checked ? "text-slate-500 line-through" : "text-slate-800 dark:text-slate-200"}`}>
+          <h4 className={`text-sm font-medium transition-all ${checked ? "text-slate-600 dark:text-slate-500 line-through" : "text-slate-800 dark:text-slate-200"}`}>
             {item.title}
           </h4>
         </div>
-        <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.description}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-500 mt-1 leading-relaxed">{item.description}</p>
         {item.link && item.linkLabel && !checked && (
           <a
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 mt-2 transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mt-2 transition-colors"
           >
             {item.linkLabel}
             <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -131,7 +131,7 @@ export function PostCloseBanner({ clientName }: { clientName: string }) {
         const meta = categoryLabels[category] || { label: category, icon: "📋" };
         return (
           <div key={category}>
-            <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
               <span>{meta.icon}</span>
               {meta.label}
             </h3>
@@ -151,7 +151,7 @@ export function PostCloseBanner({ clientName }: { clientName: string }) {
 
       {/* Homeworke Cross-Sell */}
       <div>
-        <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span>🏗️</span>
           Repairs & Renovations
         </h3>

@@ -84,13 +84,13 @@ export default function ProReviewManagementPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Reviews</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
             Manage and respond to client reviews
           </p>
         </div>
         <Link
           href="/pro"
-          className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+          className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
         >
           <svg
             width="16"
@@ -129,7 +129,7 @@ export default function ProReviewManagementPage() {
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                 Last 30 Days
               </div>
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-slate-600 dark:text-slate-500">
                 {last30Days} new review{last30Days !== 1 ? "s" : ""}
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function ProReviewManagementPage() {
                   ? "text-emerald-400"
                   : trendDirection === "down"
                     ? "text-red-400"
-                    : "text-slate-500 dark:text-slate-400"
+                    : "text-slate-600 dark:text-slate-400"
               }`}
             >
               {trendDirection === "up"
@@ -150,7 +150,7 @@ export default function ProReviewManagementPage() {
                   ? `↓ ${previous30Days - last30Days} fewer`
                   : "Same as last period"}
             </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-600">
+            <div className="text-[11px] text-slate-500 dark:text-slate-500">
               vs previous 30 days ({previous30Days})
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function ProReviewManagementPage() {
       <div className="flex flex-wrap gap-3 mb-6">
         {/* Rating filter */}
         <div className="flex items-center gap-1.5">
-          <span className="text-xs text-slate-500 dark:text-slate-600 mr-1">Rating:</span>
+          <span className="text-xs text-slate-500 dark:text-slate-500 mr-1">Rating:</span>
           {(
             [
               { key: "all", label: "All" },
@@ -178,7 +178,7 @@ export default function ProReviewManagementPage() {
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
                 ratingFilter === key
                   ? "bg-amber-500/15 text-amber-400 border border-amber-500/20"
-                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
+                  : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
               }`}
             >
               {label}
@@ -188,7 +188,7 @@ export default function ProReviewManagementPage() {
 
         {/* Response filter */}
         <div className="flex items-center gap-1.5">
-          <span className="text-xs text-slate-500 dark:text-slate-600 mr-1">Status:</span>
+          <span className="text-xs text-slate-500 dark:text-slate-500 mr-1">Status:</span>
           {(
             [
               { key: "all", label: "All" },
@@ -201,8 +201,8 @@ export default function ProReviewManagementPage() {
               onClick={() => setResponseFilter(key)}
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
                 responseFilter === key
-                  ? "bg-blue-500/15 text-blue-400 border border-blue-500/20"
-                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
+                  ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/20"
+                  : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
               }`}
             >
               {label}
@@ -213,13 +213,13 @@ export default function ProReviewManagementPage() {
         {/* Category filter */}
         {categories.length > 1 && (
           <div className="flex items-center gap-1.5">
-            <span className="text-xs text-slate-500 dark:text-slate-600 mr-1">Category:</span>
+            <span className="text-xs text-slate-500 dark:text-slate-500 mr-1">Category:</span>
             <button
               onClick={() => setCategoryFilter("all")}
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
                 categoryFilter === "all"
                   ? "bg-purple-500/15 text-purple-400 border border-purple-500/20"
-                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
+                  : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
               }`}
             >
               All
@@ -231,7 +231,7 @@ export default function ProReviewManagementPage() {
                 className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
                   categoryFilter === cat
                     ? "bg-purple-500/15 text-purple-400 border border-purple-500/20"
-                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
+                    : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
                 }`}
               >
                 {cat}
@@ -243,7 +243,7 @@ export default function ProReviewManagementPage() {
 
       {/* Results count */}
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs text-slate-500 dark:text-slate-600">
+        <span className="text-xs text-slate-500 dark:text-slate-500">
           {filteredReviews.length} review
           {filteredReviews.length !== 1 ? "s" : ""}
           {ratingFilter !== "all" || responseFilter !== "all" || categoryFilter !== "all"
@@ -257,7 +257,7 @@ export default function ProReviewManagementPage() {
               setResponseFilter("all");
               setCategoryFilter("all");
             }}
-            className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+            className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
           >
             Clear filters
           </button>
@@ -290,7 +290,7 @@ export default function ProReviewManagementPage() {
       ) : (
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-8 text-center">
           <div className="text-3xl mb-2">📭</div>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-600 dark:text-slate-500">
             No reviews match your current filters
           </p>
           <button
@@ -299,7 +299,7 @@ export default function ProReviewManagementPage() {
               setResponseFilter("all");
               setCategoryFilter("all");
             }}
-            className="text-xs text-blue-400 hover:text-blue-300 mt-2 transition-colors"
+            className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mt-2 transition-colors"
           >
             Clear all filters
           </button>

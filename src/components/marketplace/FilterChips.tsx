@@ -53,7 +53,7 @@ export function FilterChips({
             flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all
             ${selected === null && (!selectedCategories || selectedCategories.length === 0)
               ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
-              : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-500 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
+              : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-600 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
             }
           `}
         >
@@ -67,7 +67,7 @@ export function FilterChips({
               flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap
               ${isActive(cat)
                 ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
-                : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-500 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
+                : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-600 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
               }
             `}
           >
@@ -81,7 +81,7 @@ export function FilterChips({
         {/* Sort dropdown */}
         {onSortChange && (
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Sort:</span>
+            <span className="text-[11px] font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wide">Sort:</span>
             <div className="flex gap-1">
               {sortOptions.map((opt) => (
                 <button
@@ -91,7 +91,7 @@ export function FilterChips({
                     rounded-full px-2.5 py-1 text-[11px] font-medium transition-all whitespace-nowrap
                     ${sortBy === opt.value
                       ? "bg-black/5 dark:bg-white/10 text-slate-800 dark:text-slate-200 border border-black/10 dark:border-white/15"
-                      : "text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
+                      : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
                     }
                   `}
                 >
@@ -115,7 +115,7 @@ export function FilterChips({
               flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all whitespace-nowrap
               ${verifiedOnly
                 ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                : "text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
+                : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
               }
             `}
           >
@@ -133,8 +133,8 @@ export function FilterChips({
             className={`
               flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all whitespace-nowrap
               ${acceptingOnly
-                ? "bg-blue-500/15 text-blue-400 border border-blue-500/20"
-                : "text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
+                ? "bg-blue-500/15 text-blue-500 dark:text-blue-400 border border-blue-500/20"
+                : "text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
               }
             `}
           >

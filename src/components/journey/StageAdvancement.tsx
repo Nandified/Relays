@@ -45,7 +45,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
             </svg>
             Stage Controls
           </h3>
-          <p className="text-[11px] text-slate-500 dark:text-slate-600 mt-0.5">
+          <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-0.5">
             Advance the journey stage to trigger new referral moments
           </p>
         </div>
@@ -91,7 +91,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
           {showDropdown && (
             <div className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] shadow-[var(--shadow-elevated)] z-50 overflow-hidden animate-in">
               <div className="p-2">
-                <div className="text-[10px] text-slate-500 dark:text-slate-600 uppercase tracking-wider px-2 py-1 mb-1">
+                <div className="text-[10px] text-slate-500 dark:text-slate-500 uppercase tracking-wider px-2 py-1 mb-1">
                   Jump to Stage
                 </div>
                 {JOURNEY_STAGES.map((stage, idx) => {
@@ -113,12 +113,12 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
                     >
                       <span className="text-sm">{JOURNEY_STAGE_ICONS[stage]}</span>
                       <div className="flex-1">
-                        <span className={`text-xs font-medium ${isCurrent ? "text-blue-400" : idx < currentIdx ? "text-emerald-400" : "text-slate-500 dark:text-slate-400"}`}>
+                        <span className={`text-xs font-medium ${isCurrent ? "text-blue-400" : idx < currentIdx ? "text-emerald-400" : "text-slate-600 dark:text-slate-400"}`}>
                           {JOURNEY_STAGE_LABELS[stage]}
                         </span>
                       </div>
                       {isCurrent && (
-                        <span className="text-[10px] text-blue-400 font-medium">Current</span>
+                        <span className="text-[10px] text-blue-500 dark:text-blue-400 font-medium">Current</span>
                       )}
                       {idx < currentIdx && (
                         <svg width="10" height="10" fill="#10b981" viewBox="0 0 20 20">
@@ -136,7 +136,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
 
       {/* Closing date input */}
       <div className="mt-4 pt-4 border-t border-[var(--border)]">
-        <label className="flex items-center gap-2 text-xs text-slate-500">
+        <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500">
           <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <path d="M16 2v4M8 2v4M3 10h18" />
@@ -154,7 +154,7 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
       {/* Recent audit trail */}
       {journey.auditTrail.length > 0 && (
         <div className="mt-4 pt-4 border-t border-[var(--border)]">
-          <h4 className="text-[11px] text-slate-500 dark:text-slate-600 uppercase tracking-wider mb-2">Recent Activity</h4>
+          <h4 className="text-[11px] text-slate-500 dark:text-slate-500 uppercase tracking-wider mb-2">Recent Activity</h4>
           <div className="space-y-2 max-h-40 overflow-y-auto scrollbar-none">
             {journey.auditTrail.slice(-4).reverse().map((entry) => (
               <div key={entry.id} className="flex items-start gap-2">
@@ -162,11 +162,11 @@ export function StageAdvancement({ journey, onAdvanceStage, onSetStage }: StageA
                   entry.type === "stage_change" ? "bg-blue-400" :
                   entry.type === "moment_triggered" ? "bg-amber-400" :
                   entry.type === "role_filled" ? "bg-emerald-400" :
-                  "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500"
+                  "bg-slate-300 dark:bg-slate-500"
                 }`} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{entry.description}</p>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-600">
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate">{entry.description}</p>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-500">
                     {new Date(entry.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
                   </span>
                 </div>

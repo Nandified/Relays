@@ -13,9 +13,9 @@
 
   /* Text */
   --text: #0f172a;
-  --text-muted: #475569;
-  --text-secondary: #64748b;
-  --text-dim: #94a3b8;
+  --text-muted: #334155;
+  --text-secondary: #475569;
+  --text-dim: #64748b;
 
   /* Accent */
   --accent: #2563eb;
@@ -32,9 +32,9 @@
   --danger-light: rgba(220, 38, 38, 0.08);
 
   /* Borders */
-  --border: rgba(0, 0, 0, 0.08);
-  --border-subtle: rgba(0, 0, 0, 0.04);
-  --border-hover: rgba(0, 0, 0, 0.15);
+  --border: rgba(0, 0, 0, 0.12);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.18);
   --border-glow: rgba(37, 99, 235, 0.3);
 
   /* Shadows & Glows */

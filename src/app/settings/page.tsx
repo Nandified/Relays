@@ -40,7 +40,7 @@ function SettingsSection({ title, description, children }: { title: string; desc
     <Card padding="lg" className="mb-4">
       <div className="mb-4">
         <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{title}</h2>
-        {description && <p className="mt-0.5 text-xs text-slate-500">{description}</p>}
+        {description && <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-500">{description}</p>}
       </div>
       {children}
     </Card>
@@ -93,7 +93,7 @@ export default function ConsumerSettingsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Settings</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Manage your account and preferences</p>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Manage your account and preferences</p>
         </div>
         <Button onClick={handleSave}>
           {saved ? "✓ Saved!" : "Save Changes"}
@@ -110,7 +110,7 @@ export default function ConsumerSettingsPage() {
             </div>
             <div>
               <Button size="sm" variant="secondary">Change Photo</Button>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-600">JPG, PNG. Max 2MB.</p>
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">JPG, PNG. Max 2MB.</p>
             </div>
           </div>
 
@@ -123,7 +123,7 @@ export default function ConsumerSettingsPage() {
       {/* ── Appearance ── */}
       <SettingsSection title="Appearance" description="Customize how Relays looks for you">
         <div>
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Theme</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Theme</h3>
           <div className="flex gap-2">
             {([
               ["system", "System", "☀️🌙"],
@@ -137,7 +137,7 @@ export default function ConsumerSettingsPage() {
                   flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all border
                   ${theme === val
                     ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_15px_rgba(59,130,246,0.2)]"
-                    : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                    : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
                   }
                 `}
               >
@@ -156,7 +156,7 @@ export default function ConsumerSettingsPage() {
       <SettingsSection title="Notification Preferences" description="Choose how and when you want to hear from us">
         {/* Channels */}
         <div className="mb-6">
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
           <div className="space-y-3">
             {([
               ["email", "Email", "Receive email notifications"],
@@ -167,7 +167,7 @@ export default function ConsumerSettingsPage() {
               <div key={key} className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-slate-800 dark:text-slate-200">{label}</div>
-                  <div className="text-xs text-slate-500">{desc}</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-500">{desc}</div>
                 </div>
                 <Toggle
                   enabled={channels[key]}
@@ -181,7 +181,7 @@ export default function ConsumerSettingsPage() {
 
         {/* Types */}
         <div className="mb-6">
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Notification Types</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Notification Types</h3>
           <div className="space-y-3">
             {([
               ["moments", "Moments", "Journey milestone updates"],
@@ -193,7 +193,7 @@ export default function ConsumerSettingsPage() {
               <div key={key} className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-slate-800 dark:text-slate-200">{label}</div>
-                  <div className="text-xs text-slate-500">{desc}</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-500">{desc}</div>
                 </div>
                 <Toggle
                   enabled={types[key]}
@@ -207,7 +207,7 @@ export default function ConsumerSettingsPage() {
 
         {/* Frequency */}
         <div>
-          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
           <div className="flex gap-2">
             {([
               ["realtime", "Real-time"],
@@ -221,7 +221,7 @@ export default function ConsumerSettingsPage() {
                   rounded-xl px-4 py-2 text-sm font-medium transition-all border
                   ${frequency === val
                     ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_15px_rgba(59,130,246,0.2)]"
-                    : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                    : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
                   }
                 `}
               >
@@ -237,7 +237,7 @@ export default function ConsumerSettingsPage() {
         <div className="space-y-5">
           <div>
             <h3 className="text-sm text-slate-800 dark:text-slate-200 mb-2">Profile Visibility</h3>
-            <p className="text-xs text-slate-500 mb-3">Who can see your team and journey details</p>
+            <p className="text-xs text-slate-600 dark:text-slate-500 mb-3">Who can see your team and journey details</p>
             <div className="flex gap-2">
               {([
                 ["public", "Public"],
@@ -251,7 +251,7 @@ export default function ConsumerSettingsPage() {
                     rounded-xl px-4 py-2 text-sm font-medium transition-all border
                     ${profileVisibility === val
                       ? "bg-[var(--accent)] text-white border-[var(--accent)]"
-                      : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                      : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
                     }
                   `}
                 >
@@ -264,7 +264,7 @@ export default function ConsumerSettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-sm text-slate-800 dark:text-slate-200">Data Sharing</div>
-              <div className="text-xs text-slate-500">Allow Relays to use anonymized data to improve recommendations</div>
+              <div className="text-xs text-slate-600 dark:text-slate-500">Allow Relays to use anonymized data to improve recommendations</div>
             </div>
             <Toggle enabled={dataSharing} onChange={setDataSharing} label="Data sharing" />
           </div>
@@ -287,7 +287,7 @@ export default function ConsumerSettingsPage() {
               </div>
               <div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Google</div>
-                <div className="text-xs text-slate-500">Not connected</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">Not connected</div>
               </div>
             </div>
             <Button size="sm" variant="secondary">Connect</Button>
@@ -303,7 +303,7 @@ export default function ConsumerSettingsPage() {
               </div>
               <div>
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Apple</div>
-                <div className="text-xs text-slate-500">Not connected</div>
+                <div className="text-xs text-slate-600 dark:text-slate-500">Not connected</div>
               </div>
             </div>
             <Button size="sm" variant="secondary">Connect</Button>
@@ -319,7 +319,7 @@ export default function ConsumerSettingsPage() {
       {/* ── Danger Zone ── */}
       <Card padding="lg" className="border-red-500/10 bg-red-500/[0.02]">
         <h2 className="text-sm font-semibold text-red-400 mb-1">Danger Zone</h2>
-        <p className="text-xs text-slate-500 mb-4">Permanently delete your account and all associated data. This action cannot be undone.</p>
+        <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">Permanently delete your account and all associated data. This action cannot be undone.</p>
         <Button variant="danger" size="sm" onClick={() => setShowDeleteModal(true)}>
           Delete Account
         </Button>
@@ -330,7 +330,7 @@ export default function ConsumerSettingsPage() {
         <div className="space-y-4">
           <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3">
             <p className="text-sm text-red-400 font-medium">⚠️ This action is permanent</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">All your journeys, team connections, bookings, and documents will be permanently deleted.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">All your journeys, team connections, bookings, and documents will be permanently deleted.</p>
           </div>
 
           <div>

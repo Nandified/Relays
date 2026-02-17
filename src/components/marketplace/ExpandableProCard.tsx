@@ -41,7 +41,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{pro.name}</div>
-                <div className="truncate text-xs text-slate-500">{pro.companyName}</div>
+                <div className="truncate text-xs text-slate-600 dark:text-slate-500">{pro.companyName}</div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
@@ -54,7 +54,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
                   stroke="currentColor"
                   strokeWidth="2"
                   viewBox="0 0 24 24"
-                  className={`text-slate-500 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+                  className={`text-slate-600 dark:text-slate-500 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
                 >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
@@ -70,7 +70,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
               )}
             </div>
 
-            <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
+            <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
               <span className="flex items-center gap-1">
                 <svg width="12" height="12" fill="#f59e0b" viewBox="0 0 20 20">
                   <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
@@ -100,11 +100,11 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
                   ))}
                 </div>
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{pro.rating.toFixed(1)}</span>
-                <span className="text-xs text-slate-500">({pro.reviewCount} reviews)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-500">({pro.reviewCount} reviews)</span>
               </div>
 
               {/* Blurb */}
-              <p className="mt-3 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{pro.blurb}</p>
+              <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{pro.blurb}</p>
 
               {/* All categories & badges */}
               <div className="mt-3 flex flex-wrap gap-1.5">
@@ -120,8 +120,8 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
               </div>
 
               {/* Service areas */}
-              <div className="mt-3 text-xs text-slate-500">
-                <span className="font-medium text-slate-500 dark:text-slate-400">Service areas: </span>
+              <div className="mt-3 text-xs text-slate-600 dark:text-slate-500">
+                <span className="font-medium text-slate-600 dark:text-slate-400">Service areas: </span>
                 {pro.serviceAreas.join(", ")}
               </div>
 

@@ -60,7 +60,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100 opacity-80">{place.name}</div>
-                <div className="truncate text-xs text-slate-500">{place.address}</div>
+                <div className="truncate text-xs text-slate-600 dark:text-slate-500">{place.address}</div>
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="default" className="text-[10px] opacity-70">
@@ -79,7 +79,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
                   stroke="currentColor"
                   strokeWidth="2"
                   viewBox="0 0 24 24"
-                  className={`text-slate-500 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+                  className={`text-slate-600 dark:text-slate-500 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
                 >
                   <path d="M6 9l6 6 6-6" />
                 </svg>
@@ -95,7 +95,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
               )}
             </div>
 
-            <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
+            <div className="mt-2 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-500">
               <span className="flex items-center gap-1">
                 <svg width="12" height="12" fill="#f59e0b" viewBox="0 0 20 20">
                   <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
@@ -140,7 +140,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
                   ))}
                 </div>
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{place.rating.toFixed(1)}</span>
-                <span className="text-xs text-slate-500">({place.reviewCount} reviews)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-500">({place.reviewCount} reviews)</span>
               </div>
 
               {/* Categories & badges */}
@@ -163,14 +163,14 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
               {/* Contact info */}
               <div className="mt-3 space-y-1">
                 {place.phone && (
-                  <div className="text-xs text-slate-500">
-                    <span className="font-medium text-slate-500 dark:text-slate-400">Phone: </span>
+                  <div className="text-xs text-slate-600 dark:text-slate-500">
+                    <span className="font-medium text-slate-600 dark:text-slate-400">Phone: </span>
                     {place.phone}
                   </div>
                 )}
                 {place.website && (
-                  <div className="text-xs text-slate-500">
-                    <span className="font-medium text-slate-500 dark:text-slate-400">Website: </span>
+                  <div className="text-xs text-slate-600 dark:text-slate-500">
+                    <span className="font-medium text-slate-600 dark:text-slate-400">Website: </span>
                     <span className="text-blue-400/60">{place.website.replace("https://", "")}</span>
                   </div>
                 )}
@@ -208,7 +208,7 @@ export function ExpandableGooglePlacesCard({ place, expanded, onToggle }: Expand
                     </>
                   )}
                 </Button>
-                <p className="text-center text-[11px] text-slate-500 dark:text-slate-600">
+                <p className="text-center text-[11px] text-slate-500 dark:text-slate-500">
                   Know this business? Help them claim their free Relays profile.
                 </p>
               </div>

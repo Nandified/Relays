@@ -45,7 +45,7 @@ export function JourneyCompleteCard({
           <h2 className="text-xl font-bold text-slate-900 dark:text-white">
             Journey Complete!
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Congratulations on closing{" "}
             <span className="text-emerald-400 font-medium">
               {journey.title}
@@ -60,17 +60,17 @@ export function JourneyCompleteCard({
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-3 text-center">
             <div className="text-lg font-bold text-slate-900 dark:text-white">5/5</div>
-            <div className="text-[10px] text-slate-500">Team Members</div>
+            <div className="text-[10px] text-slate-600 dark:text-slate-500">Team Members</div>
           </div>
           <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-3 text-center">
             <div className="text-lg font-bold text-slate-900 dark:text-white">
               {journey.auditTrail.length}
             </div>
-            <div className="text-[10px] text-slate-500">Milestones</div>
+            <div className="text-[10px] text-slate-600 dark:text-slate-500">Milestones</div>
           </div>
           <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-3 text-center">
             <div className="text-lg font-bold text-emerald-400">✓</div>
-            <div className="text-[10px] text-slate-500">Closed</div>
+            <div className="text-[10px] text-slate-600 dark:text-slate-500">Closed</div>
           </div>
         </div>
 
@@ -78,7 +78,7 @@ export function JourneyCompleteCard({
         <div className="text-center">
           <button
             onClick={() => setShowPros(!showPros)}
-            className="text-sm text-blue-400 hover:text-blue-300 transition-colors font-medium"
+            className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium"
           >
             {showPros ? "Hide" : "Review your team"}{" "}
             <svg
@@ -117,7 +117,7 @@ export function JourneyCompleteCard({
                       <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
                         {pro.name}
                       </div>
-                      <div className="text-[11px] text-slate-500">
+                      <div className="text-[11px] text-slate-600 dark:text-slate-500">
                         {category}
                       </div>
                     </div>
@@ -147,7 +147,7 @@ export function JourneyCompleteCard({
           <div className="text-center mt-4">
             <button
               onClick={onDismiss}
-              className="text-xs text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors"
+              className="text-xs text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-400 transition-colors"
             >
               Dismiss
             </button>

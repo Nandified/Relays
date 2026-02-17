@@ -156,7 +156,7 @@ export default function QuotaTrackingPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Quota Tracking</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
           Monitor partner agreement targets vs actual referrals.
         </p>
       </div>
@@ -166,10 +166,10 @@ export default function QuotaTrackingPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-indigo-500/5" />
         <div className="relative flex items-center justify-between">
           <div>
-            <div className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Overall Attainment</div>
+            <div className="text-xs font-medium text-slate-600 dark:text-slate-500 uppercase tracking-wider mb-1">Overall Attainment</div>
             <div className="flex items-baseline gap-2">
               <span className={`text-4xl font-bold ${getAttainmentColor(overallPct)}`}>{overallPct}%</span>
-              <span className="text-sm text-slate-500">{totalActual} / {totalTarget} referrals</span>
+              <span className="text-sm text-slate-600 dark:text-slate-500">{totalActual} / {totalTarget} referrals</span>
             </div>
           </div>
           <div className="hidden sm:block w-48">
@@ -255,12 +255,12 @@ export default function QuotaTrackingPage() {
                       <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{quota.partnerName}</h3>
                       <Badge variant="outline">{quota.category}</Badge>
                       {/* Trend indicator */}
-                      <span className={`flex items-center gap-0.5 text-xs font-medium ${quota.trend === "up" ? "text-emerald-400" : quota.trend === "down" ? "text-red-400" : "text-slate-500"}`}>
+                      <span className={`flex items-center gap-0.5 text-xs font-medium ${quota.trend === "up" ? "text-emerald-400" : quota.trend === "down" ? "text-red-400" : "text-slate-600 dark:text-slate-500"}`}>
                         {quota.trend === "up" ? "↑" : quota.trend === "down" ? "↓" : "→"}
                         {quota.trendPct}%
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500">{quota.partnerCompany}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-500">{quota.partnerCompany}</p>
 
                     {/* Progress bar */}
                     <div className="mt-3 flex items-center gap-3">
@@ -275,7 +275,7 @@ export default function QuotaTrackingPage() {
                       </span>
                     </div>
 
-                    <div className="mt-1.5 flex items-center gap-4 text-xs text-slate-500">
+                    <div className="mt-1.5 flex items-center gap-4 text-xs text-slate-600 dark:text-slate-500">
                       <span><span className="text-slate-700 dark:text-slate-300 font-medium">{quota.actualCount}</span> actual</span>
                       <span><span className="text-slate-700 dark:text-slate-300 font-medium">{quota.targetCount}</span> target</span>
                       <span>{quota.targetCount - quota.actualCount} remaining</span>
@@ -284,7 +284,7 @@ export default function QuotaTrackingPage() {
 
                   <svg
                     width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-                    className={`text-slate-500 transition-transform duration-300 flex-shrink-0 mt-1 ${expanded ? "rotate-180" : ""}`}
+                    className={`text-slate-600 dark:text-slate-500 transition-transform duration-300 flex-shrink-0 mt-1 ${expanded ? "rotate-180" : ""}`}
                   >
                     <path d="M6 9l6 6 6-6" />
                   </svg>
@@ -298,7 +298,7 @@ export default function QuotaTrackingPage() {
               >
                 <div className="overflow-hidden">
                   <div className="px-4 sm:px-5 pb-4 sm:pb-5 border-t border-[var(--border)] pt-3">
-                    <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Per-Agent Breakdown</h4>
+                    <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Per-Agent Breakdown</h4>
                     <div className="space-y-3">
                       {quota.agents.map((agent) => {
                         const agentPct = agent.target > 0 ? Math.round((agent.referrals / agent.target) * 100) : 0;
@@ -311,7 +311,7 @@ export default function QuotaTrackingPage() {
                                 style={{ width: `${Math.min(agentPct, 100)}%` }}
                               />
                             </div>
-                            <div className="text-xs text-slate-500 min-w-[4rem] text-right">
+                            <div className="text-xs text-slate-600 dark:text-slate-500 min-w-[4rem] text-right">
                               <span className="text-slate-700 dark:text-slate-300 font-medium">{agent.referrals}</span> / {agent.target}
                             </div>
                             <div className={`text-xs font-semibold min-w-[2.5rem] text-right ${getAttainmentColor(agentPct)}`}>
@@ -330,7 +330,7 @@ export default function QuotaTrackingPage() {
 
         {filtered.length === 0 && (
           <Card padding="lg" className="text-center">
-            <p className="text-sm text-slate-500 dark:text-slate-400">No partner agreements match your filters.</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">No partner agreements match your filters.</p>
           </Card>
         )}
       </div>

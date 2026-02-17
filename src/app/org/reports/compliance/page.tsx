@@ -72,7 +72,7 @@ export default function ComplianceAuditPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Compliance & Audit Trail</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
             Full audit trail for RESPA compliance monitoring · {allLogs.length} entries
           </p>
         </div>
@@ -86,14 +86,14 @@ export default function ComplianceAuditPage() {
 
       {/* RESPA Notice */}
       <div className="rounded-2xl border border-blue-500/15 bg-blue-500/5 p-4 flex items-start gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 shrink-0 mt-0.5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500 dark:text-blue-400 shrink-0 mt-0.5">
           <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
         </div>
         <div>
-          <p className="text-sm font-medium text-blue-300">RESPA Compliance Trail</p>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-sm font-medium text-blue-600 dark:text-blue-300">RESPA Compliance Trail</p>
+          <p className="text-xs text-slate-600 dark:text-slate-500 mt-0.5">
             Every partner recommendation, referral routing, and disclosure is logged with immutable timestamps.
             Export this data to demonstrate compliance with RESPA requirements.
           </p>
@@ -112,13 +112,13 @@ export default function ComplianceAuditPage() {
                 onClick={() => setFilterAction(filterAction === action ? "all" : action)}
                 className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium border transition-all cursor-pointer ${
                   filterAction === action
-                    ? "bg-blue-500/12 text-blue-300 border-blue-500/20"
-                    : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/5"
+                    ? "bg-blue-500/12 text-blue-700 dark:text-blue-300 border-blue-500/20"
+                    : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/5"
                 }`}
               >
                 <span>{info.icon}</span>
                 <span>{info.label}</span>
-                <span className="text-slate-500 dark:text-slate-600 tabular-nums">{count}</span>
+                <span className="text-slate-500 dark:text-slate-500 tabular-nums">{count}</span>
               </button>
             );
           })}
@@ -146,11 +146,11 @@ export default function ComplianceAuditPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[var(--border)]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-40">Timestamp</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Performed By</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden md:table-cell">Journey</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Details</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider w-40">Timestamp</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Performed By</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider">Action</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden md:table-cell">Journey</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-500 uppercase tracking-wider hidden lg:table-cell">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -159,22 +159,22 @@ export default function ComplianceAuditPage() {
                 return (
                   <tr key={log.id} className="hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
                     <td className="px-4 py-3">
-                      <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap">
+                      <div className="text-xs text-slate-600 dark:text-slate-400 tabular-nums whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-600 tabular-nums">
+                      <div className="text-[10px] text-slate-500 dark:text-slate-500 tabular-nums">
                         {new Date(log.timestamp).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
                       </div>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 text-[10px] font-bold text-slate-500 dark:text-slate-400 shrink-0">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 text-[10px] font-bold text-slate-600 dark:text-slate-400 shrink-0">
                           {log.performedByName.split(" ").map((n) => n[0]).join("")}
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm text-slate-800 dark:text-slate-200 truncate">{log.performedByName}</p>
                           {log.targetUserName && (
-                            <p className="text-[10px] text-slate-500 dark:text-slate-600 truncate">→ {log.targetUserName}</p>
+                            <p className="text-[10px] text-slate-500 dark:text-slate-500 truncate">→ {log.targetUserName}</p>
                           )}
                         </div>
                       </div>
@@ -186,20 +186,20 @@ export default function ComplianceAuditPage() {
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell">
                       {log.targetJourneyTitle ? (
-                        <span className="text-xs text-slate-500 dark:text-slate-400">{log.targetJourneyTitle}</span>
+                        <span className="text-xs text-slate-600 dark:text-slate-400">{log.targetJourneyTitle}</span>
                       ) : (
-                        <span className="text-xs text-slate-500 dark:text-slate-600">—</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-500">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3 hidden lg:table-cell">
-                      <p className="text-xs text-slate-500 max-w-xs truncate">{log.details}</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-500 max-w-xs truncate">{log.details}</p>
                     </td>
                   </tr>
                 );
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-12 text-center text-sm text-slate-500">
+                  <td colSpan={5} className="px-4 py-12 text-center text-sm text-slate-600 dark:text-slate-500">
                     No audit entries match your filters
                   </td>
                 </tr>
