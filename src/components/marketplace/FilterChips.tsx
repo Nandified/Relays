@@ -53,7 +53,7 @@ export function FilterChips({
             flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all
             ${selected === null && (!selectedCategories || selectedCategories.length === 0)
               ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
-              : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-300"
+              : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-500 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
             }
           `}
         >
@@ -67,7 +67,7 @@ export function FilterChips({
               flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap
               ${isActive(cat)
                 ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
-                : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-300"
+                : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-500 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
               }
             `}
           >
@@ -90,8 +90,8 @@ export function FilterChips({
                   className={`
                     rounded-full px-2.5 py-1 text-[11px] font-medium transition-all whitespace-nowrap
                     ${sortBy === opt.value
-                      ? "bg-white/10 text-slate-200 border border-white/15"
-                      : "text-slate-500 hover:text-slate-400 hover:bg-white/5"
+                      ? "bg-black/5 dark:bg-white/10 text-slate-800 dark:text-slate-200 border border-black/10 dark:border-white/15"
+                      : "text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
                     }
                   `}
                 >
@@ -115,7 +115,7 @@ export function FilterChips({
               flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all whitespace-nowrap
               ${verifiedOnly
                 ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                : "text-slate-500 hover:text-slate-400 hover:bg-white/5"
+                : "text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
               }
             `}
           >
@@ -134,11 +134,11 @@ export function FilterChips({
               flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-all whitespace-nowrap
               ${acceptingOnly
                 ? "bg-blue-500/15 text-blue-400 border border-blue-500/20"
-                : "text-slate-500 hover:text-slate-400 hover:bg-white/5"
+                : "text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5"
               }
             `}
           >
-            <span className={`inline-block h-1.5 w-1.5 rounded-full ${acceptingOnly ? "bg-blue-400" : "bg-slate-600"}`} />
+            <span className={`inline-block h-1.5 w-1.5 rounded-full ${acceptingOnly ? "bg-blue-400" : "bg-slate-300 dark:bg-slate-600"}`} />
             Accepting Clients
           </button>
         )}

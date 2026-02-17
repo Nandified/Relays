@@ -8,7 +8,7 @@ import { mockHomeworkeEstimate, type HomeworkeRepairItem } from "@/lib/mock-data
 const priorityConfig: Record<string, { label: string; color: string; bg: string }> = {
   critical: { label: "Critical", color: "text-red-400", bg: "bg-red-500/10 border-red-500/20" },
   recommended: { label: "Recommended", color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/20" },
-  optional: { label: "Optional", color: "text-slate-400", bg: "bg-slate-500/10 border-slate-500/20" },
+  optional: { label: "Optional", color: "text-slate-500 dark:text-slate-400", bg: "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 border-slate-300 dark:border-slate-500/20" },
 };
 
 const categoryIcons: Record<string, string> = {
@@ -51,7 +51,7 @@ function RepairItemCard({ item, selected, onToggle }: { item: HomeworkeRepairIte
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-base">{categoryIcons[item.category] || "🔧"}</span>
-            <h4 className="text-sm font-semibold text-slate-100">{item.title}</h4>
+            <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{item.title}</h4>
             <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium ${p.bg} ${p.color}`}>
               {p.label}
             </span>
@@ -61,7 +61,7 @@ function RepairItemCard({ item, selected, onToggle }: { item: HomeworkeRepairIte
             <span className="text-sm font-semibold text-amber-400">
               {formatCost(item.estimatedCostLow)} – {formatCost(item.estimatedCostHigh)}
             </span>
-            <span className="text-[11px] text-slate-600">⏱ {item.timelineEstimate}</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-600">⏱ {item.timelineEstimate}</span>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ export function HomeworkeEstimateView() {
               </div>
               <Badge variant="success" className="text-[10px]">AI Estimate Ready</Badge>
             </div>
-            <h3 className="text-lg font-semibold text-slate-100">Repair & Renovation Estimates</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Repair & Renovation Estimates</h3>
             <p className="text-xs text-slate-500 mt-0.5">{estimate.propertyAddress}</p>
           </div>
           <div className="text-right">
@@ -118,7 +118,7 @@ export function HomeworkeEstimateView() {
       {/* Items */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-slate-300">{estimate.items.length} items found</h4>
+          <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300">{estimate.items.length} items found</h4>
           <button
             className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
             onClick={() => {

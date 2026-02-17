@@ -24,7 +24,7 @@ import {
 /* ── Shared status indicator ─────────────────────────────────── */
 function StatusDot({ status }: { status: DocStatus }) {
   const colors: Record<DocStatus, string> = {
-    needed: "bg-slate-600",
+    needed: "bg-slate-300 dark:bg-slate-600",
     requested: "bg-amber-500 animate-doc-pulse-amber-dot",
     uploaded: "bg-blue-500",
     reviewed: "bg-blue-400",
@@ -78,7 +78,7 @@ function ConsumerDocumentsView() {
               <h3 className="text-sm font-medium text-amber-300">
                 {actionableDocs.length} document{actionableDocs.length !== 1 ? "s" : ""} need your attention
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Your pro team is waiting for these documents to keep your journey on track.
               </p>
             </div>
@@ -98,7 +98,7 @@ function ConsumerDocumentsView() {
                 <div className="min-w-0">
                   <Link
                     href={`/journey/${journey.id}`}
-                    className="text-sm font-semibold text-slate-100 hover:text-white transition-colors"
+                    className="text-sm font-semibold text-slate-900 dark:text-slate-100 hover:text-slate-900 dark:text-white transition-colors"
                   >
                     {journey.title}
                   </Link>
@@ -106,8 +106,8 @@ function ConsumerDocumentsView() {
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
                   <div className="text-right hidden sm:block">
-                    <span className="text-xs text-slate-400 tabular-nums">{stats.approved}/{stats.total}</span>
-                    <div className="h-1.5 w-20 rounded-full bg-white/5 mt-1 overflow-hidden">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">{stats.approved}/{stats.total}</span>
+                    <div className="h-1.5 w-20 rounded-full bg-black/5 dark:bg-white/5 mt-1 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-700"
                         style={{ width: `${pct}%` }}
@@ -134,13 +134,13 @@ function ConsumerDocumentsView() {
                         className={`
                           flex items-center gap-3 px-5 py-3 transition-colors
                           ${isActionable ? "bg-amber-500/[0.02]" : ""}
-                          hover:bg-white/[0.02]
+                          hover:bg-black/[0.02] dark:hover:bg-white/[0.02]
                         `}
                       >
                         <StatusDot status={doc.status} />
                         <span className="text-base flex-shrink-0">{meta.icon}</span>
                         <div className="min-w-0 flex-1">
-                          <span className="text-sm text-slate-200">{doc.title}</span>
+                          <span className="text-sm text-slate-800 dark:text-slate-200">{doc.title}</span>
                           {doc.notes && isActionable && (
                             <p className="text-[11px] text-amber-400/70 truncate mt-0.5">📝 {doc.notes}</p>
                           )}
@@ -153,7 +153,7 @@ function ConsumerDocumentsView() {
                                 setViewerDoc(doc);
                                 setViewerOpen(true);
                               }}
-                              className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-500 hover:bg-white/5 hover:text-slate-300 transition-colors"
+                              className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                             >
                               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" strokeLinecap="round"/>
@@ -240,7 +240,7 @@ function ProDocumentsView() {
                 <circle cx="12" cy="12" r="3" />
               </svg>
             </div>
-            <span className="text-2xl font-bold text-slate-100 tabular-nums">{needsReview}</span>
+            <span className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{needsReview}</span>
           </div>
           <span className="text-xs text-slate-500">Needs review</span>
         </div>
@@ -252,7 +252,7 @@ function ProDocumentsView() {
                 <polyline points="12 6 12 12 16 14" strokeLinecap="round" />
               </svg>
             </div>
-            <span className="text-2xl font-bold text-slate-100 tabular-nums">{awaiting}</span>
+            <span className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{awaiting}</span>
           </div>
           <span className="text-xs text-slate-500">Awaiting upload</span>
         </div>
@@ -269,7 +269,7 @@ function ProDocumentsView() {
                 <div>
                   <Link
                     href={`/journey/${journeyId}`}
-                    className="text-sm font-semibold text-slate-100 hover:text-white transition-colors"
+                    className="text-sm font-semibold text-slate-900 dark:text-slate-100 hover:text-slate-900 dark:text-white transition-colors"
                   >
                     {first.journeyTitle}
                   </Link>
@@ -291,12 +291,12 @@ function ProDocumentsView() {
                   return (
                     <div
                       key={doc.id}
-                      className="flex items-center gap-3 px-5 py-3 hover:bg-white/[0.02] transition-colors"
+                      className="flex items-center gap-3 px-5 py-3 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors"
                     >
                       <StatusDot status={doc.status} />
                       <span className="text-base flex-shrink-0">{meta.icon}</span>
                       <div className="min-w-0 flex-1">
-                        <span className="text-sm text-slate-200">{doc.title}</span>
+                        <span className="text-sm text-slate-800 dark:text-slate-200">{doc.title}</span>
                         {doc.uploadedBy && (
                           <p className="text-[11px] text-slate-500">
                             Uploaded by {doc.uploadedBy}
@@ -334,14 +334,14 @@ function ProDocumentsView() {
       </div>
 
       {journeyGroups.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-[var(--border)] bg-white/[0.02] p-12 text-center">
+        <div className="rounded-2xl border border-dashed border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] p-12 text-center">
           <div className="flex flex-col items-center gap-2">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
               <svg width="28" height="28" fill="none" stroke="#10b981" strokeWidth="1.5" viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="text-sm font-medium text-slate-300">All caught up!</h3>
+            <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300">All caught up!</h3>
             <p className="text-xs text-slate-500">No pending documents to review.</p>
           </div>
         </div>
@@ -386,7 +386,7 @@ export default function DocumentsPage() {
     <div className="mx-auto max-w-3xl px-4 py-6 pb-20">
       {/* Page header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20">
             <svg width="18" height="18" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
               <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" strokeLinecap="round" strokeLinejoin="round"/>

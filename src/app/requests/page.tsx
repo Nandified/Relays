@@ -33,8 +33,8 @@ export default function RequestsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-100">My Requests</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">My Requests</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           {mockRequests.length} request{mockRequests.length !== 1 ? "s" : ""} total
         </p>
       </div>
@@ -48,10 +48,10 @@ export default function RequestsPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="text-sm font-semibold text-slate-100 truncate">{req.category}</h3>
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{req.category}</h3>
                       <Badge variant={statusVariant(req.status)}>{statusLabel(req.status)}</Badge>
                     </div>
-                    <p className="mt-1 text-xs text-slate-400 line-clamp-2">{req.description}</p>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{req.description}</p>
                     <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
                       <span>{req.addressOrArea}</span>
                       <span>•</span>

@@ -41,15 +41,15 @@ export default function TeamPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       {filledCount < totalRoles && (
-        <div className="mb-5 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm px-4 py-3 text-sm text-slate-300">
-          <span className="text-slate-200">Complete your team</span> to be ready for every step of your home journey
+        <div className="mb-5 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm px-4 py-3 text-sm text-slate-700 dark:text-slate-300">
+          <span className="text-slate-800 dark:text-slate-200">Complete your team</span> to be ready for every step of your home journey
         </div>
       )}
 
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">My Dream Team</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">My Dream Team</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             {mockTeam.length} professional{mockTeam.length !== 1 ? "s" : ""} on your team
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function TeamPage() {
                   strokeDasharray={`${progress}, 100`}
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">
+              <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-800 dark:text-slate-200 tabular-nums">
                 {filledCount}/{totalRoles}
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function TeamPage() {
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="truncate text-sm font-semibold text-slate-100">{pro.name}</span>
+                            <span className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{pro.name}</span>
                             {pro.verified && <Badge variant="success" className="text-[10px]">✓</Badge>}
                           </div>
                           <div className="truncate text-xs text-slate-500">{pro.companyName}</div>
@@ -123,7 +123,7 @@ export default function TeamPage() {
                               </svg>
                               {pro.rating.toFixed(1)}
                             </span>
-                            <span className="text-xs text-slate-600">{pro.reviewCount} reviews</span>
+                            <span className="text-xs text-slate-500 dark:text-slate-600">{pro.reviewCount} reviews</span>
                           </div>
                         </div>
                         <div className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
@@ -150,14 +150,14 @@ export default function TeamPage() {
               <Link key={role} href={`/marketplace`}>
                 <Card hover padding="none" className="p-4 border-dashed">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-white/5 border border-dashed border-[var(--border)] flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-xl bg-black/5 dark:bg-white/5 border border-dashed border-[var(--border)] flex items-center justify-center">
                       <svg width="16" height="16" fill="none" stroke="#64748b" strokeWidth="2" viewBox="0 0 24 24">
                         <path d="M12 4v16m8-8H4" />
                       </svg>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-slate-300">{role}</div>
-                      <div className="text-xs text-slate-600">{emptyRoleCopy[role]}</div>
+                      <div className="text-sm font-medium text-slate-700 dark:text-slate-300">{role}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-600">{emptyRoleCopy[role]}</div>
                     </div>
                   </div>
                 </Card>

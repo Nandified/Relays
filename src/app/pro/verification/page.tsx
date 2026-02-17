@@ -106,29 +106,29 @@ export default function ProVerificationPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="mb-8">
-        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-4">
+        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-4">
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
           Dashboard
         </Link>
-        <h1 className="text-2xl font-bold text-slate-100">Get Verified</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Get Verified</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Upload your professional license to earn a verified badge on your profile.
         </p>
       </div>
 
       {/* Demo scenario toggle */}
       <div className="mb-6 flex items-center gap-2 text-xs">
-        <span className="text-slate-600">Demo:</span>
+        <span className="text-slate-500 dark:text-slate-600">Demo:</span>
         <button
-          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "high" ? "border-blue-500/30 bg-blue-500/10 text-blue-400" : "border-[var(--border)] text-slate-500 hover:text-slate-400"}`}
+          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "high" ? "border-blue-500/30 bg-blue-500/10 text-blue-400" : "border-[var(--border)] text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"}`}
           onClick={() => { setScenario("high"); resetFlow(); }}
         >
           High Confidence
         </button>
         <button
-          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "low" ? "border-amber-500/30 bg-amber-500/10 text-amber-400" : "border-[var(--border)] text-slate-500 hover:text-slate-400"}`}
+          className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${scenario === "low" ? "border-amber-500/30 bg-amber-500/10 text-amber-400" : "border-[var(--border)] text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"}`}
           onClick={() => { setScenario("low"); resetFlow(); }}
         >
           Low Confidence
@@ -144,7 +144,7 @@ export default function ProVerificationPage() {
                 <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <h2 className="text-lg font-semibold text-slate-100">Upload Your License</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Upload Your License</h2>
             <p className="text-sm text-slate-500 mt-1">
               We&apos;ll automatically verify your document using AI. Most pros are verified instantly.
             </p>
@@ -159,7 +159,7 @@ export default function ProVerificationPage() {
               relative cursor-pointer rounded-2xl border-2 border-dashed p-10 text-center transition-all duration-300
               ${isDragging
                 ? "border-blue-500/50 bg-blue-500/5 shadow-[0_0_30px_rgba(59,130,246,0.1)]"
-                : "border-[var(--border)] hover:border-[var(--border-hover)] hover:bg-white/[0.02]"
+                : "border-[var(--border)] hover:border-[var(--border-hover)] hover:bg-black/[0.02] dark:hover:bg-white/[0.02]"
               }
             `}
           >
@@ -170,12 +170,12 @@ export default function ProVerificationPage() {
               onChange={handleInputChange}
               className="hidden"
             />
-            <div className="mx-auto h-12 w-12 rounded-2xl bg-white/5 border border-[var(--border)] flex items-center justify-center mb-4">
+            <div className="mx-auto h-12 w-12 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center mb-4">
               <svg width="24" height="24" fill="none" stroke={isDragging ? "#3b82f6" : "#64748b"} strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
             </div>
-            <p className="text-sm text-slate-300 font-medium">
+            <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
               {isDragging ? "Drop your file here" : "Drop your license here, or click to browse"}
             </p>
             <p className="text-xs text-slate-500 mt-2">
@@ -184,7 +184,7 @@ export default function ProVerificationPage() {
           </div>
 
           <div className="mt-6 liquid-glass rounded-2xl p-4">
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">What we verify</h3>
+            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">What we verify</h3>
             <div className="space-y-2">
               {["Your name matches your profile", "License number is present and valid", "License is not expired"].map((item) => (
                 <div key={item} className="flex items-center gap-2">
@@ -193,7 +193,7 @@ export default function ProVerificationPage() {
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </div>
-                  <span className="text-sm text-slate-400">{item}</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">{item}</span>
                 </div>
               ))}
             </div>
@@ -205,7 +205,7 @@ export default function ProVerificationPage() {
       {step === "processing" && (
         <Card padding="lg" className="animate-in">
           <div className="text-center mb-6">
-            <h2 className="text-lg font-semibold text-slate-100">Analyzing Document</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Analyzing Document</h2>
             <p className="text-sm text-slate-500 mt-1">Our AI is extracting and verifying your license details</p>
           </div>
 
@@ -213,21 +213,21 @@ export default function ProVerificationPage() {
             {/* Fake document background */}
             <div className="absolute inset-0 p-8 opacity-30">
               <div className="space-y-3">
-                <div className="h-6 w-3/4 rounded bg-slate-700/50" />
-                <div className="h-4 w-1/2 rounded bg-slate-700/30" />
-                <div className="h-px w-full bg-slate-700/20 my-4" />
-                <div className="h-3 w-full rounded bg-slate-700/20" />
-                <div className="h-3 w-5/6 rounded bg-slate-700/20" />
-                <div className="h-3 w-4/6 rounded bg-slate-700/20" />
-                <div className="h-px w-full bg-slate-700/20 my-4" />
+                <div className="h-6 w-3/4 rounded bg-slate-200 dark:bg-slate-700/50" />
+                <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-700/30" />
+                <div className="h-px w-full bg-slate-200 dark:bg-slate-700/20 my-4" />
+                <div className="h-3 w-full rounded bg-slate-200 dark:bg-slate-700/20" />
+                <div className="h-3 w-5/6 rounded bg-slate-200 dark:bg-slate-700/20" />
+                <div className="h-3 w-4/6 rounded bg-slate-200 dark:bg-slate-700/20" />
+                <div className="h-px w-full bg-slate-200 dark:bg-slate-700/20 my-4" />
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="h-3 w-3/4 rounded bg-slate-700/20" />
-                    <div className="h-3 w-1/2 rounded bg-slate-700/20" />
+                    <div className="h-3 w-3/4 rounded bg-slate-200 dark:bg-slate-700/20" />
+                    <div className="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700/20" />
                   </div>
                   <div className="space-y-2">
-                    <div className="h-3 w-3/4 rounded bg-slate-700/20" />
-                    <div className="h-3 w-1/2 rounded bg-slate-700/20" />
+                    <div className="h-3 w-3/4 rounded bg-slate-200 dark:bg-slate-700/20" />
+                    <div className="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700/20" />
                   </div>
                 </div>
               </div>
@@ -276,7 +276,7 @@ export default function ProVerificationPage() {
           {/* Progress */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-medium">
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 {scanPhase === "uploading" && "Uploading document…"}
                 {scanPhase === "scanning" && "Scanning text with AI…"}
                 {scanPhase === "analyzing" && "Extracting license data…"}
@@ -284,7 +284,7 @@ export default function ProVerificationPage() {
               </span>
               <span className="text-xs text-slate-500 font-mono">{Math.round(scanProgress)}%</span>
             </div>
-            <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-100"
                 style={{
@@ -297,7 +297,7 @@ export default function ProVerificationPage() {
           </div>
 
           {fileName && (
-            <div className="mt-4 flex items-center gap-2 text-xs text-slate-600">
+            <div className="mt-4 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-600">
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
               </svg>
@@ -311,19 +311,19 @@ export default function ProVerificationPage() {
       {step === "results" && (
         <Card padding="lg" className="animate-in">
           <div className="text-center mb-6">
-            <h2 className="text-lg font-semibold text-slate-100">Extraction Complete</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Extraction Complete</h2>
             <p className="text-sm text-slate-500 mt-1">Here&apos;s what we found in your document</p>
           </div>
 
           {/* Confidence meter */}
           <div className="liquid-glass rounded-2xl p-4 mb-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Confidence Score</span>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Confidence Score</span>
               <span className={`text-sm font-bold ${confidence >= 0.8 ? "text-emerald-400" : confidence >= 0.5 ? "text-amber-400" : "text-red-400"}`}>
                 {Math.round(confidence * 100)}%
               </span>
             </div>
-            <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+            <div className="h-2 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{
@@ -346,10 +346,10 @@ export default function ProVerificationPage() {
           {/* Extracted fields */}
           <div className="space-y-3 mb-6">
             {ocrFields.map((field) => (
-              <div key={field.label} className="flex items-center justify-between p-3 rounded-xl border border-[var(--border)] bg-white/[0.02]">
+              <div key={field.label} className="flex items-center justify-between p-3 rounded-xl border border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02]">
                 <div>
                   <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">{field.label}</div>
-                  <div className="text-sm text-slate-200 font-mono mt-0.5">{field.value}</div>
+                  <div className="text-sm text-slate-800 dark:text-slate-200 font-mono mt-0.5">{field.value}</div>
                 </div>
                 <div className={`flex items-center gap-1.5 text-xs font-medium ${field.matched ? "text-emerald-400" : "text-amber-400"}`}>
                   {field.matched ? (
@@ -430,18 +430,18 @@ export default function ProVerificationPage() {
               <div className="absolute top-[40%] -left-1 w-1 h-1 rounded-full bg-emerald-400/40 animate-ping" style={{ animationDelay: "0.9s" }} />
             </div>
 
-            <h2 className="text-2xl font-bold text-slate-100 mb-2">You&apos;re Verified! 🎉</h2>
-            <p className="text-sm text-slate-400 mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">You&apos;re Verified! 🎉</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-8">
               Your license has been verified. Your verified badge is now live on your profile.
             </p>
 
             <div className="inline-flex items-center gap-3 liquid-glass rounded-2xl p-5 mb-8">
-              <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-[var(--border)] flex items-center justify-center text-lg font-bold text-slate-300">
+              <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-[var(--border)] flex items-center justify-center text-lg font-bold text-slate-700 dark:text-slate-300">
                 AM
               </div>
               <div className="text-left">
                 <div className="flex items-center gap-2">
-                  <span className="text-base font-semibold text-slate-100">Alex Martinez</span>
+                  <span className="text-base font-semibold text-slate-900 dark:text-slate-100">Alex Martinez</span>
                   <VerifiedBadge status="verified" size="md" />
                 </div>
                 <span className="text-xs text-slate-500">Blue Peak Inspections</span>
@@ -471,13 +471,13 @@ export default function ProVerificationPage() {
               </svg>
             </div>
 
-            <h2 className="text-xl font-bold text-slate-100 mb-2">Submitted for Review</h2>
-            <p className="text-sm text-slate-400 mb-6">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">Submitted for Review</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
               Our team will review your document and verify your license. This usually takes 1-2 business days.
             </p>
 
             <div className="liquid-glass rounded-2xl p-4 mb-8 text-left">
-              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">What happens next</h3>
+              <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">What happens next</h3>
               <div className="space-y-3">
                 {[
                   { icon: "📋", text: "Our team reviews your uploaded document" },
@@ -486,7 +486,7 @@ export default function ProVerificationPage() {
                 ].map((item) => (
                   <div key={item.text} className="flex items-center gap-3">
                     <span className="text-base">{item.icon}</span>
-                    <span className="text-sm text-slate-400">{item.text}</span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400">{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -496,7 +496,7 @@ export default function ProVerificationPage() {
               <Link href="/pro/dashboard">
                 <Button size="lg" className="w-full">Back to Dashboard</Button>
               </Link>
-              <button onClick={resetFlow} className="text-xs text-slate-500 hover:text-slate-400 transition-colors cursor-pointer">
+              <button onClick={resetFlow} className="text-xs text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 transition-colors cursor-pointer">
                 Try uploading a different document
               </button>
             </div>

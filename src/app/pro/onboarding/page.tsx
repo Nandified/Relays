@@ -108,8 +108,8 @@ export default function ProOnboardingPage() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/10 text-lg mb-4">
           🚀
         </div>
-        <h1 className="text-2xl font-bold text-slate-100">Set up your profile</h1>
-        <p className="mt-2 text-sm text-slate-400">Let&apos;s get your business listed on Relays</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Set up your profile</h1>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Let&apos;s get your business listed on Relays</p>
       </div>
 
       {/* Progress bar */}
@@ -118,7 +118,7 @@ export default function ProOnboardingPage() {
           <span>Step {step} of {totalSteps}</span>
           <span className="text-emerald-400">{Math.round((step / totalSteps) * 100)}%</span>
         </div>
-        <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-500 ease-out"
             style={{ width: `${(step / totalSteps) * 100}%` }}
@@ -129,8 +129,8 @@ export default function ProOnboardingPage() {
       {/* Step 1: Category */}
       {step === 1 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">What type of service do you provide?</h2>
-          <p className="text-sm text-slate-400 mb-6">Select your primary service category</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">What type of service do you provide?</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Select your primary service category</p>
 
           <div className="grid gap-3">
             {categories.map((cat) => (
@@ -146,7 +146,7 @@ export default function ProOnboardingPage() {
                 `}
               >
                 <span className="text-2xl">{cat.icon}</span>
-                <span className={`text-sm font-medium ${selectedCategory === cat.value ? "text-blue-400" : "text-slate-300"}`}>
+                <span className={`text-sm font-medium ${selectedCategory === cat.value ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                   {cat.label}
                 </span>
                 {selectedCategory === cat.value && (
@@ -165,8 +165,8 @@ export default function ProOnboardingPage() {
       {/* Step 2: Company & Name */}
       {step === 2 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Tell us about your business</h2>
-          <p className="text-sm text-slate-400 mb-6">This will appear on your public profile</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Tell us about your business</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This will appear on your public profile</p>
 
           <div className="space-y-4">
             <Input
@@ -189,7 +189,7 @@ export default function ProOnboardingPage() {
       {step === 2 && showClaimStep && matchingPlaces.length > 0 && (
         <div className="animate-in space-y-3 mt-4">
           <div className="text-center mb-2">
-            <p className="text-sm text-slate-400">We found businesses matching your category. Is one of these yours?</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">We found businesses matching your category. Is one of these yours?</p>
           </div>
           {matchingPlaces.slice(0, 3).map((place) => (
             <ClaimProfileBanner
@@ -220,8 +220,8 @@ export default function ProOnboardingPage() {
       {/* Step 3: Service Area */}
       {step === 3 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Where do you serve?</h2>
-          <p className="text-sm text-slate-400 mb-6">Enter your primary service area</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Where do you serve?</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Enter your primary service area</p>
 
           <div className="space-y-4">
             <Input
@@ -240,8 +240,8 @@ export default function ProOnboardingPage() {
       {/* Step 4: Photos */}
       {step === 4 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Upload your photos</h2>
-          <p className="text-sm text-slate-400 mb-6">These help clients recognize you</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Upload your photos</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">These help clients recognize you</p>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {/* Headshot */}
@@ -262,14 +262,14 @@ export default function ProOnboardingPage() {
                   </svg>
                 </div>
               ) : (
-                <div className="h-16 w-16 rounded-full bg-white/5 border border-[var(--border)] flex items-center justify-center">
+                <div className="h-16 w-16 rounded-full bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center">
                   <svg width="24" height="24" fill="none" stroke="#64748b" strokeWidth="1.5" viewBox="0 0 24 24">
                     <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" />
                   </svg>
                 </div>
               )}
               <div className="text-center">
-                <div className={`text-sm font-medium ${headshotUploaded ? "text-emerald-400" : "text-slate-300"}`}>
+                <div className={`text-sm font-medium ${headshotUploaded ? "text-emerald-400" : "text-slate-700 dark:text-slate-300"}`}>
                   {headshotUploaded ? "Headshot uploaded" : "Upload headshot"}
                 </div>
                 <div className="text-xs text-slate-500 mt-0.5">
@@ -296,7 +296,7 @@ export default function ProOnboardingPage() {
                   </svg>
                 </div>
               ) : (
-                <div className="h-16 w-16 rounded-2xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+                <div className="h-16 w-16 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center">
                   <svg width="24" height="24" fill="none" stroke="#64748b" strokeWidth="1.5" viewBox="0 0 24 24">
                     <rect x="3" y="3" width="18" height="18" rx="2" />
                     <path d="M12 8v8M8 12h8" />
@@ -304,7 +304,7 @@ export default function ProOnboardingPage() {
                 </div>
               )}
               <div className="text-center">
-                <div className={`text-sm font-medium ${logoUploaded ? "text-emerald-400" : "text-slate-300"}`}>
+                <div className={`text-sm font-medium ${logoUploaded ? "text-emerald-400" : "text-slate-700 dark:text-slate-300"}`}>
                   {logoUploaded ? "Logo uploaded" : "Upload company logo"}
                 </div>
                 <div className="text-xs text-slate-500 mt-0.5">
@@ -323,8 +323,8 @@ export default function ProOnboardingPage() {
       {/* Step 5: Social Links */}
       {step === 5 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Add your social links</h2>
-          <p className="text-sm text-slate-400 mb-6">Help clients find and verify you online</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Add your social links</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Help clients find and verify you online</p>
           <div className="space-y-4">
             <Input
               label="LinkedIn"
@@ -355,7 +355,7 @@ export default function ProOnboardingPage() {
                 className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all cursor-pointer ${
                   googleImported
                     ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
-                    : "bg-white/5 border border-[var(--border)] text-slate-300 hover:bg-white/10"
+                    : "bg-black/5 dark:bg-white/5 border border-[var(--border)] text-slate-700 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/10"
                 }`}
               >
                 {googleImported ? (
@@ -377,7 +377,7 @@ export default function ProOnboardingPage() {
                   </>
                 )}
               </button>
-              <p className="text-xs text-slate-600 mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-600 mt-2">
                 Auto-fill from your Google Business Profile
               </p>
             </div>
@@ -391,8 +391,8 @@ export default function ProOnboardingPage() {
       {/* Step 6: Service Areas & Intro Video */}
       {step === 6 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Expand your reach</h2>
-          <p className="text-sm text-slate-400 mb-6">Add more service areas and an intro video</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Expand your reach</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Add more service areas and an intro video</p>
           <div className="space-y-6">
             <div>
               <Input
@@ -406,7 +406,7 @@ export default function ProOnboardingPage() {
 
             {/* Intro Video Upload */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Intro Video (optional)</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Intro Video (optional)</label>
               <button
                 onClick={() => setIntroVideoUploaded(!introVideoUploaded)}
                 className={`w-full flex flex-col items-center gap-3 rounded-2xl border-2 border-dashed p-8 transition-all cursor-pointer ${
@@ -429,14 +429,14 @@ export default function ProOnboardingPage() {
                   </div>
                 ) : (
                   <>
-                    <div className="h-14 w-14 rounded-2xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+                    <div className="h-14 w-14 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center">
                       <svg width="24" height="24" fill="none" stroke="#64748b" strokeWidth="1.5" viewBox="0 0 24 24">
                         <polygon points="23 7 16 12 23 17 23 7" />
                         <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
                       </svg>
                     </div>
                     <div className="text-center">
-                      <div className="text-sm font-medium text-slate-300">Upload an intro video</div>
+                      <div className="text-sm font-medium text-slate-700 dark:text-slate-300">Upload an intro video</div>
                       <div className="text-xs text-slate-500 mt-0.5">30-60 seconds — let clients see the real you</div>
                     </div>
                   </>
@@ -450,8 +450,8 @@ export default function ProOnboardingPage() {
       {/* Step 7: Profile Preview */}
       {step === 7 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Preview your profile</h2>
-          <p className="text-sm text-slate-400 mb-6">This is how clients will see you on Relays</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Preview your profile</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This is how clients will see you on Relays</p>
 
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-5">
             {/* Preview Card */}
@@ -463,12 +463,12 @@ export default function ProOnboardingPage() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-bold text-slate-100">{fullName || "Your Name"}</h3>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">{fullName || "Your Name"}</h3>
                   <span className="inline-flex items-center rounded-full bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 text-[10px] text-blue-400">
                     {selectedCategory || "Category"}
                   </span>
                 </div>
-                <p className="text-sm text-slate-400 mt-0.5">{companyName || "Your Company"}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{companyName || "Your Company"}</p>
                 <div className="flex items-center gap-3 mt-2">
                   <span className="flex items-center gap-1 text-xs text-slate-500">
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -481,10 +481,10 @@ export default function ProOnboardingPage() {
                 {(socialLinks.linkedin || socialLinks.instagram) && (
                   <div className="flex items-center gap-2 mt-2">
                     {socialLinks.linkedin && (
-                      <span className="text-[10px] text-slate-500 bg-white/5 rounded-md px-2 py-0.5">LinkedIn</span>
+                      <span className="text-[10px] text-slate-500 bg-black/5 dark:bg-white/5 rounded-md px-2 py-0.5">LinkedIn</span>
                     )}
                     {socialLinks.instagram && (
-                      <span className="text-[10px] text-slate-500 bg-white/5 rounded-md px-2 py-0.5">Instagram</span>
+                      <span className="text-[10px] text-slate-500 bg-black/5 dark:bg-white/5 rounded-md px-2 py-0.5">Instagram</span>
                     )}
                   </div>
                 )}
@@ -502,11 +502,11 @@ export default function ProOnboardingPage() {
             {/* Stats preview */}
             <div className="mt-4 pt-4 border-t border-[var(--border)] grid grid-cols-3 gap-3 text-center">
               <div>
-                <div className="text-sm font-semibold text-slate-200">New</div>
+                <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">New</div>
                 <div className="text-[10px] text-slate-500">Rating</div>
               </div>
               <div>
-                <div className="text-sm font-semibold text-slate-200">0</div>
+                <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">0</div>
                 <div className="text-[10px] text-slate-500">Reviews</div>
               </div>
               <div>

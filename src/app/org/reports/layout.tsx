@@ -18,7 +18,7 @@ export default function OrgReportsLayout({ children }: { children: React.ReactNo
       <div className="border-b border-[var(--border)] bg-[var(--bg-subtle)]">
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex items-center gap-1 py-2">
-            <span className="text-xs text-slate-600 mr-2 font-medium uppercase tracking-wider">Brokerage Reports</span>
+            <span className="text-xs text-slate-500 dark:text-slate-600 mr-2 font-medium uppercase tracking-wider">Brokerage Reports</span>
             {reportLinks.map((link) => {
               const active = pathname === link.href;
               return (
@@ -28,8 +28,8 @@ export default function OrgReportsLayout({ children }: { children: React.ReactNo
                   className={`
                     flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-medium transition-all
                     ${active
-                      ? "bg-[var(--bg-card)] text-slate-100 shadow-sm border border-[var(--border)]"
-                      : "text-slate-500 hover:text-slate-300 hover:bg-white/5"
+                      ? "bg-[var(--bg-card)] text-slate-900 dark:text-slate-100 shadow-sm border border-[var(--border)]"
+                      : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5"
                     }
                   `}
                 >

@@ -72,8 +72,8 @@ const typeConfig: Record<NotificationType, { icon: React.ReactNode; color: strin
   },
   system: {
     icon: <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
-    color: "text-slate-400",
-    bgColor: "bg-slate-500/10 border border-slate-500/15",
+    color: "text-slate-500 dark:text-slate-400",
+    bgColor: "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10 border border-slate-300 dark:border-slate-500/15",
     label: "System",
   },
 };
@@ -156,8 +156,8 @@ export default function NotificationsPage() {
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-100">Notifications</h1>
-            <p className="mt-1 text-sm text-slate-400">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Notifications</h1>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
               {unreadCount > 0 ? `${unreadCount} unread` : "All caught up!"}
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function NotificationsPage() {
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-slate-100 mb-1">All caught up!</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">All caught up!</h3>
             <p className="text-sm text-slate-500">
               {activeFilter === "all"
                 ? "No notifications to show. We'll let you know when something happens."
@@ -242,13 +242,13 @@ function NotificationCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className={`text-sm leading-snug ${!n.read ? "font-semibold text-slate-100" : "font-medium text-slate-300"}`}>
+                <p className={`text-sm leading-snug ${!n.read ? "font-semibold text-slate-900 dark:text-slate-100" : "font-medium text-slate-700 dark:text-slate-300"}`}>
                   {n.title}
                 </p>
                 <p className="mt-1 text-xs text-slate-500 line-clamp-2">{n.body}</p>
               </div>
               <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                <span className="text-[11px] text-slate-600">{timeAgo(n.createdAt)}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-600">{timeAgo(n.createdAt)}</span>
                 {!n.read && (
                   <div className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.5)]" />
                 )}

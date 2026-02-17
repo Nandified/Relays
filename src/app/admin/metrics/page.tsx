@@ -72,9 +72,9 @@ function MetricHighlight({
           {isUp ? "↑" : "↓"} {Math.abs(change).toFixed(0)}%
         </span>
       </div>
-      <div className="text-2xl font-bold text-slate-100 tabular-nums">{current.toLocaleString()}</div>
+      <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{current.toLocaleString()}</div>
       <div className="text-xs text-slate-500 mt-0.5">{label}</div>
-      <div className="text-[10px] text-slate-600 mt-1">vs. {previous.toLocaleString()} prev</div>
+      <div className="text-[10px] text-slate-500 dark:text-slate-600 mt-1">vs. {previous.toLocaleString()} prev</div>
     </div>
   );
 }
@@ -105,13 +105,13 @@ function HealthMetric({
   };
 
   return (
-    <div className="group flex items-center justify-between py-3 hover:bg-white/[0.01] px-2 -mx-2 rounded-lg transition-colors">
+    <div className="group flex items-center justify-between py-3 hover:bg-black/[0.01] dark:hover:bg-white/[0.01] px-2 -mx-2 rounded-lg transition-colors">
       <div className="flex items-center gap-3">
         <div className={`h-2 w-2 rounded-full ${statusColors[status]} transition-transform group-hover:scale-125`} />
-        <span className="text-sm text-slate-300">{label}</span>
+        <span className="text-sm text-slate-700 dark:text-slate-300">{label}</span>
       </div>
       <div className="flex items-center gap-2">
-        <div className="text-sm text-slate-200 tabular-nums font-medium">
+        <div className="text-sm text-slate-800 dark:text-slate-200 tabular-nums font-medium">
           {value}<span className="text-slate-500 ml-0.5">{unit}</span>
         </div>
         <Badge
@@ -159,8 +159,8 @@ export default function AdminMetricsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Analytics & Metrics</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Analytics & Metrics</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Detailed platform analytics, funnels, and health monitoring.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function AdminMetricsPage() {
       <Card padding="lg" className="glow-violet">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
-            <h3 className="text-sm font-semibold text-slate-200">Signups Over Time</h3>
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Signups Over Time</h3>
             <p className="text-xs text-slate-500 mt-0.5">Platform growth by {signupPeriod} interval</p>
           </div>
           <Tabs tabs={periodTabs} activeId={signupPeriod} onChange={setSignupPeriod} />
@@ -195,7 +195,7 @@ export default function AdminMetricsPage() {
         <Card padding="lg" className="glow-violet">
           <div className="mb-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-slate-200">Pro Acquisition Funnel</h3>
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Pro Acquisition Funnel</h3>
               <Badge variant="outline" className="text-[10px]">{((34 / 148) * 100).toFixed(1)}% conversion</Badge>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">Registered → Onboarded → Verified → Active</p>
@@ -206,7 +206,7 @@ export default function AdminMetricsPage() {
         <Card padding="lg" className="glow-violet">
           <div className="mb-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-slate-200">Consumer Funnel</h3>
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Consumer Funnel</h3>
               <Badge variant="outline" className="text-[10px]">{((34 / 423) * 100).toFixed(1)}% conversion</Badge>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">Signed Up → Created Team → Filled Roles → Journey</p>
@@ -220,7 +220,7 @@ export default function AdminMetricsPage() {
         {/* Top cities */}
         <Card padding="lg" className="glow-violet">
           <div className="mb-4">
-            <h3 className="text-sm font-semibold text-slate-200">Top Cities</h3>
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Top Cities</h3>
             <p className="text-xs text-slate-500 mt-0.5">Professional distribution by metro area</p>
           </div>
           <AdminBarChart data={mockMetricsTimeline.topCities} color="#3b82f6" height={260} />
@@ -229,7 +229,7 @@ export default function AdminMetricsPage() {
         {/* Category breakdown */}
         <Card padding="lg" className="glow-violet">
           <div className="mb-4">
-            <h3 className="text-sm font-semibold text-slate-200">Category Breakdown</h3>
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Category Breakdown</h3>
             <p className="text-xs text-slate-500 mt-0.5">Professionals per service category</p>
           </div>
           <AdminBarChart data={mockMetricsTimeline.categoryBreakdown} height={260} />
@@ -240,7 +240,7 @@ export default function AdminMetricsPage() {
       <Card padding="lg" className="glow-violet">
         <div className="mb-5 flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-semibold text-slate-200">Platform Health</h3>
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Platform Health</h3>
             <p className="text-xs text-slate-500 mt-0.5">System performance and reliability metrics</p>
           </div>
           <div className="flex items-center gap-2">
@@ -251,7 +251,7 @@ export default function AdminMetricsPage() {
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-0 divide-y divide-[var(--border)]">
             <div className="pb-2 mb-1">
-              <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-widest">Performance</span>
+              <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-widest">Performance</span>
             </div>
             <HealthMetric label="API Response Time (p50)" value="45" unit="ms" status="good" />
             <HealthMetric label="API Response Time (p95)" value="189" unit="ms" status="good" />
@@ -260,7 +260,7 @@ export default function AdminMetricsPage() {
           </div>
           <div className="space-y-0 divide-y divide-[var(--border)]">
             <div className="pb-2 mb-1">
-              <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-widest">Infrastructure</span>
+              <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-600 uppercase tracking-widest">Infrastructure</span>
             </div>
             <HealthMetric label="Error Rate (24h)" value="0.12" unit="%" status="good" />
             <HealthMetric label="Active Connections" value="23" unit="" status="good" />
@@ -272,8 +272,8 @@ export default function AdminMetricsPage() {
 
       {/* ── Platform Summary Table ─────────────────────────────── */}
       <Card padding="none" className="overflow-hidden glow-violet">
-        <div className="px-5 py-3.5 border-b border-[var(--border)] bg-white/[0.02]">
-          <h3 className="text-sm font-semibold text-slate-200">Platform Summary</h3>
+        <div className="px-5 py-3.5 border-b border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02]">
+          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Platform Summary</h3>
         </div>
         <div className="divide-y divide-[var(--border)]">
           {[
@@ -287,9 +287,9 @@ export default function AdminMetricsPage() {
             { label: "Weekly Signups", value: mockAdminMetrics.weeklySignups.toString() },
             { label: "IDFPR Records Imported", value: "9,001", highlight: true },
           ].map((row) => (
-            <div key={row.label} className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.01] transition-colors">
-              <span className="text-sm text-slate-400">{row.label}</span>
-              <span className={`text-sm font-medium tabular-nums ${row.highlight ? "text-slate-100" : "text-slate-300"}`}>
+            <div key={row.label} className="flex items-center justify-between px-5 py-3 hover:bg-black/[0.01] dark:hover:bg-white/[0.01] transition-colors">
+              <span className="text-sm text-slate-500 dark:text-slate-400">{row.label}</span>
+              <span className={`text-sm font-medium tabular-nums ${row.highlight ? "text-slate-900 dark:text-slate-100" : "text-slate-700 dark:text-slate-300"}`}>
                 {row.value}
               </span>
             </div>

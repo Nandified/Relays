@@ -92,7 +92,7 @@ export function DocumentRequestModal({
                   <polyline points="20 6 9 17 4 12" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-slate-100">Document Requested</h3>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Document Requested</h3>
               <p className="text-sm text-slate-500 mt-1">
                 Your client will be notified to upload the document.
               </p>
@@ -102,14 +102,14 @@ export function DocumentRequestModal({
               {/* Header */}
               <div className="flex items-center justify-between mb-5">
                 <div>
-                  <h2 className="text-lg font-semibold text-slate-100">Request Document</h2>
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Request Document</h2>
                   <p className="text-xs text-slate-500 mt-0.5">
                     Select a document type and add an optional note
                   </p>
                 </div>
                 <button
                   onClick={onClose}
-                  className="rounded-full p-1 text-slate-500 hover:bg-white/5 hover:text-slate-300"
+                  className="rounded-full p-1 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300"
                 >
                   <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M18 6L6 18M6 6l12 12" />
@@ -119,7 +119,7 @@ export function DocumentRequestModal({
 
               {/* Category selection */}
               <div className="mb-4">
-                <span className="mb-2 block text-sm font-medium text-slate-300">Document Type</span>
+                <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Document Type</span>
                 <div className="space-y-1.5 max-h-[240px] overflow-y-auto pr-1">
                   {availableCategories.map((cat) => {
                     const meta = DOC_CATEGORY_META[cat];
@@ -133,16 +133,16 @@ export function DocumentRequestModal({
                           ${
                             isSelected
                               ? "bg-blue-500/10 border border-blue-500/20 ring-1 ring-blue-500/10"
-                              : "border border-transparent hover:bg-white/[0.03]"
+                              : "border border-transparent hover:bg-black/[0.03] dark:hover:bg-white/[0.03]"
                           }
                         `}
                       >
                         <span className="text-base flex-shrink-0">{meta.icon}</span>
                         <div className="min-w-0 flex-1">
-                          <span className={`text-sm font-medium ${isSelected ? "text-blue-300" : "text-slate-300"}`}>
+                          <span className={`text-sm font-medium ${isSelected ? "text-blue-300" : "text-slate-700 dark:text-slate-300"}`}>
                             {meta.label}
                           </span>
-                          <span className="text-[11px] text-slate-600 block">{meta.description}</span>
+                          <span className="text-[11px] text-slate-500 dark:text-slate-600 block">{meta.description}</span>
                         </div>
                         {isSelected && (
                           <svg width="16" height="16" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24" className="flex-shrink-0">

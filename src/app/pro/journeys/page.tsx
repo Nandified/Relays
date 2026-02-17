@@ -29,7 +29,7 @@ function MiniProgressRing({ filled, total }: { filled: number; total: number }) 
         <path
           d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831"
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
+          stroke="var(--border)"
           strokeWidth="3"
         />
         <path
@@ -41,7 +41,7 @@ function MiniProgressRing({ filled, total }: { filled: number; total: number }) 
           strokeDasharray={`${pct}, 100`}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">
+      <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-800 dark:text-slate-200 tabular-nums">
         {filled}/{total}
       </div>
     </div>
@@ -60,12 +60,12 @@ export default function ProJourneysPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors mb-3">
+          <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-3">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
             Back to Dashboard
           </Link>
-          <h1 className="text-2xl font-bold text-slate-100">Journeys</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Journeys</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             {allJourneys.length} journey{allJourneys.length !== 1 ? "s" : ""} created
           </p>
         </div>
@@ -106,7 +106,7 @@ export default function ProJourneysPage() {
                   <MiniProgressRing filled={filled} total={totalCount} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-semibold text-slate-100 truncate">{journey.title}</h3>
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{journey.title}</h3>
                       {statusBadge(journey.status)}
                     </div>
                     <p className="text-xs text-slate-500 flex items-center gap-1">
@@ -118,12 +118,12 @@ export default function ProJourneysPage() {
                     </p>
                     <div className="flex items-center gap-4 mt-2">
                       <span className="text-[11px] text-slate-500">
-                        Client: <span className="text-slate-300">{journey.client.name}</span>
+                        Client: <span className="text-slate-700 dark:text-slate-300">{journey.client.name}</span>
                       </span>
                       <span className="text-[11px] text-slate-500">
                         {journey.property.type === "buying" ? "Buying" : "Selling"}
                       </span>
-                      <span className="text-[11px] text-slate-600">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-600">
                         {new Date(journey.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                       </span>
                     </div>
@@ -162,10 +162,10 @@ export default function ProJourneysPage() {
 
       {allJourneys.length === 0 && (
         <div className="flex flex-col items-center justify-center py-20">
-          <div className="h-16 w-16 rounded-2xl bg-white/5 border border-dashed border-[var(--border)] flex items-center justify-center mb-4">
+          <div className="h-16 w-16 rounded-2xl bg-black/5 dark:bg-white/5 border border-dashed border-[var(--border)] flex items-center justify-center mb-4">
             <svg width="24" height="24" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" /></svg>
           </div>
-          <h3 className="text-sm font-medium text-slate-300 mb-1">No journeys yet</h3>
+          <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">No journeys yet</h3>
           <p className="text-xs text-slate-500 mb-4">Create your first journey to get started</p>
           <Link href="/pro/journey/new"><Button>Create Journey</Button></Link>
         </div>

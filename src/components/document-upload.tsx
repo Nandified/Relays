@@ -72,7 +72,7 @@ function getFileIcon(type: string): React.ReactNode {
     );
   }
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-slate-400">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-slate-500 dark:text-slate-400">
       <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       <path d="M14 2v6h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
@@ -197,17 +197,17 @@ export function DocumentUpload({
             {getFileIcon(selectedFile.type)}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-slate-200 truncate">{selectedFile.name}</p>
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{selectedFile.name}</p>
             <div className="flex items-center gap-2 mt-0.5">
               <span className="text-xs text-slate-500">
                 {FILE_TYPE_LABELS[selectedFile.type] || selectedFile.type.split("/")[1]?.toUpperCase() || "FILE"}
               </span>
-              <span className="text-[10px] text-slate-600">•</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-600">•</span>
               <span className="text-xs text-slate-500">{formatFileSize(selectedFile.size)}</span>
             </div>
             {uploading && (
               <div className="mt-2">
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-black/5 dark:bg-white/5">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-300 ease-out"
                     style={{ width: `${Math.min(displayProgress, 100)}%` }}
@@ -220,7 +220,7 @@ export function DocumentUpload({
           {!uploading && (
             <button
               onClick={clearFile}
-              className="flex-shrink-0 rounded-lg p-1.5 text-slate-500 hover:bg-white/5 hover:text-slate-300 transition-colors"
+              className="flex-shrink-0 rounded-lg p-1.5 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
               aria-label="Remove file"
             >
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -278,7 +278,7 @@ export function DocumentUpload({
               ${
                 isDragOver
                   ? "border-blue-500/30 bg-blue-500/10 text-blue-400"
-                  : "border-[var(--border)] bg-white/[0.02] text-slate-500"
+                  : "border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] text-slate-500"
               }
             `}
           >
@@ -297,7 +297,7 @@ export function DocumentUpload({
           </div>
 
           {/* Label */}
-          <p className={`font-medium text-slate-300 ${compact ? "text-xs" : "text-sm"}`}>
+          <p className={`font-medium text-slate-700 dark:text-slate-300 ${compact ? "text-xs" : "text-sm"}`}>
             {isDragOver ? "Drop your file here" : label}
           </p>
 
@@ -307,11 +307,11 @@ export function DocumentUpload({
 
           {!isDragOver && !compact && (
             <>
-              <p className="text-xs text-slate-600 mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-600 mt-2">
                 or{" "}
                 <span className="text-blue-400 hover:text-blue-300">browse files</span>
               </p>
-              <p className="text-[11px] text-slate-600 mt-1.5">
+              <p className="text-[11px] text-slate-500 dark:text-slate-600 mt-1.5">
                 PDF, images, Word docs — up to {formatFileSize(maxSize)}
               </p>
             </>

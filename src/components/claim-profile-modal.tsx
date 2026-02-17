@@ -118,12 +118,12 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
           {/* Header */}
           <div className="px-6 pt-6 pb-4">
             <div className="flex items-center justify-between mb-1">
-              <h2 className="text-lg font-semibold text-slate-100">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                 Claim Your Profile
               </h2>
               <button
                 onClick={onClose}
-                className="rounded-full p-1.5 text-slate-500 hover:bg-white/5 hover:text-slate-300 transition-colors"
+                className="rounded-full p-1.5 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
               >
                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path d="M18 6L6 18M6 6l12 12" />
@@ -146,7 +146,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                           ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
                           : i === currentIndex
                             ? "bg-[var(--accent-light)] text-blue-400 border border-blue-500/30 shadow-[0_0_12px_rgba(59,130,246,0.2)]"
-                            : "bg-white/5 text-slate-600 border border-[var(--border)]"
+                            : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-600 border border-[var(--border)]"
                         }
                       `}
                     >
@@ -158,7 +158,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                         i + 1
                       )}
                     </div>
-                    <span className={`text-xs hidden sm:block ${i <= currentIndex ? "text-slate-300" : "text-slate-600"}`}>
+                    <span className={`text-xs hidden sm:block ${i <= currentIndex ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-600"}`}>
                       {s.label}
                     </span>
                   </div>
@@ -185,7 +185,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-300 font-medium">Enter your license number</p>
+                      <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">Enter your license number</p>
                       <p className="text-xs text-slate-500 mt-1">
                         This is the number on your IDFPR license. Only the real license holder would know this.
                       </p>
@@ -223,7 +223,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                   </Button>
                 </div>
 
-                <p className="text-[11px] text-slate-600 mt-4 text-center">
+                <p className="text-[11px] text-slate-500 dark:text-slate-600 mt-4 text-center">
                   Your license number is verified against state records and is never shared publicly.
                 </p>
               </div>
@@ -267,7 +267,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                   )}
 
                   {idField && (
-                    <p className="text-[11px] text-slate-600">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-600">
                       {idField.description}. This is optional and stored as an additional trust signal.
                     </p>
                   )}
@@ -305,7 +305,7 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-300 font-medium">Create your password</p>
+                      <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">Create your password</p>
                       <p className="text-xs text-slate-500 mt-1">
                         Set a password to secure your account. You&apos;ll be able to edit your profile after claiming.
                       </p>
@@ -376,11 +376,11 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
                   <div className="absolute bottom-0 left-1/3 w-1.5 h-1.5 rounded-full bg-emerald-400/40 animate-ping" style={{ animationDelay: "0.6s" }} />
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-100 mb-2">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                   Profile Claimed! 🎉
                 </h3>
-                <p className="text-sm text-slate-400 mb-2">
-                  Welcome to Relays, <span className="text-slate-200 font-medium">{professional.name}</span>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+                  Welcome to Relays, <span className="text-slate-800 dark:text-slate-200 font-medium">{professional.name}</span>
                 </p>
                 <p className="text-xs text-slate-500 mb-6">
                   Your verified badge is now live. Complete your profile to attract more clients.
@@ -388,12 +388,12 @@ export function ClaimProfileModal({ professional, open, onClose }: ClaimProfileM
 
                 {/* Badge preview */}
                 <div className="liquid-glass rounded-2xl p-4 mb-6 inline-flex items-center gap-3 mx-auto">
-                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-[var(--border)] flex items-center justify-center text-sm font-bold text-slate-300">
+                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-[var(--border)] flex items-center justify-center text-sm font-bold text-slate-700 dark:text-slate-300">
                     {professional.name.split(/[\s,]+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase() ?? "").join("")}
                   </div>
                   <div className="text-left">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-semibold text-slate-200">{professional.name}</span>
+                      <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">{professional.name}</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-emerald-400 drop-shadow-[0_0_4px_rgba(16,185,129,0.4)]">
                         <path
                           d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.746 3.746 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"

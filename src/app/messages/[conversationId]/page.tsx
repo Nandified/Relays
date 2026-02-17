@@ -66,11 +66,11 @@ function DocMessage({ message }: { message: Message }) {
     <div className="mx-auto max-w-xs">
       <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/60 p-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 flex-shrink-0">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 flex-shrink-0">
             {fileTypeIcon}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-slate-200 truncate">{doc.fileName}</p>
+            <p className="text-xs font-medium text-slate-800 dark:text-slate-200 truncate">{doc.fileName}</p>
             <p className="text-[10px] text-slate-500">{doc.fileSize} • {doc.fileType.toUpperCase()}</p>
           </div>
           <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors flex-shrink-0">
@@ -93,11 +93,11 @@ function MessageBubble({ message, isOwn }: { message: Message; isOwn: boolean })
         {message.type === "doc_share" && message.docMeta ? (
           <DocMessage message={message} />
         ) : (
-          <div className="rounded-full bg-white/[0.03] border border-[var(--border-subtle)] px-4 py-1.5 max-w-sm">
+          <div className="rounded-full bg-black/[0.03] dark:bg-white/[0.03] border border-[var(--border-subtle)] px-4 py-1.5 max-w-sm">
             <p className="text-[11px] text-slate-500 text-center">{message.content}</p>
           </div>
         )}
-        <span className="text-[10px] text-slate-600 mt-1">{formatTime(message.createdAt)}</span>
+        <span className="text-[10px] text-slate-500 dark:text-slate-600 mt-1">{formatTime(message.createdAt)}</span>
       </div>
     );
   }
@@ -109,13 +109,13 @@ function MessageBubble({ message, isOwn }: { message: Message; isOwn: boolean })
           className={`rounded-2xl px-3.5 py-2.5 ${
             isOwn
               ? "bg-blue-500/90 text-white rounded-br-md shadow-[0_2px_12px_rgba(59,130,246,0.2)]"
-              : "liquid-glass text-slate-200 rounded-bl-md"
+              : "liquid-glass text-slate-800 dark:text-slate-200 rounded-bl-md"
           }`}
         >
           <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
         </div>
         <div className={`flex items-center gap-1 mt-0.5 ${isOwn ? "justify-end" : "justify-start"}`}>
-          <span className="text-[10px] text-slate-600">{formatTime(message.createdAt)}</span>
+          <span className="text-[10px] text-slate-500 dark:text-slate-600">{formatTime(message.createdAt)}</span>
           {isOwn && (
             <svg width="12" height="12" fill="none" stroke="#475569" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7" />
@@ -133,9 +133,9 @@ function TypingIndicator() {
     <div className="flex justify-start px-4 mb-2">
       <div className="liquid-glass rounded-2xl rounded-bl-md px-4 py-3">
         <div className="flex items-center gap-1">
-          <div className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-          <div className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-          <div className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+          <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+          <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+          <div className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
         </div>
       </div>
     </div>
@@ -166,7 +166,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-3">💬</div>
-          <h1 className="text-xl font-semibold text-slate-100 mb-1">Conversation not found</h1>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Conversation not found</h1>
           <p className="text-sm text-slate-500 mb-4">This conversation may have been removed.</p>
           <Link href="/messages">
             <Button>Back to Messages</Button>
@@ -216,7 +216,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
           {/* Back button */}
           <Link
             href="/messages"
-            className="flex h-8 w-8 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors md:hidden"
+            className="flex h-8 w-8 items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors md:hidden"
           >
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M15 19l-7-7 7-7" />
@@ -240,7 +240,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-semibold text-slate-100 truncate">{meta.otherPartyName}</h2>
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{meta.otherPartyName}</h2>
               <Badge variant="outline" className="text-[10px]">{meta.otherPartyRole}</Badge>
             </div>
             <p className="text-[11px] text-slate-500 truncate">Active now</p>
@@ -249,7 +249,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
           {/* Hidden on mobile back link for desktop */}
           <Link
             href="/messages"
-            className="hidden md:flex h-8 items-center gap-1 rounded-xl px-2.5 text-xs text-slate-500 hover:bg-white/5 hover:text-slate-300 transition-colors"
+            className="hidden md:flex h-8 items-center gap-1 rounded-xl px-2.5 text-xs text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
           >
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M15 19l-7-7 7-7" />
@@ -265,10 +265,10 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
           <svg width="12" height="12" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
             <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
-          <span className="text-[11px] text-slate-400">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400">
             This conversation is within your <Link href={`/journey/${conversation.journeyId}`} className="text-blue-400 hover:underline">{meta.journeyTitle}</Link> journey
           </span>
-          <span className="text-[10px] text-slate-600">• {meta.journeyAddress}</span>
+          <span className="text-[10px] text-slate-500 dark:text-slate-600">• {meta.journeyAddress}</span>
         </div>
       </div>
 
@@ -279,7 +279,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
             <div key={group.date}>
               {/* Date header */}
               <div className="flex items-center justify-center my-4">
-                <div className="rounded-full bg-white/[0.04] border border-[var(--border-subtle)] px-3 py-1">
+                <div className="rounded-full bg-black/[0.04] dark:bg-white/[0.04] border border-[var(--border-subtle)] px-3 py-1">
                   <span className="text-[11px] text-slate-500 font-medium">{group.label}</span>
                 </div>
               </div>
@@ -304,7 +304,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
       <div className="flex-shrink-0 border-t border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-xl">
         <div className="mx-auto max-w-3xl flex items-end gap-2 px-4 py-3">
           {/* Attach button */}
-          <button className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 hover:bg-white/5 hover:text-slate-300 transition-colors flex-shrink-0">
+          <button className="flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors flex-shrink-0">
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
               <path d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
             </svg>
@@ -318,7 +318,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
               onKeyDown={handleKeyDown}
               placeholder="Type a message…"
               rows={1}
-              className="w-full resize-none rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-500 outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-2 focus:ring-[var(--accent-light)] max-h-32"
+              className="w-full resize-none rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-2 focus:ring-[var(--accent-light)] max-h-32"
               style={{ minHeight: "40px" }}
             />
           </div>
@@ -330,7 +330,7 @@ export default function ConversationPage({ params }: { params: Promise<{ convers
             className={`flex h-9 w-9 items-center justify-center rounded-xl transition-all flex-shrink-0 ${
               newMessage.trim()
                 ? "bg-blue-500 text-white shadow-[0_0_12px_rgba(59,130,246,0.3)] hover:bg-blue-600"
-                : "bg-white/5 text-slate-600"
+                : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-600"
             }`}
           >
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">

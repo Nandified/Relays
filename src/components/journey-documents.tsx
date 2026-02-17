@@ -20,8 +20,8 @@ function StatusIndicator({ status }: { status: DocStatus }) {
   switch (status) {
     case "needed":
       return (
-        <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-slate-600/50 transition-colors">
-          <div className="h-2 w-2 rounded-full bg-slate-600/50" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-slate-300 dark:border-slate-600/50 transition-colors">
+          <div className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600/50" />
         </div>
       );
     case "requested":
@@ -90,7 +90,7 @@ function FileTypeChip({ type }: { type?: string }) {
     ? "text-red-400 bg-red-500/10 border-red-500/15"
     : type.startsWith("image/")
     ? "text-blue-400 bg-blue-500/10 border-blue-500/15"
-    : "text-slate-400 bg-white/5 border-white/10";
+    : "text-slate-500 dark:text-slate-400 bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10";
   return (
     <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium border ${color}`}>
       {label}
@@ -137,7 +137,7 @@ function DocumentRow({
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <span className="text-base flex-shrink-0">{meta.icon}</span>
-          <h4 className="text-sm font-medium text-slate-200 truncate">{doc.title}</h4>
+          <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{doc.title}</h4>
           <FileTypeChip type={doc.fileType} />
         </div>
         <div className="flex items-center gap-2 mt-0.5">
@@ -175,7 +175,7 @@ function DocumentRow({
         {hasFile && (
           <button
             onClick={() => onView(doc)}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
             title="View document"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -209,7 +209,7 @@ function DocumentProgress({ journeyId }: { journeyId: string }) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
+      <div className="flex-1 h-2 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-1000 ease-out ${
             allDone
@@ -219,7 +219,7 @@ function DocumentProgress({ journeyId }: { journeyId: string }) {
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className="text-xs text-slate-400 tabular-nums whitespace-nowrap">
+      <span className="text-xs text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap">
         {stats.approved}/{stats.total} approved
       </span>
     </div>
@@ -264,7 +264,7 @@ export function JourneyDocumentsSection({ journeyId }: { journeyId: string }) {
       {/* Section header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-lg font-semibold text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="text-blue-400">
               <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M14 2v6h6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -318,7 +318,7 @@ export function JourneyDocumentsSection({ journeyId }: { journeyId: string }) {
       </div>
 
       {documents.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-[var(--border)] bg-white/[0.02] p-8 text-center">
+        <div className="rounded-2xl border border-dashed border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] p-8 text-center">
           <div className="flex flex-col items-center gap-2">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]">
               <svg width="24" height="24" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -326,8 +326,8 @@ export function JourneyDocumentsSection({ journeyId }: { journeyId: string }) {
                 <path d="M14 2v6h6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="text-sm font-medium text-slate-400">No documents yet</h3>
-            <p className="text-xs text-slate-600">
+            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">No documents yet</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-600">
               Documents will appear here as your journey progresses
             </p>
             <Button size="sm" variant="secondary" onClick={() => setRequestOpen(true)} className="mt-2">

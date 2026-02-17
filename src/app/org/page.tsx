@@ -42,7 +42,7 @@ function MetricCard({
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">{label}</p>
-          <p className="mt-2 text-3xl font-bold text-slate-100 tabular-nums">{value}</p>
+          <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-slate-100 tabular-nums">{value}</p>
           {subtext && <p className="mt-1 text-xs text-slate-500">{subtext}</p>}
         </div>
         <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${a.bg} ${a.text}`}>
@@ -87,7 +87,7 @@ function QuickLinkCard({ href, label, description, icon }: { href: string; label
             {icon}
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors">{label}</p>
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-white transition-colors">{label}</p>
             <p className="text-xs text-slate-500 mt-0.5">{description}</p>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function OrgDashboard() {
               L
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-100">{org.name}</h1>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{org.name}</h1>
               <div className="flex items-center gap-2 mt-0.5">
                 <Badge variant="accent">{org.tier.charAt(0).toUpperCase() + org.tier.slice(1)}</Badge>
                 <span className="text-xs text-slate-500">{org.type.charAt(0).toUpperCase() + org.type.slice(1)}</span>
@@ -133,9 +133,9 @@ export default function OrgDashboard() {
         <div className="flex items-center gap-3">
           <div className="text-right">
             <p className="text-xs text-slate-500">Seats Used</p>
-            <p className="text-sm font-semibold text-slate-200 tabular-nums">{org.currentSeats} / {org.maxSeats}</p>
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{org.currentSeats} / {org.maxSeats}</p>
           </div>
-          <div className="w-32 h-2 rounded-full bg-white/5 overflow-hidden">
+          <div className="w-32 h-2 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
             <div
               className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-500"
               style={{ width: `${seatPercentage}%` }}
@@ -180,7 +180,7 @@ export default function OrgDashboard() {
         {/* Recent Activity Feed */}
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-slate-100">Recent Activity</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Recent Activity</h2>
             <Link href="/org/reports/compliance" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
               View full log →
             </Link>
@@ -188,18 +188,18 @@ export default function OrgDashboard() {
           <Card padding="none">
             <div className="divide-y divide-[var(--border)]">
               {auditLogs.map((log) => (
-                <div key={log.id} className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-[11px] font-bold text-slate-400 shrink-0 mt-0.5">
+                <div key={log.id} className="flex items-start gap-3 px-4 py-3 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0 mt-0.5">
                     {log.performedByName.split(" ").map((n) => n[0]).join("")}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-medium text-slate-200">{log.performedByName}</span>
+                      <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{log.performedByName}</span>
                       <AuditActionBadge action={log.action} />
                     </div>
                     <p className="text-xs text-slate-500 mt-0.5 truncate">{log.details}</p>
                   </div>
-                  <time className="text-[10px] text-slate-600 shrink-0 tabular-nums">
+                  <time className="text-[10px] text-slate-500 dark:text-slate-600 shrink-0 tabular-nums">
                     {formatRelativeTime(log.timestamp)}
                   </time>
                 </div>
@@ -210,7 +210,7 @@ export default function OrgDashboard() {
 
         {/* Quick Links */}
         <div>
-          <h2 className="text-lg font-semibold text-slate-100 mb-4">Quick Links</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">Quick Links</h2>
           <div className="space-y-3">
             <QuickLinkCard
               href="/org/members"

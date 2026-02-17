@@ -40,7 +40,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-slate-100">{pro.name}</div>
+                <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{pro.name}</div>
                 <div className="truncate text-xs text-slate-500">{pro.companyName}</div>
               </div>
               <div className="flex items-center gap-2">
@@ -99,12 +99,12 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
                     </svg>
                   ))}
                 </div>
-                <span className="text-sm font-medium text-slate-300">{pro.rating.toFixed(1)}</span>
+                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{pro.rating.toFixed(1)}</span>
                 <span className="text-xs text-slate-500">({pro.reviewCount} reviews)</span>
               </div>
 
               {/* Blurb */}
-              <p className="mt-3 text-sm text-slate-400 leading-relaxed">{pro.blurb}</p>
+              <p className="mt-3 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{pro.blurb}</p>
 
               {/* All categories & badges */}
               <div className="mt-3 flex flex-wrap gap-1.5">
@@ -121,7 +121,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
 
               {/* Service areas */}
               <div className="mt-3 text-xs text-slate-500">
-                <span className="font-medium text-slate-400">Service areas: </span>
+                <span className="font-medium text-slate-500 dark:text-slate-400">Service areas: </span>
                 {pro.serviceAreas.join(", ")}
               </div>
 

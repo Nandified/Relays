@@ -22,8 +22,8 @@ export default function ProRequestsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-100">Incoming Requests</h1>
-        <p className="mt-1 text-sm text-slate-400">Manage your incoming leads and bookings</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Incoming Requests</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Manage your incoming leads and bookings</p>
       </div>
 
       <div className="mb-6">
@@ -36,13 +36,13 @@ export default function ProRequestsPage() {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-sm font-semibold text-slate-100">{req.clientName}</h3>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{req.clientName}</h3>
                   <Badge variant={req.status === "pending" ? "warning" : req.status === "accepted" ? "success" : "danger"}>
                     {req.status.charAt(0).toUpperCase() + req.status.slice(1)}
                   </Badge>
                 </div>
                 <p className="text-xs text-slate-500">{req.clientEmail}</p>
-                <p className="mt-2 text-sm text-slate-300">{req.description}</p>
+                <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">{req.description}</p>
                 <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
                   <span>{req.category}</span>
                   <span>•</span>

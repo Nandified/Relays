@@ -105,8 +105,8 @@ export default function DataImportPage() {
     <div className="mx-auto max-w-6xl space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-100">Data Import</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Data Import</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Import state license data and manage professional records across states.
         </p>
       </div>
@@ -144,7 +144,7 @@ export default function DataImportPage() {
         <div className="space-y-6">
           {/* State-by-State Data Status */}
           <div>
-            <h2 className="text-lg font-semibold text-slate-100 mb-4">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">
               State Data Overview
             </h2>
             <div className="space-y-3">
@@ -166,7 +166,7 @@ export default function DataImportPage() {
                             {state.stateCode}
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-100">
+                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                               {state.state}
                             </div>
                             <div className="text-[11px] text-slate-500">
@@ -175,7 +175,7 @@ export default function DataImportPage() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-slate-100 tabular-nums">
+                          <div className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">
                             {state.totalRecords.toLocaleString()}
                           </div>
                           <div className="text-[10px] text-slate-500">
@@ -195,7 +195,7 @@ export default function DataImportPage() {
                               <span className="text-[11px] text-slate-500 w-28 truncate text-right">
                                 {cat}
                               </span>
-                              <div className="flex-1 h-3 rounded-full bg-white/[0.04] overflow-hidden">
+                              <div className="flex-1 h-3 rounded-full bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden">
                                 <div
                                   className="h-full rounded-full transition-all duration-700"
                                   style={{
@@ -205,7 +205,7 @@ export default function DataImportPage() {
                                   }}
                                 />
                               </div>
-                              <span className="text-[11px] text-slate-400 w-12 text-right tabular-nums font-medium">
+                              <span className="text-[11px] text-slate-500 dark:text-slate-400 w-12 text-right tabular-nums font-medium">
                                 {count.toLocaleString()}
                               </span>
                             </div>
@@ -220,7 +220,7 @@ export default function DataImportPage() {
               {/* Placeholder for upcoming states */}
               <Card padding="none" className="overflow-hidden opacity-50">
                 <div className="px-5 py-6 text-center">
-                  <div className="text-slate-600 mb-2">
+                  <div className="text-slate-500 dark:text-slate-600 mb-2">
                     <svg
                       width="28"
                       height="28"
@@ -243,12 +243,12 @@ export default function DataImportPage() {
 
           {/* Import History */}
           <div>
-            <h2 className="text-lg font-semibold text-slate-100 mb-4">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">
               Import History
             </h2>
             <Card padding="none" className="overflow-hidden">
               {/* Table header */}
-              <div className="hidden sm:grid sm:grid-cols-[1fr_100px_80px_90px_80px_70px] gap-3 items-center border-b border-[var(--border)] bg-white/[0.02] px-4 py-2.5">
+              <div className="hidden sm:grid sm:grid-cols-[1fr_100px_80px_90px_80px_70px] gap-3 items-center border-b border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] px-4 py-2.5">
                 <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">
                   File
                 </div>
@@ -273,10 +273,10 @@ export default function DataImportPage() {
                 {mockImportHistory.map((entry) => (
                   <div
                     key={entry.id}
-                    className="sm:grid sm:grid-cols-[1fr_100px_80px_90px_80px_70px] gap-3 items-center px-4 py-3 hover:bg-white/[0.02] transition-colors"
+                    className="sm:grid sm:grid-cols-[1fr_100px_80px_90px_80px_70px] gap-3 items-center px-4 py-3 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.04] text-slate-500">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/[0.04] dark:bg-white/[0.04] text-slate-500">
                         <svg
                           width="14"
                           height="14"
@@ -289,10 +289,10 @@ export default function DataImportPage() {
                         </svg>
                       </div>
                       <div className="min-w-0">
-                        <div className="text-sm font-medium text-slate-200 truncate">
+                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
                           {entry.filename}
                         </div>
-                        <div className="text-[10px] text-slate-600">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-600">
                           {entry.state} · {entry.duration}s
                         </div>
                       </div>
@@ -302,10 +302,10 @@ export default function DataImportPage() {
                         {entry.category}
                       </Badge>
                     </div>
-                    <div className="mt-1 sm:mt-0 text-sm text-slate-300 tabular-nums font-medium">
+                    <div className="mt-1 sm:mt-0 text-sm text-slate-700 dark:text-slate-300 tabular-nums font-medium">
                       {entry.recordCount.toLocaleString()}
                     </div>
-                    <div className="mt-1 sm:mt-0 text-xs text-slate-400 truncate">
+                    <div className="mt-1 sm:mt-0 text-xs text-slate-500 dark:text-slate-400 truncate">
                       {entry.importedBy}
                     </div>
                     <div className="mt-1 sm:mt-0 text-[11px] text-slate-500">
@@ -337,19 +337,19 @@ export default function DataImportPage() {
 
         {/* ── Right: Upload Zone ────────────────────────────────── */}
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-slate-100">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
             Import CSV
           </h2>
 
           {/* Category selector */}
           <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">
+            <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
               Category
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-violet-500/40 focus:ring-1 focus:ring-violet-500/20 transition-colors"
+              className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2.5 text-sm text-slate-800 dark:text-slate-200 outline-none focus:border-violet-500/40 focus:ring-1 focus:ring-violet-500/20 transition-colors"
             >
               {CATEGORIES.map((c) => (
                 <option key={c} value={c}>
@@ -370,7 +370,7 @@ export default function DataImportPage() {
             className={`rounded-2xl border-2 border-dashed p-8 text-center transition-all duration-200 ${
               dragOver
                 ? "border-violet-500/50 bg-violet-500/5 scale-[1.02]"
-                : "border-[var(--border)] bg-[var(--bg-elevated)]/30 hover:border-white/10"
+                : "border-[var(--border)] bg-[var(--bg-elevated)]/30 hover:border-black/10 dark:border-white/10"
             }`}
           >
             <input
@@ -388,7 +388,7 @@ export default function DataImportPage() {
                 className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
                   dragOver
                     ? "bg-violet-500/15 text-violet-400"
-                    : "bg-white/[0.04] text-slate-500"
+                    : "bg-black/[0.04] dark:bg-white/[0.04] text-slate-500"
                 }`}
               >
                 <svg
@@ -404,7 +404,7 @@ export default function DataImportPage() {
               </div>
               {file ? (
                 <div>
-                  <p className="text-sm font-medium text-slate-200">
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
                     {file.name}
                   </p>
                   <p className="text-[11px] text-slate-500 mt-1">
@@ -413,11 +413,11 @@ export default function DataImportPage() {
                 </div>
               ) : (
                 <div>
-                  <p className="text-sm text-slate-300">
+                  <p className="text-sm text-slate-700 dark:text-slate-300">
                     Drop CSV here or{" "}
                     <span className="text-violet-400 font-medium">browse</span>
                   </p>
-                  <p className="text-[11px] text-slate-600 mt-1">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-600 mt-1">
                     CSV files up to 50MB
                   </p>
                 </div>
@@ -428,7 +428,7 @@ export default function DataImportPage() {
           {/* CSV Preview */}
           {headers && preview && (
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">
+              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                 Preview ({preview.length} rows)
               </label>
               <div className="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/30">
@@ -438,7 +438,7 @@ export default function DataImportPage() {
                       {headers.map((h, i) => (
                         <th
                           key={i}
-                          className="px-2.5 py-2 text-left font-medium text-slate-400 whitespace-nowrap"
+                          className="px-2.5 py-2 text-left font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap"
                         >
                           {h}
                         </th>
@@ -536,10 +536,10 @@ export default function DataImportPage() {
 
           {/* Expected format info */}
           <Card padding="sm" className="opacity-60">
-            <h3 className="text-xs font-semibold text-slate-400 mb-1.5">
+            <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">
               Expected CSV Format
             </h3>
-            <p className="text-[11px] text-slate-600 leading-relaxed">
+            <p className="text-[11px] text-slate-500 dark:text-slate-600 leading-relaxed">
               Headers:{" "}
               <code className="text-violet-400/70">
                 name, license_number, type, company, city, state, zip, county,

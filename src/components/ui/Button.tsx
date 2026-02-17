@@ -18,9 +18,9 @@ export function Button({ className = "", variant = "primary", size = "md", ...pr
     primary:
       "bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] focus-visible:ring-[var(--accent)] shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
     secondary:
-      "bg-[var(--bg-card)] text-slate-200 border border-[var(--border)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)] focus-visible:ring-slate-500",
+      "bg-[var(--bg-card)] text-slate-800 dark:text-slate-200 border border-[var(--border)] hover:bg-[var(--bg-card-hover)] hover:border-[var(--border-hover)] focus-visible:ring-slate-500",
     ghost:
-      "bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200 focus-visible:ring-slate-500",
+      "bg-transparent text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 focus-visible:ring-slate-500",
     danger:
       "bg-red-500/90 text-white hover:bg-red-500 focus-visible:ring-red-400 shadow-[0_0_20px_rgba(239,68,68,0.15)]",
   };

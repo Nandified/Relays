@@ -274,7 +274,7 @@ export function HeroSearchBar() {
               onFocus={() => setIsOpen(true)}
               onClick={() => setIsOpen(true)}
               placeholder={isOpen || showPills ? "Search for a professional..." : ""}
-              className="w-full bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
+              className="w-full bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
             />
 
@@ -304,7 +304,7 @@ export function HeroSearchBar() {
               onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
               onFocus={() => setIsOpen(true)}
               placeholder="Zip code"
-              className="w-20 bg-transparent py-3.5 pl-2 pr-1 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
+              className="w-20 bg-transparent py-3.5 pl-2 pr-1 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
               inputMode="numeric"
             />
@@ -335,7 +335,7 @@ export function HeroSearchBar() {
                 <button
                   type="button"
                   onClick={() => removeCategory(cat)}
-                  className="ml-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+                  className="ml-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                 >
                   <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <path d="M18 6L6 18M6 6l12 12" />
@@ -350,7 +350,7 @@ export function HeroSearchBar() {
       {/* Dropdown — chip selector (when no text typed) */}
       {showChipDropdown && (
         <div
-          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative z-50 mt-2 rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
+          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative z-50 mt-2 rounded-2xl border border-black/[0.12] dark:border-white/[0.12] bg-black/[0.05] dark:bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
           style={{ animation: "dropdownFadeIn 0.15s ease-out" }}
         >
           {/* Top glass highlight */}
@@ -374,7 +374,7 @@ export function HeroSearchBar() {
                       ${
                         isSelected
                           ? "bg-[var(--accent)] text-white shadow-[0_0_12px_rgba(59,130,246,0.3)]"
-                          : "bg-white/[0.06] border border-white/[0.1] text-slate-400 hover:border-white/[0.2] hover:text-slate-200 hover:bg-white/[0.1]"
+                          : "bg-black/[0.06] dark:bg-white/[0.06] border border-black/[0.1] dark:border-white/[0.1] text-slate-500 dark:text-slate-400 hover:border-black/[0.2] dark:border-white/[0.2] hover:text-slate-800 dark:hover:text-slate-200 hover:bg-black/[0.1] dark:hover:bg-white/[0.1]"
                       }
                     `}
                     style={{ animationDelay: `${i * 40}ms` }}

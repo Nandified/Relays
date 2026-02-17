@@ -40,7 +40,7 @@ export default function LeaveReviewPage({
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-3">🔍</div>
-          <h1 className="text-xl font-semibold text-slate-100 mb-1">
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">
             Professional not found
           </h1>
           <p className="text-sm text-slate-500">
@@ -65,10 +65,10 @@ export default function LeaveReviewPage({
             <div className="relative text-5xl">🎉</div>
           </div>
 
-          <h1 className="text-2xl font-bold text-white mb-2">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
             Thank you for your review!
           </h1>
-          <p className="text-sm text-slate-400 mb-2 max-w-sm mx-auto">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 max-w-sm mx-auto">
             Your feedback helps other homebuyers make confident decisions and
             helps {pro.name} continue providing great service.
           </p>
@@ -113,7 +113,7 @@ export default function LeaveReviewPage({
     <main className="mx-auto max-w-lg px-4 py-8">
       <Link
         href={`/pros/${pro.slug}`}
-        className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-6"
+        className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6"
       >
         <svg
           width="16"
@@ -140,7 +140,7 @@ export default function LeaveReviewPage({
             />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white">
+            <h1 className="text-lg font-bold text-slate-900 dark:text-white">
               Review {pro.name}
             </h1>
             <p className="text-sm text-slate-500">{pro.companyName}</p>
@@ -170,7 +170,7 @@ export default function LeaveReviewPage({
 
         {/* Star rating */}
         <div className="mb-6">
-          <label className="text-sm font-semibold text-slate-200 mb-3 block">
+          <label className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3 block">
             Your Rating <span className="text-red-400">*</span>
           </label>
           <div className="flex items-center gap-4">
@@ -181,7 +181,7 @@ export default function LeaveReviewPage({
               size={32}
             />
             {rating > 0 && (
-              <span className="text-sm text-slate-400 animate-in">
+              <span className="text-sm text-slate-500 dark:text-slate-400 animate-in">
                 {rating === 5
                   ? "Outstanding!"
                   : rating === 4
@@ -200,10 +200,10 @@ export default function LeaveReviewPage({
         <div className="mb-4">
           <label
             htmlFor="review-title"
-            className="text-sm font-semibold text-slate-200 mb-2 block"
+            className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2 block"
           >
             Title{" "}
-            <span className="text-slate-600 font-normal">(optional)</span>
+            <span className="text-slate-500 dark:text-slate-600 font-normal">(optional)</span>
           </label>
           <input
             id="review-title"
@@ -212,7 +212,7 @@ export default function LeaveReviewPage({
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Summarize your experience"
             maxLength={100}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 focus:border-blue-500/30 focus:outline-none focus:ring-1 focus:ring-blue-500/20 transition-colors"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 dark:text-slate-600 focus:border-blue-500/30 focus:outline-none focus:ring-1 focus:ring-blue-500/20 transition-colors"
           />
         </div>
 
@@ -220,7 +220,7 @@ export default function LeaveReviewPage({
         <div className="mb-4">
           <label
             htmlFor="review-body"
-            className="text-sm font-semibold text-slate-200 mb-2 block"
+            className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2 block"
           >
             Your Review <span className="text-red-400">*</span>
           </label>
@@ -231,10 +231,10 @@ export default function LeaveReviewPage({
             placeholder="Share the details of your experience — what went well, what could improve, and anything future clients should know."
             rows={5}
             maxLength={2000}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600 focus:border-blue-500/30 focus:outline-none focus:ring-1 focus:ring-blue-500/20 resize-none transition-colors"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 dark:text-slate-600 focus:border-blue-500/30 focus:outline-none focus:ring-1 focus:ring-blue-500/20 resize-none transition-colors"
           />
           <div className="flex justify-end mt-1">
-            <span className="text-[11px] text-slate-600">
+            <span className="text-[11px] text-slate-500 dark:text-slate-600">
               {body.length}/2000
             </span>
           </div>
@@ -242,12 +242,12 @@ export default function LeaveReviewPage({
 
         {/* Service category (auto-filled) */}
         <div className="mb-6">
-          <label className="text-sm font-semibold text-slate-200 mb-2 block">
+          <label className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2 block">
             Service Category
           </label>
           <div className="flex items-center gap-2">
             <Badge variant="outline">{pro.categories[0]}</Badge>
-            <span className="text-xs text-slate-600">
+            <span className="text-xs text-slate-500 dark:text-slate-600">
               Auto-filled from journey context
             </span>
           </div>
@@ -255,11 +255,11 @@ export default function LeaveReviewPage({
 
         {/* Photo upload (mock) */}
         <div className="mb-6">
-          <label className="text-sm font-semibold text-slate-200 mb-2 block">
+          <label className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2 block">
             Photos{" "}
-            <span className="text-slate-600 font-normal">(optional)</span>
+            <span className="text-slate-500 dark:text-slate-600 font-normal">(optional)</span>
           </label>
-          <div className="rounded-xl border border-dashed border-[var(--border)] bg-white/[0.02] p-6 text-center hover:border-[var(--border-hover)] transition-colors cursor-pointer">
+          <div className="rounded-xl border border-dashed border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] p-6 text-center hover:border-[var(--border-hover)] transition-colors cursor-pointer">
             <svg
               width="24"
               height="24"
@@ -274,7 +274,7 @@ export default function LeaveReviewPage({
             <p className="text-xs text-slate-500">
               Drag & drop photos or click to upload
             </p>
-            <p className="text-[10px] text-slate-600 mt-1">
+            <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-1">
               JPG, PNG up to 5MB
             </p>
           </div>
@@ -315,7 +315,7 @@ export default function LeaveReviewPage({
         </Button>
 
         {/* Disclaimer */}
-        <p className="text-[11px] text-slate-600 text-center mt-4 leading-relaxed">
+        <p className="text-[11px] text-slate-500 dark:text-slate-600 text-center mt-4 leading-relaxed">
           Your review will be publicly visible. Reviews can be edited or deleted
           within 48 hours of submission. By posting, you agree to our review
           guidelines.

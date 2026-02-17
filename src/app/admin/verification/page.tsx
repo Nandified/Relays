@@ -46,7 +46,7 @@ function ConfidenceBar({ score }: { score: number }) {
           </span>
         </div>
       </div>
-      <div className="h-2 rounded-full bg-white/[0.04] overflow-hidden">
+      <div className="h-2 rounded-full bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-700"
           style={{ width: `${score}%`, backgroundColor: color, boxShadow: `0 0 12px ${color}30` }}
@@ -110,8 +110,8 @@ export default function VerificationPage() {
     <div className="mx-auto max-w-5xl">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-100">License Verification</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">License Verification</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Review and approve professional license credentials. AI auto-verifies high-confidence submissions.
         </p>
       </div>
@@ -172,7 +172,7 @@ export default function VerificationPage() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-slate-100">{ver.proName}</span>
+                        <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{ver.proName}</span>
                         {ver.autoVerified && (
                           <Badge variant="success" className="text-[9px] px-1.5 py-0 gap-0.5">
                             <svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20">
@@ -192,19 +192,19 @@ export default function VerificationPage() {
                 <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                   <div>
                     <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Category</div>
-                    <div className="mt-0.5 text-sm text-slate-300">{ver.category}</div>
+                    <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.category}</div>
                   </div>
                   <div>
                     <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">License #</div>
-                    <div className="mt-0.5 text-sm text-slate-300 font-mono">{ver.licenseNumber}</div>
+                    <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300 font-mono">{ver.licenseNumber}</div>
                   </div>
                   <div>
                     <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Type</div>
-                    <div className="mt-0.5 text-sm text-slate-300">{ver.licenseType}</div>
+                    <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.licenseType}</div>
                   </div>
                   <div>
                     <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Submitted</div>
-                    <div className="mt-0.5 text-sm text-slate-300">{formatTimeAgo(ver.submittedAt)}</div>
+                    <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{formatTimeAgo(ver.submittedAt)}</div>
                   </div>
                 </div>
 
@@ -223,7 +223,7 @@ export default function VerificationPage() {
                     </button>
 
                     {isExpanded && (
-                      <div className="mt-3 rounded-xl border border-[var(--border)] bg-white/[0.02] p-4 space-y-4 animate-in">
+                      <div className="mt-3 rounded-xl border border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] p-4 space-y-4 animate-in">
                         {/* Confidence Score */}
                         <ConfidenceBar score={ver.ocrData.confidenceScore} />
 
@@ -232,7 +232,7 @@ export default function VerificationPage() {
                           <div>
                             <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Extracted Name</div>
                             <div className="mt-0.5 flex items-center gap-1.5">
-                              <span className="text-sm text-slate-300">{ver.ocrData.extractedName}</span>
+                              <span className="text-sm text-slate-700 dark:text-slate-300">{ver.ocrData.extractedName}</span>
                               {ver.ocrData.nameMatch ? (
                                 <div className="flex items-center gap-0.5 text-emerald-400">
                                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" /></svg>
@@ -249,7 +249,7 @@ export default function VerificationPage() {
                           <div>
                             <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Extracted License #</div>
                             <div className="mt-0.5 flex items-center gap-1.5">
-                              <span className="text-sm text-slate-300 font-mono">{ver.ocrData.extractedLicenseNumber}</span>
+                              <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">{ver.ocrData.extractedLicenseNumber}</span>
                               {ver.ocrData.licenseMatch ? (
                                 <div className="flex items-center gap-0.5 text-emerald-400">
                                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" /></svg>
@@ -265,17 +265,17 @@ export default function VerificationPage() {
                           </div>
                           <div>
                             <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Expiration</div>
-                            <div className="mt-0.5 text-sm text-slate-300">{ver.ocrData.extractedExpiry ?? "Not found"}</div>
+                            <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.ocrData.extractedExpiry ?? "Not found"}</div>
                           </div>
                           <div>
                             <div className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">State</div>
-                            <div className="mt-0.5 text-sm text-slate-300">{ver.ocrData.extractedState}</div>
+                            <div className="mt-0.5 text-sm text-slate-700 dark:text-slate-300">{ver.ocrData.extractedState}</div>
                           </div>
                         </div>
 
                         {/* Document preview placeholder */}
-                        <div className="rounded-xl border border-dashed border-[var(--border)] bg-white/[0.01] p-6 text-center">
-                          <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.04] text-slate-600">
+                        <div className="rounded-xl border border-dashed border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] p-6 text-center">
+                          <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-600">
                             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                               <path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
@@ -302,8 +302,8 @@ export default function VerificationPage() {
 
                 {/* Reviewed info */}
                 {ver.reviewedBy && (
-                  <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-600">
-                    <div className="h-1 w-1 rounded-full bg-slate-700" />
+                  <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-600">
+                    <div className="h-1 w-1 rounded-full bg-slate-200 dark:bg-slate-700" />
                     {ver.autoVerified ? (
                       <>AI auto-verified in {Math.floor(Math.random() * 15 + 5)}s · {ver.reviewedAt ? formatDate(ver.reviewedAt) : ""}</>
                     ) : (
@@ -315,7 +315,7 @@ export default function VerificationPage() {
 
               {/* Actions (only for pending) */}
               {ver.status === "pending" && (
-                <div className="flex flex-wrap items-center gap-2 border-t border-[var(--border)] bg-white/[0.01] px-4 sm:px-5 py-3">
+                <div className="flex flex-wrap items-center gap-2 border-t border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] px-4 sm:px-5 py-3">
                   <Button
                     size="sm"
                     className="bg-emerald-500 hover:bg-emerald-600 shadow-[0_0_15px_rgba(16,185,129,0.2)]"
@@ -358,13 +358,13 @@ export default function VerificationPage() {
         {/* Empty state */}
         {filtered.length === 0 && (
           <Card padding="lg" className="text-center py-16">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.04] text-slate-600">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/[0.04] dark:bg-white/[0.04] text-slate-500 dark:text-slate-600">
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <p className="text-sm font-medium text-slate-400">No verification requests</p>
-            <p className="text-xs text-slate-600 mt-1">There are no items in this category right now.</p>
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">No verification requests</p>
+            <p className="text-xs text-slate-500 dark:text-slate-600 mt-1">There are no items in this category right now.</p>
           </Card>
         )}
       </div>
@@ -386,7 +386,7 @@ export default function VerificationPage() {
         onClose={() => { setRejectModalId(null); setRejectReason(""); }}
       >
         <div className="space-y-4">
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Provide a reason for rejecting this verification request. The pro will be notified.
           </p>
           <Input

@@ -215,13 +215,13 @@ function MarketplaceContent() {
       {[1, 2, 3].map((i) => (
         <div key={i} className="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--bg-card)]/60 p-4 animate-pulse">
           <div className="flex items-start gap-3">
-            <div className="h-[52px] w-[52px] rounded-2xl bg-white/5" />
+            <div className="h-[52px] w-[52px] rounded-2xl bg-black/5 dark:bg-white/5" />
             <div className="flex-1 space-y-2">
-              <div className="h-4 w-40 rounded bg-white/5" />
-              <div className="h-3 w-56 rounded bg-white/[0.03]" />
+              <div className="h-4 w-40 rounded bg-black/5 dark:bg-white/5" />
+              <div className="h-3 w-56 rounded bg-black/[0.03] dark:bg-white/[0.03]" />
               <div className="flex gap-2">
-                <div className="h-5 w-16 rounded-full bg-white/[0.03]" />
-                <div className="h-5 w-20 rounded-full bg-white/[0.03]" />
+                <div className="h-5 w-16 rounded-full bg-black/[0.03] dark:bg-white/[0.03]" />
+                <div className="h-5 w-20 rounded-full bg-black/[0.03] dark:bg-white/[0.03]" />
               </div>
             </div>
           </div>
@@ -236,10 +236,10 @@ function MarketplaceContent() {
     <main className="mx-auto max-w-6xl overflow-x-hidden px-3 sm:px-4 py-4 sm:py-6">
       {/* Header */}
       <div className="mb-4 sm:mb-6 text-center sm:text-left">
-        <h1 className="text-xl sm:text-3xl font-bold text-slate-100">
+        <h1 className="text-xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100">
           Find Your Professional
         </h1>
-        <p className="mt-1 text-xs sm:text-sm text-slate-400 max-w-lg">
+        <p className="mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-lg">
           Browse verified professionals for every step of your home journey.
         </p>
       </div>
@@ -275,7 +275,7 @@ function MarketplaceContent() {
         <span>
           {hasActiveFilter ? (
             <>
-              <span className="font-medium text-slate-300">
+              <span className="font-medium text-slate-700 dark:text-slate-300">
                 {(filteredPros.length + licensedTotal).toLocaleString()}
               </span>
               {" "}result{(filteredPros.length + licensedTotal) !== 1 ? "s" : ""}
@@ -283,7 +283,7 @@ function MarketplaceContent() {
             </>
           ) : (
             <>
-              <span className="font-medium text-slate-300">
+              <span className="font-medium text-slate-700 dark:text-slate-300">
                 {filteredPros.length}
               </span>
               {" "}featured professional{filteredPros.length !== 1 ? "s" : ""}
@@ -320,7 +320,7 @@ function MarketplaceContent() {
               ))
             ) : !hasAnyResults && !licensedLoading ? (
               <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-8 text-center">
-                <div className="text-sm font-medium text-slate-300">No results found</div>
+                <div className="text-sm font-medium text-slate-700 dark:text-slate-300">No results found</div>
                 <div className="mt-1 text-xs text-slate-500">Try a different search or clear filters</div>
               </div>
             ) : null}
@@ -343,7 +343,7 @@ function MarketplaceContent() {
               <div className="py-4 text-center">
                 <button
                   onClick={() => fetchLicensed(false)}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] backdrop-blur-lg px-6 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/[0.08] hover:border-white/[0.15] hover:text-slate-100 transition-all"
+                  className="inline-flex items-center gap-2 rounded-full border border-black/[0.1] dark:border-white/[0.1] bg-black/[0.04] dark:bg-white/[0.04] backdrop-blur-lg px-6 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] hover:border-black/[0.15] dark:border-white/[0.15] hover:text-slate-900 dark:hover:text-slate-100 transition-all"
                 >
                   Show more results
                   <span className="text-xs text-slate-500">
@@ -355,10 +355,10 @@ function MarketplaceContent() {
 
             {/* Browse prompt when no search is active */}
             {!hasActiveFilter && !licensedLoading && (
-              <div className="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 text-center">
-                <p className="text-sm text-slate-400">
+              <div className="mt-4 rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] p-6 text-center">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   Search by name or filter by category to browse{" "}
-                  <span className="font-medium text-slate-300">
+                  <span className="font-medium text-slate-700 dark:text-slate-300">
                     {totalProfessionals > 0 ? `${totalProfessionals.toLocaleString()}` : "thousands of"}
                   </span>{" "}
                   licensed professionals in Illinois
@@ -372,27 +372,27 @@ function MarketplaceContent() {
         <aside className="hidden lg:block">
           <div className="sticky top-20 space-y-4">
             {/* How It Works */}
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-lg p-5">
-              <h3 className="text-sm font-semibold text-slate-200 mb-4">How Relays Works</h3>
+            <div className="rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-black/[0.03] dark:bg-white/[0.03] backdrop-blur-lg p-5">
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">How Relays Works</h3>
               <div className="space-y-4">
                 <div className="flex gap-3">
                   <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-400">1</div>
                   <div>
-                    <div className="text-xs font-medium text-slate-300">Browse professionals</div>
+                    <div className="text-xs font-medium text-slate-700 dark:text-slate-300">Browse professionals</div>
                     <div className="text-[11px] text-slate-500 mt-0.5">Find verified realtors, lenders, attorneys, and more.</div>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-400">2</div>
                   <div>
-                    <div className="text-xs font-medium text-slate-300">Build your team</div>
+                    <div className="text-xs font-medium text-slate-700 dark:text-slate-300">Build your team</div>
                     <div className="text-[11px] text-slate-500 mt-0.5">Add pros to your home journey. One place, all your people.</div>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-400">3</div>
                   <div>
-                    <div className="text-xs font-medium text-slate-300">Get connected</div>
+                    <div className="text-xs font-medium text-slate-700 dark:text-slate-300">Get connected</div>
                     <div className="text-[11px] text-slate-500 mt-0.5">Request bookings and communicate directly.</div>
                   </div>
                 </div>
@@ -422,10 +422,10 @@ function MarketplaceContent() {
             </div>
 
             {/* Quick tip */}
-            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
+            <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] p-5">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm">💡</span>
-                <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Quick Tip</h3>
+                <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Quick Tip</h3>
               </div>
               <p className="text-[11px] text-slate-500 leading-relaxed">
                 Look for professionals with the <span className="text-emerald-400 font-medium">✓ Verified</span> badge — they&apos;ve submitted their credentials for review.

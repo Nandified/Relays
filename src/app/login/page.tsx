@@ -80,8 +80,8 @@ export default function LoginPage() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-lg font-bold text-white shadow-[0_0_25px_rgba(59,130,246,0.3)] mb-4">
           R
         </div>
-        <h1 className="text-2xl font-bold text-slate-100">Welcome back</h1>
-        <p className="mt-2 text-sm text-slate-400">Sign in to your Relays account</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Welcome back</h1>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Sign in to your Relays account</p>
       </div>
 
       <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
@@ -92,12 +92,12 @@ export default function LoginPage() {
                 <path d="M20 6L9 17l-5-5" />
               </svg>
             </div>
-            <h2 className="text-base font-semibold text-slate-100">Check your email</h2>
-            <p className="mt-2 text-sm text-slate-400">
-              We sent a magic link to <strong className="text-slate-200">{email}</strong>. Click it to sign in.
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Check your email</h2>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+              We sent a magic link to <strong className="text-slate-800 dark:text-slate-200">{email}</strong>. Click it to sign in.
             </p>
             {!isSupabase && (
-              <p className="mt-3 text-xs text-slate-600">(Demo: auto-signing you in...)</p>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-600">(Demo: auto-signing you in...)</p>
             )}
           </div>
         ) : (
@@ -136,7 +136,7 @@ export default function LoginPage() {
                 </Button>
                 <button
                   onClick={() => setMode("password")}
-                  className="w-full text-center text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                  className="w-full text-center text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                 >
                   Use password instead
                 </button>
@@ -148,7 +148,7 @@ export default function LoginPage() {
                 </Button>
                 <button
                   onClick={() => setMode("magic")}
-                  className="w-full text-center text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                  className="w-full text-center text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                 >
                   Use magic link instead
                 </button>

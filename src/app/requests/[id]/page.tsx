@@ -26,7 +26,7 @@ export default function RequestDetailPage() {
   if (!request) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <h1 className="text-xl font-semibold text-slate-100">Request not found</h1>
+        <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Request not found</h1>
         <Link href="/requests" className="mt-4 inline-block text-sm text-blue-400 hover:underline">
           ← Back to Requests
         </Link>
@@ -38,19 +38,19 @@ export default function RequestDetailPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <Link href="/requests" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-6">
+      <Link href="/requests" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
         Requests
       </Link>
 
-      <h1 className="text-xl font-bold text-slate-100 mb-1">{request.category}</h1>
-      <p className="text-sm text-slate-400 mb-6">{request.addressOrArea}</p>
+      <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{request.category}</h1>
+      <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{request.addressOrArea}</p>
 
       {/* Status stepper */}
       <Card padding="lg" className="mb-6">
-        <h2 className="text-sm font-semibold text-slate-200 mb-4">Status</h2>
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Status</h2>
         <div className="flex items-center">
           {statusSteps.map((step, i) => {
             const isPast = i <= currentStepIndex;
@@ -64,7 +64,7 @@ export default function RequestDetailPage() {
                       ? "bg-[var(--accent)] text-white ring-4 ring-[var(--accent-light)]"
                       : isPast
                         ? "bg-emerald-500 text-white"
-                        : "bg-white/5 text-slate-600"
+                        : "bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-600"
                     }
                   `}>
                     {isPast && !isCurrent ? (
@@ -75,7 +75,7 @@ export default function RequestDetailPage() {
                       i + 1
                     )}
                   </div>
-                  <span className={`mt-1 text-[10px] font-medium whitespace-nowrap ${isCurrent ? "text-blue-400" : isPast ? "text-emerald-400" : "text-slate-600"}`}>
+                  <span className={`mt-1 text-[10px] font-medium whitespace-nowrap ${isCurrent ? "text-blue-400" : isPast ? "text-emerald-400" : "text-slate-500 dark:text-slate-600"}`}>
                     {stepLabels[step]}
                   </span>
                 </div>
@@ -91,13 +91,13 @@ export default function RequestDetailPage() {
       {/* Assigned pro */}
       {pro && (
         <Card padding="lg" className="mb-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-3">Assigned Professional</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Assigned Professional</h2>
           <Link href={`/pros/${pro.slug}`} className="flex items-center gap-3 group">
             <div className="h-12 w-12 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]">
               <Image src={pro.headshotUrl} alt={pro.name} width={48} height={48} />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">{pro.name}</div>
+              <div className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-400 transition-colors">{pro.name}</div>
               <div className="text-xs text-slate-500">{pro.companyName}</div>
             </div>
             <div className="h-9 w-9 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
@@ -109,11 +109,11 @@ export default function RequestDetailPage() {
 
       {/* Request details */}
       <Card padding="lg" className="mb-6">
-        <h2 className="text-sm font-semibold text-slate-200 mb-3">Details</h2>
-        <p className="text-sm text-slate-300 mb-3">{request.description}</p>
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Details</h2>
+        <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">{request.description}</p>
         {request.notes && (
-          <div className="rounded-xl bg-white/5 border border-[var(--border)] p-3 text-sm text-slate-400">
-            <span className="font-medium text-slate-300">Notes: </span>
+          <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3 text-sm text-slate-500 dark:text-slate-400">
+            <span className="font-medium text-slate-700 dark:text-slate-300">Notes: </span>
             {request.notes}
           </div>
         )}
@@ -121,21 +121,21 @@ export default function RequestDetailPage() {
 
       {/* Timeline */}
       <Card padding="lg">
-        <h2 className="text-sm font-semibold text-slate-200 mb-4">Timeline</h2>
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Timeline</h2>
         <div className="space-y-0">
           {timeline.map((event, i) => (
             <div key={event.id} className="flex gap-3">
               <div className="flex flex-col items-center">
-                <div className={`h-3 w-3 rounded-full ${i === 0 ? "bg-[var(--accent)]" : "bg-slate-600"}`} />
+                <div className={`h-3 w-3 rounded-full ${i === 0 ? "bg-[var(--accent)]" : "bg-slate-300 dark:bg-slate-600"}`} />
                 {i < timeline.length - 1 && <div className="w-px flex-1 bg-[var(--border)] my-1" />}
               </div>
               <div className="pb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-slate-200">{event.label}</span>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{event.label}</span>
                   <Badge variant="default" className="text-[10px]">{event.actor}</Badge>
                 </div>
-                <p className="text-xs text-slate-400 mt-0.5">{event.description}</p>
-                <p className="text-[10px] text-slate-600 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{event.description}</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-0.5">
                   {new Date(event.timestamp).toLocaleString()}
                 </p>
               </div>

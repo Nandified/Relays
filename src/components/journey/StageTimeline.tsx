@@ -26,7 +26,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
         {/* Connector line */}
         <div className="relative flex items-center justify-between">
           {/* Background track */}
-          <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-white/[0.06] rounded-full" />
+          <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-black/[0.06] dark:bg-white/[0.06] rounded-full" />
           {/* Progress fill */}
           <div
             className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full transition-all duration-700 ease-out"
@@ -61,7 +61,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                       ? "bg-emerald-500 border-2 border-emerald-400/50 shadow-[0_0_12px_rgba(16,185,129,0.4)]"
                       : isCurrent
                         ? "bg-blue-500 border-2 border-blue-400/50 shadow-[0_0_16px_rgba(59,130,246,0.5)] animate-moment-pulse"
-                        : "bg-[var(--bg-elevated)] border-2 border-white/[0.08]"
+                        : "bg-[var(--bg-elevated)] border-2 border-black/[0.08] dark:border-white/[0.08]"
                     }
                     ${isFuture ? "opacity-40" : ""}
                     ${onStageClick ? "hover:scale-110" : ""}
@@ -83,7 +83,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                   ) : isCurrent ? (
                     <span className={compact ? "text-[8px]" : "text-xs"}>{JOURNEY_STAGE_ICONS[stage]}</span>
                   ) : (
-                    <div className={`rounded-full bg-white/10 ${compact ? "h-2 w-2" : "h-2.5 w-2.5"}`} />
+                    <div className={`rounded-full bg-black/5 dark:bg-white/10 ${compact ? "h-2 w-2" : "h-2.5 w-2.5"}`} />
                   )}
                 </button>
 
@@ -95,7 +95,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                   `}>
                     <span className={`
                       text-[10px] font-medium
-                      ${isCompleted ? "text-emerald-400" : isCurrent ? "text-blue-400" : "text-slate-600"}
+                      ${isCompleted ? "text-emerald-400" : isCurrent ? "text-blue-400" : "text-slate-500 dark:text-slate-600"}
                     `}>
                       {JOURNEY_STAGE_LABELS[stage]}
                     </span>
@@ -105,7 +105,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                 {/* Tooltip on hover */}
                 {isHovered && compact && (
                   <div className="absolute bottom-full mb-2 whitespace-nowrap rounded-lg bg-[var(--bg-elevated)] border border-[var(--border)] px-2.5 py-1 shadow-lg z-50 animate-in">
-                    <span className="text-[11px] font-medium text-slate-200">
+                    <span className="text-[11px] font-medium text-slate-800 dark:text-slate-200">
                       {JOURNEY_STAGE_ICONS[stage]} {JOURNEY_STAGE_LABELS[stage]}
                     </span>
                   </div>
@@ -127,7 +127,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
             return (
               <React.Fragment key={stage}>
                 {idx > 0 && (
-                  <div className={`h-[2px] w-3 flex-shrink-0 rounded-full ${isCompleted ? "bg-emerald-500" : "bg-white/[0.06]"}`} />
+                  <div className={`h-[2px] w-3 flex-shrink-0 rounded-full ${isCompleted ? "bg-emerald-500" : "bg-black/[0.06] dark:bg-white/[0.06]"}`} />
                 )}
                 <button
                   onClick={() => onStageClick?.(stage)}
@@ -137,7 +137,7 @@ export function StageTimeline({ currentStage, onStageClick, compact = false }: S
                       ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
                       : isCurrent
                         ? "bg-blue-500/15 text-blue-400 border border-blue-500/25 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
-                        : "text-slate-600 border border-transparent"
+                        : "text-slate-500 dark:text-slate-600 border border-transparent"
                     }
                     ${isFuture ? "opacity-40" : ""}
                   `}

@@ -49,7 +49,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-6">
+      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
@@ -70,7 +70,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-2xl font-bold text-slate-300">
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-2xl font-bold text-slate-700 dark:text-slate-300">
                 {initials}
               </div>
             )}
@@ -79,7 +79,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h1 className="text-xl font-bold text-slate-100">{professional.name}</h1>
+                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{professional.name}</h1>
                 <p className="text-sm text-slate-500">
                   {professional.officeName || professional.company || "Independent professional"}
                 </p>
@@ -91,7 +91,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
               {showRating ? (
                 <>
                   <Stars rating={professional.rating ?? 0} />
-                  <span className="text-sm font-semibold text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
                   <span className="text-sm text-slate-500">({professional.reviewCount} reviews)</span>
                   <GoogleG className="opacity-60" />
                 </>
@@ -114,13 +114,13 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
         {/* About */}
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-2">About</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">About</h2>
           <p className="text-sm text-slate-500 italic leading-relaxed">This professional hasn&apos;t added a bio yet.</p>
         </div>
 
         {/* Services */}
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-2">Services</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Services</h2>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">{professional.category}</Badge>
           </div>
@@ -128,13 +128,13 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
         {/* Service Areas */}
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-2">Service Areas</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Service Areas</h2>
           {serviceAreaParts.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {serviceAreaParts.map((area, i) => (
                 <span key={area}>
-                  <span className="text-sm text-slate-400">{area}</span>
-                  {i < serviceAreaParts.length - 1 && <span className="text-slate-600 ml-2">•</span>}
+                  <span className="text-sm text-slate-500 dark:text-slate-400">{area}</span>
+                  {i < serviceAreaParts.length - 1 && <span className="text-slate-500 dark:text-slate-600 ml-2">•</span>}
                 </span>
               ))}
             </div>
@@ -146,7 +146,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
         {/* Contact — inline if available */}
         {(professional.phone || professional.website) && (
           <div className="mt-6">
-            <h2 className="text-sm font-semibold text-slate-200 mb-3">Contact</h2>
+            <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Contact</h2>
             <div className="space-y-2">
               {professional.phone && (
                 <div className="flex items-center gap-3 text-sm">
@@ -178,11 +178,11 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
       {/* Reviews card — matches claimed layout */}
       <Card padding="lg" className="mt-6">
-        <h2 className="text-sm font-semibold text-slate-200 mb-4">Reviews</h2>
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Reviews</h2>
         {showRating ? (
           <div className="flex items-center gap-2">
             <Stars rating={professional.rating ?? 0} size={14} />
-            <span className="text-sm font-semibold text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
+            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{(professional.rating ?? 0).toFixed(1)}</span>
             <span className="text-sm text-slate-500">({professional.reviewCount} reviews)</span>
 
             {googleMapsUrl ? (
@@ -190,7 +190,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
                 href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
               >
                 <GoogleG className="opacity-60" />
                 <span>Google Reviews</span>

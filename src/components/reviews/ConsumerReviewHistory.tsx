@@ -48,7 +48,7 @@ export function ConsumerReviewHistory({
         <p className="text-sm text-slate-500">
           You haven&apos;t written any reviews yet
         </p>
-        <p className="text-xs text-slate-600 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-600 mt-1">
           After a booking or journey, you&apos;ll be prompted to review your
           pros
         </p>
@@ -87,7 +87,7 @@ export function ConsumerReviewHistory({
                     {pro && (
                       <Link
                         href={`/pros/${pro.slug}`}
-                        className="text-sm font-semibold text-slate-200 hover:text-white transition-colors"
+                        className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-slate-900 dark:text-white transition-colors"
                       >
                         {pro.name}
                       </Link>
@@ -98,7 +98,7 @@ export function ConsumerReviewHistory({
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
                     <StarRating rating={review.rating} size={12} />
-                    <span className="text-[11px] text-slate-600">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-600">
                       {timeAgo(review.createdAt)}
                     </span>
                   </div>
@@ -124,7 +124,7 @@ export function ConsumerReviewHistory({
                 </div>
               )}
               {!editable && (
-                <span className="text-[10px] text-slate-600 flex-shrink-0">
+                <span className="text-[10px] text-slate-500 dark:text-slate-600 flex-shrink-0">
                   Edit window closed
                 </span>
               )}
@@ -132,11 +132,11 @@ export function ConsumerReviewHistory({
 
             {/* Review content */}
             {review.title && (
-              <h4 className="text-sm font-semibold text-slate-200 mb-1">
+              <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 {review.title}
               </h4>
             )}
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
               {review.body}
             </p>
 
@@ -148,7 +148,7 @@ export function ConsumerReviewHistory({
                 </Badge>
               )}
               {review.helpful > 0 && (
-                <span className="text-[11px] text-slate-600">
+                <span className="text-[11px] text-slate-500 dark:text-slate-600">
                   {review.helpful} people found this helpful
                 </span>
               )}
@@ -165,7 +165,7 @@ export function ConsumerReviewHistory({
                     Pro
                   </Badge>
                 </div>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {review.proResponse.body}
                 </p>
               </div>

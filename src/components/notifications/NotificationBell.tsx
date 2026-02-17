@@ -59,8 +59,8 @@ const typeConfig: Record<NotificationType, { icon: React.ReactNode; color: strin
   },
   system: {
     icon: <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
-    color: "text-slate-400",
-    bgColor: "bg-slate-500/10",
+    color: "text-slate-500 dark:text-slate-400",
+    bgColor: "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/10",
   },
 };
 
@@ -163,7 +163,7 @@ export function NotificationBell() {
       {/* Bell button */}
       <button
         onClick={() => setOpen(!open)}
-        className="relative flex h-9 w-9 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors cursor-pointer"
+        className="relative flex h-9 w-9 items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors cursor-pointer"
         aria-label="Notifications"
       >
         <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -183,7 +183,7 @@ export function NotificationBell() {
         <div className="absolute right-0 top-full mt-2 w-[380px] max-h-[70vh] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/95 backdrop-blur-xl shadow-[var(--shadow-elevated)] z-50 animate-dropdown-in">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3">
-            <h3 className="text-sm font-semibold text-slate-100">Notifications</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Notifications</h3>
             <div className="flex items-center gap-2">
               {unreadCount > 0 && (
                 <button
@@ -201,8 +201,8 @@ export function NotificationBell() {
             {grouped.length === 0 ? (
               <div className="flex flex-col items-center py-10 px-4">
                 <div className="text-3xl mb-2">🎉</div>
-                <p className="text-sm text-slate-400">All caught up!</p>
-                <p className="text-xs text-slate-600 mt-1">No new notifications</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">All caught up!</p>
+                <p className="text-xs text-slate-500 dark:text-slate-600 mt-1">No new notifications</p>
               </div>
             ) : (
               grouped.map((group) => (
@@ -261,7 +261,7 @@ function NotificationRow({
         onRead(n.id);
         onClose();
       }}
-      className={`flex gap-3 px-4 py-3 transition-colors hover:bg-white/[0.03] border-b border-[var(--border-subtle)] last:border-b-0 ${
+      className={`flex gap-3 px-4 py-3 transition-colors hover:bg-black/[0.03] dark:hover:bg-white/[0.03] border-b border-[var(--border-subtle)] last:border-b-0 ${
         !n.read ? "bg-blue-500/[0.03]" : ""
       }`}
     >
@@ -273,7 +273,7 @@ function NotificationRow({
       {/* Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
-          <p className={`text-sm leading-tight ${!n.read ? "font-semibold text-slate-100" : "font-medium text-slate-300"}`}>
+          <p className={`text-sm leading-tight ${!n.read ? "font-semibold text-slate-900 dark:text-slate-100" : "font-medium text-slate-700 dark:text-slate-300"}`}>
             {n.title}
           </p>
           {!n.read && (
@@ -281,7 +281,7 @@ function NotificationRow({
           )}
         </div>
         <p className="mt-0.5 text-xs text-slate-500 line-clamp-2">{n.body}</p>
-        <span className="mt-1 block text-[11px] text-slate-600">{timeAgo(n.createdAt)}</span>
+        <span className="mt-1 block text-[11px] text-slate-500 dark:text-slate-600">{timeAgo(n.createdAt)}</span>
       </div>
     </Link>
   );

@@ -61,10 +61,10 @@ export function SearchBar({
           relative rounded-[22px]
           border transition-all duration-300
           ${focused
-            ? "border-white/[0.18] shadow-[0_0_30px_rgba(59,130,246,0.12),inset_0_1px_0_rgba(255,255,255,0.1)]"
-            : "border-white/[0.1] shadow-[0_0_20px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)]"
+            ? "border-black/[0.18] dark:border-white/[0.18] shadow-[0_0_30px_rgba(59,130,246,0.12),inset_0_1px_0_rgba(255,255,255,0.1)]"
+            : "border-black/[0.1] dark:border-white/[0.1] shadow-[0_0_20px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)]"
           }
-          bg-white/[0.04] backdrop-blur-2xl
+          bg-black/[0.04] dark:bg-white/[0.04] backdrop-blur-2xl
         `}
       >
         {/* Inner glass highlight */}
@@ -87,7 +87,7 @@ export function SearchBar({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder={placeholder}
-            className="flex-1 min-w-0 bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500/80 outline-none focus:outline-none focus-visible:outline-none"
+            className="flex-1 min-w-0 bg-transparent py-3.5 pl-3 pr-2 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 outline-none focus:outline-none focus-visible:outline-none"
             style={{ outline: "none" }}
           />
 
@@ -96,7 +96,7 @@ export function SearchBar({
             <button
               type="button"
               onClick={() => onChange("")}
-              className="flex h-6 w-6 items-center justify-center rounded-full text-slate-500 hover:text-slate-300 hover:bg-white/[0.08] transition-all mr-1"
+              className="flex h-6 w-6 items-center justify-center rounded-full text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-1"
             >
               <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M18 6L6 18M6 6l12 12" />
@@ -105,7 +105,7 @@ export function SearchBar({
           )}
 
           {/* Glass divider */}
-          <div className="h-6 w-px bg-white/[0.1] flex-shrink-0" />
+          <div className="h-6 w-px bg-black/[0.1] dark:bg-white/[0.1] flex-shrink-0" />
 
           {/* Zip code field */}
           <div className="flex items-center">
@@ -126,7 +126,7 @@ export function SearchBar({
                 }
               }}
               placeholder="Zip code"
-              className="w-20 bg-transparent py-3.5 pl-2 pr-3 text-[16px] sm:text-sm text-slate-100 placeholder:text-slate-500/80 outline-none focus:outline-none focus-visible:outline-none"
+              className="w-20 bg-transparent py-3.5 pl-2 pr-3 text-[16px] sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 outline-none focus:outline-none focus-visible:outline-none"
               style={{ outline: "none" }}
               inputMode="numeric"
               enterKeyHint="done"
@@ -137,7 +137,7 @@ export function SearchBar({
               <button
                 type="button"
                 onClick={() => onZipChange?.("")}
-                className="flex h-5 w-5 items-center justify-center rounded-full text-slate-500 hover:text-slate-300 hover:bg-white/[0.08] transition-all mr-2"
+                className="flex h-5 w-5 items-center justify-center rounded-full text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] transition-all mr-2"
               >
                 <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path d="M18 6L6 18M6 6l12 12" />

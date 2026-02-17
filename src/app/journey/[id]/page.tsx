@@ -80,7 +80,7 @@ function ProgressRing({ filled, total, size = 80 }: { filled: number; total: num
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
+          stroke="var(--border)"
           strokeWidth={strokeWidth}
         />
         <circle
@@ -98,7 +98,7 @@ function ProgressRing({ filled, total, size = 80 }: { filled: number; total: num
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-lg font-bold text-slate-100 tabular-nums">{filled}/{total}</span>
+        <span className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">{filled}/{total}</span>
         <span className="text-[10px] text-slate-500">filled</span>
       </div>
     </div>
@@ -122,7 +122,7 @@ function FilledProCard({ pro, category }: { pro: Pro; category: string }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-slate-100">{pro.name}</span>
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{pro.name}</span>
             {pro.verified && (
               <Badge variant="success" className="text-[10px] py-0">✓ Verified</Badge>
             )}
@@ -135,7 +135,7 @@ function FilledProCard({ pro, category }: { pro: Pro; category: string }) {
               </svg>
               {pro.rating.toFixed(1)}
             </span>
-            <span className="text-[11px] text-slate-600">{pro.reviewCount} reviews</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-600">{pro.reviewCount} reviews</span>
           </div>
         </div>
         <div className="flex-shrink-0">
@@ -163,7 +163,7 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
             </div>
           )}
         </div>
-        <h4 className="text-sm font-semibold text-slate-100 group-hover:text-white transition-colors">{pro.name}</h4>
+        <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-white transition-colors">{pro.name}</h4>
         <p className="text-[11px] text-slate-500 mt-0.5">{pro.companyName}</p>
         <div className="flex items-center gap-1 mt-2">
           <div className="flex">
@@ -215,7 +215,7 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
             {meta.icon}
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-100">{role.category}</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{role.category}</h3>
             <p className="text-[11px] text-slate-500">{meta.description}</p>
           </div>
         </div>
@@ -245,7 +245,7 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
 
       {role.status === "recommended" && recommendedPros.length > 0 && (
         <div>
-          <p className="text-xs text-slate-400 mb-3">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
             Recommended by your {role.category === "Realtor" ? "team" : "Realtor"} — pick the best fit
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -269,13 +269,13 @@ function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: numbe
 
       {role.status === "needed" && (
         <div className="flex flex-col items-center py-6">
-          <div className="h-14 w-14 rounded-2xl border border-dashed border-[var(--border)] bg-white/[0.02] flex items-center justify-center mb-3 animate-gentle-pulse">
+          <div className="h-14 w-14 rounded-2xl border border-dashed border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02] flex items-center justify-center mb-3 animate-gentle-pulse">
             <svg width="20" height="20" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <p className="text-sm text-slate-400 mb-1">No one assigned yet</p>
-          <p className="text-xs text-slate-600 mb-3">Your pro will recommend someone, or find your own</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">No one assigned yet</p>
+          <p className="text-xs text-slate-500 dark:text-slate-600 mb-3">Your pro will recommend someone, or find your own</p>
           <Link href={`/marketplace?category=${encodeURIComponent(role.category)}`}>
             <Button size="sm" variant="secondary">
               <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="mr-1">
@@ -351,9 +351,9 @@ function StageInfoPanel({ stage }: { stage: JourneyStage }) {
     <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-5 animate-in">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-lg">{JOURNEY_STAGE_ICONS[stage]}</span>
-        <h3 className="text-sm font-semibold text-slate-200">{info.title}</h3>
+        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{info.title}</h3>
       </div>
-      <p className="text-xs text-slate-400 mb-3">{info.description}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{info.description}</p>
       <div className="space-y-1.5">
         {info.tips.map((tip, i) => (
           <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
@@ -412,7 +412,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-3">🔍</div>
-          <h1 className="text-xl font-semibold text-slate-100 mb-1">Journey not found</h1>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Journey not found</h1>
           <p className="text-sm text-slate-500">This link may be expired or invalid.</p>
           <Link href="/dashboard">
             <Button className="mt-4">Go to Dashboard</Button>
@@ -433,7 +433,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       {/* Stage Timeline */}
       <div className="mb-6 rounded-3xl border border-[var(--border)] liquid-glass p-5 sm:p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="text-blue-400">
               <path d="M9 5l7 7-7 7" />
             </svg>
@@ -472,10 +472,10 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
             )}
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
             {journey.title}
           </h1>
-          <p className="text-sm text-slate-400 flex items-center gap-1.5">
+          <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
               <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -487,7 +487,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
             <div className="flex items-center gap-4">
               <ProgressRing filled={filledCount} total={totalCount} size={64} />
               <div>
-                <div className="text-sm font-medium text-slate-200">
+                <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
                   {allFilled ? "Your team is complete!" : `${filledCount} of ${totalCount} roles filled`}
                 </div>
                 <div className="text-xs text-slate-500 mt-0.5">
@@ -502,7 +502,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
                 <div className="h-7 w-7 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)]">
                   <Image src={createdByPro.headshotUrl} alt={createdByPro.name} width={28} height={28} />
                 </div>
-                <span>Created by <span className="text-slate-300">{createdByPro.name}</span></span>
+                <span>Created by <span className="text-slate-700 dark:text-slate-300">{createdByPro.name}</span></span>
               </div>
             )}
           </div>
@@ -530,7 +530,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
       {moments.upcoming.length > 0 && (
         <div className="mb-8">
           <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 6v6l4 2" />
             </svg>
@@ -591,7 +591,7 @@ export default function JourneyPage({ params }: { params: Promise<{ id: string }
 
       {/* Bottom CTA */}
       <div className="mt-8 text-center">
-        <p className="text-xs text-slate-600 mb-3">
+        <p className="text-xs text-slate-500 dark:text-slate-600 mb-3">
           Need help? Your {createdByPro?.categories[0] || "pro"} is just a message away.
         </p>
         {createdByPro && (

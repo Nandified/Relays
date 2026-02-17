@@ -19,7 +19,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-3">🔗</div>
-          <h1 className="text-xl font-semibold text-slate-100 mb-1">Request not found</h1>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">Request not found</h1>
           <p className="text-sm text-slate-500 mb-4">This connect request may have expired.</p>
           <Link href="/messages"><Button>Back to Messages</Button></Link>
         </div>
@@ -33,7 +33,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
   return (
     <div className="mx-auto max-w-lg px-4 py-6">
       {/* Back */}
-      <Link href="/messages" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 transition-colors mb-6">
+      <Link href="/messages" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-6">
         <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M15 19l-7-7 7-7" />
         </svg>
@@ -50,13 +50,13 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
           </div>
           <div className="relative flex items-center justify-center h-full">
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 backdrop-blur-sm border border-white/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/10">
                 <svg width="20" height="20" fill="none" stroke="white" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
               </div>
               <div>
-                <h1 className="text-lg font-bold text-white">Introduction Request</h1>
+                <h1 className="text-lg font-bold text-slate-900 dark:text-white">Introduction Request</h1>
                 <p className="text-xs text-white/60">Professional connection</p>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
             >
               {status === "pending" ? "⏳ Awaiting Response" : status === "accepted" ? "✓ Accepted" : "✗ Declined"}
             </Badge>
-            <span className="text-[11px] text-slate-600">
+            <span className="text-[11px] text-slate-500 dark:text-slate-600">
               {new Date(request.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
             </span>
           </div>
@@ -87,7 +87,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
                     {pro.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-200">{pro.name}</p>
+                    <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{pro.name}</p>
                     <p className="text-xs text-slate-500">{pro.companyName} • {pro.categories[0]}</p>
                   </div>
                 </>
@@ -103,7 +103,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
                 <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
-                <span className="text-xs text-slate-300">{journey.title} — {journey.address}</span>
+                <span className="text-xs text-slate-700 dark:text-slate-300">{journey.title} — {journey.address}</span>
               </div>
             </div>
           )}
@@ -112,7 +112,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
           <div className="mb-4">
             <span className="text-[11px] text-slate-500 uppercase tracking-wider font-medium">Your Message</span>
             <div className="mt-1.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] p-3">
-              <p className="text-sm text-slate-300 leading-relaxed">{request.message}</p>
+              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{request.message}</p>
             </div>
           </div>
 
@@ -160,7 +160,7 @@ export default function ConnectRequestPage({ params }: { params: Promise<{ id: s
 
           {/* Demo controls */}
           <div className="mt-6 pt-4 border-t border-[var(--border)]">
-            <p className="text-[10px] text-slate-600 mb-2 text-center">Demo: simulate response</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-600 mb-2 text-center">Demo: simulate response</p>
             <div className="flex gap-2">
               <button
                 onClick={() => setStatus("accepted")}

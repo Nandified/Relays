@@ -14,13 +14,13 @@ function HorizontalBar({ value, max, label, color }: { value: number; max: numbe
   const width = max > 0 ? Math.round((value / max) * 100) : 0;
   return (
     <div className="flex items-center gap-3">
-      <span className="text-xs text-slate-400 w-28 truncate shrink-0">{label}</span>
-      <div className="flex-1 h-6 rounded-lg bg-white/5 overflow-hidden relative">
+      <span className="text-xs text-slate-500 dark:text-slate-400 w-28 truncate shrink-0">{label}</span>
+      <div className="flex-1 h-6 rounded-lg bg-black/5 dark:bg-white/5 overflow-hidden relative">
         <div
           className={`h-full rounded-lg transition-all duration-700 ease-out ${color}`}
           style={{ width: `${width}%` }}
         />
-        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-300 tabular-nums">
+        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-700 dark:text-slate-300 tabular-nums">
           {value}
         </span>
       </div>
@@ -38,7 +38,7 @@ function getCategoryColor(cat: ProServiceCategory): string {
     "Insurance Agent": "bg-amber-500/70",
     "Realtor": "bg-cyan-500/70",
   };
-  return map[cat] ?? "bg-slate-500/70";
+  return map[cat] ?? "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500/70";
 }
 
 function getCategoryBadge(cat: ProServiceCategory) {
@@ -115,7 +115,7 @@ export default function ReferralRoutingReport() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Referral Routing</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Referral Routing</h1>
           <p className="text-sm text-slate-500 mt-1">Track who refers whom and conversion rates</p>
         </div>
         <Button variant="secondary">
@@ -130,15 +130,15 @@ export default function ReferralRoutingReport() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider">Total Referrals</p>
-          <p className="text-3xl font-bold text-slate-100 mt-1 tabular-nums">{totalReferrals}</p>
+          <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{totalReferrals}</p>
         </Card>
         <Card className="text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider">Avg Conversion</p>
-          <p className="text-3xl font-bold text-slate-100 mt-1 tabular-nums">{Math.round(avgConversion * 100)}%</p>
+          <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{Math.round(avgConversion * 100)}%</p>
         </Card>
         <Card className="text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider">Unique Partners</p>
-          <p className="text-3xl font-bold text-slate-100 mt-1 tabular-nums">{partnerTotals.size}</p>
+          <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1 tabular-nums">{partnerTotals.size}</p>
         </Card>
       </div>
 
@@ -170,7 +170,7 @@ export default function ReferralRoutingReport() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Partners Chart */}
         <Card>
-          <h3 className="text-sm font-semibold text-slate-200 mb-4">Top Referral Partners</h3>
+          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Top Referral Partners</h3>
           <div className="space-y-3">
             {topPartners.map((p) => (
               <HorizontalBar
@@ -189,7 +189,7 @@ export default function ReferralRoutingReport() {
 
         {/* Per-Agent Breakdown */}
         <Card>
-          <h3 className="text-sm font-semibold text-slate-200 mb-4">Referrals by Agent</h3>
+          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Referrals by Agent</h3>
           <div className="space-y-3">
             {agentBreakdown.map((a) => (
               <HorizontalBar
@@ -210,7 +210,7 @@ export default function ReferralRoutingReport() {
       {/* Detail Table */}
       <Card padding="none">
         <div className="px-4 py-3 border-b border-[var(--border)]">
-          <h3 className="text-sm font-semibold text-slate-200">Referral Detail</h3>
+          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Referral Detail</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -228,14 +228,14 @@ export default function ReferralRoutingReport() {
               {filtered
                 .sort((a, b) => b.referralCount - a.referralCount)
                 .map((ref) => (
-                <tr key={ref.id} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3 text-sm text-slate-300">{ref.agentName}</td>
-                  <td className="px-4 py-3 text-sm text-slate-200 font-medium">{ref.partnerName}</td>
+                <tr key={ref.id} className="hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
+                  <td className="px-4 py-3 text-sm text-slate-700 dark:text-slate-300">{ref.agentName}</td>
+                  <td className="px-4 py-3 text-sm text-slate-800 dark:text-slate-200 font-medium">{ref.partnerName}</td>
                   <td className="px-4 py-3 hidden sm:table-cell">
                     <Badge variant={getCategoryBadge(ref.partnerCategory)}>{ref.partnerCategory}</Badge>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <span className="text-sm font-semibold text-slate-200 tabular-nums">{ref.referralCount}</span>
+                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{ref.referralCount}</span>
                   </td>
                   <td className="px-4 py-3 text-right hidden md:table-cell">
                     <ConversionBadge rate={ref.conversionRate} />

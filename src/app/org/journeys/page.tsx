@@ -46,7 +46,7 @@ function RoleDots({ journey }: { journey: Journey }) {
               ? "bg-emerald-400 shadow-[0_0_4px_rgba(16,185,129,0.4)]"
               : role.status === "recommended"
               ? "bg-blue-400 shadow-[0_0_4px_rgba(59,130,246,0.3)]"
-              : "bg-white/10"
+              : "bg-black/5 dark:bg-white/10"
           }`}
         />
       ))}
@@ -71,10 +71,10 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-slate-100">{journey.title}</h2>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{journey.title}</h2>
               <p className="text-xs text-slate-500 mt-0.5">{journey.address}</p>
             </div>
-            <button onClick={onClose} className="rounded-full p-1 text-slate-500 hover:bg-white/5 hover:text-slate-300">
+            <button onClick={onClose} className="rounded-full p-1 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" /></svg>
             </button>
           </div>
@@ -91,7 +91,7 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Client</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-slate-200">{journey.client.name}</span>
+                <span className="text-sm text-slate-800 dark:text-slate-200">{journey.client.name}</span>
                 <Badge variant={journey.property.type === "buying" ? "accent" : "warning"}>{journey.property.type}</Badge>
               </div>
               <p className="text-xs text-slate-500">{journey.client.email}</p>
@@ -109,10 +109,10 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
                     ? "border-emerald-500/15 bg-emerald-500/5"
                     : role.status === "recommended"
                     ? "border-blue-500/15 bg-blue-500/5"
-                    : "border-[var(--border)] bg-white/[0.02]"
+                    : "border-[var(--border)] bg-black/[0.02] dark:bg-white/[0.02]"
                 }`}>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-200">{role.category}</span>
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{role.category}</span>
                     <Badge variant={role.status === "filled" ? "success" : role.status === "recommended" ? "accent" : "default"}>
                       {role.status}
                     </Badge>
@@ -134,15 +134,15 @@ function JourneyDetail({ journey, onClose, userRole }: { journey: Journey; onClo
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-500">Created</span>
-                <span className="text-xs text-slate-300">{new Date(journey.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+                <span className="text-xs text-slate-700 dark:text-slate-300">{new Date(journey.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-500">Next Step</span>
-                <span className="text-xs text-slate-300">{journey.nextStep}</span>
+                <span className="text-xs text-slate-700 dark:text-slate-300">{journey.nextStep}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-500">Agent</span>
-                <span className="text-xs text-slate-300">{journey.owner}</span>
+                <span className="text-xs text-slate-700 dark:text-slate-300">{journey.owner}</span>
               </div>
             </div>
           </Card>
@@ -184,7 +184,7 @@ export default function OrgJourneysPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Journeys</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Journeys</h1>
           <p className="text-sm text-slate-500 mt-1">
             {allJourneys.length} total · {activeCount} active · {completedCount} completed
           </p>
@@ -237,19 +237,19 @@ export default function OrgJourneysPage() {
                 <tr
                   key={journey.id}
                   onClick={() => setSelectedJourney(journey)}
-                  className="hover:bg-white/[0.02] transition-colors cursor-pointer group"
+                  className="hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors cursor-pointer group"
                 >
                   <td className="px-4 py-3">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors truncate">{journey.title}</p>
+                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-white transition-colors truncate">{journey.title}</p>
                       <p className="text-xs text-slate-500 truncate">{journey.address}</p>
                     </div>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
-                    <span className="text-sm text-slate-300">{journey.client.name}</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-300">{journey.client.name}</span>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <span className="text-sm text-slate-400">{journey.owner}</span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400">{journey.owner}</span>
                   </td>
                   <td className="px-4 py-3">
                     <StageBadge journey={journey} />

@@ -21,7 +21,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
-      <h1 className="text-xl font-semibold text-slate-100 mb-6">{title}</h1>
+      <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-6">{title}</h1>
       <div className="flex gap-6">
         {/* Desktop sidebar */}
         <aside className="hidden md:block w-56 flex-shrink-0">
@@ -36,7 +36,7 @@ export function DashboardShell({ children, navItems, title }: DashboardShellProp
                     flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors
                     ${active
                       ? "bg-[var(--accent-light)] text-blue-400 border border-blue-500/10"
-                      : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                      : "text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200"
                     }
                   `}
                 >

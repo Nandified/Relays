@@ -40,7 +40,7 @@ export function ReviewStatsHeader({ stats, className = "" }: ReviewStatsHeaderPr
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Left: Big rating number + stars */}
         <div className="flex flex-col items-center sm:items-start sm:min-w-[140px]">
-          <div className="text-5xl font-bold text-white tabular-nums tracking-tight">
+          <div className="text-5xl font-bold text-slate-900 dark:text-white tabular-nums tracking-tight">
             {stats.averageRating.toFixed(1)}
           </div>
           <StarRating rating={stats.averageRating} size={18} className="mt-2" />
@@ -83,7 +83,7 @@ export function ReviewStatsHeader({ stats, className = "" }: ReviewStatsHeaderPr
                     <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                   </svg>
                 </div>
-                <div className="flex-1 h-2.5 rounded-full bg-white/[0.04] overflow-hidden">
+                <div className="flex-1 h-2.5 rounded-full bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-1000 ease-out"
                     style={{
@@ -101,7 +101,7 @@ export function ReviewStatsHeader({ stats, className = "" }: ReviewStatsHeaderPr
                     }}
                   />
                 </div>
-                <span className="text-[11px] text-slate-600 tabular-nums w-8 text-right">
+                <span className="text-[11px] text-slate-500 dark:text-slate-600 tabular-nums w-8 text-right">
                   {count}
                 </span>
               </div>

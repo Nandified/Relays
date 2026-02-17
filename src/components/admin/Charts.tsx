@@ -39,7 +39,7 @@ function Tooltip({
         height={28}
         rx={8}
         fill="rgba(20, 20, 28, 0.95)"
-        stroke="rgba(255,255,255,0.1)"
+        stroke="var(--border-hover)"
         strokeWidth={0.5}
       />
       <text x={x} y={y - 24} textAnchor="middle" fontSize="9" fontWeight="600" fill="#e2e8f0" fontFamily="system-ui">
@@ -140,7 +140,7 @@ export function AdminLineChart({ data, height = 200, color = "#8b5cf6" }: ChartP
         {/* Grid lines */}
         {gridLines.map((g, i) => (
           <g key={i}>
-            <line x1={padLeft} y1={g.y} x2={chartW - padRight} y2={g.y} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />
+            <line x1={padLeft} y1={g.y} x2={chartW - padRight} y2={g.y} stroke="var(--border)" strokeWidth={1} />
             <text x={padLeft - 6} y={g.y + 3} textAnchor="end" fontSize="8" fill="#475569" fontFamily="system-ui">
               {g.label}
             </text>
@@ -188,7 +188,7 @@ export function AdminLineChart({ data, height = 200, color = "#8b5cf6" }: ChartP
                 y1={padTop}
                 x2={pt.x}
                 y2={padTop + innerH}
-                stroke="rgba(255,255,255,0.08)"
+                stroke="var(--border)"
                 strokeWidth={1}
                 strokeDasharray="4 4"
               />
@@ -297,7 +297,7 @@ export function AdminDonutChart({ data, height = 220 }: ChartProps) {
       >
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           {/* Background ring */}
-          <circle cx={cx} cy={cy} r={radius} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth={strokeWidth} />
+          <circle cx={cx} cy={cy} r={radius} fill="none" stroke="var(--border)" strokeWidth={strokeWidth} />
 
           {/* Segments */}
           {segments.map((seg) => {
@@ -342,7 +342,7 @@ export function AdminDonutChart({ data, height = 220 }: ChartProps) {
             <div
               key={d.label}
               className={`flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors cursor-pointer ${
-                isHovered ? "bg-white/[0.04]" : ""
+                isHovered ? "bg-black/[0.04] dark:bg-white/[0.04]" : ""
               }`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -354,11 +354,11 @@ export function AdminDonutChart({ data, height = 220 }: ChartProps) {
                   boxShadow: isHovered ? `0 0 8px ${colors[i % colors.length]}60` : "none",
                 }}
               />
-              <span className={`text-xs truncate flex-1 ${isHovered ? "text-slate-200" : "text-slate-400"}`}>
+              <span className={`text-xs truncate flex-1 ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-500 dark:text-slate-400"}`}>
                 {d.label}
               </span>
-              <span className="text-xs font-semibold text-slate-200 tabular-nums">{d.value}</span>
-              <span className="text-[10px] text-slate-600 tabular-nums w-10 text-right">{pct}%</span>
+              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{d.value}</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-600 tabular-nums w-10 text-right">{pct}%</span>
             </div>
           );
         })}
@@ -390,15 +390,15 @@ export function AdminBarChart({ data, height = 200, color = "#8b5cf6", colorMap 
           <div
             key={d.label}
             className={`group flex items-center gap-3 rounded-lg px-1 py-1 transition-colors ${
-              isHovered ? "bg-white/[0.02]" : ""
+              isHovered ? "bg-black/[0.02] dark:bg-white/[0.02]" : ""
             }`}
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <span className={`text-xs w-20 truncate text-right transition-colors ${isHovered ? "text-slate-200" : "text-slate-500"}`}>
+            <span className={`text-xs w-20 truncate text-right transition-colors ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-500"}`}>
               {d.label}
             </span>
-            <div className="flex-1 h-6 rounded-lg bg-white/[0.04] overflow-hidden relative">
+            <div className="flex-1 h-6 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden relative">
               <div
                 className="h-full rounded-lg transition-all duration-700 ease-out relative overflow-hidden"
                 style={{
@@ -418,7 +418,7 @@ export function AdminBarChart({ data, height = 200, color = "#8b5cf6", colorMap 
               </div>
             </div>
             <span className={`text-xs w-12 text-right font-semibold tabular-nums transition-colors ${
-              isHovered ? "text-slate-100" : "text-slate-400"
+              isHovered ? "text-slate-900 dark:text-slate-100" : "text-slate-500 dark:text-slate-400"
             }`}>
               {d.value.toLocaleString()}
             </span>
@@ -455,15 +455,15 @@ export function AdminFunnelChart({ data, height = 200 }: ChartProps) {
         return (
           <div key={d.label}>
             <div
-              className={`flex items-center gap-3 rounded-lg px-1 py-1 transition-colors ${isHovered ? "bg-white/[0.02]" : ""}`}
+              className={`flex items-center gap-3 rounded-lg px-1 py-1 transition-colors ${isHovered ? "bg-black/[0.02] dark:bg-white/[0.02]" : ""}`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <span className={`text-xs w-28 truncate text-right transition-colors ${isHovered ? "text-slate-200" : "text-slate-500"}`}>
+              <span className={`text-xs w-28 truncate text-right transition-colors ${isHovered ? "text-slate-800 dark:text-slate-200" : "text-slate-500"}`}>
                 {d.label}
               </span>
               <div className="flex-1 flex items-center gap-2">
-                <div className="flex-1 h-8 rounded-lg bg-white/[0.04] overflow-hidden flex items-center relative">
+                <div className="flex-1 h-8 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] overflow-hidden flex items-center relative">
                   <div
                     className="h-full rounded-lg flex items-center justify-end pr-3 transition-all duration-700 ease-out relative overflow-hidden"
                     style={{
@@ -491,7 +491,7 @@ export function AdminFunnelChart({ data, height = 200 }: ChartProps) {
                     }`}>
                       {prevPct}%
                     </span>
-                    <span className="text-[9px] text-slate-600 tabular-nums">-{dropoff}</span>
+                    <span className="text-[9px] text-slate-500 dark:text-slate-600 tabular-nums">-{dropoff}</span>
                   </div>
                 )}
               </div>

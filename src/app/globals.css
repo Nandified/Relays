@@ -1,7 +1,65 @@
 @import "tailwindcss";
 
+/* ── Light Mode (default) ─────────────────────────────────────── */
 :root {
-  /* Dark palette — rich dark, NOT pure black */
+  /* Backgrounds — clean white/off-white */
+  --bg: #f8fafc;
+  --bg-subtle: #f1f5f9;
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-elevated: #f1f5f9;
+  --bg-surface: rgba(255, 255, 255, 0.85);
+
+  /* Text */
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-secondary: #64748b;
+  --text-dim: #94a3b8;
+
+  /* Accent */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: rgba(37, 99, 235, 0.10);
+  --accent-glow: rgba(37, 99, 235, 0.08);
+
+  /* Status */
+  --success: #059669;
+  --success-light: rgba(5, 150, 105, 0.08);
+  --warning: #d97706;
+  --warning-light: rgba(217, 119, 6, 0.08);
+  --danger: #dc2626;
+  --danger-light: rgba(220, 38, 38, 0.08);
+
+  /* Borders */
+  --border: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border-hover: rgba(0, 0, 0, 0.15);
+  --border-glow: rgba(37, 99, 235, 0.3);
+
+  /* Shadows & Glows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 16px 40px rgba(0, 0, 0, 0.1);
+  --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.15);
+  --glow-accent: 0 0 20px rgba(37, 99, 235, 0.10), 0 0 60px rgba(37, 99, 235, 0.03);
+  --glow-card: 0 0 0 1px rgba(0, 0, 0, 0.04);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing — 8pt rhythm */
+  --space-unit: 8px;
+}
+
+/* ── Dark Mode ────────────────────────────────────────────────── */
+.dark {
+  /* Backgrounds — rich dark, NOT pure black */
   --bg: #0a0a0f;
   --bg-subtle: #0e0e15;
   --bg-page: #0a0a0f;
@@ -43,17 +101,6 @@
   --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.6);
   --glow-accent: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05);
   --glow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
-
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
-
-  /* Spacing — 8pt rhythm */
-  --space-unit: 8px;
 }
 
 html,
@@ -69,17 +116,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle background gradient mesh — very subtle ambient glow */
+/* ── Theme transition (applied on toggle, removed after) ──────── */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease !important;
+}
+
+/* ── Background mesh — adapts to theme ────────────────────────── */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
+  pointer-events: none;
+}
+
+/* Light mode mesh — very subtle blue tints */
+:root body::before {
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.03), transparent),
+    radial-gradient(900px 500px at 80% 10%, rgba(99, 102, 241, 0.02), transparent),
+    radial-gradient(600px 600px at 50% 90%, rgba(37, 99, 235, 0.015), transparent);
+}
+
+/* Dark mode mesh — ambient glow */
+.dark body::before {
   background:
     radial-gradient(1200px 600px at 20% -10%, rgba(59, 130, 246, 0.06), transparent),
     radial-gradient(900px 500px at 80% 10%, rgba(99, 102, 241, 0.04), transparent),
     radial-gradient(600px 600px at 50% 90%, rgba(59, 130, 246, 0.03), transparent);
-  pointer-events: none;
 }
 
 /* Smooth scroll */
@@ -93,7 +160,7 @@ html {
   outline-offset: 2px;
 }
 
-/* Custom scrollbar for dark theme */
+/* ── Scrollbar — adapts to theme ──────────────────────────────── */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -101,11 +168,22 @@ html {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-::-webkit-scrollbar-thumb {
+
+/* Light mode scrollbar */
+:root ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+:root ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
@@ -273,6 +351,75 @@ html {
   border-color: rgba(139, 92, 246, 0.25);
 }
 
+/* ── Glass card effects — theme-adaptive ──────────────────────── */
+
+/* Glass card hover effect for journey */
+.glass-card {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+:root .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+:root .glass-card:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.10);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+.dark .glass-card {
+  background: rgba(20, 20, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dark .glass-card:hover {
+  background: rgba(26, 26, 34, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Liquid glass effect — more prominent */
+.liquid-glass {
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+}
+:root .liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.02) 0%,
+    rgba(0, 0, 0, 0.005) 50%,
+    rgba(0, 0, 0, 0.015) 100%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.dark .liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Toggle switch — theme-adaptive ──────────────────────────── */
+
+.toggle-switch {
+  transition: background-color 0.2s ease;
+}
+.toggle-switch[data-state="checked"] {
+  background-color: #3b82f6;
+}
+:root .toggle-switch[data-state="unchecked"] {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.dark .toggle-switch[data-state="unchecked"] {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.toggle-dot {
+  transition: transform 0.2s ease;
+}
+
 /* ── Journey Flow Animations ──────────────────────────────────── */
 
 /* Gentle pulse/shimmer for unfilled roles */
@@ -340,33 +487,6 @@ html {
   height: 8px;
   background: var(--border);
   transform: translateX(-50%);
-}
-
-/* Glass card hover effect for journey */
-.glass-card {
-  background: rgba(20, 20, 25, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.glass-card:hover {
-  background: rgba(26, 26, 34, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06);
-}
-
-/* Liquid glass effect — more prominent */
-.liquid-glass {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.04) 0%,
-    rgba(255, 255, 255, 0.01) 50%,
-    rgba(255, 255, 255, 0.03) 100%
-  );
-  backdrop-filter: blur(24px) saturate(1.2);
-  -webkit-backdrop-filter: blur(24px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Progress step animation */
@@ -476,20 +596,6 @@ html {
 }
 .animate-ping-slow {
   animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-/* Notification toggle switch */
-.toggle-switch {
-  transition: background-color 0.2s ease;
-}
-.toggle-switch[data-state="checked"] {
-  background-color: #3b82f6;
-}
-.toggle-switch[data-state="unchecked"] {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.toggle-dot {
-  transition: transform 0.2s ease;
 }
 
 /* ── Document Workflow Animations ─────────────────────────────── */

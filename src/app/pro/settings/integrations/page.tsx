@@ -45,7 +45,7 @@ function StatusDot({ status }: { status: string }) {
   return (
     <span className="relative flex h-2.5 w-2.5">
       {pulse && <span className={`absolute inline-flex h-full w-full animate-ping-slow rounded-full ${bg[status]}/40 opacity-75`} />}
-      <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${bg[status] || "bg-slate-500"}`} />
+      <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${bg[status] || "bg-slate-300 dark:bg-slate-400 dark:bg-slate-500"}`} />
     </span>
   );
 }
@@ -83,10 +83,10 @@ function DeliveryRow({ d }: { d: WebhookDelivery }) {
     delivered: "success", failed: "danger", retrying: "warning", pending: "default",
   };
   return (
-    <div className="flex items-center gap-4 px-4 py-3 border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02] transition-colors">
+    <div className="flex items-center gap-4 px-4 py-3 border-b border-black/[0.04] dark:border-white/[0.04] last:border-b-0 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
       <div className="w-5 text-center">{icons[d.status]}</div>
       <div className="flex-1 min-w-0">
-        <code className="text-xs font-mono text-slate-300">{d.eventType}</code>
+        <code className="text-xs font-mono text-slate-700 dark:text-slate-300">{d.eventType}</code>
         <div className="text-[11px] text-slate-500 mt-0.5">{d.eventId}</div>
       </div>
       <Badge variant={vars[d.status]}>{d.status}{d.statusCode ? ` · ${d.statusCode}` : ""}</Badge>
@@ -130,10 +130,10 @@ function AddWebhookModal({ open, onClose }: { open: boolean; onClose: () => void
 
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-slate-300">Subscribe to Events</span>
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Subscribe to Events</span>
             <div className="flex gap-2">
               <button onClick={() => setSel(cats.flatMap((c) => c.events))} className="text-[11px] text-blue-400 hover:text-blue-300">All</button>
-              <button onClick={() => setSel([])} className="text-[11px] text-slate-500 hover:text-slate-400">Clear</button>
+              <button onClick={() => setSel([])} className="text-[11px] text-slate-500 hover:text-slate-500 dark:hover:text-slate-400">Clear</button>
             </div>
           </div>
           <div className="space-y-3">
@@ -142,7 +142,7 @@ function AddWebhookModal({ open, onClose }: { open: boolean; onClose: () => void
                 <div className="text-[11px] uppercase tracking-wider text-slate-500 mb-1.5">{cat.label}</div>
                 <div className="flex flex-wrap gap-1.5">
                   {cat.events.map((evt) => (
-                    <button key={evt} onClick={() => toggle(evt)} className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all ${sel.includes(evt) ? "bg-blue-500/15 text-blue-400 border border-blue-500/30" : "bg-white/[0.03] text-slate-500 border border-white/[0.06] hover:border-white/10"}`}>
+                    <button key={evt} onClick={() => toggle(evt)} className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all ${sel.includes(evt) ? "bg-blue-500/15 text-blue-400 border border-blue-500/30" : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-500 border border-black/[0.06] dark:border-white/[0.06] hover:border-black/10 dark:border-white/10"}`}>
                       {evt}
                     </button>
                   ))}
@@ -178,12 +178,12 @@ function EndpointDetailModal({ open, onClose, endpoint }: { open: boolean; onClo
   return (
     <Modal open={open} onClose={onClose} title="Webhook Endpoint">
       <div className="space-y-4 max-h-[65vh] overflow-y-auto pr-1">
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-4">
+        <div className="rounded-2xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/[0.06] dark:border-white/[0.06] p-4">
           <div className="flex items-center gap-2 mb-2">
             <StatusDot status={endpoint.status} />
-            <span className="text-xs font-medium text-slate-300 uppercase tracking-wide">{endpoint.status}</span>
+            <span className="text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wide">{endpoint.status}</span>
           </div>
-          <code className="text-sm font-mono text-slate-200 break-all">{endpoint.url}</code>
+          <code className="text-sm font-mono text-slate-800 dark:text-slate-200 break-all">{endpoint.url}</code>
           <div className="flex items-center gap-3 mt-3 text-xs text-slate-500">
             <span>Created {timeAgo(endpoint.createdAt)}</span>
             {endpoint.lastDeliveryAt && <span>Last delivery {timeAgo(endpoint.lastDeliveryAt)}</span>}
@@ -192,7 +192,7 @@ function EndpointDetailModal({ open, onClose, endpoint }: { open: boolean; onClo
         </div>
 
         <div>
-          <div className="text-xs font-medium text-slate-400 mb-2">Subscribed Events</div>
+          <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">Subscribed Events</div>
           <div className="flex flex-wrap gap-1.5">
             {endpoint.events.map((evt) => (
               <span key={evt} className="px-2 py-0.5 rounded-md text-xs font-mono bg-blue-500/10 text-blue-400 border border-blue-500/15">{evt}</span>
@@ -211,8 +211,8 @@ function EndpointDetailModal({ open, onClose, endpoint }: { open: boolean; onClo
         {testRes && <div className="rounded-xl px-3 py-2 text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">{testRes}</div>}
 
         <div>
-          <div className="text-xs font-medium text-slate-400 mb-2">Recent Deliveries</div>
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+          <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">Recent Deliveries</div>
+          <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden">
             {deliveries.length > 0
               ? deliveries.map((d) => <DeliveryRow key={d.id} d={d} />)
               : <div className="px-4 py-6 text-center text-xs text-slate-500">No deliveries yet</div>}
@@ -248,7 +248,7 @@ function GenKeyModal({ open, onClose }: { open: boolean; onClose: () => void }) 
               <span className="text-amber-400">⚠</span>
               <span className="text-xs font-medium text-amber-400">Copy now — won&apos;t be shown again</span>
             </div>
-            <code className="text-sm font-mono text-slate-200 break-all select-all">{key}</code>
+            <code className="text-sm font-mono text-slate-800 dark:text-slate-200 break-all select-all">{key}</code>
           </div>
           <Button onClick={close} className="w-full">Done</Button>
         </div>
@@ -262,18 +262,18 @@ function GenKeyModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 function EventPreview({ entry }: { entry: (typeof eventCatalog)[number] }) {
   const [expanded, setExpanded] = React.useState(false);
   return (
-    <div className="border-b border-white/[0.04] last:border-b-0">
-      <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors text-left">
+    <div className="border-b border-black/[0.04] dark:border-white/[0.04] last:border-b-0">
+      <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center gap-3 px-4 py-3 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors text-left">
         <code className="text-xs font-mono text-blue-400 shrink-0">{entry.type}.{entry.version}</code>
-        <span className="text-xs text-slate-400 flex-1 truncate">{entry.description}</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400 flex-1 truncate">{entry.description}</span>
         <svg className={`w-4 h-4 text-slate-500 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </button>
       {expanded && (
         <div className="px-4 pb-4 animate-in">
-          <div className="rounded-xl bg-[#0d0d14] border border-white/[0.06] p-4 overflow-x-auto">
-            <pre className="text-xs font-mono text-slate-300 whitespace-pre leading-relaxed">
+          <div className="rounded-xl bg-[#0d0d14] border border-black/[0.06] dark:border-white/[0.06] p-4 overflow-x-auto">
+            <pre className="text-xs font-mono text-slate-700 dark:text-slate-300 whitespace-pre leading-relaxed">
               {JSON.stringify(entry.samplePayload, null, 2)}
             </pre>
           </div>
@@ -306,13 +306,13 @@ export default function IntegrationsPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
-          <a href="/pro/settings" className="hover:text-slate-400 transition-colors">Settings</a>
+          <a href="/pro/settings" className="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Settings</a>
           <span>/</span>
-          <span className="text-slate-300">Integrations</span>
+          <span className="text-slate-700 dark:text-slate-300">Integrations</span>
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-100">Integrations &amp; API</h1>
+            <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Integrations &amp; API</h1>
             <p className="text-sm text-slate-500 mt-1">Connect Relays to your CRM, automate workflows, and manage API access.</p>
           </div>
           <a href="/developers/events" className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 transition-colors">
@@ -329,7 +329,7 @@ export default function IntegrationsPage() {
         <div className="space-y-6 stagger-children">
           {/* Connected */}
           <div>
-            <h2 className="text-sm font-medium text-slate-300 mb-3">Connected</h2>
+            <h2 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Connected</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {mockIntegrations.filter((i) => i.connected).map((i) => (
                 <Card key={i.id} hover padding="lg" glow className="group">
@@ -337,14 +337,14 @@ export default function IntegrationsPage() {
                     <IntIcon name={i.name} />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-slate-200">{i.name}</span>
+                        <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{i.name}</span>
                         <StatusDot status={i.status || "connected"} />
                       </div>
                       <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{i.description}</p>
-                      {i.lastSyncAt && <p className="text-[11px] text-slate-600 mt-1.5">Synced {timeAgo(i.lastSyncAt)}</p>}
+                      {i.lastSyncAt && <p className="text-[11px] text-slate-500 dark:text-slate-600 mt-1.5">Synced {timeAgo(i.lastSyncAt)}</p>}
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-white/[0.04] flex gap-2">
+                  <div className="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04] flex gap-2">
                     <Button size="sm" variant="ghost" className="flex-1 text-xs">Configure</Button>
                     <Button size="sm" variant="ghost" className="text-red-400/60 hover:text-red-400 text-xs">Disconnect</Button>
                   </div>
@@ -355,35 +355,35 @@ export default function IntegrationsPage() {
 
           {/* Available */}
           <div>
-            <h2 className="text-sm font-medium text-slate-300 mb-3">Available</h2>
+            <h2 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Available</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {mockIntegrations.filter((i) => !i.connected).map((i) => (
                 <Card key={i.id} hover padding="lg" className="group">
                   <div className="flex items-start gap-3">
                     <IntIcon name={i.name} />
                     <div className="flex-1 min-w-0">
-                      <span className="text-sm font-medium text-slate-200">{i.name}</span>
+                      <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{i.name}</span>
                       <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{i.description}</p>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-white/[0.04]">
+                  <div className="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04]">
                     <Button size="sm" variant="secondary" className="w-full text-xs">Connect</Button>
                   </div>
                 </Card>
               ))}
 
               {/* Build Custom Card */}
-              <Card hover padding="lg" className="group border-dashed border-white/10">
+              <Card hover padding="lg" className="group border-dashed border-black/10 dark:border-white/10">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.04] border border-dashed border-white/10 text-slate-500">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.04] border border-dashed border-black/10 dark:border-white/10 text-slate-500">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-sm font-medium text-slate-200">Build Custom</span>
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Build Custom</span>
                     <p className="text-xs text-slate-500 mt-0.5">Use webhooks and our API to build your own integration.</p>
                   </div>
                 </div>
-                <div className="mt-3 pt-3 border-t border-white/[0.04] flex gap-2">
+                <div className="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04] flex gap-2">
                   <Button size="sm" variant="ghost" className="flex-1 text-xs" onClick={() => setTab("webhooks")}>Webhooks</Button>
                   <a href="/developers/events">
                     <Button size="sm" variant="ghost" className="text-xs">Event Docs →</Button>
@@ -414,7 +414,7 @@ export default function IntegrationsPage() {
                     <div className="flex items-start gap-3 min-w-0">
                       <div className="mt-1"><StatusDot status={ep.status} /></div>
                       <div className="min-w-0">
-                        <code className="text-sm font-mono text-slate-200 truncate block">{ep.url}</code>
+                        <code className="text-sm font-mono text-slate-800 dark:text-slate-200 truncate block">{ep.url}</code>
                         <div className="flex items-center gap-2 flex-wrap mt-1">
                           <Badge variant={ep.status === "active" ? "success" : ep.status === "paused" ? "warning" : "danger"}>{ep.status}</Badge>
                           <span className="text-xs text-slate-500">{ep.events.length} events</span>
@@ -423,7 +423,7 @@ export default function IntegrationsPage() {
                         </div>
                       </div>
                     </div>
-                    <svg className="h-4 w-4 text-slate-600 group-hover:text-slate-400 transition-colors shrink-0 mt-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 5l7 7-7 7" /></svg>
+                    <svg className="h-4 w-4 text-slate-500 dark:text-slate-600 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition-colors shrink-0 mt-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 5l7 7-7 7" /></svg>
                   </div>
                 </Card>
               </button>
@@ -432,9 +432,9 @@ export default function IntegrationsPage() {
 
           {/* All Deliveries */}
           <div>
-            <h3 className="text-sm font-medium text-slate-300 mb-2 mt-6">All Deliveries</h3>
-            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-              <div className="flex items-center gap-4 px-4 py-2 border-b border-white/[0.06] text-[11px] text-slate-500 uppercase tracking-wide">
+            <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 mt-6">All Deliveries</h3>
+            <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden">
+              <div className="flex items-center gap-4 px-4 py-2 border-b border-black/[0.06] dark:border-white/[0.06] text-[11px] text-slate-500 uppercase tracking-wide">
                 <div className="w-5" />
                 <div className="flex-1">Event</div>
                 <div>Status</div>
@@ -463,10 +463,10 @@ export default function IntegrationsPage() {
 
           <Card padding="none">
             {keys.map((k) => (
-              <div key={k.id} className="flex items-center gap-4 px-4 py-3 border-b border-white/[0.04] last:border-b-0">
+              <div key={k.id} className="flex items-center gap-4 px-4 py-3 border-b border-black/[0.04] dark:border-white/[0.04] last:border-b-0">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-slate-200">{k.name}</span>
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{k.name}</span>
                     <Badge variant={k.status === "active" ? "success" : "danger"}>{k.status}</Badge>
                   </div>
                   <code className="text-xs font-mono text-slate-500 mt-0.5 block">{k.prefix}••••••••{k.lastFour}</code>
@@ -488,7 +488,7 @@ export default function IntegrationsPage() {
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-200">Authentication</p>
+                <p className="text-sm font-medium text-slate-800 dark:text-slate-200">Authentication</p>
                 <p className="text-xs text-slate-500 mt-0.5">Include your API key in the <code className="text-blue-400/80 bg-blue-500/5 px-1 rounded">Authorization: Bearer rl_live_...</code> header of every request.</p>
               </div>
             </div>
@@ -506,7 +506,7 @@ export default function IntegrationsPage() {
             </a>
           </div>
 
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+          <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden">
             {eventCatalog.map((entry) => (
               <EventPreview key={entry.type} entry={entry} />
             ))}

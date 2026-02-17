@@ -34,8 +34,8 @@ export default function MessagesPage() {
     <div className="mx-auto max-w-3xl px-4 py-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-100">Messages</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Messages</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           {totalUnread > 0 ? `${totalUnread} unread conversation${totalUnread !== 1 ? "s" : ""}` : "All messages read"}
         </p>
       </div>
@@ -56,14 +56,14 @@ export default function MessagesPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-slate-100">Request to Connect</span>
+                      <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">Request to Connect</span>
                       <Badge variant="accent" className="text-[10px]">Pending</Badge>
                     </div>
                     <p className="text-xs text-slate-500 mt-0.5 truncate">
                       To {req.proName} • {req.message.slice(0, 60)}…
                     </p>
                   </div>
-                  <span className="text-[11px] text-slate-600 flex-shrink-0">{timeAgo(req.createdAt)}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-600 flex-shrink-0">{timeAgo(req.createdAt)}</span>
                 </div>
               </Card>
             </Link>
@@ -82,7 +82,7 @@ export default function MessagesPage() {
                 <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-slate-100 mb-1">No conversations yet</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">No conversations yet</h3>
             <p className="text-sm text-slate-500">
               Start a conversation from your journey page by messaging a pro.
             </p>
@@ -120,14 +120,14 @@ export default function MessagesPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 min-w-0">
-                          <span className={`text-sm truncate ${conv.unreadCount > 0 ? "font-semibold text-slate-100" : "font-medium text-slate-300"}`}>
+                          <span className={`text-sm truncate ${conv.unreadCount > 0 ? "font-semibold text-slate-900 dark:text-slate-100" : "font-medium text-slate-700 dark:text-slate-300"}`}>
                             {meta.otherPartyName}
                           </span>
                           <Badge variant="outline" className="text-[10px] flex-shrink-0">
                             {meta.otherPartyRole}
                           </Badge>
                         </div>
-                        <span className="text-[11px] text-slate-600 flex-shrink-0">{timeAgo(conv.lastMessageAt)}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-600 flex-shrink-0">{timeAgo(conv.lastMessageAt)}</span>
                       </div>
                       
                       {/* Journey context */}
@@ -135,11 +135,11 @@ export default function MessagesPage() {
                         <svg width="10" height="10" fill="none" stroke="#475569" strokeWidth="1.5" viewBox="0 0 24 24" className="flex-shrink-0">
                           <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
-                        <span className="text-[11px] text-slate-600 truncate">{meta.journeyTitle}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-600 truncate">{meta.journeyTitle}</span>
                       </div>
 
                       {/* Last message preview */}
-                      <p className={`mt-1 text-xs truncate ${conv.unreadCount > 0 ? "text-slate-300" : "text-slate-500"}`}>
+                      <p className={`mt-1 text-xs truncate ${conv.unreadCount > 0 ? "text-slate-700 dark:text-slate-300" : "text-slate-500"}`}>
                         {conv.lastMessage}
                       </p>
                     </div>

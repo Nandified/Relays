@@ -17,7 +17,7 @@ export function ProPreviewPanel({ pro }: { pro: Pro }) {
           <Image src={pro.headshotUrl} alt={pro.name} width={56} height={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-base font-semibold text-slate-100">{pro.name}</div>
+          <div className="truncate text-base font-semibold text-slate-900 dark:text-slate-100">{pro.name}</div>
           <div className="truncate text-sm text-slate-500">{pro.companyName}</div>
         </div>
         <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]">
@@ -34,12 +34,12 @@ export function ProPreviewPanel({ pro }: { pro: Pro }) {
             </svg>
           ))}
         </div>
-        <span className="text-sm font-medium text-slate-300">{pro.rating.toFixed(1)}</span>
+        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{pro.rating.toFixed(1)}</span>
         <span className="text-xs text-slate-500">({pro.reviewCount} reviews)</span>
       </div>
 
       {/* Blurb */}
-      <p className="mt-3 text-sm text-slate-400 leading-relaxed">{pro.blurb}</p>
+      <p className="mt-3 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{pro.blurb}</p>
 
       {/* Categories & badges */}
       <div className="mt-3 flex flex-wrap gap-1.5">
@@ -56,7 +56,7 @@ export function ProPreviewPanel({ pro }: { pro: Pro }) {
 
       {/* Service areas */}
       <div className="mt-3 text-xs text-slate-500">
-        <span className="font-medium text-slate-400">Service areas: </span>
+        <span className="font-medium text-slate-500 dark:text-slate-400">Service areas: </span>
         {pro.serviceAreas.join(", ")}
       </div>
 

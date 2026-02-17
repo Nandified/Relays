@@ -172,14 +172,14 @@ export default function HomePage() {
 
           <div className="relative mx-auto max-w-3xl text-center">
             <AnimatedSection delay={0}>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-400 shadow-sm mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 shadow-sm mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Now in Chicago Metro
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={80}>
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
                 Build your dream team
                 <span className="block bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent animate-shimmer">
                   for your home journey
@@ -188,7 +188,7 @@ export default function HomePage() {
             </AnimatedSection>
 
             <AnimatedSection delay={160}>
-              <p className="mx-auto mt-5 max-w-xl text-lg text-slate-400">
+              <p className="mx-auto mt-5 max-w-xl text-lg text-slate-500 dark:text-slate-400">
                 Buying or selling a home? Find verified pros, build your team, and get guided through every step — so nothing falls through the cracks.
               </p>
             </AnimatedSection>
@@ -217,8 +217,8 @@ export default function HomePage() {
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <AnimatedSection>
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">Three Ways to Get Started</h2>
-              <p className="mt-3 text-slate-400">However you got here, Relays meets you where you are</p>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">Three Ways to Get Started</h2>
+              <p className="mt-3 text-slate-500 dark:text-slate-400">However you got here, Relays meets you where you are</p>
             </div>
           </AnimatedSection>
           <div className="grid gap-6 md:grid-cols-3">
@@ -232,8 +232,8 @@ export default function HomePage() {
                     <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] ${path.iconColor}`}>
                       {path.icon}
                     </div>
-                    <h3 className="mt-5 text-lg font-semibold text-slate-100">{path.title}</h3>
-                    <p className="mt-2 text-sm text-slate-400 leading-relaxed">{path.desc}</p>
+                    <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-slate-100">{path.title}</h3>
+                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{path.desc}</p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -246,8 +246,8 @@ export default function HomePage() {
           <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
             <AnimatedSection>
               <div className="text-center mb-12">
-                <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">How Relays Works</h2>
-                <p className="mt-3 text-slate-400">Three steps to your perfect team</p>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">How Relays Works</h2>
+                <p className="mt-3 text-slate-500 dark:text-slate-400">Three steps to your perfect team</p>
               </div>
             </AnimatedSection>
             <div className="grid gap-6 md:grid-cols-3">
@@ -260,8 +260,8 @@ export default function HomePage() {
                     <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-blue-400">
                       Step {step.num}
                     </div>
-                    <h3 className="mt-2 text-lg font-semibold text-slate-100">{step.title}</h3>
-                    <p className="mt-2 text-sm text-slate-400 leading-relaxed">{step.desc}</p>
+                    <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{step.title}</h3>
+                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{step.desc}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -273,8 +273,8 @@ export default function HomePage() {
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <AnimatedSection>
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">Trusted by Buyers, Sellers & Pros</h2>
-              <p className="mt-3 text-slate-400">Real people, real experiences</p>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">Trusted by Buyers, Sellers & Pros</h2>
+              <p className="mt-3 text-slate-500 dark:text-slate-400">Real people, real experiences</p>
             </div>
           </AnimatedSection>
           <div className="grid gap-6 md:grid-cols-3">
@@ -284,9 +284,9 @@ export default function HomePage() {
                   <svg width="24" height="24" fill="none" viewBox="0 0 24 24" className="text-blue-400 opacity-40 mb-3">
                     <path fill="currentColor" d="M11 7H7a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H6a1 1 0 1 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4H6a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 1 0 0-2zm10 0h-4a4 4 0 0 0-4 4v1a3 3 0 0 0 3 3h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-1a1 1 0 1 0 0 2h1a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4h-1a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h4a1 1 0 1 0 0-2z" />
                   </svg>
-                  <p className="text-sm text-slate-300 leading-relaxed">{t.quote}</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{t.quote}</p>
                   <div className="mt-4 border-t border-[var(--border)] pt-3">
-                    <div className="text-sm font-semibold text-slate-200">{t.name}</div>
+                    <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">{t.name}</div>
                     <div className="text-xs text-slate-500">{t.role}</div>
                   </div>
                 </div>
@@ -318,10 +318,10 @@ export default function HomePage() {
                       </svg>
                       Free Forever
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-100 sm:text-3xl">
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">
                       Are you a real estate professional?
                     </h2>
-                    <p className="mt-3 text-slate-400 leading-relaxed">
+                    <p className="mt-3 text-slate-500 dark:text-slate-400 leading-relaxed">
                       List your business on Relays and get discovered by buyers and sellers in your area. If your business is already here via Google Places, claim your profile and start receiving referrals.
                     </p>
                     <Link
@@ -342,7 +342,7 @@ export default function HomePage() {
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/15 text-emerald-400">
                           {f.icon}
                         </div>
-                        <span className="text-sm text-slate-300 leading-relaxed pt-1.5">{f.text}</span>
+                        <span className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed pt-1.5">{f.text}</span>
                       </div>
                     ))}
                   </div>
@@ -361,7 +361,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-[var(--bg-card)]/50 backdrop-blur-sm rounded-3xl" />
 
               <div className="relative">
-                <h2 className="text-2xl font-bold text-white sm:text-3xl">Ready to build your dream team?</h2>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Ready to build your dream team?</h2>
                 <p className="mt-3 text-blue-200/70 max-w-lg mx-auto">
                   Whether you&apos;re buying your first home or selling your forever home, Relays guides you to the right professionals every step of the way.
                 </p>
@@ -374,7 +374,7 @@ export default function HomePage() {
                   </Link>
                   <Link
                     href="/signup"
-                    className="hover-scale inline-flex items-center justify-center rounded-2xl border border-white/20 px-6 py-3 text-base font-medium text-white hover:bg-white/10 transition-all"
+                    className="hover-scale inline-flex items-center justify-center rounded-2xl border border-black/10 dark:border-white/20 px-6 py-3 text-base font-medium text-slate-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all"
                   >
                     List Your Business
                   </Link>

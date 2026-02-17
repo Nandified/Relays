@@ -75,14 +75,14 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
               className="h-[44px] w-[44px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className={`flex h-[44px] w-[44px] flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-gradient-to-br ${colorClass} text-sm font-semibold`}>
+            <div className={`flex h-[44px] w-[44px] flex-shrink-0 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${colorClass} text-sm font-semibold`}>
               {initials}
             </div>
           )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-slate-100">{professional.name}</div>
+                <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{professional.name}</div>
                 <div className="truncate text-xs text-slate-500">
                   {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
                   {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}
@@ -144,7 +144,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
                       </svg>
                     ))}
                   </div>
-                  <span className="text-sm font-medium text-slate-300">{professional.rating!.toFixed(1)}</span>
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{professional.rating!.toFixed(1)}</span>
                   {professional.reviewCount && (
                     <span className="text-xs text-slate-500">({professional.reviewCount} reviews)</span>
                   )}
@@ -167,7 +167,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
 
               {/* Service areas */}
               <div className="mt-3 text-xs text-slate-500">
-                <span className="font-medium text-slate-400">Service areas: </span>
+                <span className="font-medium text-slate-500 dark:text-slate-400">Service areas: </span>
                 {[professional.city, professional.county ? `${professional.county} County` : null].filter(Boolean).join(", ") || "Not listed"}
               </div>
 
@@ -202,7 +202,7 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
 
               {/* Subtle claim link */}
               <div className="pt-2 pb-1" onClick={(e) => e.stopPropagation()}>
-                <a href="/pro/onboarding" className="text-[11px] text-slate-600 hover:text-slate-400 transition-colors">
+                <a href="/pro/onboarding" className="text-[11px] text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors">
                   Are you {professional.name.split(" ")[0]}? <span className="underline underline-offset-2">Claim this profile</span> →
                 </a>
               </div>

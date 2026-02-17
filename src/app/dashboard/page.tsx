@@ -38,7 +38,7 @@ function ProgressRing({ filled, total, size = 56 }: { filled: number; total: num
   return (
     <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={strokeW} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--border)" strokeWidth={strokeW} />
         <circle
           cx={size / 2} cy={size / 2} r={r} fill="none"
           stroke={done ? "#10b981" : "#3b82f6"}
@@ -48,7 +48,7 @@ function ProgressRing({ filled, total, size = 56 }: { filled: number; total: num
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-sm font-bold text-slate-100 tabular-nums">{filled}/{total}</span>
+        <span className="text-sm font-bold text-slate-900 dark:text-slate-100 tabular-nums">{filled}/{total}</span>
       </div>
     </div>
   );
@@ -73,7 +73,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
             <ProgressRing filled={filled} total={total} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-0.5">
-                <h3 className="text-base font-semibold text-slate-100 truncate">{journey.title}</h3>
+                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 truncate">{journey.title}</h3>
                 {statusBadge(journey.status)}
               </div>
               <p className="text-xs text-slate-500 flex items-center gap-1">
@@ -91,7 +91,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
                   {JOURNEY_STAGE_ICONS[journey.stage]} {JOURNEY_STAGE_LABELS[journey.stage]}
                 </Badge>
                 {createdBy && (
-                  <span className="text-[11px] text-slate-600">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-600">
                     via {createdBy.name}
                   </span>
                 )}
@@ -115,7 +115,7 @@ function JourneyCard({ journey }: { journey: Journey }) {
                 </div>
                 <div>
                   <div className="text-sm font-medium text-blue-400">{journey.pendingAction}</div>
-                  <div className="text-xs text-slate-400 mt-0.5">{journey.nextStep}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{journey.nextStep}</div>
                 </div>
               </div>
             </div>
@@ -190,8 +190,8 @@ export default function DashboardPage() {
     <div className="mx-auto max-w-4xl px-4 py-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-100">Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Dashboard</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Your home journey at a glance — {activeCount} active {activeCount === 1 ? "journey" : "journeys"}
         </p>
       </div>
@@ -205,7 +205,7 @@ export default function DashboardPage() {
                 <path d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h2 className="text-lg font-bold text-slate-100">What&apos;s Next</h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">What&apos;s Next</h2>
             <Badge variant="danger" className="text-[10px]">
               {allActiveMoments.length} action{allActiveMoments.length > 1 ? "s" : ""}
             </Badge>
@@ -226,7 +226,7 @@ export default function DashboardPage() {
       {allUpcomingMoments.length > 0 && (
         <div className="mb-8">
           <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 6v6l4 2" />
             </svg>
@@ -269,7 +269,7 @@ export default function DashboardPage() {
                 <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
               </svg>
             </div>
-            <div className="text-xs font-medium text-slate-300">Find Pros</div>
+            <div className="text-xs font-medium text-slate-700 dark:text-slate-300">Find Pros</div>
           </Card>
         </Link>
         <Link href="/team">
@@ -281,7 +281,7 @@ export default function DashboardPage() {
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
               </svg>
             </div>
-            <div className="text-xs font-medium text-slate-300">My Team</div>
+            <div className="text-xs font-medium text-slate-700 dark:text-slate-300">My Team</div>
           </Card>
         </Link>
         <Link href="/requests">
@@ -291,7 +291,7 @@ export default function DashboardPage() {
                 <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" />
               </svg>
             </div>
-            <div className="text-xs font-medium text-slate-300">Requests</div>
+            <div className="text-xs font-medium text-slate-700 dark:text-slate-300">Requests</div>
           </Card>
         </Link>
         <Link href="/settings/notifications">
@@ -301,7 +301,7 @@ export default function DashboardPage() {
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
               </svg>
             </div>
-            <div className="text-xs font-medium text-slate-300">Notifications</div>
+            <div className="text-xs font-medium text-slate-700 dark:text-slate-300">Notifications</div>
           </Card>
         </Link>
       </div>

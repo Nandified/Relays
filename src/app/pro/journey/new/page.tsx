@@ -97,10 +97,10 @@ export default function NewJourneyPage() {
             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white mb-2">Journey created!</h1>
-        <p className="text-sm text-slate-400 mb-6 max-w-md mx-auto">
-          A link has been sent to <span className="text-slate-200">{form.clientName}</span> at{" "}
-          <span className="text-slate-200">{form.clientEmail}</span>. They&apos;ll see your
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Journey created!</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-md mx-auto">
+          A link has been sent to <span className="text-slate-800 dark:text-slate-200">{form.clientName}</span> at{" "}
+          <span className="text-slate-800 dark:text-slate-200">{form.clientEmail}</span>. They&apos;ll see your
           recommendations and can start building their team.
         </p>
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-4 mb-6 max-w-sm mx-auto">
@@ -124,12 +124,12 @@ export default function NewJourneyPage() {
     <div className="mx-auto max-w-3xl px-4 py-6 pb-20">
       {/* Header */}
       <div className="mb-8">
-        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors mb-4">
+        <Link href="/pro/dashboard" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-4">
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
           Back to Dashboard
         </Link>
-        <h1 className="text-2xl font-bold text-white">Create a Journey</h1>
-        <p className="mt-1 text-sm text-slate-400">Set up your client&apos;s home journey with recommended pros for every step.</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Create a Journey</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Set up your client&apos;s home journey with recommended pros for every step.</p>
       </div>
 
       {/* Step indicator */}
@@ -146,7 +146,7 @@ export default function NewJourneyPage() {
                     ? "bg-[var(--accent)] text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] scale-110"
                     : s.id < step
                     ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-400"
-                    : "bg-white/5 border border-[var(--border)] text-slate-500"
+                    : "bg-black/5 dark:bg-white/5 border border-[var(--border)] text-slate-500"
                 }`}>
                   {s.id < step ? (
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
@@ -208,14 +208,14 @@ function StepProperty({ form, onChange }: { form: FormData; onChange: (u: Partia
       <div className="flex items-center gap-3 mb-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20 text-lg">🏠</div>
         <div>
-          <h2 className="text-lg font-semibold text-white">Property Details</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Property Details</h2>
           <p className="text-xs text-slate-500">Where is your client&apos;s transaction?</p>
         </div>
       </div>
       <div className="space-y-4">
         <Input label="Property Address" placeholder="e.g. 742 Maple Ave, Oak Park, IL 60302" value={form.address} onChange={(e) => onChange({ address: e.target.value })} />
         <div>
-          <span className="mb-2 block text-sm font-medium text-slate-300">Transaction Type</span>
+          <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Transaction Type</span>
           <div className="grid grid-cols-2 gap-3">
             {(["buying", "selling"] as const).map((type) => (
               <button
@@ -228,7 +228,7 @@ function StepProperty({ form, onChange }: { form: FormData; onChange: (u: Partia
                 }`}
               >
                 <div className="text-xl mb-1">{type === "buying" ? "🏠" : "📤"}</div>
-                <div className="text-sm font-medium text-slate-200 capitalize">{type}</div>
+                <div className="text-sm font-medium text-slate-800 dark:text-slate-200 capitalize">{type}</div>
                 <div className="text-[11px] text-slate-500 mt-0.5">{type === "buying" ? "Client is purchasing a home" : "Client is selling their home"}</div>
               </button>
             ))}
@@ -246,7 +246,7 @@ function StepClient({ form, onChange }: { form: FormData; onChange: (u: Partial<
       <div className="flex items-center gap-3 mb-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10 border border-purple-500/20 text-lg">👤</div>
         <div>
-          <h2 className="text-lg font-semibold text-white">Client Information</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Client Information</h2>
           <p className="text-xs text-slate-500">Who is this journey for?</p>
         </div>
       </div>
@@ -258,7 +258,7 @@ function StepClient({ form, onChange }: { form: FormData; onChange: (u: Partial<
       <div className="mt-5 rounded-xl bg-blue-500/[0.04] border border-blue-500/10 p-3">
         <div className="flex items-start gap-2">
           <svg width="14" height="14" fill="none" stroke="#3b82f6" strokeWidth="2" viewBox="0 0 24 24" className="mt-0.5 flex-shrink-0"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          <p className="text-[11px] text-slate-400">Your client will receive a link to view their journey and select pros from your recommendations.</p>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">Your client will receive a link to view their journey and select pros from your recommendations.</p>
         </div>
       </div>
     </Card>
@@ -303,12 +303,12 @@ function StepRecommendations({
           <Card key={category} padding="none" className="overflow-hidden">
             <button
               onClick={() => setExpandedCategory(isExpanded ? null : category)}
-              className="flex w-full items-center justify-between p-4 hover:bg-white/[0.02] transition-colors"
+              className="flex w-full items-center justify-between p-4 hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-[var(--border)] text-sm">{meta.icon}</div>
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] text-sm">{meta.icon}</div>
                 <div className="text-left">
-                  <div className="text-sm font-medium text-slate-200">{category}</div>
+                  <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{category}</div>
                   <div className="text-[11px] text-slate-500">{selected.length === 0 ? "Pick up to 3 to recommend" : `${selected.length} selected`}</div>
                 </div>
               </div>
@@ -345,7 +345,7 @@ function StepRecommendations({
                         className={`flex items-center gap-3 rounded-xl p-3 text-left transition-all duration-200 ${
                           isSelected
                             ? "bg-[var(--accent-light)] border border-blue-500/20 ring-1 ring-blue-500/10"
-                            : "border border-transparent hover:bg-white/[0.03]"
+                            : "border border-transparent hover:bg-black/[0.03] dark:hover:bg-white/[0.03]"
                         } ${!isSelected && selected.length >= 3 ? "opacity-40 cursor-not-allowed" : ""}`}
                       >
                         <div className="relative flex-shrink-0">
@@ -362,7 +362,7 @@ function StepRecommendations({
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5">
-                            <span className="text-sm font-medium text-slate-200">{pro.name}</span>
+                            <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{pro.name}</span>
                             {pro.verified && (
                               <svg width="12" height="12" fill="#3b82f6" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
@@ -407,7 +407,7 @@ function StepReview({
         <div className="flex items-center gap-3 mb-5">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20 text-lg">✨</div>
           <div>
-            <h2 className="text-lg font-semibold text-white">Review &amp; Send</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Review &amp; Send</h2>
             <p className="text-xs text-slate-500">Everything look good? Let&apos;s send it to your client.</p>
           </div>
         </div>
@@ -418,14 +418,14 @@ function StepReview({
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             {form.propertyType === "buying" ? "Buying" : "Selling"}
           </div>
-          <div className="text-sm font-medium text-slate-100">{form.address || "No address entered"}</div>
+          <div className="text-sm font-medium text-slate-900 dark:text-slate-100">{form.address || "No address entered"}</div>
         </div>
 
         {/* Client */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4 mb-4">
           <div className="text-xs text-slate-500 mb-1">Client</div>
-          <div className="text-sm font-medium text-slate-100">{form.clientName || "—"}</div>
-          <div className="text-xs text-slate-400">{form.clientEmail} • {form.clientPhone}</div>
+          <div className="text-sm font-medium text-slate-900 dark:text-slate-100">{form.clientName || "—"}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">{form.clientEmail} • {form.clientPhone}</div>
         </div>
 
         {/* Team */}
@@ -436,7 +436,7 @@ function StepReview({
               <Image src={currentPro.headshotUrl} alt={currentPro.name} width={32} height={32} />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-sm text-slate-200">{currentPro.name}</span>
+              <span className="text-sm text-slate-800 dark:text-slate-200">{currentPro.name}</span>
               <span className="text-xs text-slate-500 ml-1">({currentProCategory})</span>
             </div>
             <Badge variant="success" className="text-[10px]">You</Badge>
@@ -446,7 +446,7 @@ function StepReview({
             const selected = form.recommendations[category] || [];
             return (
               <div key={category} className="flex items-center justify-between py-1.5">
-                <span className="text-xs text-slate-400">{category}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{category}</span>
                 {selected.length > 0 ? (
                   <div className="flex items-center gap-1">
                     <div className="flex -space-x-1">
@@ -463,7 +463,7 @@ function StepReview({
                     <span className="text-[11px] text-blue-400">{selected.length} rec&apos;d</span>
                   </div>
                 ) : (
-                  <span className="text-[11px] text-slate-600">No recommendations</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-600">No recommendations</span>
                 )}
               </div>
             );
@@ -472,7 +472,7 @@ function StepReview({
       </Card>
 
       <div className="rounded-xl bg-blue-500/[0.04] border border-blue-500/10 p-4 text-center">
-        <p className="text-sm text-slate-300">
+        <p className="text-sm text-slate-700 dark:text-slate-300">
           {totalRecommended > 0
             ? `${totalRecommended} total recommendation${totalRecommended !== 1 ? "s" : ""} across ${Object.values(form.recommendations).filter((a) => a.length > 0).length} categories`
             : "No recommendations yet — your client will need to find pros on their own"}

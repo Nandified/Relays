@@ -63,8 +63,8 @@ export default function ConsumerOnboardingPage() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 border border-blue-500/10 text-lg mb-4">
           🏠
         </div>
-        <h1 className="text-2xl font-bold text-slate-100">Welcome to Relays</h1>
-        <p className="mt-2 text-sm text-slate-400">Let&apos;s personalize your experience — this takes about 60 seconds</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Welcome to Relays</h1>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Let&apos;s personalize your experience — this takes about 60 seconds</p>
       </div>
 
       {/* Progress bar */}
@@ -75,7 +75,7 @@ export default function ConsumerOnboardingPage() {
             Skip — I&apos;ll explore on my own
           </button>
         </div>
-        <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
@@ -86,8 +86,8 @@ export default function ConsumerOnboardingPage() {
       {/* Step 1: What brings you here? */}
       {step === 1 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">What brings you to Relays?</h2>
-          <p className="text-sm text-slate-400 mb-6">This helps us tailor your experience</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">What brings you to Relays?</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This helps us tailor your experience</p>
           <div className="grid gap-3">
             {consumerOnboardingGoals.map((g) => (
               <button
@@ -101,7 +101,7 @@ export default function ConsumerOnboardingPage() {
               >
                 <span className="text-2xl">{g.icon}</span>
                 <div>
-                  <span className={`text-sm font-medium ${goal === g.id ? "text-blue-400" : "text-slate-300"}`}>
+                  <span className={`text-sm font-medium ${goal === g.id ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                     {g.label}
                   </span>
                   <p className="text-xs text-slate-500 mt-0.5">{g.description}</p>
@@ -122,8 +122,8 @@ export default function ConsumerOnboardingPage() {
       {/* Step 2: Do you have a realtor? */}
       {step === 2 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Do you already have a Realtor?</h2>
-          <p className="text-sm text-slate-400 mb-6">We can help you find one or connect with yours</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Do you already have a Realtor?</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">We can help you find one or connect with yours</p>
           <div className="grid gap-3 sm:grid-cols-2 mb-4">
             <button
               onClick={() => setHasRealtor(true)}
@@ -134,7 +134,7 @@ export default function ConsumerOnboardingPage() {
               }`}
             >
               <span className="text-3xl">🤝</span>
-              <span className={`text-sm font-medium ${hasRealtor === true ? "text-blue-400" : "text-slate-300"}`}>
+              <span className={`text-sm font-medium ${hasRealtor === true ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                 Yes, I have one
               </span>
             </button>
@@ -147,7 +147,7 @@ export default function ConsumerOnboardingPage() {
               }`}
             >
               <span className="text-3xl">🔍</span>
-              <span className={`text-sm font-medium ${hasRealtor === false ? "text-blue-400" : "text-slate-300"}`}>
+              <span className={`text-sm font-medium ${hasRealtor === false ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                 No, help me find one
               </span>
             </button>
@@ -176,8 +176,8 @@ export default function ConsumerOnboardingPage() {
       {/* Step 3: Property info */}
       {step === 3 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">Where are you looking?</h2>
-          <p className="text-sm text-slate-400 mb-6">Optional — helps us show relevant professionals</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Where are you looking?</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Optional — helps us show relevant professionals</p>
           <Input
             label="City, ZIP, or neighborhood"
             placeholder="e.g., Oak Park, IL or 60302"
@@ -193,8 +193,8 @@ export default function ConsumerOnboardingPage() {
       {/* Step 4: What do you need? */}
       {step === 4 && (
         <Card padding="lg" className="animate-in">
-          <h2 className="text-lg font-semibold text-slate-100 mb-2">What professionals do you need?</h2>
-          <p className="text-sm text-slate-400 mb-6">Select all that apply — we&apos;ll help you find them</p>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">What professionals do you need?</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Select all that apply — we&apos;ll help you find them</p>
           <div className="grid gap-3">
             {consumerServiceNeeds.map((need) => (
               <button
@@ -216,7 +216,7 @@ export default function ConsumerOnboardingPage() {
                   )}
                 </div>
                 <span className="text-lg">{need.icon}</span>
-                <span className={`text-sm font-medium ${selectedNeeds.has(need.id) ? "text-blue-400" : "text-slate-300"}`}>
+                <span className={`text-sm font-medium ${selectedNeeds.has(need.id) ? "text-blue-400" : "text-slate-700 dark:text-slate-300"}`}>
                   {need.label}
                 </span>
               </button>
@@ -232,8 +232,8 @@ export default function ConsumerOnboardingPage() {
       {step === 5 && (
         <Card padding="lg" className="animate-in text-center">
           <div className="text-5xl mb-4">🎉</div>
-          <h2 className="text-xl font-bold text-slate-100 mb-2">You&apos;re all set!</h2>
-          <p className="text-sm text-slate-400 mb-8 max-w-xs mx-auto">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">You&apos;re all set!</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-xs mx-auto">
             Your personalized dashboard is ready. Here&apos;s what happens next:
           </p>
           <div className="space-y-3 text-left max-w-sm mx-auto mb-8">
@@ -245,7 +245,7 @@ export default function ConsumerOnboardingPage() {
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 rounded-xl p-3 bg-[var(--bg-elevated)] border border-[var(--border)]">
                 <span className="text-lg">{item.icon}</span>
-                <span className="text-sm text-slate-300">{item.text}</span>
+                <span className="text-sm text-slate-700 dark:text-slate-300">{item.text}</span>
               </div>
             ))}
           </div>

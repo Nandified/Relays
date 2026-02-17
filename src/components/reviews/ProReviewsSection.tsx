@@ -47,11 +47,11 @@ export function ProReviewsSection({
   if (!stats && reviews.length === 0) {
     return (
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6">
-        <h2 className="text-sm font-semibold text-slate-200 mb-4">Reviews</h2>
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Reviews</h2>
         <div className="text-center py-8">
           <div className="text-3xl mb-2">⭐</div>
           <p className="text-sm text-slate-500">No reviews yet</p>
-          <p className="text-xs text-slate-600 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-600 mt-1">
             Be the first to share your experience
           </p>
           <Link href={`/review/${proSlug}`}>
@@ -85,8 +85,8 @@ export function ProReviewsSection({
               onClick={() => setSortBy(key)}
               className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
                 sortBy === key
-                  ? "bg-white/10 text-slate-200 border border-white/10"
-                  : "text-slate-500 hover:text-slate-300 hover:bg-white/5 border border-transparent"
+                  ? "bg-black/5 dark:bg-white/10 text-slate-800 dark:text-slate-200 border border-black/10 dark:border-white/10"
+                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 border border-transparent"
               }`}
             >
               {label}

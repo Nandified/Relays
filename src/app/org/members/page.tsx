@@ -34,7 +34,7 @@ function StatusDot({ status }: { status: OrgMember["status"] }) {
   const colors = {
     active: "bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.4)]",
     invited: "bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.4)]",
-    deactivated: "bg-slate-600",
+    deactivated: "bg-slate-300 dark:bg-slate-600",
   };
   return <div className={`h-2 w-2 rounded-full ${colors[status]}`} />;
 }
@@ -62,7 +62,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 mx-auto mb-3">
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
           </div>
-          <p className="text-sm text-slate-200">Invite sent to {email}</p>
+          <p className="text-sm text-slate-800 dark:text-slate-200">Invite sent to {email}</p>
           <p className="text-xs text-slate-500 mt-1">They&apos;ll receive an email with a link to join.</p>
         </div>
       ) : (
@@ -85,8 +85,8 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
             value={role}
             onChange={(e) => setRole(e.target.value as OrgRole)}
           />
-          <div className="rounded-xl bg-white/5 border border-[var(--border)] p-3">
-            <p className="text-xs font-medium text-slate-300 mb-1">Role Permissions</p>
+          <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3">
+            <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Role Permissions</p>
             <p className="text-xs text-slate-500">{ROLE_META[role].description}</p>
           </div>
           <div className="flex gap-3 pt-2">
@@ -114,11 +114,11 @@ function ChangeRoleModal({ open, member, onClose }: { open: boolean; member: Org
     <Modal open={open} title="Change Role" onClose={onClose}>
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-sm font-bold text-slate-300">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black/5 dark:bg-white/5 text-sm font-bold text-slate-700 dark:text-slate-300">
             {member.name.split(" ").map((n) => n[0]).join("")}
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-200">{member.name}</p>
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{member.name}</p>
             <p className="text-xs text-slate-500">{member.email}</p>
           </div>
         </div>
@@ -142,8 +142,8 @@ function ChangeRoleModal({ open, member, onClose }: { open: boolean; member: Org
           onChange={(e) => setNewRole(e.target.value as OrgRole)}
         />
 
-        <div className="rounded-xl bg-white/5 border border-[var(--border)] p-3">
-          <p className="text-xs font-medium text-slate-300 mb-1">{ROLE_META[newRole].label} Permissions</p>
+        <div className="rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] p-3">
+          <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">{ROLE_META[newRole].label} Permissions</p>
           <p className="text-xs text-slate-500">{ROLE_META[newRole].description}</p>
         </div>
 
@@ -187,7 +187,7 @@ function DeactivateModal({ open, member, onClose }: { open: boolean; member: Org
               <div>
                 <p className="text-sm font-medium text-red-300">This action cannot be undone</p>
                 <p className="text-xs text-slate-500 mt-1">
-                  Deactivating <strong className="text-slate-300">{member.name}</strong> will revoke their access to the organization.
+                  Deactivating <strong className="text-slate-700 dark:text-slate-300">{member.name}</strong> will revoke their access to the organization.
                   {memberJourneys.length > 0 && ` They have ${memberJourneys.length} active journey${memberJourneys.length > 1 ? "s" : ""} that need to be reassigned.`}
                 </p>
               </div>
@@ -209,14 +209,14 @@ function DeactivateModal({ open, member, onClose }: { open: boolean; member: Org
 
       {step === "transfer" && (
         <div className="space-y-4">
-          <p className="text-sm text-slate-300">
+          <p className="text-sm text-slate-700 dark:text-slate-300">
             Reassign {member.name}&apos;s {memberJourneys.length} journey{memberJourneys.length > 1 ? "s" : ""} to another agent:
           </p>
 
           <div className="space-y-2 max-h-40 overflow-y-auto">
             {memberJourneys.map((j) => (
-              <div key={j.id} className="flex items-center gap-2 rounded-lg bg-white/5 px-3 py-2 text-xs">
-                <span className="text-slate-300 font-medium flex-1 truncate">{j.title}</span>
+              <div key={j.id} className="flex items-center gap-2 rounded-lg bg-black/5 dark:bg-white/5 px-3 py-2 text-xs">
+                <span className="text-slate-700 dark:text-slate-300 font-medium flex-1 truncate">{j.title}</span>
                 <Badge variant={j.status === "active" ? "success" : "default"}>{j.status}</Badge>
               </div>
             ))}
@@ -246,7 +246,7 @@ function DeactivateModal({ open, member, onClose }: { open: boolean; member: Org
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 mx-auto mb-3">
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
           </div>
-          <p className="text-sm text-slate-200">{member.name} has been deactivated</p>
+          <p className="text-sm text-slate-800 dark:text-slate-200">{member.name} has been deactivated</p>
           {memberJourneys.length > 0 && (
             <p className="text-xs text-slate-500 mt-1">{memberJourneys.length} journey{memberJourneys.length > 1 ? "s" : ""} transferred successfully.</p>
           )}
@@ -282,14 +282,14 @@ export default function OrgMembersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Members</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Members</h1>
           <p className="text-sm text-slate-500 mt-1">Manage your team&apos;s roles and access</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 rounded-xl bg-white/5 border border-[var(--border)] px-3 py-1.5">
+          <div className="hidden sm:flex items-center gap-2 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] px-3 py-1.5">
             <span className="text-xs text-slate-500">Seats:</span>
-            <span className="text-xs font-semibold text-slate-200 tabular-nums">{org.currentSeats}/{org.maxSeats}</span>
-            <div className="w-16 h-1.5 rounded-full bg-white/5 overflow-hidden">
+            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{org.currentSeats}/{org.maxSeats}</span>
+            <div className="w-16 h-1.5 rounded-full bg-black/5 dark:bg-white/5 overflow-hidden">
               <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${seatPercentage}%` }} />
             </div>
           </div>
@@ -340,14 +340,14 @@ export default function OrgMembersPage() {
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
               {filtered.map((member) => (
-                <tr key={member.id} className="hover:bg-white/[0.02] transition-colors group">
+                <tr key={member.id} className="hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors group">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 text-xs font-bold text-slate-300 shrink-0 border border-[var(--border)]">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-black/5 dark:bg-white/5 text-xs font-bold text-slate-700 dark:text-slate-300 shrink-0 border border-[var(--border)]">
                         {member.name.split(" ").map((n) => n[0]).join("")}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-slate-200 truncate">{member.name}</p>
+                        <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{member.name}</p>
                         <p className="text-xs text-slate-500 truncate">{member.email}</p>
                       </div>
                     </div>
@@ -358,11 +358,11 @@ export default function OrgMembersPage() {
                   <td className="px-4 py-3 hidden sm:table-cell">
                     <div className="flex items-center gap-2">
                       <StatusDot status={member.status} />
-                      <span className="text-xs text-slate-400 capitalize">{member.status}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">{member.status}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <span className="text-sm text-slate-300 tabular-nums">{member.journeyCount}</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-300 tabular-nums">{member.journeyCount}</span>
                   </td>
                   <td className="px-4 py-3 hidden lg:table-cell">
                     <span className="text-xs text-slate-500 tabular-nums">
@@ -373,7 +373,7 @@ export default function OrgMembersPage() {
                     <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => setRoleModalMember(member)}
-                        className="rounded-lg px-2 py-1 text-xs text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-colors"
+                        className="rounded-lg px-2 py-1 text-xs text-slate-500 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
                         title="Change Role"
                       >
                         Role
@@ -398,7 +398,7 @@ export default function OrgMembersPage() {
 
       {/* Role Legend */}
       <Card>
-        <h3 className="text-sm font-medium text-slate-300 mb-3">Role Legend</h3>
+        <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Role Legend</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {(Object.keys(ROLE_META) as OrgRole[]).map((role) => {
             const meta = ROLE_META[role];

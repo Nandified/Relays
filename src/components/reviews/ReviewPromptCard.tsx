@@ -37,7 +37,7 @@ export function ReviewPromptCard({ followUp, onDismiss }: ReviewPromptCardProps)
         )}
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-slate-200">
+          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
             {followUp.title}
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">{followUp.body}</p>
@@ -68,7 +68,7 @@ export function ReviewPromptCard({ followUp, onDismiss }: ReviewPromptCardProps)
             {onDismiss && (
               <button
                 onClick={() => onDismiss(followUp.id)}
-                className="text-xs text-slate-600 hover:text-slate-400 transition-colors"
+                className="text-xs text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors"
               >
                 Maybe later
               </button>

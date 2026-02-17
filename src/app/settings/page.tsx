@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { ConsumerReviewHistory } from "@/components/reviews/ConsumerReviewHistory";
 import { getReviewsByConsumer } from "@/lib/mock-reviews";
+import { useTheme, type ThemeMode } from "@/components/theme/ThemeProvider";
 
 /* ── Toggle Component ────────────────────────────────────────── */
 
@@ -19,7 +20,7 @@ function Toggle({ enabled, onChange, label }: { enabled: boolean; onChange: (v: 
       onClick={() => onChange(!enabled)}
       className={`
         relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200
-        ${enabled ? "bg-blue-500" : "bg-white/10 border border-white/10"}
+        ${enabled ? "bg-blue-500" : "bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10"}
       `}
     >
       <span
@@ -38,7 +39,7 @@ function SettingsSection({ title, description, children }: { title: string; desc
   return (
     <Card padding="lg" className="mb-4">
       <div className="mb-4">
-        <h2 className="text-sm font-semibold text-slate-200">{title}</h2>
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{title}</h2>
         {description && <p className="mt-0.5 text-xs text-slate-500">{description}</p>}
       </div>
       {children}
@@ -75,6 +76,9 @@ export default function ConsumerSettingsPage() {
   const [profileVisibility, setProfileVisibility] = React.useState<"public" | "team-only" | "private">("team-only");
   const [dataSharing, setDataSharing] = React.useState(true);
 
+  // Theme
+  const { theme, setTheme } = useTheme();
+
   // Delete modal
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = React.useState("");
@@ -88,8 +92,8 @@ export default function ConsumerSettingsPage() {
     <div className="mx-auto max-w-2xl px-4 py-6">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Settings</h1>
-          <p className="mt-1 text-sm text-slate-400">Manage your account and preferences</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Settings</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Manage your account and preferences</p>
         </div>
         <Button onClick={handleSave}>
           {saved ? "✓ Saved!" : "Save Changes"}
@@ -101,12 +105,12 @@ export default function ConsumerSettingsPage() {
         <div className="space-y-4">
           {/* Avatar */}
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-[var(--border)] flex items-center justify-center text-xl font-bold text-slate-300">
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-[var(--border)] flex items-center justify-center text-xl font-bold text-slate-700 dark:text-slate-300">
               JR
             </div>
             <div>
               <Button size="sm" variant="secondary">Change Photo</Button>
-              <p className="mt-1 text-xs text-slate-600">JPG, PNG. Max 2MB.</p>
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-600">JPG, PNG. Max 2MB.</p>
             </div>
           </div>
 
@@ -116,11 +120,43 @@ export default function ConsumerSettingsPage() {
         </div>
       </SettingsSection>
 
+      {/* ── Appearance ── */}
+      <SettingsSection title="Appearance" description="Customize how Relays looks for you">
+        <div>
+          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Theme</h3>
+          <div className="flex gap-2">
+            {([
+              ["system", "System", "☀️🌙"],
+              ["light", "Light", "☀️"],
+              ["dark", "Dark", "🌙"],
+            ] as const).map(([val, label, icon]) => (
+              <button
+                key={val}
+                onClick={() => setTheme(val as ThemeMode)}
+                className={`
+                  flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all border
+                  ${theme === val
+                    ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                    : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                  }
+                `}
+              >
+                <span>{icon}</span>
+                {label}
+              </button>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-500">
+            {theme === "system" ? "Follows your device's appearance settings" : theme === "light" ? "Always use light mode" : "Always use dark mode"}
+          </p>
+        </div>
+      </SettingsSection>
+
       {/* ── Notifications ── */}
       <SettingsSection title="Notification Preferences" description="Choose how and when you want to hear from us">
         {/* Channels */}
         <div className="mb-6">
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
+          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Channels</h3>
           <div className="space-y-3">
             {([
               ["email", "Email", "Receive email notifications"],
@@ -130,7 +166,7 @@ export default function ConsumerSettingsPage() {
             ] as const).map(([key, label, desc]) => (
               <div key={key} className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm text-slate-200">{label}</div>
+                  <div className="text-sm text-slate-800 dark:text-slate-200">{label}</div>
                   <div className="text-xs text-slate-500">{desc}</div>
                 </div>
                 <Toggle
@@ -145,7 +181,7 @@ export default function ConsumerSettingsPage() {
 
         {/* Types */}
         <div className="mb-6">
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Notification Types</h3>
+          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Notification Types</h3>
           <div className="space-y-3">
             {([
               ["moments", "Moments", "Journey milestone updates"],
@@ -156,7 +192,7 @@ export default function ConsumerSettingsPage() {
             ] as const).map(([key, label, desc]) => (
               <div key={key} className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm text-slate-200">{label}</div>
+                  <div className="text-sm text-slate-800 dark:text-slate-200">{label}</div>
                   <div className="text-xs text-slate-500">{desc}</div>
                 </div>
                 <Toggle
@@ -171,7 +207,7 @@ export default function ConsumerSettingsPage() {
 
         {/* Frequency */}
         <div>
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
+          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Frequency</h3>
           <div className="flex gap-2">
             {([
               ["realtime", "Real-time"],
@@ -185,7 +221,7 @@ export default function ConsumerSettingsPage() {
                   rounded-xl px-4 py-2 text-sm font-medium transition-all border
                   ${frequency === val
                     ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_15px_rgba(59,130,246,0.2)]"
-                    : "bg-[var(--bg-card)] text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                    : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
                   }
                 `}
               >
@@ -200,7 +236,7 @@ export default function ConsumerSettingsPage() {
       <SettingsSection title="Privacy" description="Control who can see your information">
         <div className="space-y-5">
           <div>
-            <h3 className="text-sm text-slate-200 mb-2">Profile Visibility</h3>
+            <h3 className="text-sm text-slate-800 dark:text-slate-200 mb-2">Profile Visibility</h3>
             <p className="text-xs text-slate-500 mb-3">Who can see your team and journey details</p>
             <div className="flex gap-2">
               {([
@@ -215,7 +251,7 @@ export default function ConsumerSettingsPage() {
                     rounded-xl px-4 py-2 text-sm font-medium transition-all border
                     ${profileVisibility === val
                       ? "bg-[var(--accent)] text-white border-[var(--accent)]"
-                      : "bg-[var(--bg-card)] text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
+                      : "bg-[var(--bg-card)] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]"
                     }
                   `}
                 >
@@ -227,7 +263,7 @@ export default function ConsumerSettingsPage() {
 
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-sm text-slate-200">Data Sharing</div>
+              <div className="text-sm text-slate-800 dark:text-slate-200">Data Sharing</div>
               <div className="text-xs text-slate-500">Allow Relays to use anonymized data to improve recommendations</div>
             </div>
             <Toggle enabled={dataSharing} onChange={setDataSharing} label="Data sharing" />
@@ -241,7 +277,7 @@ export default function ConsumerSettingsPage() {
           {/* Google */}
           <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center">
                 <svg width="18" height="18" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -250,7 +286,7 @@ export default function ConsumerSettingsPage() {
                 </svg>
               </div>
               <div>
-                <div className="text-sm font-medium text-slate-200">Google</div>
+                <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Google</div>
                 <div className="text-xs text-slate-500">Not connected</div>
               </div>
             </div>
@@ -260,13 +296,13 @@ export default function ConsumerSettingsPage() {
           {/* Apple */}
           <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-white/5 border border-[var(--border)] flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center">
                 <svg width="18" height="18" fill="#999" viewBox="0 0 24 24">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
               </div>
               <div>
-                <div className="text-sm font-medium text-slate-200">Apple</div>
+                <div className="text-sm font-medium text-slate-800 dark:text-slate-200">Apple</div>
                 <div className="text-xs text-slate-500">Not connected</div>
               </div>
             </div>
@@ -294,18 +330,18 @@ export default function ConsumerSettingsPage() {
         <div className="space-y-4">
           <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3">
             <p className="text-sm text-red-400 font-medium">⚠️ This action is permanent</p>
-            <p className="text-xs text-slate-400 mt-1">All your journeys, team connections, bookings, and documents will be permanently deleted.</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">All your journeys, team connections, bookings, and documents will be permanently deleted.</p>
           </div>
 
           <div>
-            <label className="block text-sm text-slate-300 mb-1.5">
+            <label className="block text-sm text-slate-700 dark:text-slate-300 mb-1.5">
               Type <span className="font-mono text-red-400">DELETE</span> to confirm
             </label>
             <input
               type="text"
               value={deleteConfirmText}
               onChange={(e) => setDeleteConfirmText(e.target.value)}
-              className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-slate-200 outline-none focus:border-red-500/50 focus:ring-2 focus:ring-red-500/10"
+              className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] px-3 py-2 text-sm text-slate-800 dark:text-slate-200 outline-none focus:border-red-500/50 focus:ring-2 focus:ring-red-500/10"
               placeholder="DELETE"
             />
           </div>

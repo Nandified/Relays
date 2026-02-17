@@ -71,7 +71,7 @@ export default function ComplianceAuditPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Compliance & Audit Trail</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Compliance & Audit Trail</h1>
           <p className="text-sm text-slate-500 mt-1">
             Full audit trail for RESPA compliance monitoring · {allLogs.length} entries
           </p>
@@ -113,12 +113,12 @@ export default function ComplianceAuditPage() {
                 className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium border transition-all cursor-pointer ${
                   filterAction === action
                     ? "bg-blue-500/12 text-blue-300 border-blue-500/20"
-                    : "bg-white/[0.03] text-slate-400 border-[var(--border)] hover:bg-white/5"
+                    : "bg-black/[0.03] dark:bg-white/[0.03] text-slate-500 dark:text-slate-400 border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/5"
                 }`}
               >
                 <span>{info.icon}</span>
                 <span>{info.label}</span>
-                <span className="text-slate-600 tabular-nums">{count}</span>
+                <span className="text-slate-500 dark:text-slate-600 tabular-nums">{count}</span>
               </button>
             );
           })}
@@ -157,24 +157,24 @@ export default function ComplianceAuditPage() {
               {filtered.map((log) => {
                 const info = ACTION_INFO[log.action] ?? { label: log.action, variant: "default" as const, icon: "•" };
                 return (
-                  <tr key={log.id} className="hover:bg-white/[0.02] transition-colors">
+                  <tr key={log.id} className="hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors">
                     <td className="px-4 py-3">
-                      <div className="text-xs text-slate-400 tabular-nums whitespace-nowrap">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </div>
-                      <div className="text-[10px] text-slate-600 tabular-nums">
+                      <div className="text-[10px] text-slate-500 dark:text-slate-600 tabular-nums">
                         {new Date(log.timestamp).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
                       </div>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 text-[10px] font-bold text-slate-400 shrink-0">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 text-[10px] font-bold text-slate-500 dark:text-slate-400 shrink-0">
                           {log.performedByName.split(" ").map((n) => n[0]).join("")}
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm text-slate-200 truncate">{log.performedByName}</p>
+                          <p className="text-sm text-slate-800 dark:text-slate-200 truncate">{log.performedByName}</p>
                           {log.targetUserName && (
-                            <p className="text-[10px] text-slate-600 truncate">→ {log.targetUserName}</p>
+                            <p className="text-[10px] text-slate-500 dark:text-slate-600 truncate">→ {log.targetUserName}</p>
                           )}
                         </div>
                       </div>
@@ -186,9 +186,9 @@ export default function ComplianceAuditPage() {
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell">
                       {log.targetJourneyTitle ? (
-                        <span className="text-xs text-slate-400">{log.targetJourneyTitle}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">{log.targetJourneyTitle}</span>
                       ) : (
-                        <span className="text-xs text-slate-600">—</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-600">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3 hidden lg:table-cell">

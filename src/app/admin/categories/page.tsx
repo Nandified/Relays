@@ -122,8 +122,8 @@ export default function AdminCategoriesPage() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Service Categories</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Service Categories</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Manage professional categories. Drag to reorder display priority.
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function AdminCategoriesPage() {
             <Card padding="none" className={`glow-violet ${dragIndex === index ? "opacity-50 scale-[0.98]" : ""}`}>
               <div className="flex items-center gap-4 px-4 py-3.5">
                 {/* Drag handle */}
-                <div className="cursor-grab active:cursor-grabbing text-slate-600 hover:text-slate-400 transition-colors">
+                <div className="cursor-grab active:cursor-grabbing text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors">
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                     <circle cx="8" cy="6" r="1.5" />
                     <circle cx="16" cy="6" r="1.5" />
@@ -164,7 +164,7 @@ export default function AdminCategoriesPage() {
                 </div>
 
                 {/* Order indicator */}
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 text-xs font-medium text-slate-500 border border-[var(--border)] tabular-nums">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 dark:bg-white/5 text-xs font-medium text-slate-500 border border-[var(--border)] tabular-nums">
                   {index + 1}
                 </div>
 
@@ -176,7 +176,7 @@ export default function AdminCategoriesPage() {
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-slate-100">{cat.name}</span>
+                    <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{cat.name}</span>
                     {cat.enabled ? (
                       <Badge variant="success" className="text-[10px]">Active</Badge>
                     ) : (
@@ -187,7 +187,7 @@ export default function AdminCategoriesPage() {
                   {/* Credentials */}
                   <div className="flex flex-wrap gap-1 mt-1.5">
                     {cat.requiredCredentials.map((cred) => (
-                      <span key={cred} className="inline-flex rounded-md bg-white/5 px-1.5 py-0.5 text-[10px] text-slate-500 border border-[var(--border)]">
+                      <span key={cred} className="inline-flex rounded-md bg-black/5 dark:bg-white/5 px-1.5 py-0.5 text-[10px] text-slate-500 border border-[var(--border)]">
                         {cred}
                       </span>
                     ))}
@@ -196,7 +196,7 @@ export default function AdminCategoriesPage() {
 
                 {/* Pro count */}
                 <div className="text-center hidden sm:block">
-                  <div className="text-sm font-medium text-slate-200 tabular-nums">{cat.proCount}</div>
+                  <div className="text-sm font-medium text-slate-800 dark:text-slate-200 tabular-nums">{cat.proCount}</div>
                   <div className="text-[10px] text-slate-500">pros</div>
                 </div>
 
@@ -205,14 +205,14 @@ export default function AdminCategoriesPage() {
                   <button
                     onClick={() => moveUp(index)}
                     disabled={index === 0}
-                    className="rounded-lg p-1 text-slate-600 hover:bg-white/5 hover:text-slate-400 transition-colors disabled:opacity-30"
+                    className="rounded-lg p-1 text-slate-500 dark:text-slate-600 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-500 dark:hover:text-slate-400 transition-colors disabled:opacity-30"
                   >
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7" /></svg>
                   </button>
                   <button
                     onClick={() => moveDown(index)}
                     disabled={index === sorted.length - 1}
-                    className="rounded-lg p-1 text-slate-600 hover:bg-white/5 hover:text-slate-400 transition-colors disabled:opacity-30"
+                    className="rounded-lg p-1 text-slate-500 dark:text-slate-600 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-500 dark:hover:text-slate-400 transition-colors disabled:opacity-30"
                   >
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
                   </button>
@@ -222,7 +222,7 @@ export default function AdminCategoriesPage() {
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => openEdit(cat)}
-                    className="rounded-xl p-2 text-slate-500 hover:bg-white/5 hover:text-slate-300 transition-colors"
+                    className="rounded-xl p-2 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                     title="Edit"
                   >
                     <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -234,7 +234,7 @@ export default function AdminCategoriesPage() {
                     className={`rounded-xl p-2 transition-colors ${
                       cat.enabled
                         ? "text-emerald-500 hover:bg-emerald-500/10"
-                        : "text-slate-600 hover:bg-white/5"
+                        : "text-slate-500 dark:text-slate-600 hover:bg-black/5 dark:hover:bg-white/5"
                     }`}
                     title={cat.enabled ? "Disable" : "Enable"}
                   >

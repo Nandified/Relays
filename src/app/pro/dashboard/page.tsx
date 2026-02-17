@@ -40,8 +40,8 @@ export default function ProDashboardPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-100">Pro Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-400">Welcome back! Here&apos;s what needs your attention.</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Pro Dashboard</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Welcome back! Here&apos;s what needs your attention.</p>
       </div>
 
       {/* Stat cards */}
@@ -59,7 +59,7 @@ export default function ProDashboardPage() {
           <div className="text-xs text-slate-500 mt-1">Actions Needed</div>
         </Card>
         <Card padding="md">
-          <div className="text-2xl font-bold text-slate-300">4.9</div>
+          <div className="text-2xl font-bold text-slate-700 dark:text-slate-300">4.9</div>
           <div className="text-xs text-slate-500 mt-1">Rating</div>
         </Card>
       </div>
@@ -74,7 +74,7 @@ export default function ProDashboardPage() {
                   <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h2 className="text-lg font-bold text-slate-100">Action Needed</h2>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Action Needed</h2>
               {proMoments.urgent.length > 0 && (
                 <Badge variant="danger" className="text-[10px] animate-gentle-pulse">
                   {proMoments.urgent.length} urgent
@@ -168,14 +168,14 @@ export default function ProDashboardPage() {
                       <div className="flex items-center gap-4 mb-3">
                         <div className="relative h-10 w-10 flex-shrink-0">
                           <svg viewBox="0 0 36 36" className="h-10 w-10">
-                            <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
+                            <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="var(--border)" strokeWidth="3" />
                             <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke={filled === totalRoles ? "#10b981" : "#3b82f6"} strokeWidth="3" strokeLinecap="round" strokeDasharray={`${pct}, 100`} />
                           </svg>
-                          <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-200 tabular-nums">{filled}/{totalRoles}</div>
+                          <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-800 dark:text-slate-200 tabular-nums">{filled}/{totalRoles}</div>
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <h3 className="text-sm font-semibold text-slate-100 truncate">{journey.title}</h3>
+                            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{journey.title}</h3>
                             <Badge variant={journey.status === "completed" ? "success" : journey.status === "active" ? "accent" : "warning"}>
                               {journey.status === "completed" ? "Complete" : journey.status === "active" ? "Active" : "Pending"}
                             </Badge>
@@ -218,7 +218,7 @@ export default function ProDashboardPage() {
           </div>
         ) : (
           <Card padding="lg" className="text-center">
-            <p className="text-sm text-slate-400 mb-3">Create your first journey to guide clients through the home buying process</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">Create your first journey to guide clients through the home buying process</p>
             <Link href="/pro/journey/new"><Button>Create Journey</Button></Link>
           </Card>
         )}
@@ -248,10 +248,10 @@ export default function ProDashboardPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-slate-100">{req.clientName}</span>
+                      <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{req.clientName}</span>
                       <Badge variant="warning">New</Badge>
                     </div>
-                    <p className="mt-1 text-xs text-slate-400 line-clamp-2">{req.description}</p>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{req.description}</p>
                     <div className="mt-1 text-xs text-slate-500">{req.addressOrArea} • {new Date(req.receivedAt).toLocaleDateString()}</div>
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0">
@@ -269,7 +269,7 @@ export default function ProDashboardPage() {
       <div className="mb-8">
         {/* Demo toggle */}
         <div className="mb-3 flex items-center gap-2 text-xs">
-          <span className="text-slate-600">Demo status:</span>
+          <span className="text-slate-500 dark:text-slate-600">Demo status:</span>
           {[
             { id: "pro_1", label: "Verified", color: "emerald" },
             { id: "pro_2", label: "Pending", color: "amber" },
@@ -280,7 +280,7 @@ export default function ProDashboardPage() {
               className={`px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
                 demoVerifiedProId === opt.id
                   ? `border-${opt.color}-500/30 bg-${opt.color}-500/10 text-${opt.color}-400`
-                  : "border-[var(--border)] text-slate-500 hover:text-slate-400"
+                  : "border-[var(--border)] text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
               }`}
               onClick={() => setDemoVerifiedProId(opt.id)}
             >
@@ -300,7 +300,7 @@ export default function ProDashboardPage() {
                   <h3 className="text-sm font-semibold text-emerald-400">License Verified</h3>
                   <VerifiedBadge status="verified" size="sm" showLabel />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   Verified since {vDate ? new Date(vDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "recently"}. Your badge is live on your profile.
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function ProDashboardPage() {
                   <h3 className="text-sm font-semibold text-amber-400">Verification Under Review</h3>
                   <VerifiedBadge status="pending" size="sm" showLabel />
                 </div>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   Your license is being reviewed by our team. This usually takes 1-2 business days.
                 </p>
               </div>
@@ -336,8 +336,8 @@ export default function ProDashboardPage() {
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-sm font-semibold text-slate-100">Get Verified — Upload Your License</h3>
-                <p className="text-xs text-slate-400 mt-1">Verified pros get more leads and rank higher in search results. Most are verified instantly.</p>
+                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Get Verified — Upload Your License</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Verified pros get more leads and rank higher in search results. Most are verified instantly.</p>
                 <Link href="/pro/verification">
                   <Button size="sm" className="mt-3">Upload License</Button>
                 </Link>
@@ -360,9 +360,9 @@ export default function ProDashboardPage() {
             <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i > 0 ? "border-t border-[var(--border)]" : ""}`}>
               <span className="text-base">{activity.icon}</span>
               <div className="flex-1 min-w-0">
-                <div className="text-sm text-slate-300 truncate">{activity.text}</div>
+                <div className="text-sm text-slate-700 dark:text-slate-300 truncate">{activity.text}</div>
               </div>
-              <span className="text-xs text-slate-600 flex-shrink-0">{activity.time}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-600 flex-shrink-0">{activity.time}</span>
             </div>
           ))}
         </Card>

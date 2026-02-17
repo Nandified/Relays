@@ -54,7 +54,7 @@ export function SoftWallGate({
 
       <Modal open={open} title="Create an account to continue" onClose={() => setOpen(false)}>
         <div className="space-y-4">
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Sign in to add pros to your team, request bookings, and track your journey.
           </p>
 
@@ -90,7 +90,7 @@ export function SoftWallGate({
             Continue with Apple
           </Button>
 
-          <p className="text-[11px] text-slate-600 text-center">
+          <p className="text-[11px] text-slate-500 dark:text-slate-600 text-center">
             By continuing, you agree to our Terms and Privacy Policy.
           </p>
         </div>

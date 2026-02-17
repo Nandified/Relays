@@ -40,10 +40,10 @@ export function Modal({
         <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-[var(--shadow-modal)] backdrop-blur-xl">
           {title && (
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-100">{title}</h2>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
               <button
                 onClick={onClose}
-                className="rounded-full p-1 text-slate-500 hover:bg-white/5 hover:text-slate-300"
+                className="rounded-full p-1 text-slate-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300"
               >
                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path d="M18 6L6 18M6 6l12 12" />

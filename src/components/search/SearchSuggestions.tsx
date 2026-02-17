@@ -35,10 +35,10 @@ const categoryEmoji: Record<string, string> = {
 function ShimmerRow() {
   return (
     <div className="flex items-center gap-3 px-3 py-2.5 animate-pulse">
-      <div className="h-9 w-9 rounded-xl bg-white/[0.06] flex-shrink-0" />
+      <div className="h-9 w-9 rounded-xl bg-black/[0.06] dark:bg-white/[0.06] flex-shrink-0" />
       <div className="flex-1 min-w-0 space-y-1.5">
-        <div className="h-3.5 w-32 rounded bg-white/[0.06]" />
-        <div className="h-2.5 w-48 rounded bg-white/[0.04]" />
+        <div className="h-3.5 w-32 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+        <div className="h-2.5 w-48 rounded bg-black/[0.04] dark:bg-white/[0.04]" />
       </div>
     </div>
   );
@@ -200,7 +200,7 @@ export function SearchSuggestions({
     <div
       ref={containerRef}
       className={`
-        rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-2xl
+        rounded-2xl border border-black/[0.12] dark:border-white/[0.12] bg-black/[0.05] dark:bg-white/[0.05] backdrop-blur-2xl
         shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]
         overflow-hidden z-50
         ${className}
@@ -223,8 +223,8 @@ export function SearchSuggestions({
         {/* No results */}
         {showNoResults && (
           <div className="px-4 py-6 text-center">
-            <div className="text-sm font-medium text-slate-400">No professionals found</div>
-            <div className="mt-1 text-xs text-slate-600">Try different terms or browse all categories</div>
+            <div className="text-sm font-medium text-slate-500 dark:text-slate-400">No professionals found</div>
+            <div className="mt-1 text-xs text-slate-500 dark:text-slate-600">Try different terms or browse all categories</div>
           </div>
         )}
 
@@ -243,7 +243,7 @@ export function SearchSuggestions({
                   onClick={() => onSelectPro(pro)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
-                    ${isActive ? "bg-white/[0.08]" : "hover:bg-white/[0.05]"}
+                    ${isActive ? "bg-black/[0.08] dark:bg-white/[0.08]" : "hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
                   `}
                 >
                   {/* Avatar */}
@@ -253,7 +253,7 @@ export function SearchSuggestions({
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-slate-200">{pro.name}</span>
+                      <span className="truncate text-sm font-medium text-slate-800 dark:text-slate-200">{pro.name}</span>
                       {pro.verified && (
                         <span className="flex-shrink-0 text-[10px] text-emerald-400">✓</span>
                       )}
@@ -265,7 +265,7 @@ export function SearchSuggestions({
                     </div>
                   </div>
                   {/* Rating */}
-                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-400">
+                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
                     <svg width="11" height="11" fill="#f59e0b" viewBox="0 0 20 20">
                       <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                     </svg>
@@ -282,7 +282,7 @@ export function SearchSuggestions({
           <div className="py-1.5">
             {/* Divider if pros section exists */}
             {matchedPros.length > 0 && (
-              <div className="mx-3 mb-1.5 h-px bg-white/[0.06]" />
+              <div className="mx-3 mb-1.5 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
@@ -308,17 +308,17 @@ export function SearchSuggestions({
                   onClick={() => onSelectLicensed?.(prof)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
-                    ${isActive ? "bg-white/[0.08]" : "hover:bg-white/[0.05]"}
+                    ${isActive ? "bg-black/[0.08] dark:bg-white/[0.08]" : "hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
                   `}
                 >
                   {/* Initials avatar */}
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-semibold text-slate-400">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-semibold text-slate-500 dark:text-slate-400">
                     {initials}
                   </div>
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-slate-300">{prof.name}</span>
+                      <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{prof.name}</span>
                       <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 px-1.5 py-0 text-[9px] font-medium text-emerald-400/80">
                         Licensed
                       </span>
@@ -340,7 +340,7 @@ export function SearchSuggestions({
           <div className="py-1.5">
             {/* Divider if previous sections exist */}
             {(matchedPros.length > 0 || matchedLicensed.length > 0) && (
-              <div className="mx-3 mb-1.5 h-px bg-white/[0.06]" />
+              <div className="mx-3 mb-1.5 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             )}
             <div className="px-3 py-1.5 flex items-center gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
@@ -364,7 +364,7 @@ export function SearchSuggestions({
                   onClick={() => onSelectPlace(place)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
-                    ${isActive ? "bg-white/[0.08]" : "hover:bg-white/[0.05]"}
+                    ${isActive ? "bg-black/[0.08] dark:bg-white/[0.08]" : "hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
                   `}
                 >
                   {/* Emoji avatar */}
@@ -374,7 +374,7 @@ export function SearchSuggestions({
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-slate-300 opacity-90">{place.name}</span>
+                      <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-300 opacity-90">{place.name}</span>
                       <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-amber-500/10 border border-amber-500/15 px-1.5 py-0 text-[9px] font-medium text-amber-400/80">
                         Unclaimed
                       </span>
@@ -382,7 +382,7 @@ export function SearchSuggestions({
                     <div className="truncate text-xs text-slate-500">{place.address}</div>
                   </div>
                   {/* Rating */}
-                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-400">
+                  <div className="flex items-center gap-1 flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
                     <svg width="11" height="11" fill="#f59e0b" viewBox="0 0 20 20">
                       <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
                     </svg>
@@ -397,15 +397,15 @@ export function SearchSuggestions({
         {/* See all results */}
         {!loading && hasResults && onSeeAll && query.trim() && (
           <>
-            <div className="mx-3 h-px bg-white/[0.06]" />
+            <div className="mx-3 h-px bg-black/[0.06] dark:bg-white/[0.06]" />
             <button
               data-suggestion-item
               onClick={() => onSeeAll(query)}
               className={`
                 w-full px-3 py-2.5 text-center text-xs font-medium transition-colors
                 ${activeIndex === matchedPros.length + matchedLicensed.length + matchedPlaces.length
-                  ? "bg-white/[0.08] text-blue-400"
-                  : "text-slate-500 hover:text-blue-400 hover:bg-white/[0.05]"}
+                  ? "bg-black/[0.08] dark:bg-white/[0.08] text-blue-400"
+                  : "text-slate-500 hover:text-blue-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
               `}
             >
               Browse all professionals →

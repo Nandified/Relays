@@ -51,7 +51,7 @@ export function GooglePlacesPreview({ place }: { place: PlacesResult }) {
           {place.categories[0] === "Insurance Agent" && "🛡️"}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-base font-semibold text-slate-100 opacity-80">{place.name}</div>
+          <div className="truncate text-base font-semibold text-slate-900 dark:text-slate-100 opacity-80">{place.name}</div>
           <div className="truncate text-sm text-slate-500">{place.address}</div>
         </div>
       </div>
@@ -65,7 +65,7 @@ export function GooglePlacesPreview({ place }: { place: PlacesResult }) {
             </svg>
           ))}
         </div>
-        <span className="text-sm font-medium text-slate-300">{place.rating.toFixed(1)}</span>
+        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{place.rating.toFixed(1)}</span>
         <span className="text-xs text-slate-500">({place.reviewCount} reviews)</span>
       </div>
 
@@ -90,13 +90,13 @@ export function GooglePlacesPreview({ place }: { place: PlacesResult }) {
       <div className="mt-3 space-y-1">
         {place.phone && (
           <div className="text-xs text-slate-500">
-            <span className="font-medium text-slate-400">Phone: </span>
+            <span className="font-medium text-slate-500 dark:text-slate-400">Phone: </span>
             {place.phone}
           </div>
         )}
         {place.website && (
           <div className="text-xs text-slate-500">
-            <span className="font-medium text-slate-400">Website: </span>
+            <span className="font-medium text-slate-500 dark:text-slate-400">Website: </span>
             <span className="text-blue-400/60">{place.website.replace("https://", "")}</span>
           </div>
         )}
@@ -134,7 +134,7 @@ export function GooglePlacesPreview({ place }: { place: PlacesResult }) {
             </>
           )}
         </Button>
-        <p className="text-center text-[11px] text-slate-600">
+        <p className="text-center text-[11px] text-slate-500 dark:text-slate-600">
           Know this business? Help them claim their free Relays profile.
         </p>
       </div>

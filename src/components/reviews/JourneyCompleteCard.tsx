@@ -42,10 +42,10 @@ export function JourneyCompleteCard({
             <div className="absolute -inset-3 rounded-full bg-emerald-500/10 animate-ping-slow" />
             <div className="relative text-4xl">🏠</div>
           </div>
-          <h2 className="text-xl font-bold text-white">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
             Journey Complete!
           </h2>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Congratulations on closing{" "}
             <span className="text-emerald-400 font-medium">
               {journey.title}
@@ -59,11 +59,11 @@ export function JourneyCompleteCard({
         {/* Quick stats */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-3 text-center">
-            <div className="text-lg font-bold text-white">5/5</div>
+            <div className="text-lg font-bold text-slate-900 dark:text-white">5/5</div>
             <div className="text-[10px] text-slate-500">Team Members</div>
           </div>
           <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-3 text-center">
-            <div className="text-lg font-bold text-white">
+            <div className="text-lg font-bold text-slate-900 dark:text-white">
               {journey.auditTrail.length}
             </div>
             <div className="text-[10px] text-slate-500">Milestones</div>
@@ -114,7 +114,7 @@ export function JourneyCompleteCard({
                       />
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-slate-200">
+                      <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
                         {pro.name}
                       </div>
                       <div className="text-[11px] text-slate-500">
@@ -147,7 +147,7 @@ export function JourneyCompleteCard({
           <div className="text-center mt-4">
             <button
               onClick={onDismiss}
-              className="text-xs text-slate-600 hover:text-slate-400 transition-colors"
+              className="text-xs text-slate-500 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors"
             >
               Dismiss
             </button>

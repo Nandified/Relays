@@ -46,26 +46,26 @@ export function HeroMomentCard({ moment, journeyTitle }: HeroMomentCardProps) {
                   Action Needed
                 </Badge>
                 {journeyTitle && (
-                  <span className="text-[11px] text-slate-600">{journeyTitle}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-600">{journeyTitle}</span>
                 )}
               </div>
-              <h3 className="text-lg font-bold text-white mt-1">{moment.title}</h3>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1">{moment.title}</h3>
             </div>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-sm text-slate-400 mb-5 leading-relaxed">{moment.description}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">{moment.description}</p>
 
         {/* Stage info */}
         <div className="flex items-center gap-2 mb-5">
-          <span className="text-[11px] text-slate-600">Stage:</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-600">Stage:</span>
           <Badge variant="outline" className="text-[10px]">
             {JOURNEY_STAGE_LABELS[moment.stage]}
           </Badge>
           {moment.triggerDate && (
             <>
-              <span className="text-[11px] text-slate-600">Deadline:</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-600">Deadline:</span>
               <Badge variant="warning" className="text-[10px]">
                 {new Date(moment.triggerDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
               </Badge>
@@ -103,9 +103,9 @@ export function UpcomingMomentCard({ moment }: UpcomingMomentCardProps) {
           {style.icon}
         </div>
         <div className="min-w-0 flex-1">
-          <h4 className="text-sm font-medium text-slate-300 truncate">{moment.title}</h4>
+          <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate">{moment.title}</h4>
           <div className="flex items-center gap-2 mt-0.5">
-            <span className="text-[11px] text-slate-600">
+            <span className="text-[11px] text-slate-500 dark:text-slate-600">
               Triggers at: {JOURNEY_STAGE_LABELS[moment.stage]}
             </span>
           </div>
@@ -141,10 +141,10 @@ export function CompletedMomentCard({ moment }: CompletedMomentCardProps) {
           </svg>
         </div>
         <div className="min-w-0 flex-1">
-          <span className="text-sm text-slate-400 line-through decoration-emerald-500/40">{moment.title}</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400 line-through decoration-emerald-500/40">{moment.title}</span>
         </div>
         {moment.completedAt && (
-          <span className="text-[10px] text-slate-600 flex-shrink-0">
+          <span className="text-[10px] text-slate-500 dark:text-slate-600 flex-shrink-0">
             {new Date(moment.completedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           </span>
         )}
@@ -155,7 +155,7 @@ export function CompletedMomentCard({ moment }: CompletedMomentCardProps) {
           stroke="currentColor"
           strokeWidth="2"
           viewBox="0 0 24 24"
-          className={`text-slate-600 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+          className={`text-slate-500 dark:text-slate-600 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
         >
           <path d="M19 9l-7 7-7-7" />
         </svg>
@@ -206,10 +206,10 @@ export function ProMomentCard({ moment, clientName, propertyAddress, journeyId, 
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm font-semibold text-slate-100">{clientName}</span>
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{clientName}</span>
             {urgencyBadge[urgency]}
           </div>
-          <h4 className="text-sm font-medium text-slate-300">{moment.title}</h4>
+          <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300">{moment.title}</h4>
           <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
             <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
               <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -222,7 +222,7 @@ export function ProMomentCard({ moment, clientName, propertyAddress, journeyId, 
 
       {/* Quick actions */}
       {urgency !== "recent" && (
-        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-white/[0.04]">
+        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04]">
           <Link href={`/journey/${journeyId}`} className="flex-1">
             <Button size="sm" className="w-full text-xs">
               {moment.action === "send_top_3" ? "Send Top 3" : "View Journey"}

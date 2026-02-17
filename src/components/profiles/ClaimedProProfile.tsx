@@ -22,7 +22,7 @@ const badgeVariantMap: Record<string, "success" | "accent" | "warning"> = {
 export function ClaimedProProfile({ pro }: { pro: Pro }) {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-6">
+      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
@@ -39,7 +39,7 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-xl font-bold text-slate-100">{pro.name}</h1>
+                  <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{pro.name}</h1>
                   {pro.verified && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
                       ✓ Verified
@@ -61,7 +61,7 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
                   </svg>
                 ))}
               </div>
-              <span className="text-sm font-semibold text-slate-300">{pro.rating.toFixed(1)}</span>
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{pro.rating.toFixed(1)}</span>
               <span className="text-sm text-slate-500">({pro.reviewCount} reviews)</span>
             </div>
           </div>
@@ -84,14 +84,14 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
         {/* Intro Video — shown ABOVE About per v19 spec */}
         {pro.introVideoUrl ? (
           <div className="mt-6">
-            <h2 className="text-sm font-semibold text-slate-200 mb-3">Intro Video</h2>
+            <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Intro Video</h2>
             <ProIntroVideoPlayer videoUrl={pro.introVideoUrl} proName={pro.name} />
           </div>
         ) : (
           <div className="mt-6">
             <div className="aspect-video rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center">
               <div className="text-center">
-                <div className="mx-auto h-12 w-12 rounded-full bg-white/5 border border-[var(--border)] shadow-sm flex items-center justify-center">
+                <div className="mx-auto h-12 w-12 rounded-full bg-black/5 dark:bg-white/5 border border-[var(--border)] shadow-sm flex items-center justify-center">
                   <svg width="20" height="20" fill="none" stroke="#64748b" strokeWidth="2" viewBox="0 0 24 24">
                     <polygon points="5,3 19,12 5,21" />
                   </svg>
@@ -121,7 +121,7 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
               </a>
             )}
             {pro.socialLinks.tiktok && (
-              <a href={`https://tiktok.com/@${pro.socialLinks.tiktok}`} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-200 transition-colors" title="TikTok">
+              <a href={`https://tiktok.com/@${pro.socialLinks.tiktok}`} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors" title="TikTok">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
               </a>
             )}
@@ -134,14 +134,14 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
         )}
 
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-2">About</h2>
-          <p className="text-sm text-slate-400 leading-relaxed">{pro.bio}</p>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">About</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{pro.bio}</p>
         </div>
 
         {/* Specialties */}
         {pro.specialties && pro.specialties.length > 0 && (
           <div className="mt-6">
-            <h2 className="text-sm font-semibold text-slate-200 mb-2">Specialties</h2>
+            <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Specialties</h2>
             <div className="flex flex-wrap gap-1.5">
               {pro.specialties.map((s) => (
                 <Badge key={s} variant="accent">{s}</Badge>
@@ -160,14 +160,14 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
               </div>
               <div>
                 <div className="text-sm font-medium text-amber-400">Not yet verified</div>
-                <div className="text-xs text-slate-400 mt-0.5">This professional hasn&apos;t submitted their credentials yet.</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">This professional hasn&apos;t submitted their credentials yet.</div>
               </div>
             </div>
           </div>
         )}
 
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-2">Services</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Services</h2>
           <div className="flex flex-wrap gap-2">
             {pro.categories.map((cat) => (
               <Badge key={cat} variant="outline">{cat}</Badge>
@@ -176,12 +176,12 @@ export function ClaimedProProfile({ pro }: { pro: Pro }) {
         </div>
 
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-200 mb-2">Service Areas</h2>
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Service Areas</h2>
           <div className="flex flex-wrap gap-2">
             {pro.serviceAreas.map((area, i) => (
               <span key={area}>
-                <span className="text-sm text-slate-400">{area}</span>
-                {i < pro.serviceAreas.length - 1 && <span className="text-slate-600 ml-2">•</span>}
+                <span className="text-sm text-slate-500 dark:text-slate-400">{area}</span>
+                {i < pro.serviceAreas.length - 1 && <span className="text-slate-500 dark:text-slate-600 ml-2">•</span>}
               </span>
             ))}
           </div>

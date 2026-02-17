@@ -20,7 +20,7 @@ export function HomeworkeCrossSellCard() {
               🏗️
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-slate-100">Need Repairs or Renovations?</h3>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Need Repairs or Renovations?</h3>
               <p className="text-xs text-slate-500 mt-0.5">Get instant estimates for any home project</p>
             </div>
           </div>
@@ -33,7 +33,7 @@ export function HomeworkeCrossSellCard() {
         </div>
 
         {/* Value prop */}
-        <p className="text-sm text-slate-400 leading-relaxed mb-6">
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
           Your inspection report revealed items that may need attention. Upload it to get AI-powered estimates and connect with top-rated contractors in your area — in minutes, not days.
         </p>
 
@@ -46,7 +46,7 @@ export function HomeworkeCrossSellCard() {
           ].map((f) => (
             <div key={f.title} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-4 text-center">
               <span className="text-xl">{f.icon}</span>
-              <div className="text-xs font-medium text-slate-200 mt-2">{f.title}</div>
+              <div className="text-xs font-medium text-slate-800 dark:text-slate-200 mt-2">{f.title}</div>
               <div className="text-[10px] text-slate-500 mt-0.5">{f.desc}</div>
             </div>
           ))}
@@ -72,7 +72,7 @@ export function HomeworkeCrossSellCard() {
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
                 </svg>
               </div>
-              <p className="text-sm font-medium text-slate-300">Drop your inspection report here</p>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Drop your inspection report here</p>
               <p className="text-xs text-slate-500 mt-1">PDF, JPG, or PNG up to 25MB</p>
             </div>
             <div className="mt-3 flex gap-2">
@@ -94,7 +94,7 @@ export function HomeworkeCrossSellCard() {
         )}
 
         {/* Co-branding */}
-        <div className="mt-5 flex items-center justify-center gap-2 text-[10px] text-slate-600">
+        <div className="mt-5 flex items-center justify-center gap-2 text-[10px] text-slate-500 dark:text-slate-600">
           <span className="flex items-center gap-1">
             <span className="font-semibold text-amber-400/60">Homeworke</span>
             ×

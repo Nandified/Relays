@@ -83,7 +83,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
               <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl border ${
                 group.isDefault
                   ? "bg-amber-500/10 border-amber-500/20"
-                  : "bg-white/5 border-[var(--border)]"
+                  : "bg-black/5 dark:bg-white/5 border-[var(--border)]"
               }`}>
                 {group.isDefault ? (
                   <svg width="18" height="18" fill="#f59e0b" viewBox="0 0 20 20">
@@ -97,7 +97,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-slate-100 truncate">{group.name}</h3>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{group.name}</h3>
                   {group.isDefault && (
                     <Badge variant="warning" className="text-[10px] py-0">Default</Badge>
                   )}
@@ -107,7 +107,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
                 )}
               </div>
             </div>
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-600 flex-shrink-0 group-hover:text-slate-400 transition-colors mt-1">
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-slate-500 dark:text-slate-600 flex-shrink-0 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition-colors mt-1">
               <path d="M9 5l7 7-7 7" />
             </svg>
           </div>
@@ -134,7 +134,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
                   return (
                     <div
                       key={cat}
-                      className={`h-2 w-2 rounded-full ${hasPartner ? CATEGORY_COLORS[cat] : "bg-white/10"}`}
+                      className={`h-2 w-2 rounded-full ${hasPartner ? CATEGORY_COLORS[cat] : "bg-black/5 dark:bg-white/10"}`}
                       title={cat}
                     />
                   );
@@ -166,7 +166,7 @@ function GroupCard({ group }: { group: CuratedGroup }) {
 
           {/* Share link preview */}
           <div className="mt-3 pt-3 border-t border-[var(--border)]">
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-600 font-mono">
+            <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-600 font-mono">
               <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="flex-shrink-0">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
@@ -228,7 +228,7 @@ function CreateGroupModal({
         />
 
         <div>
-          <span className="mb-2 block text-sm font-medium text-slate-300">Tags</span>
+          <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Tags</span>
           <div className="flex flex-wrap gap-2">
             {(Object.keys(TAG_META) as CuratedGroupTag[]).map((tag) => {
               const meta = TAG_META[tag];
@@ -240,7 +240,7 @@ function CreateGroupModal({
                   className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium border transition-all duration-200 ${
                     isSelected
                       ? `${meta.bgColor} ${meta.color} ring-1 ring-current/20`
-                      : "border-[var(--border)] text-slate-500 hover:border-[var(--border-hover)] hover:text-slate-300"
+                      : "border-[var(--border)] text-slate-500 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
                   }`}
                 >
                   <span>{meta.icon}</span>
@@ -258,9 +258,9 @@ function CreateGroupModal({
 
         <div>
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium text-slate-300">Description (optional)</span>
+            <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Description (optional)</span>
             <textarea
-              className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-500 outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-2 focus:ring-[var(--accent-light)] resize-none"
+              className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder:text-slate-500 outline-none transition-all focus:border-[var(--accent)]/50 focus:ring-2 focus:ring-[var(--accent-light)] resize-none"
               rows={3}
               placeholder="Brief description of when to use this group..."
               value={description}
@@ -271,9 +271,9 @@ function CreateGroupModal({
 
         {/* Preview slug */}
         {name.trim() && (
-          <div className="rounded-xl bg-white/[0.02] border border-[var(--border)] p-3">
+          <div className="rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-[var(--border)] p-3">
             <div className="text-[10px] text-slate-500 mb-1">Share link preview</div>
-            <div className="text-xs text-slate-400 font-mono">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               relaysapp.com/u/lisahartwell/
               <span className="text-blue-400">
                 {name.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}
@@ -319,15 +319,15 @@ export default function ProGroupsPage() {
         <div>
           <Link
             href="/pro/dashboard"
-            className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors mb-3"
+            className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors mb-3"
           >
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M15 19l-7-7 7-7" />
             </svg>
             Back to Dashboard
           </Link>
-          <h1 className="text-2xl font-bold text-slate-100">Curated Groups</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Curated Groups</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Organize your referral partners by lead source, language, or scenario.
           </p>
         </div>
@@ -349,7 +349,7 @@ export default function ProGroupsPage() {
           </div>
           <div>
             <h3 className="text-sm font-medium text-blue-300">Internal routing only</h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Groups are backstage tools. Clients never see group names — they just see your curated Top 3 per category. 
               Each group gets a unique share link for different lead sources.
             </p>
@@ -384,15 +384,15 @@ export default function ProGroupsPage() {
         {/* Create new card (ghost) */}
         <button
           onClick={() => setShowCreate(true)}
-          className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--border)] bg-white/[0.01] p-8 hover:border-[var(--border-hover)] hover:bg-white/[0.02] transition-all duration-300 cursor-pointer group"
+          className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--border)] bg-black/[0.01] dark:bg-white/[0.01] p-8 hover:border-[var(--border-hover)] hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all duration-300 cursor-pointer group"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 border border-[var(--border)] group-hover:border-blue-500/30 group-hover:bg-blue-500/5 transition-all duration-300 mb-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--border)] group-hover:border-blue-500/30 group-hover:bg-blue-500/5 transition-all duration-300 mb-3">
             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="text-slate-500 group-hover:text-blue-400 transition-colors">
               <path d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <span className="text-sm text-slate-500 group-hover:text-slate-300 transition-colors">Create a new group</span>
-          <span className="text-[11px] text-slate-600 mt-0.5">Add partners by lead source, language, or scenario</span>
+          <span className="text-sm text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Create a new group</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-600 mt-0.5">Add partners by lead source, language, or scenario</span>
         </button>
       </div>
 

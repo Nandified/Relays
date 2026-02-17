@@ -35,13 +35,13 @@ function PricingCard({
       )}
 
       <div className="mb-5">
-        <h3 className="text-lg font-bold text-slate-100">{tier.name}</h3>
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{tier.name}</h3>
         <p className="text-xs text-slate-500 mt-1">{tier.description}</p>
       </div>
 
       <div className="mb-6">
         <div className="flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-white tabular-nums">
+          <span className="text-4xl font-bold text-slate-900 dark:text-white tabular-nums">
             {isFree ? "Free" : `$${price}`}
           </span>
           {!isFree && (
@@ -54,7 +54,7 @@ function PricingCard({
           </p>
         )}
         {!isFree && !annual && (
-          <p className="text-[11px] text-slate-600 mt-1">
+          <p className="text-[11px] text-slate-500 dark:text-slate-600 mt-1">
             or ${tier.annualPrice}/mo billed annually
           </p>
         )}
@@ -77,7 +77,7 @@ function PricingCard({
                 <path stroke="rgba(100,116,139,0.3)" strokeWidth="2" d="M5 10h10" />
               </svg>
             )}
-            <span className={`text-sm ${feat.included ? (feat.highlight ? "text-slate-100 font-medium" : "text-slate-300") : "text-slate-600"}`}>
+            <span className={`text-sm ${feat.included ? (feat.highlight ? "text-slate-900 dark:text-slate-100 font-medium" : "text-slate-700 dark:text-slate-300") : "text-slate-500 dark:text-slate-600"}`}>
               {feat.text}
             </span>
           </div>
@@ -108,7 +108,7 @@ function FAQAccordion({ question, answer }: { question: string; answer: string }
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between py-4 text-left cursor-pointer group"
       >
-        <span className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors pr-4">{question}</span>
+        <span className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-white transition-colors pr-4">{question}</span>
         <svg
           width="16"
           height="16"
@@ -123,7 +123,7 @@ function FAQAccordion({ question, answer }: { question: string; answer: string }
       </button>
       {open && (
         <div className="pb-4 animate-in">
-          <p className="text-sm text-slate-400 leading-relaxed">{answer}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{answer}</p>
         </div>
       )}
     </div>
@@ -146,10 +146,10 @@ export default function PricingPage() {
           <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-[radial-gradient(ellipse,rgba(59,130,246,0.06),transparent_70%)]" />
 
           <div className="relative text-center max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl md:text-5xl">
               Simple, transparent pricing
             </h1>
-            <p className="mt-4 text-lg text-slate-400">
+            <p className="mt-4 text-lg text-slate-500 dark:text-slate-400">
               Free forever for consumers. For professionals, choose the plan that fits your business.
             </p>
 
@@ -159,8 +159,8 @@ export default function PricingPage() {
                 onClick={() => setAnnual(false)}
                 className={`rounded-xl px-4 py-2 text-sm font-medium transition-all ${
                   !annual
-                    ? "bg-white/10 text-white shadow-sm"
-                    : "text-slate-500 hover:text-slate-300"
+                    ? "bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm"
+                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
                 }`}
               >
                 Monthly
@@ -169,8 +169,8 @@ export default function PricingPage() {
                 onClick={() => setAnnual(true)}
                 className={`rounded-xl px-4 py-2 text-sm font-medium transition-all flex items-center gap-2 ${
                   annual
-                    ? "bg-white/10 text-white shadow-sm"
-                    : "text-slate-500 hover:text-slate-300"
+                    ? "bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm"
+                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
                 }`}
               >
                 Annual
@@ -192,7 +192,7 @@ export default function PricingPage() {
 
           {/* Enterprise CTA */}
           <div className="mt-8 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6 text-center">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Need something custom? We work with large brokerages and franchise groups.{" "}
               <Link href="/contact" className="text-blue-400 hover:text-blue-300 transition-colors font-medium">
                 Let&apos;s talk →
@@ -204,14 +204,14 @@ export default function PricingPage() {
         {/* Feature Comparison */}
         <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
           <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-            <h2 className="text-2xl font-bold text-slate-100 text-center mb-10">Compare Plans</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 text-center mb-10">Compare Plans</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[var(--border)]">
-                    <th className="text-left py-3 pr-4 text-slate-400 font-medium w-[200px]">Feature</th>
+                    <th className="text-left py-3 pr-4 text-slate-500 dark:text-slate-400 font-medium w-[200px]">Feature</th>
                     {mockPricingTiers.map((t) => (
-                      <th key={t.id} className="text-center py-3 px-3 text-slate-300 font-semibold">
+                      <th key={t.id} className="text-center py-3 px-3 text-slate-700 dark:text-slate-300 font-semibold">
                         {t.name}
                       </th>
                     ))}
@@ -236,7 +236,7 @@ export default function PricingPage() {
                     { feat: "Support", vals: ["Community", "Priority", "Priority", "Dedicated"] },
                   ].map((row, i) => (
                     <tr key={i} className="border-b border-[var(--border)] last:border-b-0">
-                      <td className="py-3 pr-4 text-slate-300">{row.feat}</td>
+                      <td className="py-3 pr-4 text-slate-700 dark:text-slate-300">{row.feat}</td>
                       {row.vals.map((v, j) => (
                         <td key={j} className="text-center py-3 px-3">
                           {v === "✓" ? (
@@ -244,9 +244,9 @@ export default function PricingPage() {
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           ) : v === "—" ? (
-                            <span className="text-slate-600">—</span>
+                            <span className="text-slate-500 dark:text-slate-600">—</span>
                           ) : (
-                            <span className="text-slate-300 font-medium">{v}</span>
+                            <span className="text-slate-700 dark:text-slate-300 font-medium">{v}</span>
                           )}
                         </td>
                       ))}
@@ -260,7 +260,7 @@ export default function PricingPage() {
 
         {/* FAQ */}
         <section className="mx-auto max-w-3xl px-4 py-16 md:py-24">
-          <h2 className="text-2xl font-bold text-slate-100 text-center mb-10">Frequently Asked Questions</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 text-center mb-10">Frequently Asked Questions</h2>
           <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-sm p-6 sm:p-8">
             {[...faqPros, ...faqGeneral].map((faq) => (
               <FAQAccordion key={faq.id} question={faq.question} answer={faq.answer} />
@@ -274,7 +274,7 @@ export default function PricingPage() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/20 rounded-3xl" />
             <div className="absolute inset-0 bg-[var(--bg-card)]/50 backdrop-blur-sm rounded-3xl" />
             <div className="relative">
-              <h2 className="text-2xl font-bold text-white sm:text-3xl">Ready to grow your referral business?</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Ready to grow your referral business?</h2>
               <p className="mt-3 text-blue-200/70 max-w-lg mx-auto">
                 Start free and upgrade when you&apos;re ready. No credit card required.
               </p>

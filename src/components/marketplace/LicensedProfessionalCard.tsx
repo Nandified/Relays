@@ -57,7 +57,7 @@ export function LicensedProfessionalCard({
               className="h-[52px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-gradient-to-br ${colorClass} text-base font-semibold`}>
+            <div className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${colorClass} text-base font-semibold`}>
               {initials}
             </div>
           )}
@@ -65,7 +65,7 @@ export function LicensedProfessionalCard({
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-slate-100">{professional.name}</div>
+                <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">{professional.name}</div>
                 <div className="truncate text-xs text-slate-500">
                   {professional.officeName || (professional.company !== professional.name ? professional.company : "")}
                   {professional.city ? (professional.officeName || (professional.company !== professional.name) ? `, ${professional.city}` : professional.city) : ""}

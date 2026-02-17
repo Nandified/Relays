@@ -36,8 +36,8 @@ export function ClaimProfileBanner({
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-slate-100">We found your business on Google</h3>
-          <p className="mt-1 text-xs text-slate-400">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">We found your business on Google</h3>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             It looks like your business already has a presence online. Claim it to import your details and start receiving referrals.
           </p>
         </div>
@@ -46,7 +46,7 @@ export function ClaimProfileBanner({
       <div className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-3">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="truncate text-sm font-medium text-slate-200">{place.name}</div>
+            <div className="truncate text-sm font-medium text-slate-800 dark:text-slate-200">{place.name}</div>
             <div className="truncate text-xs text-slate-500 mt-0.5">{place.address}</div>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-slate-500">

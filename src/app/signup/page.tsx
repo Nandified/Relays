@@ -77,8 +77,8 @@ export default function SignupPage() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-lg font-bold text-white shadow-[0_0_25px_rgba(59,130,246,0.3)] mb-4">
           R
         </div>
-        <h1 className="text-2xl font-bold text-slate-100">Create your account</h1>
-        <p className="mt-2 text-sm text-slate-400">Join Relays and build your dream team</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Create your account</h1>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Join Relays and build your dream team</p>
       </div>
 
       {step === "role" ? (
@@ -95,8 +95,8 @@ export default function SignupPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-slate-100">I&apos;m buying a home</h3>
-                  <p className="mt-1 text-sm text-slate-400">
+                  <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">I&apos;m buying a home</h3>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Browse marketplace, build your dream team, and book with confidence.
                   </p>
                 </div>
@@ -116,8 +116,8 @@ export default function SignupPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-slate-100">I&apos;m a real estate pro</h3>
-                  <p className="mt-1 text-sm text-slate-400">
+                  <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">I&apos;m a real estate pro</h3>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     List your business, receive leads, and manage bookings. Free to start.
                   </p>
                 </div>
@@ -133,9 +133,9 @@ export default function SignupPage() {
                 <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h2 className="text-base font-semibold text-slate-100">Check your email</h2>
-            <p className="mt-2 text-sm text-slate-400">
-              We sent a confirmation link to <strong className="text-slate-200">{email}</strong>. Click it to activate your account.
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Check your email</h2>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+              We sent a confirmation link to <strong className="text-slate-800 dark:text-slate-200">{email}</strong>. Click it to activate your account.
             </p>
           </div>
         </Card>
@@ -143,7 +143,7 @@ export default function SignupPage() {
         <Card padding="lg" className="shadow-[var(--shadow-elevated)]">
           <button
             onClick={() => setStep("role")}
-            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-300 mb-4"
+            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-4"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -151,8 +151,8 @@ export default function SignupPage() {
             Change role
           </button>
 
-          <div className="mb-4 rounded-xl bg-white/5 border border-[var(--border)] px-3 py-2 text-sm text-slate-400">
-            Signing up as: <span className="font-semibold text-slate-200">{role === "consumer" ? "Home Buyer" : "Professional"}</span>
+          <div className="mb-4 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+            Signing up as: <span className="font-semibold text-slate-800 dark:text-slate-200">{role === "consumer" ? "Home Buyer" : "Professional"}</span>
           </div>
 
           <div className="space-y-4">

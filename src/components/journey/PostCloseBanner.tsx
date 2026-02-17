@@ -29,7 +29,7 @@ function ChecklistItem({ item, checked, onToggle }: { item: PostCloseChecklistIt
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="text-base">{item.icon}</span>
-          <h4 className={`text-sm font-medium transition-all ${checked ? "text-slate-500 line-through" : "text-slate-200"}`}>
+          <h4 className={`text-sm font-medium transition-all ${checked ? "text-slate-500 line-through" : "text-slate-800 dark:text-slate-200"}`}>
             {item.title}
           </h4>
         </div>
@@ -103,7 +103,7 @@ export function PostCloseBanner({ clientName }: { clientName: string }) {
 
         <div className="relative p-6 sm:p-8 text-center">
           <div className="text-5xl mb-4">🎉</div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
             Congratulations on your new home!
           </h2>
           <p className="text-sm text-emerald-200/70 max-w-md mx-auto">
@@ -116,7 +116,7 @@ export function PostCloseBanner({ clientName }: { clientName: string }) {
               <span className="text-emerald-300/60">{completedCount} of {totalCount} completed</span>
               <span className="font-semibold text-emerald-400">{progress}%</span>
             </div>
-            <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+            <div className="h-2 rounded-full bg-black/5 dark:bg-white/10 overflow-hidden">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
@@ -131,7 +131,7 @@ export function PostCloseBanner({ clientName }: { clientName: string }) {
         const meta = categoryLabels[category] || { label: category, icon: "📋" };
         return (
           <div key={category}>
-            <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
               <span>{meta.icon}</span>
               {meta.label}
             </h3>
@@ -151,7 +151,7 @@ export function PostCloseBanner({ clientName }: { clientName: string }) {
 
       {/* Homeworke Cross-Sell */}
       <div>
-        <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span>🏗️</span>
           Repairs & Renovations
         </h3>
