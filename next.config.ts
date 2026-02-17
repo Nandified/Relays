@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Exclude large data files from serverless function bundles
+  outputFileTracingExcludes: {
+    "*": [
+      "./data/**",
+    ],
+  },
 };
 
 export default nextConfig;
