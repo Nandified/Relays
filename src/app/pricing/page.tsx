@@ -275,7 +275,7 @@ export default function PricingPage() {
             <div className="absolute inset-0 bg-[var(--bg-card)]/50 backdrop-blur-sm rounded-3xl" />
             <div className="relative">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Ready to grow your referral business?</h2>
-              <p className="mt-3 text-slate-600 dark:text-blue-200/70 max-w-lg mx-auto">
+              <p className="mt-3 text-slate-600 dark:text-slate-300 max-w-lg mx-auto">
                 Start free and upgrade when you&apos;re ready. No credit card required.
               </p>
               <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
