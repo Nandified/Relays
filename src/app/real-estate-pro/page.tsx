@@ -70,7 +70,7 @@ export default function RealEstateProPage() {
     () => [
       {
         roleLabel: "REALTOR®",
-        partnersLabel: "Preferred partners (chosen by this REALTOR®)",
+        location: "Chicago, IL",
         partnerCards: [
           { label: "Mortgage Lender", dot: "bg-blue-500" },
           { label: "Home Inspector", dot: "bg-indigo-500" },
@@ -80,7 +80,7 @@ export default function RealEstateProPage() {
       },
       {
         roleLabel: "Mortgage Lender",
-        partnersLabel: "Preferred partners (chosen by this pro)",
+        location: "Los Angeles, CA",
         partnerCards: [
           { label: "Realtor", dot: "bg-blue-500" },
           { label: "Home Inspector", dot: "bg-indigo-500" },
@@ -90,12 +90,32 @@ export default function RealEstateProPage() {
       },
       {
         roleLabel: "Insurance Agent",
-        partnersLabel: "Preferred partners (chosen by this pro)",
+        location: "Miami, FL",
         partnerCards: [
           { label: "Realtor", dot: "bg-blue-500" },
           { label: "Mortgage Lender", dot: "bg-indigo-500" },
           { label: "Home Inspector", dot: "bg-emerald-500" },
           { label: "Attorney", dot: "bg-blue-400" },
+        ],
+      },
+      {
+        roleLabel: "Home Inspector",
+        location: "Austin, TX",
+        partnerCards: [
+          { label: "Realtor", dot: "bg-blue-500" },
+          { label: "Mortgage Lender", dot: "bg-indigo-500" },
+          { label: "Attorney", dot: "bg-emerald-500" },
+          { label: "Insurance Agent", dot: "bg-blue-400" },
+        ],
+      },
+      {
+        roleLabel: "Attorney",
+        location: "New York, NY",
+        partnerCards: [
+          { label: "Realtor", dot: "bg-blue-500" },
+          { label: "Mortgage Lender", dot: "bg-indigo-500" },
+          { label: "Home Inspector", dot: "bg-emerald-500" },
+          { label: "Insurance Agent", dot: "bg-blue-400" },
         ],
       },
     ],
@@ -177,7 +197,7 @@ export default function RealEstateProPage() {
                           <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-indigo-500/10 border border-[var(--border)]" />
                           <div>
                             <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your Name, {activePreview.roleLabel}</div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">Chicago, IL • Relays Pro Page</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400">{activePreview.location} • Relays Pro Page</div>
                           </div>
                         </div>
                         <div className="hidden sm:flex items-center gap-2">
@@ -187,7 +207,7 @@ export default function RealEstateProPage() {
                       </div>
 
                       <div className="mt-6">
-                        <div className="text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-300">{activePreview.partnersLabel}</div>
+                        <div className="text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-300">Preferred partners (chosen by this pro)</div>
                         <div className="mt-3 grid gap-3 sm:grid-cols-2 transition-all duration-500">
                           {activePreview.partnerCards.map((row) => (
                             <div key={row.label} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-4">
