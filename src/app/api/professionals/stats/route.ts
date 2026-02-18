@@ -6,10 +6,11 @@ import { getProfessionalStats } from "@/lib/professional-data";
 
 export async function GET(request: NextRequest) {
   const stats = getProfessionalStats();
+  const buildTag = "b735b43";
 
   // Optional debug payload (for diagnosing serverless file access on Vercel)
   const debug = request.nextUrl.searchParams.get("debug") === "1";
-  if (!debug) return NextResponse.json(stats);
+  if (!debug) return NextResponse.json({ ...stats, buildTag });
 
   const cwd = process.cwd();
   const dataDir = path.join(cwd, "data", "idfpr");
