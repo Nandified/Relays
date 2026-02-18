@@ -31,6 +31,12 @@ export function SiteHeader() {
           <Link href="/marketplace" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
             Marketplace
           </Link>
+          <Link href="/real-estate-pro" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+            Real Estate Pro
+          </Link>
+          <Link href="/pricing" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+            Pricing
+          </Link>
           {isAuthed && !isPro && (
             <>
               <Link href="/dashboard" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
@@ -114,6 +120,8 @@ export function SiteHeader() {
         <div className="border-t border-[var(--border)] bg-[var(--bg-card)] p-4 md:hidden">
           <nav className="flex flex-col gap-1">
             <MobileLink href="/marketplace" onClick={() => setMobileOpen(false)}>Marketplace</MobileLink>
+            <MobileLink href="/real-estate-pro" onClick={() => setMobileOpen(false)}>Real Estate Pro</MobileLink>
+            <MobileLink href="/pricing" onClick={() => setMobileOpen(false)}>Pricing</MobileLink>
             {isAuthed && !isPro && (
               <>
                 <MobileLink href="/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</MobileLink>

@@ -16,7 +16,8 @@ function PricingCard({
   annual: boolean;
 }) {
   const price = annual ? tier.annualPrice : tier.monthlyPrice;
-  const isFree = price === 0;
+  const isEnterprise = tier.id === "enterprise";
+  const isFree = tier.id === "free";
 
   return (
     <div
@@ -42,20 +43,25 @@ function PricingCard({
       <div className="mb-6">
         <div className="flex items-baseline gap-1">
           <span className="text-4xl font-bold text-slate-900 dark:text-white tabular-nums">
-            {isFree ? "Free" : `$${price}`}
+            {isEnterprise ? "Custom" : isFree ? "Free" : `$${price}`}
           </span>
-          {!isFree && (
+          {!isFree && !isEnterprise && (
             <span className="text-sm text-slate-600 dark:text-slate-400">/mo</span>
           )}
         </div>
-        {!isFree && annual && (
+        {!isFree && !isEnterprise && annual && (
           <p className="text-[11px] text-emerald-400 mt-1">
-            Save ${(tier.monthlyPrice - tier.annualPrice) * 12}/year
+            Billed annually
           </p>
         )}
-        {!isFree && !annual && (
+        {!isFree && !isEnterprise && !annual && (
           <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
             or ${tier.annualPrice}/mo billed annually
+          </p>
+        )}
+        {isEnterprise && (
+          <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">
+            Let’s scope seats, rollout, and integrations.
           </p>
         )}
       </div>
@@ -77,14 +83,22 @@ function PricingCard({
                 <path stroke="rgba(100,116,139,0.3)" strokeWidth="2" d="M5 10h10" />
               </svg>
             )}
-            <span className={`text-sm ${feat.included ? (feat.highlight ? "text-slate-900 dark:text-slate-100 font-medium" : "text-slate-700 dark:text-slate-300") : "text-slate-500 dark:text-slate-400"}`}>
+            <span
+              className={`text-sm ${
+                feat.included
+                  ? feat.highlight
+                    ? "text-slate-900 dark:text-slate-100 font-medium"
+                    : "text-slate-700 dark:text-slate-300"
+                  : "text-slate-500 dark:text-slate-400"
+              }`}
+            >
               {feat.text}
             </span>
           </div>
         ))}
       </div>
 
-      <Link href={tier.id === "brokerage" ? "/contact" : "/signup"}>
+      <Link href={tier.id === "enterprise" || tier.id === "office" ? "/contact" : "/signup"}>
         <Button
           variant={tier.recommended ? "primary" : "secondary"}
           className={`w-full ${tier.recommended ? "shadow-[0_0_25px_rgba(59,130,246,0.25)]" : ""}`}
@@ -150,7 +164,10 @@ export default function PricingPage() {
               Simple, transparent pricing
             </h1>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-              Free forever for consumers. For professionals, choose the plan that fits your business.
+              Free forever to get started. Upgrade when you want deeper referrals, journey visibility, and team controls.
+            </p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              Pro starts at <span className="font-semibold text-slate-800 dark:text-slate-200">$10/mo</span> billed annually and includes a <span className="font-semibold text-slate-800 dark:text-slate-200">30-day full access trial</span> (no credit card).
             </p>
 
             {/* Annual / Monthly toggle */}
@@ -175,7 +192,7 @@ export default function PricingPage() {
               >
                 Annual
                 <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
-                  Save 20%
+                  Best value
                 </span>
               </button>
             </div>
@@ -184,76 +201,84 @@ export default function PricingPage() {
 
         {/* Pricing Cards */}
         <section className="mx-auto max-w-6xl px-4 pb-16 md:pb-24">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {mockPricingTiers.map((tier) => (
               <PricingCard key={tier.id} tier={tier} annual={annual} />
             ))}
           </div>
 
-          {/* Enterprise CTA */}
-          <div className="mt-8 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6 text-center">
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              Need something custom? We work with large brokerages and franchise groups.{" "}
-              <Link href="/contact" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium">
-                Let&apos;s talk →
-              </Link>
-            </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6">
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Add-on seats (TC / Assistant)</h3>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                Add seats without jumping tiers:
+              </p>
+              <ul className="mt-3 space-y-1 text-sm text-slate-700 dark:text-slate-300">
+                <li><span className="font-medium">Pro:</span> +$5/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$7 monthly)</span></li>
+                <li><span className="font-medium">Pro+:</span> +$6/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$8 monthly)</span></li>
+                <li><span className="font-medium">Team:</span> +$7/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$9 monthly)</span></li>
+                <li><span className="font-medium">Office:</span> +$5/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$7 monthly)</span></li>
+              </ul>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                Seat counts and availability vary by plan.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6">
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Enterprise rollout</h3>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                Brokerages & franchises: we can scope onboarding, permissions, reporting, and integrations.
+                {" "}
+                <Link href="/contact" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium">
+                  Contact sales →
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Feature Comparison */}
+        {/* What you'll use every day */}
         <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
           <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 text-center mb-10">Compare Plans</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-[var(--border)]">
-                    <th className="text-left py-3 pr-4 text-slate-600 dark:text-slate-400 font-medium w-[200px]">Feature</th>
-                    {mockPricingTiers.map((t) => (
-                      <th key={t.id} className="text-center py-3 px-3 text-slate-700 dark:text-slate-300 font-semibold">
-                        {t.name}
-                      </th>
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">
+                Built for real-world referrals
+              </h2>
+              <p className="mt-3 text-slate-600 dark:text-slate-400">
+                Plans scale from solo agents to enterprise rollouts. Features and availability can vary by region, brokerage policy, and product updates.
+              </p>
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                Relays is not legal, financial, or tax advice.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  title: "Look premium",
+                  items: ["Shareable Pro Page", "Verified marketplace presence", "Clear calls-to-action"],
+                },
+                {
+                  title: "Run cleaner handoffs",
+                  items: ["Curated partner groups", "Journey visibility", "Docs + reminders"],
+                },
+                {
+                  title: "Measure what’s working",
+                  items: ["Lead & referral signals", "Analytics (plan-based)", "Team reporting (plan-based)"],
+                },
+              ].map((col) => (
+                <div key={col.title} className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/70 p-6 backdrop-blur-sm">
+                  <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">{col.title}</div>
+                  <div className="mt-4 space-y-2">
+                    {col.items.map((t) => (
+                      <div key={t} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-500/70" />
+                        <span>{t}</span>
+                      </div>
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { feat: "Marketplace profile", vals: ["✓", "✓", "✓", "✓"] },
-                    { feat: "Request-to-connect leads", vals: ["✓", "✓", "✓", "✓"] },
-                    { feat: "Claim Google listing", vals: ["✓", "✓", "✓", "✓"] },
-                    { feat: "Journey management", vals: ["—", "✓", "✓", "✓"] },
-                    { feat: "Curated share links", vals: ["—", "3", "30", "Unlimited"] },
-                    { feat: "Calendar integration", vals: ["—", "✓", "✓", "✓"] },
-                    { feat: "Analytics & insights", vals: ["—", "✓", "✓", "✓"] },
-                    { feat: "Document workflow", vals: ["—", "✓", "✓", "✓"] },
-                    { feat: "Team seats", vals: ["—", "1", "Up to 10", "Unlimited"] },
-                    { feat: "Team dashboard", vals: ["—", "—", "✓", "✓"] },
-                    { feat: "RBAC & roles", vals: ["—", "—", "—", "✓"] },
-                    { feat: "Compliance reports", vals: ["—", "—", "—", "✓"] },
-                    { feat: "API access", vals: ["—", "—", "—", "✓"] },
-                    { feat: "Dedicated account manager", vals: ["—", "—", "—", "✓"] },
-                    { feat: "Support", vals: ["Community", "Priority", "Priority", "Dedicated"] },
-                  ].map((row, i) => (
-                    <tr key={i} className="border-b border-[var(--border)] last:border-b-0">
-                      <td className="py-3 pr-4 text-slate-700 dark:text-slate-300">{row.feat}</td>
-                      {row.vals.map((v, j) => (
-                        <td key={j} className="text-center py-3 px-3">
-                          {v === "✓" ? (
-                            <svg width="16" height="16" fill="#10b981" viewBox="0 0 20 20" className="inline-block">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          ) : v === "—" ? (
-                            <span className="text-slate-500 dark:text-slate-400">—</span>
-                          ) : (
-                            <span className="text-slate-700 dark:text-slate-300 font-medium">{v}</span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -276,7 +301,7 @@ export default function PricingPage() {
             <div className="relative">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Ready to grow your referral business?</h2>
               <p className="mt-3 text-slate-600 dark:text-slate-300 max-w-lg mx-auto">
-                Start free and upgrade when you&apos;re ready. No credit card required.
+                Start free and upgrade when you&apos;re ready. Pro and higher include a 30-day full access trial — no credit card required.
               </p>
               <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <Link href="/signup">

@@ -33,7 +33,8 @@ export function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300">For Professionals</h4>
             <nav className="mt-3 flex flex-col gap-2">
-              <Link href="/signup" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">List Your Business</Link>
+              <Link href="/real-estate-pro" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Real Estate Pro</Link>
+              <Link href="/signup" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Claim Your Page</Link>
               <Link href="/pricing" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Pricing</Link>
               <Link href="/pro/dashboard" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Pro Dashboard</Link>
               <Link href="/pro/profile" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">Edit Profile</Link>
