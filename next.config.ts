@@ -12,11 +12,13 @@ const nextConfig: NextConfig = {
   },
   /**
    * NOTE:
-   * We intentionally DO NOT exclude ./data/** from output file tracing.
    * The /api/professionals endpoint reads normalized CSVs from ./data at runtime
-   * (for licensed professional search + suggestions). If these files are excluded,
-   * search returns 0 results in production.
+   * (for licensed professional search + suggestions). Next.js output tracing will
+   * NOT reliably include dynamically-read files unless we explicitly include them.
    */
+  outputFileTracingIncludes: {
+    "*": ["./data/**"],
+  },
 };
 
 export default nextConfig;
