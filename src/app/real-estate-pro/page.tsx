@@ -69,6 +69,7 @@ export default function RealEstateProPage() {
   const previewVariants = React.useMemo(
     () => [
       {
+        name: "Emily Carter",
         roleLabel: "REALTOR®",
         location: "Chicago, IL",
         partnerCards: [
@@ -79,6 +80,7 @@ export default function RealEstateProPage() {
         ],
       },
       {
+        name: "David Kim",
         roleLabel: "Mortgage Lender",
         location: "Los Angeles, CA",
         partnerCards: [
@@ -89,6 +91,7 @@ export default function RealEstateProPage() {
         ],
       },
       {
+        name: "Sofia Alvarez",
         roleLabel: "Insurance Agent",
         location: "Miami, FL",
         partnerCards: [
@@ -99,6 +102,7 @@ export default function RealEstateProPage() {
         ],
       },
       {
+        name: "Ryan Brooks",
         roleLabel: "Home Inspector",
         location: "Austin, TX",
         partnerCards: [
@@ -109,6 +113,7 @@ export default function RealEstateProPage() {
         ],
       },
       {
+        name: "Ava Thompson",
         roleLabel: "Attorney",
         location: "New York, NY",
         partnerCards: [
@@ -150,6 +155,7 @@ export default function RealEstateProPage() {
               </h1>
               <p className="mt-4 max-w-2xl text-pretty text-lg text-slate-600 dark:text-slate-300">
                 Build a beautiful, shareable page for your business — then connect clients to your trusted partner network and keep the journey moving.
+                Create different <span className="font-medium text-slate-800 dark:text-slate-200">curated groups</span> based on the client, and share the right link every time.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -196,7 +202,7 @@ export default function RealEstateProPage() {
                         <div className="flex items-center gap-3">
                           <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-indigo-500/10 border border-[var(--border)]" />
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your Name, {activePreview.roleLabel}</div>
+                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{activePreview.name}, {activePreview.roleLabel}</div>
                             <div className="text-xs text-slate-600 dark:text-slate-400">{activePreview.location} • Relays Pro Page</div>
                           </div>
                         </div>
@@ -249,7 +255,7 @@ export default function RealEstateProPage() {
                     <div className="mt-5 space-y-3 text-sm">
                       {[
                         "Your shareable Pro Page",
-                        "Curated referral groups",
+                        "Curated referral groups (one per client)",
                         "Request-to-connect leads",
                         "Journey visibility & handoffs",
                       ].map((t) => (
