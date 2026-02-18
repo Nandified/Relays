@@ -98,6 +98,14 @@ function PricingCard({
                   <span>Verification checkmark</span>
                   <VerifiedBadge status="verified" size="sm" />
                 </span>
+              ) : feat.text.startsWith("Everything in ") ? (
+                <span className="inline-flex items-center gap-2">
+                  <span>{feat.text}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-slate-400 dark:text-slate-500">
+                    <path d="M12 5v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M7 14l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
               ) : (
                 feat.text
               )}

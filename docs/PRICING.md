@@ -15,10 +15,10 @@
 ### Free (always)
 - Price: **$0**
 - Seats included: **1**
-- Journeys / URLs: **1**
+- Curated groups (share links): **1**
 - Branding: **Relays branded** ("Powered by Relays")
 - Notes:
-  - Allows setup, but limited to a single Journey/share link.
+  - Allows setup, but limited to a single curated group/share link.
 
 ### Pro
 - Price:
@@ -28,7 +28,7 @@
 - Add-on seats (TC / Assistant):
   - **+$5/mo** billed annually
   - **+$7/mo** billed monthly
-- Journeys / URLs: **3**
+- Curated groups (share links): **3**
 - Branding: **No/minimal Relays branding**
 
 ### Pro+
@@ -39,7 +39,7 @@
 - Add-on seats:
   - **+$6/mo** billed annually
   - **+$8/mo** billed monthly
-- Journeys / URLs: **30 per seat**
+- Curated groups (share links): **30 per seat**
 - Extras:
   - Verification checkmark (when applicable)
 
@@ -51,7 +51,7 @@
 - Add-on seats:
   - **+$7/mo** billed annually
   - **+$9/mo** billed monthly
-- Journeys / URLs: **30 per seat**
+- Curated groups (share links): **30 per seat**
 - Includes:
   - Team management access (lead/admin)
 
@@ -63,7 +63,7 @@
 - Add-on seats:
   - **+$5/mo** billed annually
   - **+$7/mo** billed monthly
-- Journeys / URLs: **30 per seat**
+- Curated groups (share links): **30 per seat**
 
 ### Enterprise
 - Price: **Custom quote**
@@ -74,4 +74,8 @@
 
 ## Notes / guardrails
 - Pricing is designed so add-on seats for Pro/Pro+ do **not** undercut the value of upgrading to Team.
-- Journeys/URLs are share links (e.g., `/u/<username>`, `/u/<username>/spanish`, etc.); higher tiers unlock more share links.
+- **Curated groups / share links** are the shareable “group pages” a Real Estate Pro creates and labels (e.g., `/u/<username>`, `/u/<username>/spanish`, etc.). Higher tiers unlock more share links.
+
+## Glossary (important)
+- **Journey**: a specific client’s buying/selling process (remaining steps + the pros referred + status updates).
+- **Curated group (share link)**: a labeled set of recommended pros that the Real Estate Pro shares to a specific lead/client.

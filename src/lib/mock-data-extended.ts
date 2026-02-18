@@ -31,7 +31,7 @@ export const mockPricingTiers: PricingTier[] = [
     features: [
       { text: "Marketplace profile", included: true },
       { text: "Request-to-connect leads", included: true },
-      { text: "1 Journey (1 share link)", included: true, highlight: true },
+      { text: "1 curated group (1 share link)", included: true, highlight: true },
       { text: "Relays-branded share page", included: true },
       { text: "Basic analytics", included: true },
       { text: "Curated groups & multiple links", included: false },
@@ -44,12 +44,12 @@ export const mockPricingTiers: PricingTier[] = [
   {
     id: "pro",
     name: "Pro",
-    description: "Solo agent — 3 Journeys + clean branding",
+    description: "Solo agent — 3 curated groups + clean branding",
     monthlyPrice: 15,
     annualPrice: 10,
     features: [
       { text: "Everything in Free (plus)", included: true },
-      { text: "3 Journeys (3 share links)", included: true, highlight: true },
+      { text: "3 curated groups (3 share links)", included: true, highlight: true },
       { text: "Minimal/no Relays branding", included: true, highlight: true },
       { text: "Provider options record (export)", included: true },
       { text: "14-day full access trial (no CC)", included: true },
@@ -61,12 +61,12 @@ export const mockPricingTiers: PricingTier[] = [
   {
     id: "pro_plus",
     name: "Pro+",
-    description: "Power user — 30 Journeys + verification",
+    description: "Power user — 30 curated groups + verification",
     monthlyPrice: 20,
     annualPrice: 15,
     features: [
       { text: "Everything in Pro (plus)", included: true },
-      { text: "30 Journeys / URLs", included: true, highlight: true },
+      { text: "30 curated groups / share links", included: true, highlight: true },
       { text: "Verification checkmark", included: true, highlight: true },
       { text: "Advanced analytics", included: true },
       { text: "Priority support", included: true },
@@ -86,7 +86,7 @@ export const mockPricingTiers: PricingTier[] = [
     features: [
       { text: "Everything in Pro+ (plus)", included: true },
       { text: "Includes up to 10 seats", included: true, highlight: true },
-      { text: "30 Journeys / URLs per seat", included: true, highlight: true },
+      { text: "30 curated groups / share links per seat", included: true, highlight: true },
       { text: "Role-based access (Agent / TC / Assistant)", included: true },
       { text: "Shared templates", included: true },
       { text: "Add-on seats — +$7/mo annual (+$9 monthly)", included: true },
@@ -103,7 +103,7 @@ export const mockPricingTiers: PricingTier[] = [
     features: [
       { text: "Everything in Team (plus)", included: true },
       { text: "Includes up to 50 seats", included: true, highlight: true },
-      { text: "30 Journeys / URLs per seat", included: true, highlight: true },
+      { text: "30 curated groups / share links per seat", included: true, highlight: true },
       { text: "Office dashboards + governance", included: true },
       { text: "Audit exports", included: true },
       { text: "Add-on seats — +$5/mo annual (+$7 monthly)", included: true },
