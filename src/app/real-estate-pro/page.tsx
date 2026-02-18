@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
-import { Button } from "@/components/ui/Button";
 import { AnimatedSection } from "@/components/home/AnimatedSection";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 import { AuroraBackground } from "@/components/marketing/AuroraBackground";
 
 const valueProps = [
@@ -72,6 +74,9 @@ export default function RealEstateProPage() {
         name: "Emily Carter",
         roleLabel: "REALTOR®",
         location: "Chicago, IL",
+        headshotSrc: "/demo/headshots/real_estate_pro/realtor.jpg",
+        headshotPosition: "40% 15%",
+        secondaryBadge: { label: "Top Rated", variant: "accent" as const },
         partnerCards: [
           { label: "Mortgage Lender", dot: "bg-blue-500" },
           { label: "Home Inspector", dot: "bg-indigo-500" },
@@ -83,6 +88,9 @@ export default function RealEstateProPage() {
         name: "David Kim",
         roleLabel: "Mortgage Lender",
         location: "Los Angeles, CA",
+        headshotSrc: "/demo/headshots/real_estate_pro/mortgage_lender.jpg",
+        headshotPosition: "35% 15%",
+        secondaryBadge: { label: "Licensed", variant: "outline" as const },
         partnerCards: [
           { label: "Realtor", dot: "bg-blue-500" },
           { label: "Home Inspector", dot: "bg-indigo-500" },
@@ -94,6 +102,9 @@ export default function RealEstateProPage() {
         name: "Sofia Alvarez",
         roleLabel: "Insurance Agent",
         location: "Miami, FL",
+        headshotSrc: "/demo/headshots/real_estate_pro/insurance_agent.jpg",
+        headshotPosition: "50% 20%",
+        secondaryBadge: { label: "Popular", variant: "warning" as const },
         partnerCards: [
           { label: "Realtor", dot: "bg-blue-500" },
           { label: "Mortgage Lender", dot: "bg-indigo-500" },
@@ -105,6 +116,9 @@ export default function RealEstateProPage() {
         name: "Ryan Brooks",
         roleLabel: "Home Inspector",
         location: "Austin, TX",
+        headshotSrc: "/demo/headshots/real_estate_pro/home_inspector.jpg",
+        headshotPosition: "50% 15%",
+        secondaryBadge: { label: "Fast response", variant: "accent" as const },
         partnerCards: [
           { label: "Realtor", dot: "bg-blue-500" },
           { label: "Mortgage Lender", dot: "bg-indigo-500" },
@@ -116,6 +130,9 @@ export default function RealEstateProPage() {
         name: "Ava Thompson",
         roleLabel: "Attorney",
         location: "New York, NY",
+        headshotSrc: "/demo/headshots/real_estate_pro/attorney.jpg",
+        headshotPosition: "50% 15%",
+        secondaryBadge: { label: "Background checked", variant: "success" as const },
         partnerCards: [
           { label: "Realtor", dot: "bg-blue-500" },
           { label: "Mortgage Lender", dot: "bg-indigo-500" },
@@ -200,15 +217,24 @@ export default function RealEstateProPage() {
                     <div className="relative p-6 sm:p-8">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-indigo-500/10 border border-[var(--border)]" />
+                          <div className="relative h-12 w-12 overflow-hidden rounded-2xl border border-[var(--border)] bg-black/5 dark:bg-white/5">
+                            <Image
+                              src={activePreview.headshotSrc}
+                              alt={`${activePreview.name} headshot`}
+                              fill
+                              sizes="48px"
+                              className="object-cover"
+                              style={{ objectPosition: activePreview.headshotPosition }}
+                            />
+                          </div>
                           <div>
                             <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{activePreview.name}, {activePreview.roleLabel}</div>
                             <div className="text-xs text-slate-600 dark:text-slate-400">{activePreview.location} • Relays Pro Page</div>
                           </div>
                         </div>
                         <div className="hidden sm:flex items-center gap-2">
-                          <span className="rounded-full border border-[var(--border)] bg-black/5 dark:bg-white/5 px-2.5 py-1 text-[11px] text-slate-700 dark:text-slate-300">Verified</span>
-                          <span className="rounded-full border border-[var(--border)] bg-black/5 dark:bg-white/5 px-2.5 py-1 text-[11px] text-slate-700 dark:text-slate-300">Fast response</span>
+                          <Badge variant="success">✓ Verified</Badge>
+                          <Badge variant={activePreview.secondaryBadge.variant}>{activePreview.secondaryBadge.label}</Badge>
                         </div>
                       </div>
 
