@@ -10,12 +10,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Exclude large data files from serverless function bundles
-  outputFileTracingExcludes: {
-    "*": [
-      "./data/**",
-    ],
-  },
+  /**
+   * NOTE:
+   * We intentionally DO NOT exclude ./data/** from output file tracing.
+   * The /api/professionals endpoint reads normalized CSVs from ./data at runtime
+   * (for licensed professional search + suggestions). If these files are excluded,
+   * search returns 0 results in production.
+   */
 };
 
 export default nextConfig;
