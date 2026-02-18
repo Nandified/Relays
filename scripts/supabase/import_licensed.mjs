@@ -90,7 +90,7 @@ function rowToRecord(row, { idPrefix, defaultState }) {
 
   return {
     id: `${idPrefix}${licenseNumber}`,
-    slug,
+    slug: `${slug}-${licenseNumber}` ,
     name,
     category,
     license_number: licenseNumber,
