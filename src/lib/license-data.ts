@@ -308,6 +308,11 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
     // Directory-shape normalized CSVs
     {
       filePath: path.join(process.cwd(), "data", "utah", "normalized_brokers.csv"),
+      idPrefix: "utah_",
+      defaultState: "UT",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "ut", "normalized_brokers.csv"),
       idPrefix: "ut_",
       defaultState: "UT",
     },
