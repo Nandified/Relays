@@ -52,13 +52,11 @@ export const mockPricingTiers: PricingTier[] = [
       { text: "3 Journeys (3 share links)", included: true, highlight: true },
       { text: "Minimal/no Relays branding", included: true, highlight: true },
       { text: "Provider options record (export)", included: true },
-      { text: "30-day full access trial (no CC)", included: true },
+      { text: "14-day full access trial (no CC)", included: true },
       { text: "Add-on seats (TC/Assistant) — +$5/mo annual (+$7 monthly)", included: true },
     ],
-    cta: "Start 30‑day trial",
+    cta: "Start 14‑day trial",
     ctaVariant: "primary",
-    recommended: true,
-    badge: "Most popular",
   },
   {
     id: "pro_plus",
@@ -74,8 +72,10 @@ export const mockPricingTiers: PricingTier[] = [
       { text: "Priority support", included: true },
       { text: "Add-on seats — +$6/mo annual (+$8 monthly)", included: true },
     ],
-    cta: "Start 30‑day trial",
+    cta: "Start 14‑day trial",
     ctaVariant: "primary",
+    recommended: true,
+    badge: "Most popular",
   },
   {
     id: "team",
@@ -91,7 +91,7 @@ export const mockPricingTiers: PricingTier[] = [
       { text: "Shared templates", included: true },
       { text: "Add-on seats — +$7/mo annual (+$9 monthly)", included: true },
     ],
-    cta: "Start 30‑day trial",
+    cta: "Start 14‑day trial",
     ctaVariant: "primary",
   },
   {
@@ -280,7 +280,7 @@ export const mockFAQItems: FAQItem[] = [
   {
     id: "faq_13",
     question: "Is there a free trial?",
-    answer: "Yes. Pro and higher plans include a 30-day full access trial. No credit card required to start — explore the platform and decide when you’re ready.",
+    answer: "Yes. Pro and higher plans include a 14-day full access trial. No credit card required to start — explore the platform and decide when you’re ready.",
     category: "billing",
   },
   {

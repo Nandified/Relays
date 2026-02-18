@@ -167,7 +167,7 @@ export default function PricingPage() {
               Free forever to get started. Upgrade when you want deeper referrals, journey visibility, and team controls.
             </p>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              Pro starts at <span className="font-semibold text-slate-800 dark:text-slate-200">$10/mo</span> billed annually and includes a <span className="font-semibold text-slate-800 dark:text-slate-200">30-day full access trial</span> (no credit card).
+              Pro starts at <span className="font-semibold text-slate-800 dark:text-slate-200">$10/mo</span> billed annually and includes a <span className="font-semibold text-slate-800 dark:text-slate-200">14-day full access trial</span> (no credit card).
             </p>
 
             {/* Annual / Monthly toggle */}
@@ -301,7 +301,7 @@ export default function PricingPage() {
             <div className="relative">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Ready to grow your referral business?</h2>
               <p className="mt-3 text-slate-600 dark:text-slate-300 max-w-lg mx-auto">
-                Start free and upgrade when you&apos;re ready. Pro and higher include a 30-day full access trial — no credit card required.
+                Start free and upgrade when you&apos;re ready. Pro and higher include a 14-day full access trial — no credit card required.
               </p>
               <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <Link href="/signup">

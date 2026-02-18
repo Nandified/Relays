@@ -79,7 +79,7 @@ export default function RealEstateProPage() {
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 Real Estate Pro
                 <span className="text-slate-400 dark:text-slate-500">•</span>
-                30-day full access trial (no credit card)
+                14-day full access trial (no credit card)
               </div>
 
               <h1 className="mt-5 text-balance text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
@@ -184,7 +184,7 @@ export default function RealEstateProPage() {
                       ))}
                     </div>
                     <div className="mt-6 rounded-2xl border border-[var(--border)] bg-black/5 dark:bg-white/5 p-4">
-                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">30-day full access trial</div>
+                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">14-day full access trial</div>
                       <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
                         Start Pro or above, explore everything, and decide later — no credit card required.
                       </div>
@@ -241,7 +241,7 @@ export default function RealEstateProPage() {
               <div className="relative text-center">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Claim your page. Share one link. Move faster.</h2>
                 <p className="mt-3 max-w-2xl mx-auto text-slate-600 dark:text-slate-300">
-                  Start with Free and upgrade when you’re ready. Pro includes a 30-day full access trial — no credit card.
+                  Start with Free and upgrade when you’re ready. Pro includes a 14-day full access trial — no credit card.
                 </p>
                 <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                   <Link href="/signup">
