@@ -1,6 +1,6 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
@@ -66,6 +66,51 @@ function GlassCard({
 }
 
 export default function RealEstateProPage() {
+  const previewVariants = React.useMemo(
+    () => [
+      {
+        roleLabel: "REALTOR®",
+        partnersLabel: "Preferred partners (chosen by this REALTOR®)",
+        partnerCards: [
+          { label: "Mortgage Lender", dot: "bg-blue-500" },
+          { label: "Home Inspector", dot: "bg-indigo-500" },
+          { label: "Attorney", dot: "bg-emerald-500" },
+          { label: "Insurance Agent", dot: "bg-blue-400" },
+        ],
+      },
+      {
+        roleLabel: "Mortgage Lender",
+        partnersLabel: "Preferred partners (chosen by this pro)",
+        partnerCards: [
+          { label: "Realtor", dot: "bg-blue-500" },
+          { label: "Home Inspector", dot: "bg-indigo-500" },
+          { label: "Attorney", dot: "bg-emerald-500" },
+          { label: "Insurance Agent", dot: "bg-blue-400" },
+        ],
+      },
+      {
+        roleLabel: "Insurance Agent",
+        partnersLabel: "Preferred partners (chosen by this pro)",
+        partnerCards: [
+          { label: "Realtor", dot: "bg-blue-500" },
+          { label: "Mortgage Lender", dot: "bg-indigo-500" },
+          { label: "Home Inspector", dot: "bg-emerald-500" },
+          { label: "Attorney", dot: "bg-blue-400" },
+        ],
+      },
+    ],
+    []
+  );
+
+  const [previewIdx, setPreviewIdx] = React.useState(0);
+
+  React.useEffect(() => {
+    const t = window.setInterval(() => setPreviewIdx((i) => (i + 1) % previewVariants.length), 2600);
+    return () => window.clearInterval(t);
+  }, [previewVariants.length]);
+
+  const activePreview = previewVariants[previewIdx];
+
   return (
     <>
       <main>
@@ -131,7 +176,7 @@ export default function RealEstateProPage() {
                         <div className="flex items-center gap-3">
                           <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-indigo-500/10 border border-[var(--border)]" />
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your Name, Real Estate Pro</div>
+                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your Name, {activePreview.roleLabel}</div>
                             <div className="text-xs text-slate-600 dark:text-slate-400">Chicago, IL • Relays Pro Page</div>
                           </div>
                         </div>
@@ -142,23 +187,18 @@ export default function RealEstateProPage() {
                       </div>
 
                       <div className="mt-6">
-                        <div className="text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-300">Preferred partners (chosen by this pro)</div>
-                        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                        {[
-                          { label: "Mortgage Lender", dot: "bg-blue-500" },
-                          { label: "Home Inspector", dot: "bg-indigo-500" },
-                          { label: "Attorney", dot: "bg-emerald-500" },
-                          { label: "Insurance", dot: "bg-blue-400" },
-                        ].map((row) => (
-                          <div key={row.label} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-4">
-                            <div className="flex items-center gap-2">
-                              <span className={`h-2 w-2 rounded-full ${row.dot}`} />
-                              <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{row.label}</span>
+                        <div className="text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-300">{activePreview.partnersLabel}</div>
+                        <div className="mt-3 grid gap-3 sm:grid-cols-2 transition-all duration-500">
+                          {activePreview.partnerCards.map((row) => (
+                            <div key={row.label} className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 p-4">
+                              <div className="flex items-center gap-2">
+                                <span className={`h-2 w-2 rounded-full ${row.dot}`} />
+                                <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{row.label}</span>
+                              </div>
+                              <div className="mt-2 h-2 w-3/5 rounded-full bg-black/5 dark:bg-white/5" />
+                              <div className="mt-2 h-2 w-2/5 rounded-full bg-black/5 dark:bg-white/5" />
                             </div>
-                            <div className="mt-2 h-2 w-3/5 rounded-full bg-black/5 dark:bg-white/5" />
-                            <div className="mt-2 h-2 w-2/5 rounded-full bg-black/5 dark:bg-white/5" />
-                          </div>
-                        ))}
+                          ))}
                         </div>
                       </div>
 
@@ -201,12 +241,7 @@ export default function RealEstateProPage() {
                         </div>
                       ))}
                     </div>
-                    <div className="mt-6 rounded-2xl border border-[var(--border)] bg-black/5 dark:bg-white/5 p-4">
-                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">14-day full access trial (for every real estate pro)</div>
-                      <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-                        Start Pro or above, explore everything, and decide later — no credit card required.
-                      </div>
-                    </div>
+                    {/* Trial banner is shown above the preview to avoid repetition */}
                   </div>
                 </div>
               </div>
