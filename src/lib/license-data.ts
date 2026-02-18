@@ -114,24 +114,69 @@ type RowToProfessionalOptions = {
 };
 
 function rowToProfessional(row: Record<string, string>, opts: RowToProfessionalOptions): UnclaimedProfessional | null {
-  const licenseType = (row.type ?? "").toUpperCase().trim();
+  // We support two normalized CSV shapes:
+  // A) "license" shape: name, license_number, type, ... (used by IL/TX/CA/FL/NY/AZ/CO/CT)
+  // B) "directory" shape: full_name, license_number, license_type, status, ... (used by NV/DE/UT/OR/WV)
 
-  // Skip business entities and unsupported types
-  if (row.is_business === "True") return null;
-  if (SKIP_LICENSE_TYPES.has(licenseType)) return null;
-
-  const category = LICENSE_TYPE_TO_CATEGORY[licenseType];
-  if (!category) return null;
+  const isDirectoryShape = typeof row.full_name === "string" && row.full_name.trim().length > 0;
 
   const licenseNumber = (row.license_number ?? "").trim();
   if (!licenseNumber) return null;
 
+  if (!isDirectoryShape) {
+    const licenseType = (row.type ?? "").toUpperCase().trim();
+
+    // Skip business entities and unsupported types
+    if (row.is_business === "True") return null;
+    if (SKIP_LICENSE_TYPES.has(licenseType)) return null;
+
+    const category = LICENSE_TYPE_TO_CATEGORY[licenseType];
+    if (!category) return null;
+
+    return {
+      id: `${opts.idPrefix}${licenseNumber}`,
+      slug: "", // assigned during load (needs global collision detection)
+      name: (row.name ?? "").trim(),
+      licenseNumber,
+      licenseType: row.type ?? "",
+      company: (row.company ?? "").trim(),
+      officeName: null,
+      city: (row.city ?? "").trim(),
+      state: (row.state ?? opts.defaultState).trim(),
+      zip: (row.zip ?? "").trim(),
+      county: (row.county ?? "").trim(),
+      licensedSince: (row.licensed_since ?? "").trim(),
+      expires: (row.expires ?? "").trim(),
+      disciplined: (row.disciplined ?? "").toUpperCase() === "Y",
+      category,
+      claimed: false,
+      claimedByProId: null,
+      phone: null,
+      email: null,
+      website: null,
+      rating: null,
+      reviewCount: null,
+      photoUrl: null,
+    };
+  }
+
+  // Directory shape → only Realtor-like records for now.
+  // license_type examples: Broker, Salesperson, Associate Broker, etc.
+  const lt = (row.license_type ?? "").toLowerCase();
+  const status = (row.status ?? "").toLowerCase();
+
+  // Only load active records by default.
+  if (status && !status.includes("active")) return null;
+
+  const isRealtorish = /(broker|sales|realtor|agent)/i.test(lt);
+  if (!isRealtorish) return null;
+
   return {
     id: `${opts.idPrefix}${licenseNumber}`,
-    slug: "", // assigned during load (needs global collision detection)
-    name: (row.name ?? "").trim(),
+    slug: "",
+    name: (row.full_name ?? row.name ?? "").trim(),
     licenseNumber,
-    licenseType: row.type ?? "",
+    licenseType: (row.license_type ?? "").trim(),
     company: (row.company ?? "").trim(),
     officeName: null,
     city: (row.city ?? "").trim(),
@@ -140,12 +185,12 @@ function rowToProfessional(row: Record<string, string>, opts: RowToProfessionalO
     county: (row.county ?? "").trim(),
     licensedSince: (row.licensed_since ?? "").trim(),
     expires: (row.expires ?? "").trim(),
-    disciplined: (row.disciplined ?? "").toUpperCase() === "Y",
-    category,
+    disciplined: false,
+    category: "Realtor",
     claimed: false,
     claimedByProId: null,
-    phone: null,
-    email: null,
+    phone: (row.phone ?? "").trim() || null,
+    email: (row.email ?? "").trim() || null,
     website: null,
     rating: null,
     reviewCount: null,
@@ -223,6 +268,7 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
 
   // Additional normalized (license-format) CSVs from other states.
   const extraStateFiles: Array<{ filePath: string; idPrefix: string; defaultState: string }> = [
+    // License-shape normalized CSVs
     {
       filePath: path.join(process.cwd(), "data", "texas", "normalized_brokers.csv"),
       idPrefix: "trec_",
@@ -257,6 +303,33 @@ function loadAllProfessionals(): UnclaimedProfessional[] {
       filePath: path.join(process.cwd(), "data", "connecticut", "normalized_brokers.csv"),
       idPrefix: "ctdcp_",
       defaultState: "CT",
+    },
+
+    // Directory-shape normalized CSVs
+    {
+      filePath: path.join(process.cwd(), "data", "utah", "normalized_brokers.csv"),
+      idPrefix: "ut_",
+      defaultState: "UT",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "nv", "normalized_brokers.csv"),
+      idPrefix: "nv_",
+      defaultState: "NV",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "de", "normalized_brokers.csv"),
+      idPrefix: "de_",
+      defaultState: "DE",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "or", "normalized_brokers.csv"),
+      idPrefix: "or_",
+      defaultState: "OR",
+    },
+    {
+      filePath: path.join(process.cwd(), "data", "wv", "normalized_brokers.csv"),
+      idPrefix: "wv_",
+      defaultState: "WV",
     },
   ];
 
