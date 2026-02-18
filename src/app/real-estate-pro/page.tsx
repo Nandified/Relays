@@ -77,9 +77,7 @@ export default function RealEstateProPage() {
             <AnimatedSection className="relative">
               <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)]/70 px-3 py-1 text-xs text-slate-600 dark:text-slate-300 liquid-glass">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Real Estate Pro
-                <span className="text-slate-400 dark:text-slate-500">•</span>
-                14-day full access trial (no credit card)
+                Built for Realtors, Mortgage Lenders, Home Inspectors, Attorneys, and Insurance Agents.
               </div>
 
               <h1 className="mt-5 text-balance text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
@@ -106,6 +104,23 @@ export default function RealEstateProPage() {
                 </div>
               </div>
 
+              {/* Trial banner */}
+              <div className="mt-5 max-w-2xl rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/70 p-4 liquid-glass">
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="opacity-90">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">14-day full access trial for every real estate pro</div>
+                    <div className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+                      Start Pro or above, explore everything, and decide later — <span className="font-medium text-slate-800 dark:text-slate-200">no credit card required</span>.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Preview card */}
               <div className="mt-10 grid gap-6 md:grid-cols-12">
                 <div className="md:col-span-7">
@@ -116,7 +131,7 @@ export default function RealEstateProPage() {
                         <div className="flex items-center gap-3">
                           <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-indigo-500/10 border border-[var(--border)]" />
                           <div>
-                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your Name, REALTOR®</div>
+                            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your Name, Real Estate Pro</div>
                             <div className="text-xs text-slate-600 dark:text-slate-400">Chicago, IL • Relays Pro Page</div>
                           </div>
                         </div>
@@ -126,9 +141,11 @@ export default function RealEstateProPage() {
                         </div>
                       </div>
 
-                      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                      <div className="mt-6">
+                        <div className="text-xs font-semibold tracking-wide text-slate-700 dark:text-slate-300">Preferred partners (chosen by this pro)</div>
+                        <div className="mt-3 grid gap-3 sm:grid-cols-2">
                         {[
-                          { label: "Preferred Lender", dot: "bg-blue-500" },
+                          { label: "Mortgage Lender", dot: "bg-blue-500" },
                           { label: "Home Inspector", dot: "bg-indigo-500" },
                           { label: "Attorney", dot: "bg-emerald-500" },
                           { label: "Insurance", dot: "bg-blue-400" },
@@ -142,6 +159,7 @@ export default function RealEstateProPage() {
                             <div className="mt-2 h-2 w-2/5 rounded-full bg-black/5 dark:bg-white/5" />
                           </div>
                         ))}
+                        </div>
                       </div>
 
                       <div className="mt-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/55 p-4">
@@ -184,7 +202,7 @@ export default function RealEstateProPage() {
                       ))}
                     </div>
                     <div className="mt-6 rounded-2xl border border-[var(--border)] bg-black/5 dark:bg-white/5 p-4">
-                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">14-day full access trial</div>
+                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">14-day full access trial (for every real estate pro)</div>
                       <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
                         Start Pro or above, explore everything, and decide later — no credit card required.
                       </div>
