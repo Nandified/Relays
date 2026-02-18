@@ -19,10 +19,10 @@ const valueProps = [
     icon: "🏠",
     accent: "border-blue-500/15 from-blue-500/[0.04] to-transparent",
     items: [
-      "Curate referral groups based on each client (share the right link every time)",
-      "Send clients a single link with your hand-picked team",
-      "Keep the journey visible from pre-approval to close",
-      "Build trust with verification and reviews",
+      "Create curated referral groups (one per client) — share the right link every time",
+      "Send clients a single share link with your trusted partner network",
+      "Keep the journey visible with cleaner handoffs from pre-approval to close",
+      "Build trust with verified profiles and reviews",
     ],
   },
   {
@@ -30,10 +30,10 @@ const valueProps = [
     icon: "👥",
     accent: "border-emerald-500/15 from-emerald-500/[0.04] to-transparent",
     items: [
-      "Find verified professionals for every step of your home journey",
-      "Get referred by agents you trust — or search on your own",
-      "Track your progress and never miss a deadline",
-      "Compare ratings, reviews, and response times",
+      "Explore verified professionals for every step of your home journey",
+      "Get a trusted referral — or search on your own (your choice)",
+      "Track your milestones and stay on top of deadlines",
+      "Compare ratings and reviews with transparent relationships (no steering or redlining)",
     ],
   },
   {
@@ -41,9 +41,9 @@ const valueProps = [
     icon: "🏢",
     accent: "border-purple-500/15 from-purple-500/[0.04] to-transparent",
     items: [
-      "Oversight dashboards for referral routing and compliance",
-      "RBAC and role management across your entire organization",
-      "Audit logs and compliance reports for every transaction",
+      "Oversight dashboards for referral transparency and compliance",
+      "Role-based access (RBAC) across your entire organization",
+      "Audit logs and reporting support for every transaction",
       "Custom onboarding and enterprise API access",
     ],
   },
@@ -73,9 +73,12 @@ export default function AboutPage() {
             </AnimatedSection>
             <AnimatedSection delay={160}>
               <p className="mt-5 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Every home transaction involves 5+ professionals who have never worked together before.
-                Relays is the platform that connects them — creating trusted teams that guide buyers
-                and sellers through every step of the journey.
+                Every home transaction involves 5+ professionals — and many of them already have trusted partnerships.
+                Relays helps pros package and share those relationships transparently, keep each client’s team organized,
+                and stay aligned from pre-approval to close.
+              </p>
+              <p className="mt-3 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Built for ethical, compliant referrals: clear disclosure, client choice, and a commitment to fair housing — no steering or redlining.
               </p>
             </AnimatedSection>
           </div>
@@ -90,14 +93,14 @@ export default function AboutPage() {
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Our Mission</h2>
                   <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                    Buying or selling a home is one of the most significant financial decisions people make. Yet the process
-                    of finding and coordinating the right professionals — realtors, lenders, inspectors, attorneys, and insurance
-                    agents — is broken. It&apos;s fragmented, opaque, and stressful.
+                    Buying or selling a home is one of the most significant financial decisions people make. The work spans
+                    realtors, lenders, inspectors, attorneys, and insurance agents — but coordination still happens across texts,
+                    PDFs, and scattered introductions.
                   </p>
                   <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Relays was built to fix that. We&apos;re creating a world where every home transaction is guided by a
-                    curated team of verified professionals, where referrals are transparent and trusted, and where no step
-                    in the journey is missed.
+                    Relays brings that into one place: a curated team per client, a shareable link you can send in seconds, and
+                    visibility into what&apos;s next. Referrals are framed ethically and transparently — with clear disclosure and client
+                    choice, aligned with fair housing (no steering or redlining).
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
