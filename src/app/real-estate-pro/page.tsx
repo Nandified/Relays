@@ -298,9 +298,9 @@ export default function RealEstateProPage() {
             <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/70 p-6 sm:p-7 liquid-glass">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Clear messaging, careful framing</h3>
+                  <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">Ethical referrals, done right</h3>
                   <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                    Relays is an organization and communication tool. It doesn’t replace your broker’s policies or provide legal, financial, or tax advice.
+                    Relays helps you share trusted partners with clear disclosure and client choice — <span className="font-medium text-slate-800 dark:text-slate-200">no steering or redlining</span>. It’s built to support transparency and better coordination.
                   </p>
                 </div>
                 <Link href="/pricing" className="shrink-0">
