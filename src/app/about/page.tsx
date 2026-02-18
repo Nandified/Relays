@@ -15,14 +15,14 @@ const team = [
 
 const valueProps = [
   {
-    audience: "For Real Estate Agents",
+    audience: "For Real Estate Pros",
     icon: "🏠",
     accent: "border-blue-500/15 from-blue-500/[0.04] to-transparent",
     items: [
-      "Curate your own referral network of trusted pros",
+      "Curate referral groups based on each client (share the right link every time)",
       "Send clients a single link with your hand-picked team",
-      "Track every journey from pre-approval to close",
-      "Build your reputation with verified reviews",
+      "Keep the journey visible from pre-approval to close",
+      "Build trust with verification and reviews",
     ],
   },
   {
@@ -103,7 +103,7 @@ export default function AboutPage() {
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { num: "1M+", label: "Professionals listed" },
-                    { num: "8", label: "States covered" },
+                    { num: "13", label: "States covered" },
                     { num: "9,800+", label: "Verified profiles" },
                     { num: "4.8★", label: "Average rating" },
                   ].map((stat) => (
