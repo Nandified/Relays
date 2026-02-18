@@ -69,7 +69,7 @@
 - Price: **Custom quote**
 
 ## Trial policy
-- **30-day full access trial** (no credit card) for paid tiers.
+- **14-day full access trial** (no credit card) for paid tiers.
 - After trial ends: account **reverts to Free** unless upgraded.
 
 ## Notes / guardrails
