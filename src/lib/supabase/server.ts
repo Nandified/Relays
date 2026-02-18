@@ -1,36 +1,21 @@
-import { createServerClient as _createServerClient } from "@supabase/ssr";
-import type { SupabaseClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
-import { isSupabaseConfigured } from "./client";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
- * Server-side Supabase client (App Router — uses cookies()).
- * Returns null when env vars are not configured (mock mode).
+ * Server-side Supabase client (service role).
+ * Use ONLY in server contexts (API routes, server actions).
  */
-export async function createServerSupabaseClient(): Promise<SupabaseClient | null> {
-  if (!isSupabaseConfigured()) return null;
+export function createServerSupabaseClient(): SupabaseClient {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  const cookieStore = await cookies();
+  if (!url || !serviceKey) {
+    throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+  }
 
-  return _createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options);
-            });
-          } catch {
-            // setAll can fail when called from a Server Component.
-            // This is safe to ignore if middleware is refreshing sessions.
-          }
-        },
-      },
+  return createClient(url, serviceKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
     },
-  );
+  });
 }

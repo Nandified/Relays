@@ -12,7 +12,6 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import generatedLicensed from "@/lib/generated/licensed-professionals.json";
 import { type ProServiceCategory, type UnclaimedProfessional } from "@/lib/types";
 
 /* ── License type → category mapping ──────────────────────────── */
@@ -256,18 +255,6 @@ function getDataDir(): string {
 
 function loadAllProfessionals(): UnclaimedProfessional[] {
   if (cachedProfessionals && cachedProfessionalsBySlug) return cachedProfessionals;
-
-  // Prefer the build-generated bundled index (works on Vercel serverless).
-  // This file is created during `npm run build`.
-  if (Array.isArray(generatedLicensed) && generatedLicensed.length > 0) {
-    const all = generatedLicensed as unknown as UnclaimedProfessional[];
-    const bySlug = new Map<string, UnclaimedProfessional>();
-    for (const p of all) bySlug.set(p.slug, p);
-    cachedProfessionals = all;
-    cachedProfessionalsBySlug = bySlug;
-    lastLoadTime = new Date();
-    return all;
-  }
 
   const ilDataDir = getDataDir();
   const ilFiles = [

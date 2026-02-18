@@ -1,24 +1,27 @@
 import { NextResponse } from "next/server";
-import { getProfessionalStats } from "@/lib/professional-data";
-import { getLicensedStats } from "@/lib/license-data";
-import { getGoogleProfessionalStats } from "@/lib/google-places-data";
+import { createServerSupabaseClient } from "@/lib/supabase";
 
 export async function GET() {
-  const stats = getProfessionalStats();
+  try {
+    const sb = createServerSupabaseClient();
 
-  // Build/version tag to confirm which commit is live on relays-psi.
-  const buildTag = "37543af";
+    const { count, error } = await sb
+      .from("licensed_professionals")
+      .select("id", { count: "exact", head: true });
 
-  // Source-level stats help diagnose missing bundled data on Vercel.
-  const licensed = getLicensedStats();
-  const google = getGoogleProfessionalStats();
+    if (error) throw error;
 
-  return NextResponse.json({
-    ...stats,
-    buildTag,
-    sources: {
-      licensed,
-      google,
-    },
-  });
+    return NextResponse.json({
+      total: count ?? 0,
+      byCategory: {},
+      lastLoaded: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    console.error("[/api/professionals/stats] error:", err?.message ?? err);
+    return NextResponse.json({
+      total: 0,
+      byCategory: {},
+      lastLoaded: new Date().toISOString(),
+    });
+  }
 }
