@@ -160,12 +160,16 @@ async function main() {
   }
 
   const records = [];
+  const seen = new Set();
   for (const src of sources) {
     const rows = parseCSVFile(src.filePath);
     if (rows.length === 0) continue;
     for (const row of rows) {
       const rec = rowToRecord(row, src);
-      if (rec) records.push(rec);
+      if (rec && !seen.has(rec.id)) {
+        seen.add(rec.id);
+        records.push(rec);
+      }
     }
   }
 
