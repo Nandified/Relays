@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
+import { VerifiedBadge } from "@/components/verified-badge";
 import { Button } from "@/components/ui/Button";
 import { mockPricingTiers, mockFAQItems, type PricingTier } from "@/lib/mock-data-extended";
 
@@ -92,7 +93,14 @@ function PricingCard({
                   : "text-slate-500 dark:text-slate-400"
               }`}
             >
-              {feat.text}
+              {feat.text === "Verification checkmark" ? (
+                <span className="inline-flex items-center gap-2">
+                  <span>Verification checkmark</span>
+                  <VerifiedBadge status="verified" size="sm" />
+                </span>
+              ) : (
+                feat.text
+              )}
             </span>
           </div>
         ))}
@@ -207,32 +215,26 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6">
-              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Add-on seats (TC / Assistant)</h3>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                Add seats without jumping tiers:
-              </p>
-              <ul className="mt-3 space-y-1 text-sm text-slate-700 dark:text-slate-300">
-                <li><span className="font-medium">Pro:</span> +$5/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$7 monthly)</span></li>
-                <li><span className="font-medium">Pro+:</span> +$6/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$8 monthly)</span></li>
-                <li><span className="font-medium">Team:</span> +$7/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$9 monthly)</span></li>
-                <li><span className="font-medium">Office:</span> +$5/mo billed annually <span className="text-slate-500 dark:text-slate-400">(+$7 monthly)</span></li>
-              </ul>
-              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-                Seat counts and availability vary by plan.
-              </p>
-            </div>
-
+          <div className="mt-8">
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/60 backdrop-blur-sm p-6">
               <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Enterprise rollout</h3>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                 Brokerages & franchises: we can scope onboarding, permissions, reporting, and integrations.
-                {" "}
-                <Link href="/contact" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium">
-                  Contact sales →
-                </Link>
               </p>
+
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <a
+                  href="mailto:sales@relays.com?subject=Enterprise%20rollout%20-%20Relays"
+                  className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                >
+                  sales@relays.com
+                </a>
+                <a href="mailto:sales@relays.com?subject=Enterprise%20rollout%20-%20Relays" className="w-full sm:w-auto">
+                  <Button variant="secondary" size="sm" className="w-full sm:w-auto">
+                    Email sales
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </section>

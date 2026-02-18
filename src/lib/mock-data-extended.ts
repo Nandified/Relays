@@ -48,7 +48,7 @@ export const mockPricingTiers: PricingTier[] = [
     monthlyPrice: 15,
     annualPrice: 10,
     features: [
-      { text: "Everything in Free", included: true },
+      { text: "Everything in Free (plus)", included: true },
       { text: "3 Journeys (3 share links)", included: true, highlight: true },
       { text: "Minimal/no Relays branding", included: true, highlight: true },
       { text: "Provider options record (export)", included: true },
@@ -65,7 +65,7 @@ export const mockPricingTiers: PricingTier[] = [
     monthlyPrice: 20,
     annualPrice: 15,
     features: [
-      { text: "Everything in Pro", included: true },
+      { text: "Everything in Pro (plus)", included: true },
       { text: "30 Journeys / URLs", included: true, highlight: true },
       { text: "Verification checkmark", included: true, highlight: true },
       { text: "Advanced analytics", included: true },
@@ -84,7 +84,7 @@ export const mockPricingTiers: PricingTier[] = [
     monthlyPrice: 99,
     annualPrice: 69,
     features: [
-      { text: "Everything in Pro+", included: true },
+      { text: "Everything in Pro+ (plus)", included: true },
       { text: "Includes up to 10 seats", included: true, highlight: true },
       { text: "30 Journeys / URLs per seat", included: true, highlight: true },
       { text: "Role-based access (Agent / TC / Assistant)", included: true },
@@ -101,7 +101,7 @@ export const mockPricingTiers: PricingTier[] = [
     monthlyPrice: 299,
     annualPrice: 249,
     features: [
-      { text: "Everything in Team", included: true },
+      { text: "Everything in Team (plus)", included: true },
       { text: "Includes up to 50 seats", included: true, highlight: true },
       { text: "30 Journeys / URLs per seat", included: true, highlight: true },
       { text: "Office dashboards + governance", included: true },
@@ -118,6 +118,7 @@ export const mockPricingTiers: PricingTier[] = [
     monthlyPrice: 0,
     annualPrice: 0,
     features: [
+      { text: "Everything in Office (plus)", included: true },
       { text: "SSO / SAML (optional)", included: true },
       { text: "Custom reporting & permissions", included: true },
       { text: "Dedicated onboarding", included: true },
