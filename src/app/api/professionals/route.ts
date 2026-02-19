@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(parseInt(sp.get("limit") ?? "50", 10) || 50, 200);
   const offset = parseInt(sp.get("offset") ?? "0", 10) || 0;
 
+  const debug = sp.get("debug") === "1";
+
   try {
     const sb = createServerSupabaseClient();
 
@@ -80,6 +82,20 @@ export async function GET(request: NextRequest) {
   } catch (err: any) {
     // Fail soft in production UI; log for Vercel
     console.error("[/api/professionals] error:", err?.message ?? err);
+
+    if (debug) {
+      return NextResponse.json({
+        data: [],
+        total: 0,
+        limit,
+        offset,
+        debug: {
+          message: err?.message ?? String(err),
+          name: err?.name ?? null,
+        },
+      });
+    }
+
     return NextResponse.json({ data: [], total: 0, limit, offset });
   }
 }
