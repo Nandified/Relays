@@ -9,15 +9,16 @@ export async function GET(
 
   try {
     const sb = createServerSupabaseClient();
-    const { data, error } = await sb
+    const { data: rows, error } = await sb
       .from("licensed_professionals")
       .select(
-        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,claimed,claimed_by_pro_id,phone,email,website,rating,review_count,photo_url"
+        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
       )
-      .eq("slug", slug)
-      .maybeSingle();
+      .or(`slug.eq.${slug},slug.ilike.${slug}-*`)
+      .limit(5);
 
     if (error) throw error;
+    const data = (rows ?? [])[0];
     if (!data) return NextResponse.json({ error: "Professional not found" }, { status: 404 });
 
     const professional = {
@@ -36,8 +37,8 @@ export async function GET(
       expires: data.expires ?? "",
       disciplined: !!data.disciplined,
       category: data.category,
-      claimed: !!data.claimed,
-      claimedByProId: data.claimed_by_pro_id ?? null,
+      claimed: false,
+      claimedByProId: null,
       phone: data.phone ?? null,
       email: data.email ?? null,
       website: data.website ?? null,

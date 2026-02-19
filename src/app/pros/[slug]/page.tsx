@@ -20,13 +20,17 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
 
   // 2) Unclaimed license database professionals (Supabase)
   const sb = createServerSupabaseClient();
-  const { data } = await sb
+  // Note: DB slugs currently include extra suffixes (city/license #).
+  // We support legacy/short slugs by falling back to prefix match.
+  const { data: rows } = await sb
     .from("licensed_professionals")
     .select(
-      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,claimed,claimed_by_pro_id,phone,email,website,rating,review_count,photo_url"
+      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
     )
-    .eq("slug", slug)
-    .maybeSingle();
+    .or(`slug.eq.${slug},slug.ilike.${slug}-*`)
+    .limit(5);
+
+  const data = (rows ?? [])[0];
 
   if (data) {
     const unclaimed = {
@@ -45,8 +49,8 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
       expires: data.expires ?? "",
       disciplined: !!data.disciplined,
       category: data.category,
-      claimed: !!data.claimed,
-      claimedByProId: data.claimed_by_pro_id ?? null,
+      claimed: false,
+      claimedByProId: null,
       phone: data.phone ?? null,
       email: data.email ?? null,
       website: data.website ?? null,
