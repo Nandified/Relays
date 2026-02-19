@@ -76,12 +76,21 @@ export async function GET(request: NextRequest) {
       photoUrl: p.photo_url ?? null,
     }));
 
-    return NextResponse.json({
-      data: mapped,
-      total: count ?? mapped.length,
-      limit,
-      offset,
-    });
+    return NextResponse.json(
+      {
+        data: mapped,
+        total: count ?? mapped.length,
+        limit,
+        offset,
+      },
+      {
+        headers: {
+          // Cache at the edge to make typeahead feel instant.
+          // Response is not user-specific.
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        },
+      }
+    );
   } catch (err: any) {
     // Fail soft in production UI; log for Vercel
     console.error("[/api/professionals] error:", err?.message ?? err);
