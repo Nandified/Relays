@@ -99,10 +99,27 @@ async function main() {
       };
     });
 
-    await upsertWithRetry(sb, batch);
+    // IMPORTANT: Only update rows that already exist in Supabase.
+    // If we upsert an id that doesn't exist, Postgres will try to INSERT and fail the NOT NULL constraints (e.g., name).
+    const ids = batch.map((r) => r.id);
+    const { data: existing, error: existErr } = await sb
+      .from("licensed_professionals")
+      .select("id")
+      .in("id", ids);
+    if (existErr) throw existErr;
+
+    const existingIds = new Set((existing ?? []).map((r) => r.id));
+    const toUpdate = batch.filter((r) => existingIds.has(r.id));
+    const skipped = batch.length - toUpdate.length;
+
+    if (toUpdate.length > 0) {
+      await upsertWithRetry(sb, toUpdate);
+    }
 
     done = Math.min(i + slice.length, total);
-    if (done % (batchSize * 5) === 0 || done === total) {
+    if (skipped > 0) {
+      process.stdout.write(`\rUpdated ${done.toLocaleString()} / ${total.toLocaleString()}... (skipped ${skipped})`);
+    } else if (done % (batchSize * 5) === 0 || done === total) {
       process.stdout.write(`\rUpdated ${done.toLocaleString()} / ${total.toLocaleString()}...`);
     }
   }
