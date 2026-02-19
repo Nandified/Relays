@@ -392,6 +392,7 @@ export function HeroSearchBar() {
       {showSuggestions && (
         <SearchSuggestions
           query={query}
+          zip={zip}
           categories={activeCategoryArray.length > 0 ? activeCategoryArray : undefined}
           onSelectPro={handleSelectPro}
           onSelectPlace={handleSelectPlace}
