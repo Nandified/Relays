@@ -9,6 +9,20 @@ import { Card } from "@/components/ui/Card";
 import { ClaimedProProfile } from "@/components/profiles/ClaimedProProfile";
 import { UnclaimedClaimButton } from "@/components/profiles/UnclaimedClaimButton";
 
+function deSlugify(s: string): string {
+  return (s ?? "").replace(/-/g, " ").trim();
+}
+
+function parsePrettySlug(slug: string): { name?: string; city?: string; state?: string } | null {
+  const parts = (slug ?? "").toLowerCase().split("-").filter(Boolean);
+  if (parts.length < 3) return null;
+  const state = parts[parts.length - 1];
+  const city = parts[parts.length - 2];
+  const name = parts.slice(0, -2).join(" ");
+  if (!state || state.length !== 2) return null;
+  return { name: deSlugify(name), city: deSlugify(city), state: state.toUpperCase() };
+}
+
 export default async function ProProfilePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
@@ -22,6 +36,7 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
   const sb = createServerSupabaseClient();
   // Note: DB slugs currently include extra suffixes (city/license #).
   // We support legacy/short slugs by falling back to prefix match.
+  // 2a) Try matching DB slug directly (legacy)
   const { data: rows } = await sb
     .from("licensed_professionals")
     .select(
@@ -30,7 +45,25 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
     .or(`slug.eq.${slug},slug.ilike.${slug}-%`)
     .limit(5);
 
-  const data = (rows ?? [])[0];
+  let data = (rows ?? [])[0] ?? null;
+
+  // 2b) If the incoming slug is our pretty slug (name-city-state), resolve via fields.
+  if (!data) {
+    const parsed = parsePrettySlug(slug);
+    if (parsed?.name && parsed?.city && parsed?.state) {
+      const { data: rows2 } = await sb
+        .from("licensed_professionals")
+        .select(
+          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+        )
+        .ilike("name", `%${parsed.name}%`)
+        .ilike("city", `%${parsed.city}%`)
+        .eq("state", parsed.state)
+        .limit(5);
+      data = (rows2 ?? [])[0] ?? null;
+    }
+  }
+
 
   if (data) {
     const unclaimed = {

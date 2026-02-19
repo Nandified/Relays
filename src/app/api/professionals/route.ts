@@ -1,6 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase";
 
+function slugify(s: string): string {
+  return (s ?? "")
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function prettyProSlug(p: { name?: string | null; city?: string | null; state?: string | null }): string {
+  const name = slugify(p.name ?? "");
+  const city = slugify(p.city ?? "");
+  const state = slugify(p.state ?? "");
+  if (name && city && state) return `${name}-${city}-${state}`;
+  if (name && state) return `${name}-${state}`;
+  return name || "";
+}
+
 export async function GET(request: NextRequest) {
   const sp = request.nextUrl.searchParams;
 
@@ -52,7 +70,8 @@ export async function GET(request: NextRequest) {
     // Map DB fields to API contract expected by UI
     const mapped = (data ?? []).map((p: any) => ({
       id: p.id,
-      slug: p.slug,
+      // Use a nicer SEO/share slug (no license #). We still resolve legacy DB slugs server-side.
+      slug: prettyProSlug(p),
       name: p.name,
       licenseNumber: p.license_number ?? "",
       licenseType: p.license_type ?? "",
