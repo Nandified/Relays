@@ -37,9 +37,9 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-async function upsertWithRetry(sb, batch, attempt = 1) {
+async function updateOneWithRetry(sb, id, patch, attempt = 1) {
   try {
-    const { error } = await sb.from("licensed_professionals").upsert(batch, { onConflict: "id" });
+    const { error } = await sb.from("licensed_professionals").update(patch).eq("id", id);
     if (!error) return;
 
     const msg = String(error.message || "");
@@ -48,15 +48,29 @@ async function upsertWithRetry(sb, batch, attempt = 1) {
 
     const backoff = Math.min(30000, 500 * 2 ** attempt);
     await sleep(backoff);
-    return upsertWithRetry(sb, batch, attempt + 1);
+    return updateOneWithRetry(sb, id, patch, attempt + 1);
   } catch (err) {
     const msg = String(err?.message || err);
     const retryable = /socket|fetch failed|ECONNRESET|ETIMEDOUT|EAI_AGAIN|other side closed/i.test(msg);
     if (!retryable || attempt >= 8) throw err;
     const backoff = Math.min(30000, 500 * 2 ** attempt);
     await sleep(backoff);
-    return upsertWithRetry(sb, batch, attempt + 1);
+    return updateOneWithRetry(sb, id, patch, attempt + 1);
   }
+}
+
+async function updateManyWithConcurrency(sb, records, concurrency = 25) {
+  let i = 0;
+  async function worker() {
+    while (i < records.length) {
+      const idx = i++;
+      const r = records[idx];
+      const { id, ...patch } = r;
+      await updateOneWithRetry(sb, id, patch);
+    }
+  }
+  const n = Math.min(concurrency, records.length || 1);
+  await Promise.all(Array.from({ length: n }, () => worker()));
 }
 
 async function main() {
@@ -65,7 +79,8 @@ async function main() {
   const sb = createClient(url, serviceKey, { auth: { persistSession: false } });
 
   const limit = parseInt(arg("--limit", "0"), 10) || 0;
-  const batchSize = Math.min(Math.max(parseInt(arg("--batch", "500"), 10) || 500, 50), 2000);
+  const batchSize = Math.min(Math.max(parseInt(arg("--batch", "500"), 10) || 500, 10), 2000);
+  const concurrency = Math.min(Math.max(parseInt(arg("--concurrency", "25"), 10) || 25, 1), 50);
 
   const enrichmentPath = path.join(process.cwd(), "data", "idfpr", "idfpr_outscraper_enrichment.json");
   if (!fs.existsSync(enrichmentPath)) {
@@ -78,7 +93,7 @@ async function main() {
   const total = limit > 0 ? Math.min(limit, licenseNumbers.length) : licenseNumbers.length;
 
   console.log(`Loaded enrichment licenses: ${licenseNumbers.length.toLocaleString()}`);
-  console.log(`Applying: ${total.toLocaleString()} (batch=${batchSize})`);
+  console.log(`Applying: ${total.toLocaleString()} (batch=${batchSize}, concurrency=${concurrency})`);
 
   let done = 0;
   for (let i = 0; i < total; i += batchSize) {
@@ -113,7 +128,8 @@ async function main() {
     const skipped = batch.length - toUpdate.length;
 
     if (toUpdate.length > 0) {
-      await upsertWithRetry(sb, toUpdate);
+      // Use UPDATE (not UPSERT) to guarantee we never INSERT incomplete rows.
+      await updateManyWithConcurrency(sb, toUpdate, concurrency);
     }
 
     done = Math.min(i + slice.length, total);
