@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     let query = sb
       .from("licensed_professionals")
       .select(
-        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,claimed,claimed_by_pro_id,phone,email,website,rating,review_count,photo_url",
+        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url",
         { count: "exact" }
       );
 
@@ -63,8 +63,8 @@ export async function GET(request: NextRequest) {
       expires: p.expires ?? "",
       disciplined: !!p.disciplined,
       category: p.category,
-      claimed: !!p.claimed,
-      claimedByProId: p.claimed_by_pro_id ?? null,
+      claimed: false,
+      claimedByProId: null,
       phone: p.phone ?? null,
       email: p.email ?? null,
       website: p.website ?? null,
