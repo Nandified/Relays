@@ -44,28 +44,68 @@ export async function GET(request: NextRequest) {
       query = query.eq("category", category);
     }
 
-    // If user provides a zip, keep results local (even during name search).
-    // This prevents cases like "Fernando" matching "San Fernando, CA" when user is in IL.
-    if (zip) {
-      query = query.like("zip", `${zip}%`);
+    const escaped = q ? q.replace(/,/g, " ").trim() : "";
+
+    // Build a base query builder function so we can optionally prefer local zip matches
+    // WITHOUT locking out results for name searches.
+    const build = (useZip: boolean) => {
+      let qb = sb
+        .from("licensed_professionals")
+        .select(
+          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url",
+          { count: "exact" }
+        );
+
+      if (category && category !== "All") {
+        qb = qb.eq("category", category);
+      }
+
+      if (useZip && zip) {
+        qb = qb.like("zip", `${zip}%`);
+      }
+
+      if (q) {
+        // Search primarily by name (and secondarily by license number/company).
+        // Avoid city matching in suggestions ("San Fernando") which feels wrong.
+        qb = qb.or(`name.ilike.%${escaped}%,license_number.ilike.%${escaped}%,company.ilike.%${escaped}%`);
+      }
+
+      return qb.order("name", { ascending: true });
+    };
+
+    let data: any[] = [];
+    let count: number | null = null;
+
+    if (q && zip) {
+      // Prefer local matches first, but fall back to global results to avoid empty searches.
+      const { data: d1, error: e1 } = await build(true).range(offset, offset + limit - 1);
+      if (e1) throw e1;
+      data = d1 ?? [];
+
+      if (data.length < limit) {
+        const { data: d2, error: e2, count: c2 } = await build(false)
+          .range(offset, offset + limit - 1);
+        if (e2) throw e2;
+
+        // Merge + de-dupe by id
+        const seen = new Set((data ?? []).map((r: any) => r.id));
+        for (const r of d2 ?? []) {
+          if (!seen.has(r.id)) {
+            data.push(r);
+            seen.add(r.id);
+          }
+          if (data.length >= limit) break;
+        }
+        count = c2 ?? null;
+      }
+    } else {
+      const { data: d, error, count: c } = await build(!!zip).range(offset, offset + limit - 1);
+      if (error) throw error;
+      data = d ?? [];
+      count = c ?? null;
     }
 
-    if (q) {
-      // Search primarily by name (and secondarily by license number/company).
-      // Avoid city matching in suggestions ("San Fernando") which feels wrong.
-      const escaped = q.replace(/,/g, " ").trim();
-      query = query.or(
-        `name.ilike.%${escaped}%,license_number.ilike.%${escaped}%,company.ilike.%${escaped}%`
-      );
-
-      // Prefer starts-with matches for snappier, more intuitive results.
-      // (PostgREST can't easily do CASE ordering without a SQL function; we approximate by ordering name asc.)
-    }
-
-    query = query.order("name", { ascending: true }).range(offset, offset + limit - 1);
-
-    const { data, error, count } = await query;
-    if (error) throw error;
+    // If we did a two-pass fetch, count is approximate (global count). That's fine for typeahead.
 
     // Map DB fields to API contract expected by UI
     const mapped = (data ?? []).map((p: any) => ({
