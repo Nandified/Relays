@@ -63,32 +63,49 @@ export function SearchSuggestions({
   const [matchedLicensed, setMatchedLicensed] = React.useState<UnclaimedProfessional[]>([]);
   const [matchedPlaces, setMatchedPlaces] = React.useState<PlacesResult[]>([]);
   const [loading, setLoading] = React.useState(false);
+  const [placesLoading, setPlacesLoading] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const debounceRef = React.useRef<NodeJS.Timeout | null>(null);
+  const placesDebounceRef = React.useRef<NodeJS.Timeout | null>(null);
   const licenseAbortRef = React.useRef<AbortController | null>(null);
+  const placesAbortRef = React.useRef<AbortController | null>(null);
+  const licenseCacheRef = React.useRef(new Map<string, UnclaimedProfessional[]>());
+  const placesCacheRef = React.useRef(new Map<string, PlacesResult[]>());
 
   // Total items for keyboard nav
   const totalItems = matchedPros.length + matchedLicensed.length + matchedPlaces.length + (onSeeAll && query.trim() ? 1 : 0);
 
-  // Debounced search
+  // Debounced search (fast: local pros + licensed)
   React.useEffect(() => {
     if (!visible || !query.trim()) {
       setMatchedPros([]);
       setMatchedLicensed([]);
       setMatchedPlaces([]);
       setActiveIndex(-1);
+      setLoading(false);
+      setPlacesLoading(false);
       return;
     }
 
-    setLoading(true);
     setActiveIndex(-1);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     if (licenseAbortRef.current) licenseAbortRef.current.abort();
 
     debounceRef.current = setTimeout(async () => {
-      const q = query.trim().toLowerCase();
+      const qRaw = query.trim();
+      const q = qRaw.toLowerCase();
+
+      // Avoid hitting remote APIs for tiny queries.
+      if (qRaw.length < 2) {
+        setMatchedPros([]);
+        setMatchedLicensed([]);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
 
       // Search Relays pros (client-side)
       let proResults = mockPros.filter((p) => {
@@ -107,50 +124,101 @@ export function SearchSuggestions({
         );
       }
 
-      // Search licensed professionals (API)
+      // Licensed professionals (API) + in-memory cache
+      const cacheKey = JSON.stringify({ q: qRaw, zip: zip?.trim() ?? "", cat: categories?.[0] ?? "", limit: maxResults });
+      const cached = licenseCacheRef.current.get(cacheKey);
+      if (cached) {
+        setMatchedPros(proResults.slice(0, maxResults));
+        setMatchedLicensed(cached.slice(0, maxResults));
+        setLoading(false);
+        return;
+      }
+
       const licenseController = new AbortController();
       licenseAbortRef.current = licenseController;
       let licenseResults: UnclaimedProfessional[] = [];
       try {
-        const params = new URLSearchParams({ q: query.trim(), limit: String(maxResults) });
+        const params = new URLSearchParams({ q: qRaw, limit: String(maxResults) });
         if (categories && categories.length > 0 && !categories.includes("All")) {
           params.set("category", categories[0]);
         }
         if (zip && zip.trim()) {
           params.set("zip", zip.trim());
         }
+
         const res = await fetch(`/api/professionals?${params.toString()}`, {
           signal: licenseController.signal,
         });
         if (res.ok) {
           const data = await res.json();
           licenseResults = data.data ?? [];
+          licenseCacheRef.current.set(cacheKey, licenseResults);
         }
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") return;
       }
 
-      // Search Google Places
-      let placeResults = await searchPlacesByText(query);
-
-      // Category filter for places
-      if (categories && categories.length > 0 && !categories.includes("All")) {
-        placeResults = placeResults.filter((p) =>
-          p.categories.some((c) =>
-            categories.some((cat) => c.toLowerCase().includes(cat.toLowerCase()))
-          )
-        );
-      }
-
       setMatchedPros(proResults.slice(0, maxResults));
       setMatchedLicensed(licenseResults.slice(0, maxResults));
-      setMatchedPlaces(placeResults.slice(0, maxResults));
       setLoading(false);
-    }, 300);
+    }, 180);
 
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       if (licenseAbortRef.current) licenseAbortRef.current.abort();
+    };
+  }, [query, zip, categories, visible, maxResults]);
+
+  // Slower search (Google Places) — run after licensed results so the dropdown feels instant.
+  React.useEffect(() => {
+    if (!visible || !query.trim()) return;
+
+    if (placesDebounceRef.current) clearTimeout(placesDebounceRef.current);
+    if (placesAbortRef.current) placesAbortRef.current.abort();
+
+    placesDebounceRef.current = setTimeout(async () => {
+      const qRaw = query.trim();
+      if (qRaw.length < 3) {
+        setMatchedPlaces([]);
+        setPlacesLoading(false);
+        return;
+      }
+
+      const cacheKey = JSON.stringify({ q: qRaw, cat: categories?.[0] ?? "" });
+      const cached = placesCacheRef.current.get(cacheKey);
+      if (cached) {
+        setMatchedPlaces(cached.slice(0, maxResults));
+        setPlacesLoading(false);
+        return;
+      }
+
+      setPlacesLoading(true);
+      const controller = new AbortController();
+      placesAbortRef.current = controller;
+
+      try {
+        let placeResults = await searchPlacesByText(qRaw);
+
+        if (categories && categories.length > 0 && !categories.includes("All")) {
+          placeResults = placeResults.filter((p) =>
+            p.categories.some((c) =>
+              categories.some((cat) => c.toLowerCase().includes(cat.toLowerCase()))
+            )
+          );
+        }
+
+        placesCacheRef.current.set(cacheKey, placeResults);
+        setMatchedPlaces(placeResults.slice(0, maxResults));
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+      } finally {
+        setPlacesLoading(false);
+      }
+    }, 550);
+
+    return () => {
+      if (placesDebounceRef.current) clearTimeout(placesDebounceRef.current);
+      if (placesAbortRef.current) placesAbortRef.current.abort();
     };
   }, [query, categories, visible, maxResults]);
 
