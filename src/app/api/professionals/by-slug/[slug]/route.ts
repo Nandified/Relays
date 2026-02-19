@@ -14,7 +14,7 @@ export async function GET(
       .select(
         "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
       )
-      .or(`slug.eq.${slug},slug.ilike.${slug}-*`)
+      .or(`slug.eq.${slug},slug.ilike.${slug}-%`)
       .limit(5);
 
     if (error) throw error;
