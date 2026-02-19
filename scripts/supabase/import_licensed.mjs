@@ -85,12 +85,11 @@ function rowToRecord(row, { idPrefix, defaultState }) {
 
   const name = (row.name ?? row.full_name ?? "").trim();
   const city = (row.city ?? "").trim();
-
-  const slug = baseSlugForProfessional({ name, city, license_number: licenseNumber });
+  const slugBase = baseSlugForProfessional({ name, city, license_number: licenseNumber });
 
   return {
     id: `${idPrefix}${licenseNumber}`,
-    slug: `${slug}-${licenseNumber}` ,
+    slug: `${slugBase}-${licenseNumber}`,
     name,
     category,
     license_number: licenseNumber,
@@ -114,15 +113,57 @@ function rowToRecord(row, { idPrefix, defaultState }) {
   };
 }
 
-async function upsertInBatches(sb, rows, batchSize = 1000) {
-  let done = 0;
-  for (let i = 0; i < rows.length; i += batchSize) {
-    const batch = rows.slice(i, i + batchSize);
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+async function upsertWithRetry(sb, batch, attempt = 1) {
+  try {
     const { error } = await sb.from("licensed_professionals").upsert(batch, { onConflict: "id" });
-    if (error) throw error;
-    done += batch.length;
-    process.stdout.write(`\rUpserted ${done.toLocaleString()} / ${rows.length.toLocaleString()}...`);
+    if (!error) return;
+
+    // Retry on rate limits / transient issues
+    const msg = String(error.message || "");
+    const retryable = error.code === "429" || /timeout|temporar|rate|socket|fetch failed/i.test(msg);
+    if (!retryable || attempt >= 8) throw error;
+
+    const backoff = Math.min(30000, 500 * 2 ** attempt);
+    await sleep(backoff);
+    return upsertWithRetry(sb, batch, attempt + 1);
+  } catch (err) {
+    const msg = String(err?.message || err);
+    const retryable = /socket|fetch failed|ECONNRESET|ETIMEDOUT|EAI_AGAIN|other side closed/i.test(msg);
+    if (!retryable || attempt >= 8) throw err;
+    const backoff = Math.min(30000, 500 * 2 ** attempt);
+    await sleep(backoff);
+    return upsertWithRetry(sb, batch, attempt + 1);
   }
+}
+
+async function upsertInBatches(sb, rows, { batchSize, progressPath }) {
+  let startIndex = 0;
+  if (fs.existsSync(progressPath)) {
+    try {
+      const v = JSON.parse(fs.readFileSync(progressPath, "utf-8"));
+      if (typeof v.nextIndex === "number") startIndex = v.nextIndex;
+    } catch {}
+  }
+
+  let done = startIndex;
+  const total = rows.length;
+
+  for (let i = startIndex; i < total; i += batchSize) {
+    const batch = rows.slice(i, i + batchSize);
+    await upsertWithRetry(sb, batch);
+
+    done = Math.min(i + batch.length, total);
+    fs.writeFileSync(progressPath, JSON.stringify({ nextIndex: done, total }, null, 2));
+
+    if (done % (batchSize * 10) === 0 || done === total) {
+      process.stdout.write(`\rUpserted ${done.toLocaleString()} / ${total.toLocaleString()}...`);
+    }
+  }
+
   process.stdout.write("\n");
 }
 
@@ -161,6 +202,7 @@ async function main() {
 
   const records = [];
   const seen = new Set();
+
   for (const src of sources) {
     const rows = parseCSVFile(src.filePath);
     if (rows.length === 0) continue;
@@ -174,8 +216,13 @@ async function main() {
   }
 
   console.log(`Prepared ${records.length.toLocaleString()} licensed professionals for import.`);
-  await upsertInBatches(sb, records, 1000);
+
+  // Smaller batches + resumable progress to survive network blips.
+  const progressPath = path.join("/tmp", "supabase_licensed_import_progress.json");
+  await upsertInBatches(sb, records, { batchSize: 200, progressPath });
+
   console.log("Done.");
+  console.log(`Progress file: ${progressPath}`);
 }
 
 main().catch((err) => {
