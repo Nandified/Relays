@@ -26,19 +26,22 @@ export async function GET(request: NextRequest) {
       query = query.eq("category", category);
     }
 
-    // Zip narrowing only if query doesn't look like a name (same behavior as before)
-    const queryHasName = q ? /[a-zA-Z]{2,}/.test(q) : false;
-    if (zip && !queryHasName) {
+    // If user provides a zip, keep results local (even during name search).
+    // This prevents cases like "Fernando" matching "San Fernando, CA" when user is in IL.
+    if (zip) {
       query = query.like("zip", `${zip}%`);
     }
 
     if (q) {
-      // Search across name/company/city/license
-      // Note: Supabase OR syntax
+      // Search primarily by name (and secondarily by license number/company).
+      // Avoid city matching in suggestions ("San Fernando") which feels wrong.
       const escaped = q.replace(/,/g, " ").trim();
       query = query.or(
-        `name.ilike.%${escaped}%,company.ilike.%${escaped}%,city.ilike.%${escaped}%,license_number.ilike.%${escaped}%`
+        `name.ilike.%${escaped}%,license_number.ilike.%${escaped}%,company.ilike.%${escaped}%`
       );
+
+      // Prefer starts-with matches for snappier, more intuitive results.
+      // (PostgREST can't easily do CASE ordering without a SQL function; we approximate by ordering name asc.)
     }
 
     query = query.order("name", { ascending: true }).range(offset, offset + limit - 1);
