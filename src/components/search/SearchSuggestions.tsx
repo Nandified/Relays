@@ -10,6 +10,7 @@ import { type Pro, type UnclaimedProfessional } from "@/lib/types";
 
 interface SearchSuggestionsProps {
   query: string;
+  zip?: string;
   categories?: string[];
   onSelectPro: (pro: Pro) => void;
   onSelectPlace: (place: PlacesResult) => void;
@@ -48,6 +49,7 @@ function ShimmerRow() {
 
 export function SearchSuggestions({
   query,
+  zip,
   categories,
   onSelectPro,
   onSelectPlace,
@@ -113,6 +115,9 @@ export function SearchSuggestions({
         const params = new URLSearchParams({ q: query.trim(), limit: String(maxResults) });
         if (categories && categories.length > 0 && !categories.includes("All")) {
           params.set("category", categories[0]);
+        }
+        if (zip && zip.trim()) {
+          params.set("zip", zip.trim());
         }
         const res = await fetch(`/api/professionals?${params.toString()}`, {
           signal: licenseController.signal,
