@@ -10,9 +10,11 @@ export type LogoMarqueeItem = {
 export function LogoMarquee({
   title = "Find professionals from companies like:",
   items,
+  showDisclaimer = true,
 }: {
   title?: string;
   items: LogoMarqueeItem[];
+  showDisclaimer?: boolean;
 }) {
   // Duplicate items for seamless loop
   const loop = React.useMemo(() => [...items, ...items], [items]);
@@ -57,9 +59,11 @@ export function LogoMarquee({
         </div>
       </div>
 
-      <div className="mt-3 text-center text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-500">
-        Logos are trademarks of their respective owners. Display does not imply partnership or endorsement.
-      </div>
+      {showDisclaimer && (
+        <div className="mt-3 text-center text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-500">
+          Logos are trademarks of their respective owners. Display does not imply partnership or endorsement.
+        </div>
+      )}
 
       <style jsx>{`
         .marquee {

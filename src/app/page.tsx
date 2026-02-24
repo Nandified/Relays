@@ -198,7 +198,9 @@ export default function HomePage() {
         <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
           <div className="py-10">
             <LogoMarquee
+              showDisclaimer={false}
               items={[
+                // Mix across categories (brokerage, mortgage, insurance, etc.)
                 { name: "RE/MAX" },
                 { name: "Compass" },
                 { name: "Keller Williams" },
@@ -207,6 +209,17 @@ export default function HomePage() {
                 { name: "eXp Realty" },
                 { name: "Century 21" },
                 { name: "@properties" },
+
+                { name: "Guaranteed Rate" },
+                { name: "LoanDepot" },
+                { name: "Neighborhood Loans" },
+                { name: "Rocket Mortgage" },
+                { name: "Chase" },
+
+                { name: "State Farm" },
+                { name: "Allstate" },
+                { name: "Farmers Insurance" },
+                { name: "Liberty Mutual" },
               ]}
             />
           </div>
