@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSearchBar } from "@/components/home/HeroSearchBar";
 import { AnimatedSection } from "@/components/home/AnimatedSection";
+import { LogoMarquee } from "@/components/home/LogoMarquee";
 
 /* ── How it works ────────────────────────────────────────────── */
 
@@ -193,7 +194,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Stats row removed (replaced by hero trust line) */}
+        {/* ── Logo strip / carousel (template) ───────────────── */}
+        <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
+          <div className="py-10">
+            <LogoMarquee
+              items={[
+                { name: "RE/MAX" },
+                { name: "Compass" },
+                { name: "Keller Williams" },
+                { name: "Coldwell Banker" },
+                { name: "Berkshire Hathaway HomeServices" },
+                { name: "eXp Realty" },
+                { name: "Century 21" },
+                { name: "@properties" },
+              ]}
+            />
+          </div>
+        </section>
 
         {/* ── 3 User Paths ─────────────────────────────────────── */}
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
