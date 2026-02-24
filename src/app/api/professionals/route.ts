@@ -64,7 +64,14 @@ export async function GET(request: NextRequest) {
       }
 
       if (useZip && zip) {
-        qb = qb.like("zip", `${zip}%`);
+        const z = zip.trim();
+        // If we have a full 5-digit zip, use equality (fast, index-friendly).
+        // For partial zips, keep prefix matching.
+        if (/^\d{5}$/.test(z)) {
+          qb = qb.eq("zip", z);
+        } else {
+          qb = qb.like("zip", `${z}%`);
+        }
       }
 
       if (q) {
