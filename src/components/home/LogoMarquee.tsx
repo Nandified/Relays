@@ -22,24 +22,25 @@ export function LogoMarquee({
   if (!items?.length) return null;
 
   return (
-    <div className="mx-auto max-w-6xl px-4">
+    <div className="mx-auto max-w-6xl px-2 sm:px-4">
       <div className="text-center">
         <div className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
           {title}
         </div>
+        <div className="mx-auto mt-2 h-px w-24 bg-gradient-to-r from-transparent via-blue-400/30 to-transparent" />
       </div>
 
       <div className="relative mt-5 overflow-hidden">
         {/* fade edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[var(--bg-subtle)] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--bg-subtle)] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[var(--bg-card)]/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--bg-card)]/60 to-transparent" />
 
         <div className="flex gap-4 py-2 marquee">
           {loop.map((item, idx) => (
             <div
               key={`${item.name}-${idx}`}
-              className="flex h-10 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/[0.10] bg-black/[0.02] dark:bg-white/[0.03] px-4 text-xs text-slate-600 dark:text-slate-400"
-              style={{ filter: "grayscale(1)", opacity: 0.75 }}
+              className="flex h-10 items-center justify-center rounded-full border border-black/[0.08] dark:border-white/[0.10] bg-black/[0.02] dark:bg-white/[0.03] px-4 text-xs text-slate-600 dark:text-slate-400 hover:border-blue-400/30 dark:hover:border-blue-400/25 transition-colors"
+              style={{ filter: "grayscale(1)", opacity: 0.8 }}
               title={item.name}
             >
               {item.src ? (

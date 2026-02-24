@@ -194,34 +194,39 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Logo strip / carousel (template) ───────────────── */}
-        <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
-          <div className="py-10">
-            <LogoMarquee
-              showDisclaimer={false}
-              items={[
-                // Mix across categories (brokerage, mortgage, insurance, etc.)
-                { name: "RE/MAX" },
-                { name: "Compass" },
-                { name: "Keller Williams" },
-                { name: "Coldwell Banker" },
-                { name: "Berkshire Hathaway HomeServices" },
-                { name: "eXp Realty" },
-                { name: "Century 21" },
-                { name: "@properties" },
+        {/* ── Logo strip / carousel ─────────────────────────── */}
+        <section className="relative">
+          {/* Soft blue glow to match the hero accent */}
+          <div className="pointer-events-none absolute inset-x-0 -top-10 h-32 bg-[radial-gradient(ellipse,rgba(59,130,246,0.10),transparent_70%)]" />
 
-                { name: "Guaranteed Rate" },
-                { name: "LoanDepot" },
-                { name: "Neighborhood Loans" },
-                { name: "Rocket Mortgage" },
-                { name: "Chase" },
+          <div className="mx-auto max-w-6xl px-4 py-10">
+            <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)]/55 backdrop-blur-sm shadow-[var(--shadow-card)]">
+              <div className="px-4 py-7 sm:px-6">
+                <LogoMarquee
+                  showDisclaimer={false}
+                  items={[
+                    // Mix across categories (brokerage, mortgage, insurance, etc.)
+                    { name: "REMAX" },
+                    { name: "Compass" },
+                    { name: "Keller Williams" },
+                    { name: "Coldwell Banker" },
+                    { name: "Berkshire Hathaway HomeServices" },
+                    { name: "eXp Realty" },
+                    { name: "Century 21" },
+                    { name: "@properties" },
 
-                { name: "State Farm" },
-                { name: "Allstate" },
-                { name: "Farmers Insurance" },
-                { name: "Liberty Mutual" },
-              ]}
-            />
+                    { name: "Guaranteed Rate" },
+                    { name: "LoanDepot" },
+                    { name: "Neighborhood Loans" },
+                    { name: "Rocket Mortgage" },
+
+                    { name: "State Farm" },
+                    { name: "Allstate" },
+                    { name: "Farmers Insurance" },
+                  ]}
+                />
+              </div>
+            </div>
           </div>
         </section>
 
