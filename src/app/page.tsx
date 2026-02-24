@@ -205,24 +205,22 @@ export default function HomePage() {
                 <LogoMarquee
                   showDisclaimer={false}
                   items={[
-                    // Mix across categories (brokerage, mortgage, insurance, etc.)
+                    // Mixed order across categories (brokerage, mortgage, insurance, etc.)
                     { name: "REMAX" },
+                    { name: "Guaranteed Rate" },
+                    { name: "State Farm" },
                     { name: "Compass" },
+                    { name: "LoanDepot" },
+                    { name: "Allstate" },
                     { name: "Keller Williams" },
+                    { name: "Neighborhood Loans" },
+                    { name: "Farmers Insurance" },
                     { name: "Coldwell Banker" },
+                    { name: "Rocket Mortgage" },
                     { name: "Berkshire Hathaway HomeServices" },
                     { name: "eXp Realty" },
                     { name: "Century 21" },
                     { name: "@properties" },
-
-                    { name: "Guaranteed Rate" },
-                    { name: "LoanDepot" },
-                    { name: "Neighborhood Loans" },
-                    { name: "Rocket Mortgage" },
-
-                    { name: "State Farm" },
-                    { name: "Allstate" },
-                    { name: "Farmers Insurance" },
                   ]}
                 />
               </div>

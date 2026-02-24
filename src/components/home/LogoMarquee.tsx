@@ -16,9 +16,6 @@ export function LogoMarquee({
   items: LogoMarqueeItem[];
   showDisclaimer?: boolean;
 }) {
-  // Duplicate items for seamless loop
-  const loop = React.useMemo(() => [...items, ...items], [items]);
-
   if (!items?.length) return null;
 
   return (
@@ -32,31 +29,56 @@ export function LogoMarquee({
 
       <div className="relative mt-5 overflow-hidden">
         {/* fade edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[var(--bg-card)]/60 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--bg-card)]/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 sm:w-20 bg-gradient-to-r from-[var(--bg-card)]/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 sm:w-20 bg-gradient-to-l from-[var(--bg-card)]/60 to-transparent" />
 
-        <div className="flex gap-4 py-2 marquee">
-          {loop.map((item, idx) => (
-            <div
-              key={`${item.name}-${idx}`}
-              className="flex h-10 items-center justify-center rounded-full border border-black/[0.08] dark:border-white/[0.10] bg-black/[0.02] dark:bg-white/[0.03] px-4 text-xs text-slate-600 dark:text-slate-400 hover:border-blue-400/30 dark:hover:border-blue-400/25 transition-colors"
-              style={{ filter: "grayscale(1)", opacity: 0.8 }}
-              title={item.name}
-            >
-              {item.src ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={item.src}
-                  alt={item.name}
-                  className="h-5 w-auto object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <span className="whitespace-nowrap">{item.name}</span>
-              )}
-            </div>
-          ))}
+        <div className="marqueeTrack py-2" aria-label="Company logos">
+          <div className="marqueeGroup">
+            {items.map((item) => (
+              <div
+                key={`a-${item.name}`}
+                className="chip"
+                title={item.name}
+              >
+                {item.src ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    className="h-5 w-auto object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span className="whitespace-nowrap">{item.name}</span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Duplicate for seamless loop */}
+          <div className="marqueeGroup" aria-hidden="true">
+            {items.map((item) => (
+              <div
+                key={`b-${item.name}`}
+                className="chip"
+                title={item.name}
+              >
+                {item.src ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    className="h-5 w-auto object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span className="whitespace-nowrap">{item.name}</span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -67,20 +89,53 @@ export function LogoMarquee({
       )}
 
       <style jsx>{`
-        .marquee {
+        .marqueeTrack {
+          display: flex;
           width: max-content;
-          animation: marquee 28s linear infinite;
+          will-change: transform;
+          transform: translate3d(0, 0, 0);
+          animation: marquee 26s linear infinite;
+        }
+        .marqueeGroup {
+          display: flex;
+          gap: 16px;
+          flex: 0 0 auto;
+          padding-right: 16px;
+        }
+        .chip {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 40px;
+          padding: 0 16px;
+          border-radius: 9999px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          background: rgba(0, 0, 0, 0.02);
+          font-size: 12px;
+          color: rgb(71, 85, 105);
+          opacity: 0.8;
+          filter: grayscale(1);
+          transition: border-color 150ms ease;
+          white-space: nowrap;
+        }
+        :global(.dark) .chip {
+          border-color: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.03);
+          color: rgb(148, 163, 184);
+        }
+        .chip:hover {
+          border-color: rgba(59, 130, 246, 0.3);
         }
         @keyframes marquee {
           0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
         }
         @media (prefers-reduced-motion: reduce) {
-          .marquee {
+          .marqueeTrack {
             animation: none;
           }
         }
