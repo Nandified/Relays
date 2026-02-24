@@ -402,6 +402,22 @@ export function HeroSearchBar() {
           className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative mt-2"
         />
       )}
+
+      {/* Trust line (Thumbtack-style). Hide while dropdown is open so it doesn't get covered. */}
+      {!isOpen && !query.trim() && !showPills && (
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] sm:text-xs text-slate-600 dark:text-slate-400">
+          <span className="font-medium text-slate-700 dark:text-slate-300">Over 1M+</span>
+          <span>real estate professionals</span>
+          <span className="mx-1 text-slate-400/70">•</span>
+          <span className="inline-flex items-center gap-1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-amber-400/90">
+              <path d="M12 2l2.92 6.62 7.08.61-5.36 4.65 1.6 6.92L12 17.77 5.76 20.8l1.6-6.92L2 9.23l7.08-.61L12 2z" />
+            </svg>
+            <span className="font-medium text-slate-700 dark:text-slate-300">4.8</span>
+            <span>average rating</span>
+          </span>
+        </div>
+      )}
     </div>
   );
 }

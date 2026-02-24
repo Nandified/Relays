@@ -28,16 +28,20 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(parseInt(sp.get("limit") ?? "50", 10) || 50, 200);
   const offset = parseInt(sp.get("offset") ?? "0", 10) || 0;
 
+  // We intentionally avoid COUNT(*) for typeahead/search because it is slow at scale.
+  // Instead, we fetch one extra row to determine hasMore.
+  const pageEnd = offset + limit; // inclusive end for range() (fetches limit+1 rows)
+
   const debug = sp.get("debug") === "1";
 
   try {
     const sb = createServerSupabaseClient();
 
+    // NOTE: no COUNT(*) here — it kills perceived performance for search-as-you-type.
     let query = sb
       .from("licensed_professionals")
       .select(
-        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url",
-        { count: "exact" }
+        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
       );
 
     if (category && category !== "All") {
@@ -52,8 +56,7 @@ export async function GET(request: NextRequest) {
       let qb = sb
         .from("licensed_professionals")
         .select(
-          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url",
-          { count: "exact" }
+          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
         );
 
       if (category && category !== "All") {
@@ -74,17 +77,18 @@ export async function GET(request: NextRequest) {
     };
 
     let data: any[] = [];
-    let count: number | null = null;
+    let hasMore = false;
+    let total: number | null = null; // we avoid COUNT(*) by default; reserved for future
 
     if (q && zip) {
       // Prefer local matches first, but fall back to global results to avoid empty searches.
-      const { data: d1, error: e1 } = await build(true).range(offset, offset + limit - 1);
+      const { data: d1, error: e1 } = await build(true).range(offset, pageEnd);
       if (e1) throw e1;
       data = d1 ?? [];
 
-      if (data.length < limit) {
-        const { data: d2, error: e2, count: c2 } = await build(false)
-          .range(offset, offset + limit - 1);
+      // If local results are insufficient, merge in global results.
+      if (data.length < limit + 1) {
+        const { data: d2, error: e2 } = await build(false).range(offset, pageEnd);
         if (e2) throw e2;
 
         // Merge + de-dupe by id
@@ -94,18 +98,20 @@ export async function GET(request: NextRequest) {
             data.push(r);
             seen.add(r.id);
           }
-          if (data.length >= limit) break;
+          if (data.length >= limit + 1) break;
         }
-        count = c2 ?? null;
       }
+
+      hasMore = data.length > limit;
+      data = data.slice(0, limit);
     } else {
-      const { data: d, error, count: c } = await build(!!zip).range(offset, offset + limit - 1);
+      const { data: d, error } = await build(!!zip).range(offset, pageEnd);
       if (error) throw error;
       data = d ?? [];
-      count = c ?? null;
-    }
 
-    // If we did a two-pass fetch, count is approximate (global count). That's fine for typeahead.
+      hasMore = data.length > limit;
+      data = data.slice(0, limit);
+    }
 
     // Map DB fields to API contract expected by UI
     const mapped = (data ?? []).map((p: any) => ({
@@ -138,7 +144,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         data: mapped,
-        total: count ?? mapped.length,
+        // total is intentionally omitted/nullable to keep search fast at scale.
+        total,
+        hasMore,
         limit,
         offset,
       },
@@ -158,6 +166,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         data: [],
         total: 0,
+        hasMore: false,
         limit,
         offset,
         debug: {
@@ -167,6 +176,6 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ data: [], total: 0, limit, offset });
+    return NextResponse.json({ data: [], total: 0, hasMore: false, limit, offset });
   }
 }

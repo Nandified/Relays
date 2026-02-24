@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSearchBar } from "@/components/home/HeroSearchBar";
 import { AnimatedSection } from "@/components/home/AnimatedSection";
-import { AnimatedCounter } from "@/components/home/AnimatedCounter";
 
 /* ── How it works ────────────────────────────────────────────── */
 
@@ -91,13 +90,7 @@ const userPaths = [
 ];
 
 /* ── Stats ────────────────────────────────────────────────────── */
-
-const stats = [
-  { value: "2,400+", label: "Verified Pros" },
-  { value: "15,000+", label: "Teams Built" },
-  { value: "4.8", label: "Avg Pro Rating" },
-  { value: "< 2hrs", label: "Avg Response" },
-];
+// Replaced the old stats row with a cleaner trust line under the hero search bar.
 
 /* ── Testimonials ─────────────────────────────────────────────── */
 
@@ -200,18 +193,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Stats ────────────────────────────────────────────── */}
-        <section className="border-y border-[var(--border)] bg-[var(--bg-subtle)]">
-          <div className="mx-auto max-w-6xl px-4 py-10">
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-              {stats.map((stat, i) => (
-                <AnimatedSection key={stat.label} delay={i * 100}>
-                  <AnimatedCounter value={stat.value} label={stat.label} />
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Stats row removed (replaced by hero trust line) */}
 
         {/* ── 3 User Paths ─────────────────────────────────────── */}
         <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">

@@ -106,9 +106,11 @@ function MarketplaceContent() {
         setLicensedData((prev) => [...prev, ...result.data]);
       }
 
-      setLicensedTotal(result.total);
+      // total may be null (we avoid COUNT(*) for typeahead performance)
+      setLicensedTotal(typeof result.total === "number" ? result.total : 0);
       setLicensedOffset(offset + result.data.length);
-      setLicensedHasMore(offset + result.data.length < result.total);
+      // Prefer API-provided hasMore; fallback to page-size heuristic
+      setLicensedHasMore(!!result.hasMore || result.data.length === LICENSE_PAGE_SIZE);
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
       console.error("[marketplace] Failed to fetch license data:", err);
@@ -275,10 +277,19 @@ function MarketplaceContent() {
         <span>
           {hasActiveFilter ? (
             <>
-              <span className="font-medium text-slate-700 dark:text-slate-300">
-                {(filteredPros.length + licensedTotal).toLocaleString()}
-              </span>
-              {" "}result{(filteredPros.length + licensedTotal) !== 1 ? "s" : ""}
+              {(() => {
+                const licensedCount = licensedTotal > 0 ? licensedTotal : licensedData.length;
+                const shown = filteredPros.length + licensedCount;
+                const suffix = licensedTotal > 0 ? "" : (licensedHasMore ? "+" : "");
+                return (
+                  <>
+                    <span className="font-medium text-slate-700 dark:text-slate-300">
+                      {shown.toLocaleString()}{suffix}
+                    </span>
+                    {" "}result{shown !== 1 ? "s" : ""}
+                  </>
+                );
+              })()}
               {zip.trim() ? ` near ${zip.trim()}` : ""}
             </>
           ) : (
@@ -347,7 +358,9 @@ function MarketplaceContent() {
                 >
                   Show more results
                   <span className="text-xs text-slate-600 dark:text-slate-400">
-                    ({licensedData.length} of {licensedTotal.toLocaleString()})
+                    {licensedTotal > 0
+                      ? `(${licensedData.length} of ${licensedTotal.toLocaleString()})`
+                      : `(${licensedData.length} loaded)`}
                   </span>
                 </button>
               </div>
