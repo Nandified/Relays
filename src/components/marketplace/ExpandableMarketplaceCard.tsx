@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -104,6 +105,11 @@ export function ExpandableMarketplaceCard({ profile, expanded, onToggle }: Expan
   const [videoOpen, setVideoOpen] = React.useState(false);
   const contentId = `marketplace-card-${profile.uid}`;
 
+  const pathname = usePathname();
+  const sp = useSearchParams();
+  const back = encodeURIComponent(`${pathname}${sp.toString() ? `?${sp.toString()}` : ""}`);
+  const profileHref = `${profile.profileHref}?back=${back}`;
+
   const initials = getInitials(profile.name);
   const gradientClass = avatarGradientClass(profile.name);
   const hasRating = typeof profile.rating === "number" && !Number.isNaN(profile.rating);
@@ -138,7 +144,20 @@ export function ExpandableMarketplaceCard({ profile, expanded, onToggle }: Expan
         <div className="flex items-start gap-3">
           <div className="relative flex-shrink-0">
             {profile.avatarUrl ? (
-              <Avatar src={profile.avatarUrl} alt={profile.name} width={72} height={96} rounded="md" />
+              <Avatar
+                src={profile.avatarUrl}
+                alt={profile.name}
+                width={72}
+                height={96}
+                rounded="md"
+                fallback={
+                  <div
+                    className={`flex h-[96px] w-[72px] flex-shrink-0 items-center justify-center rounded-md border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`}
+                  >
+                    {initials}
+                  </div>
+                }
+              />
             ) : (
               <div
                 className={`flex h-[96px] w-[72px] flex-shrink-0 items-center justify-center rounded-md border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`}
@@ -325,7 +344,7 @@ export function ExpandableMarketplaceCard({ profile, expanded, onToggle }: Expan
 
               {/* CTAs */}
               <div className="mt-4 pb-1 grid gap-2" onClick={(e) => e.stopPropagation()}>
-                <Link href={profile.profileHref}>
+                <Link href={profileHref} prefetch>
                   <Button variant="secondary" className="w-full">
                     View Full Profile
                   </Button>

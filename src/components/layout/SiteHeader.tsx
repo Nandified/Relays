@@ -11,6 +11,16 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 export function SiteHeader() {
   const { state, logout } = useAuth();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [marketplaceHref, setMarketplaceHref] = React.useState("/marketplace");
+
+  React.useEffect(() => {
+    try {
+      const saved = window.sessionStorage.getItem("relays:marketplace:lastUrl");
+      if (saved && saved.startsWith("/marketplace")) setMarketplaceHref(saved);
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const isAuthed = state.status === "authed";
   const isPro = isAuthed && state.user.role === "pro";
@@ -28,7 +38,7 @@ export function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
-          <Link href="/marketplace" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+          <Link href={marketplaceHref} className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors" scroll={false}>
             Marketplace
           </Link>
           <Link href="/real-estate-pro" className="rounded-xl px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
@@ -119,7 +129,7 @@ export function SiteHeader() {
       {mobileOpen && (
         <div className="border-t border-[var(--border)] bg-[var(--bg-card)] p-4 md:hidden">
           <nav className="flex flex-col gap-1">
-            <MobileLink href="/marketplace" onClick={() => setMobileOpen(false)}>Marketplace</MobileLink>
+            <MobileLink href={marketplaceHref} onClick={() => setMobileOpen(false)}>Marketplace</MobileLink>
             <MobileLink href="/real-estate-pro" onClick={() => setMobileOpen(false)}>Real Estate Pro</MobileLink>
             <MobileLink href="/pricing" onClick={() => setMobileOpen(false)}>Pricing</MobileLink>
             {isAuthed && !isPro && (

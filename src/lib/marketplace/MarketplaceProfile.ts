@@ -146,6 +146,7 @@ export function unclaimedProfessionalToMarketplaceProfile(
     introVideoUrl: null,
 
     claimHref: "/pro/onboarding",
-    profileHref: `/pros/${professional.slug}`,
+    // Use stable DB id for fast profile lookup (avoids slow pretty-slug resolution)
+    profileHref: `/pros/${professional.id}`, 
   };
 }

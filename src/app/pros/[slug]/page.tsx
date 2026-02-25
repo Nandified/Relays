@@ -23,8 +23,25 @@ function parsePrettySlug(slug: string): { name?: string; city?: string; state?: 
   return { name: deSlugify(name), city: deSlugify(city), state: state.toUpperCase() };
 }
 
-export default async function ProProfilePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProProfilePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { slug } = await params;
+  const sp = (await searchParams) ?? {};
+  const backParam = Array.isArray(sp.back) ? sp.back[0] : sp.back;
+  const backHref = (() => {
+    if (typeof backParam !== "string" || !backParam) return "/marketplace";
+    try {
+      const decoded = decodeURIComponent(backParam);
+      return decoded.startsWith("/marketplace") ? decoded : "/marketplace";
+    } catch {
+      return "/marketplace";
+    }
+  })();
 
   // 1) Claimed Relays pros (mock/real members)
   const claimed = getProBySlug(slug);
@@ -40,9 +57,10 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
   const { data: rows } = await sb
     .from("licensed_professionals")
     .select(
-      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id"
     )
-    .or(`slug.eq.${slug},slug.ilike.${slug}-%`)
+    // Support fast lookups by id (e.g. idfpr_123, google_<placeId>)
+    .or(`id.eq.${slug},slug.eq.${slug},slug.ilike.${slug}-%`)
     .limit(5);
 
   let data = (rows ?? [])[0] ?? null;
@@ -54,7 +72,7 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
       const { data: rows2 } = await sb
         .from("licensed_professionals")
         .select(
-          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id"
         )
         .ilike("name", `%${parsed.name}%`)
         .ilike("city", `%${parsed.city}%`)
@@ -92,7 +110,7 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
       photoUrl: data.photo_url ?? null,
     } as UnclaimedProfessional;
 
-    return <UnclaimedProfileTemplate professional={unclaimed} />;
+    return <UnclaimedProfileTemplate professional={unclaimed} backHref={backHref} />;
   }
 
   notFound();
@@ -100,7 +118,7 @@ export default async function ProProfilePage({ params }: { params: Promise<{ slu
 
 /* ── Unclaimed profile — same layout as claimed, with placeholders ── */
 
-function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedProfessional }) {
+function UnclaimedProfileTemplate({ professional, backHref }: { professional: UnclaimedProfessional; backHref: string }) {
   const initials = getInitials(professional.name);
 
   const showRating =
@@ -120,7 +138,7 @@ function UnclaimedProfileTemplate({ professional }: { professional: UnclaimedPro
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <Link href="/marketplace" className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 mb-6">
+      <Link href={backHref} className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 mb-6" scroll={false}>
         <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>

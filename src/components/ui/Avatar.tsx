@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import Image from "next/image";
 
 interface AvatarProps {
@@ -11,6 +14,8 @@ interface AvatarProps {
   height?: number;
   rounded?: "md" | "lg" | "xl" | "full";
   className?: string;
+  /** Rendered when the image fails to load. */
+  fallback?: React.ReactNode;
 }
 
 export function Avatar({
@@ -21,13 +26,16 @@ export function Avatar({
   height,
   rounded = "xl",
   className = "",
+  fallback = null,
 }: AvatarProps) {
+  const [failed, setFailed] = React.useState(false);
+
   const roundedMap = {
     md: "rounded-xl",
     lg: "rounded-2xl",
     xl: "rounded-3xl",
     full: "rounded-full",
-  };
+  } as const;
 
   const w = width ?? size;
   const h = height ?? size;
@@ -37,7 +45,18 @@ export function Avatar({
       className={`overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] flex-shrink-0 ${roundedMap[rounded]} ${className}`}
       style={{ width: w, height: h }}
     >
-      <Image src={src} alt={alt} width={w} height={h} className="h-full w-full object-cover" />
+      {failed ? (
+        fallback
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          width={w}
+          height={h}
+          className="h-full w-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      )}
     </div>
   );
 }

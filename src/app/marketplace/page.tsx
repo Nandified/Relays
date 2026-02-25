@@ -72,6 +72,14 @@ function MarketplaceContent() {
 
     const z = searchParams.get("zip") ?? "";
     if (z) setZip(z);
+
+    // Persist the last marketplace URL so the header link returns you to where you were.
+    try {
+      const url = `/marketplace${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+      window.sessionStorage.setItem("relays:marketplace:lastUrl", url);
+    } catch {
+      // ignore
+    }
   }, [searchParams]);
 
   // Fetch license data with debounce
