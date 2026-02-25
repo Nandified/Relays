@@ -4,8 +4,11 @@ import * as React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { type UnclaimedProfessional } from "@/lib/types";
-import { ExpandableProCard } from "@/components/marketplace/ExpandableProCard";
-import { ExpandableLicensedCard } from "@/components/marketplace/ExpandableLicensedCard";
+import { ExpandableMarketplaceCard } from "@/components/marketplace/ExpandableMarketplaceCard";
+import {
+  claimedProToMarketplaceProfile,
+  unclaimedProfessionalToMarketplaceProfile,
+} from "@/lib/marketplace/MarketplaceProfile";
 import { SearchBar } from "@/components/marketplace/SearchBar";
 import { FilterChips } from "@/components/marketplace/FilterChips";
 
@@ -232,7 +235,17 @@ function MarketplaceContent() {
     </div>
   );
 
-  const hasAnyResults = filteredPros.length > 0 || licensedData.length > 0;
+  const claimedProfiles = React.useMemo(
+    () => filteredPros.map(claimedProToMarketplaceProfile),
+    [filteredPros]
+  );
+
+  const licensedProfiles = React.useMemo(
+    () => licensedData.map(unclaimedProfessionalToMarketplaceProfile),
+    [licensedData]
+  );
+
+  const hasAnyResults = claimedProfiles.length > 0 || licensedProfiles.length > 0;
 
   return (
     <main className="mx-auto max-w-6xl overflow-x-hidden px-3 sm:px-4 py-4 sm:py-6">
@@ -320,13 +333,13 @@ function MarketplaceContent() {
         <div className="min-w-0">
           <div className="flex flex-col gap-1.5">
             {/* Relays pros */}
-            {filteredPros.length > 0 ? (
-              filteredPros.map((pro) => (
-                <ExpandableProCard
-                  key={pro.id}
-                  pro={pro}
-                  expanded={mobileExpandedId === pro.id}
-                  onToggle={() => handleMobileToggle(pro.id)}
+            {claimedProfiles.length > 0 ? (
+              claimedProfiles.map((profile) => (
+                <ExpandableMarketplaceCard
+                  key={profile.uid}
+                  profile={profile}
+                  expanded={mobileExpandedId === profile.uid}
+                  onToggle={() => handleMobileToggle(profile.uid)}
                 />
               ))
             ) : !hasAnyResults && !licensedLoading ? (
@@ -337,12 +350,12 @@ function MarketplaceContent() {
             ) : null}
 
             {/* Licensed professional cards */}
-            {licensedData.map((prof) => (
-              <ExpandableLicensedCard
-                key={prof.id}
-                professional={prof}
-                expanded={mobileExpandedId === prof.id}
-                onToggle={() => handleMobileToggle(prof.id)}
+            {licensedProfiles.map((profile) => (
+              <ExpandableMarketplaceCard
+                key={profile.uid}
+                profile={profile}
+                expanded={mobileExpandedId === profile.uid}
+                onToggle={() => handleMobileToggle(profile.uid)}
               />
             ))}
 
