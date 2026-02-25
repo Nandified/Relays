@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
     let query = sb
       .from("licensed_professionals")
       .select(
-        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+        "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
       );
 
     if (category && category !== "All") {
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
       let qb = sb
         .from("licensed_professionals")
         .select(
-          "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+          "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
         );
 
       if (category && category !== "All") {
@@ -123,6 +123,7 @@ export async function GET(request: NextRequest) {
     // Map DB fields to API contract expected by UI
     const mapped = (data ?? []).map((p: any) => ({
       id: p.id,
+      publicId: p.public_id ?? null,
       // Use a nicer SEO/share slug (no license #). We still resolve legacy DB slugs server-side.
       slug: prettyProSlug(p),
       name: p.name,

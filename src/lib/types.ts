@@ -422,6 +422,8 @@ export interface UnclaimedProfessional {
   rating: number | null;
   reviewCount: number | null;
   photoUrl: string | null;
+  /** Opaque public id for URLs (does not reveal license number). */
+  publicId?: string | null;
 }
 
 // ── Verification ──

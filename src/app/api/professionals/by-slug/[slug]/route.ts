@@ -25,9 +25,51 @@ export async function GET(
     const sb = createServerSupabaseClient();
 
     const selectCols =
-      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
+      "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
 
     // 1) FAST PATH: allow lookups by DB id (idfpr_..., google_...)
+    // 1) Try by public_id (UUID)
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(slug);
+    if (isUuid) {
+      const { data: byPublic, error: ePub } = await sb
+        .from("licensed_professionals")
+        .select(selectCols)
+        .eq("public_id", slug)
+        .limit(1);
+      if (ePub) throw ePub;
+      if ((byPublic ?? []).length) {
+        const p = byPublic[0];
+        const professional = {
+          id: p.id,
+          publicId: p.public_id ?? null,
+          slug: p.slug,
+          name: p.name,
+          licenseNumber: p.license_number ?? "",
+          licenseType: p.license_type ?? "",
+          company: p.company ?? "",
+          officeName: p.office_name ?? null,
+          city: p.city ?? "",
+          state: p.state ?? "",
+          zip: p.zip ?? "",
+          county: p.county ?? "",
+          licensedSince: p.licensed_since ?? "",
+          expires: p.expires ?? "",
+          disciplined: !!p.disciplined,
+          category: p.category,
+          claimed: false,
+          claimedByProId: null,
+          phone: p.phone ?? null,
+          email: p.email ?? null,
+          website: p.website ?? null,
+          rating: p.rating ?? null,
+          reviewCount: p.review_count ?? null,
+          photoUrl: p.photo_url ?? null,
+        };
+        return NextResponse.json(professional);
+      }
+    }
+
+    // 2) Try by DB id (legacy internal id)
     const { data: byId, error: eId } = await sb
       .from("licensed_professionals")
       .select(selectCols)
@@ -72,6 +114,7 @@ export async function GET(
 
     const professional = {
       id: data.id,
+      publicId: (data as any).public_id ?? null,
       slug: data.slug,
       name: data.name,
       licenseNumber: data.license_number ?? "",

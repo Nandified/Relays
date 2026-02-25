@@ -146,7 +146,7 @@ export function unclaimedProfessionalToMarketplaceProfile(
     introVideoUrl: null,
 
     claimHref: "/pro/onboarding",
-    // Use stable DB id for fast profile lookup (avoids slow pretty-slug resolution)
-    profileHref: `/pros/${professional.id}`, 
+    // Prefer opaque publicId (fast + does not leak license number). Fallback to id during migration.
+    profileHref: `/pros/${professional.publicId ?? professional.id}`,
   };
 }

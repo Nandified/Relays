@@ -53,17 +53,31 @@ export default async function ProProfilePage({
   const sb = createServerSupabaseClient();
 
   const selectCols =
-    "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
+    "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
 
-  // 2a) FAST PATH: if the URL param is actually a DB id (idfpr_..., google_...), resolve by primary key.
+  let data: any = null;
+
+  // 2a) FAST PATH: if the URL param is a UUID, treat it as public_id.
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(slug);
+  if (isUuid) {
+    const { data: byPublic } = await sb
+      .from("licensed_professionals")
+      .select(selectCols)
+      .eq("public_id", slug)
+      .limit(1);
+    data = (byPublic ?? [])[0] ?? null;
+  }
+
+  // 2b) FAST PATH: if the URL param is actually a DB id (idfpr_..., google_...), resolve by primary key.
   // Avoid PostgREST `.or(...)` parsing edge cases.
-  const { data: byId } = await sb
-    .from("licensed_professionals")
-    .select(selectCols)
-    .eq("id", slug)
-    .limit(1);
-
-  let data = (byId ?? [])[0] ?? null;
+  if (!data) {
+    const { data: byId } = await sb
+      .from("licensed_professionals")
+      .select(selectCols)
+      .eq("id", slug)
+      .limit(1);
+    data = (byId ?? [])[0] ?? null;
+  }
 
   // 2b) Try matching DB slug directly (legacy)
   if (!data) {
