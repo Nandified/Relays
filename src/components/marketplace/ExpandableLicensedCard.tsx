@@ -42,16 +42,16 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
         className="overflow-hidden p-3 sm:p-4 transition-all"
       >
         {/* Card header — always visible */}
-        <div className="flex items-start gap-3">
+        <div className="flex items-start gap-4">
           {professional.photoUrl ? (
             <img
               src={professional.photoUrl}
               alt={professional.name}
-              className="h-[55px] w-[44px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
+              className="h-[96px] w-[72px] flex-shrink-0 rounded-md border border-[var(--border)] object-cover"
             />
           ) : (
             <div
-              className={`flex h-[55px] w-[44px] flex-shrink-0 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`}
+              className={`flex h-[96px] w-[72px] flex-shrink-0 items-center justify-center rounded-md border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`}
             >
               {initials}
             </div>
