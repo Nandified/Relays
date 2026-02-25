@@ -19,7 +19,17 @@ export function ProCard({
     <button className="w-full text-left" onClick={onSelect}>
       <Card hover selected={selected} padding="none" className="p-4 transition-all">
         <div className="flex items-start gap-3">
-          <Avatar src={pro.headshotUrl} alt={pro.name} size={52} rounded="xl" />
+          <div className="relative flex-shrink-0">
+            <Avatar src={pro.headshotUrl} alt={pro.name} width={52} height={65} rounded="lg" />
+            {pro.introVideoUrl && (
+              <div className="absolute -bottom-2 -right-2 inline-flex items-center gap-1 rounded-full bg-blue-600 px-2 py-1 text-[10px] font-semibold text-white shadow-md ring-2 ring-[var(--bg-card)]">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="opacity-95">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Video
+              </div>
+            )}
+          </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">

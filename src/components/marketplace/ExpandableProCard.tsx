@@ -28,12 +28,14 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
         {/* Card header — always visible */}
         <div className="flex items-start gap-3">
           <div className="relative flex-shrink-0">
-            <Avatar src={pro.headshotUrl} alt={pro.name} size={44} rounded="xl" />
+            <Avatar src={pro.headshotUrl} alt={pro.name} width={56} height={70} rounded="lg" />
+
             {pro.introVideoUrl && (
-              <div className="absolute -bottom-1 -right-1 flex items-center justify-center w-5 h-5 rounded-full bg-blue-500/90 border-2 border-[var(--bg-card)] shadow-sm">
-                <svg width="8" height="8" fill="white" viewBox="0 0 24 24">
-                  <polygon points="5,3 19,12 5,21" />
+              <div className="absolute -bottom-2 -right-2 inline-flex items-center gap-1 rounded-full bg-blue-600 px-2 py-1 text-[10px] font-semibold text-white shadow-md ring-2 ring-[var(--bg-card)]">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="opacity-95">
+                  <path d="M8 5v14l11-7z" />
                 </svg>
+                Video
               </div>
             )}
           </div>
@@ -90,6 +92,44 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
         >
           <div className="overflow-hidden">
             <div className="mt-4 border-t border-[var(--border)] pt-4">
+              {pro.introVideoUrl && (
+                <a
+                  href={pro.introVideoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block mb-4"
+                  onClick={(e) => e.stopPropagation()}
+                  aria-label={`Watch ${pro.name}'s intro video`}
+                >
+                  <div className="relative aspect-video overflow-hidden rounded-2xl border border-[var(--border)] bg-slate-100 dark:bg-slate-900">
+                    <Image
+                      src={pro.headshotUrl}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, 560px"
+                      className="object-cover opacity-80 transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-900 shadow ring-1 ring-black/10">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-white leading-tight">Intro video</div>
+                        <div className="text-xs text-white/80 leading-tight">Watch now</div>
+                      </div>
+                    </div>
+
+                    <div className="absolute top-3 right-3 rounded-full bg-blue-600/90 px-2 py-1 text-[11px] font-semibold text-white ring-1 ring-white/15">
+                      VIDEO
+                    </div>
+                  </div>
+                </a>
+              )}
+
               {/* Full star rating */}
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">

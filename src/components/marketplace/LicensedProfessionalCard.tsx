@@ -2,36 +2,8 @@
 
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { avatarGradientClass, getInitials } from "@/components/marketplace/avatarUtils";
 import { type UnclaimedProfessional } from "@/lib/types";
-
-function getInitials(name: string): string {
-  return name
-    .split(/[\s,]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
-// Deterministic soft color from name for the initials avatar
-const AVATAR_COLORS = [
-  "from-blue-600/30 to-blue-500/10 text-blue-700 dark:text-blue-300",
-  "from-violet-600/30 to-violet-500/10 text-violet-300",
-  "from-emerald-600/30 to-emerald-500/10 text-emerald-300",
-  "from-amber-600/30 to-amber-500/10 text-amber-300",
-  "from-rose-600/30 to-rose-500/10 text-rose-300",
-  "from-cyan-600/30 to-cyan-500/10 text-cyan-300",
-  "from-fuchsia-600/30 to-fuchsia-500/10 text-fuchsia-300",
-  "from-lime-600/30 to-lime-500/10 text-lime-300",
-];
-
-function avatarColor(name: string): string {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
-}
 
 export function LicensedProfessionalCard({
   professional,
@@ -43,7 +15,7 @@ export function LicensedProfessionalCard({
   onSelect?: () => void;
 }) {
   const initials = getInitials(professional.name);
-  const colorClass = avatarColor(professional.name);
+  const gradientClass = avatarGradientClass(professional.name);
 
   return (
     <button className="w-full text-left" onClick={onSelect}>
@@ -54,10 +26,12 @@ export function LicensedProfessionalCard({
             <img
               src={professional.photoUrl}
               alt={professional.name}
-              className="h-[52px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
+              className="h-[65px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${colorClass} text-base font-semibold`}>
+            <div
+              className={`flex h-[65px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} text-base font-bold tracking-tight text-slate-900 dark:text-slate-50`}
+            >
               {initials}
             </div>
           )}

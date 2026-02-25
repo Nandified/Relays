@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { avatarGradientClass, getInitials } from "@/components/marketplace/avatarUtils";
 import { type UnclaimedProfessional } from "@/lib/types";
 
 interface ExpandableLicensedCardProps {
@@ -13,33 +14,7 @@ interface ExpandableLicensedCardProps {
   onToggle: () => void;
 }
 
-function getInitials(name: string): string {
-  return name
-    .split(/[\s,]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
-const AVATAR_COLORS = [
-  "from-blue-600/30 to-blue-500/10 text-blue-700 dark:text-blue-300",
-  "from-violet-600/30 to-violet-500/10 text-violet-300",
-  "from-emerald-600/30 to-emerald-500/10 text-emerald-300",
-  "from-amber-600/30 to-amber-500/10 text-amber-300",
-  "from-rose-600/30 to-rose-500/10 text-rose-300",
-  "from-cyan-600/30 to-cyan-500/10 text-cyan-300",
-  "from-fuchsia-600/30 to-fuchsia-500/10 text-fuchsia-300",
-  "from-lime-600/30 to-lime-500/10 text-lime-300",
-];
-
-function avatarColor(name: string): string {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
-}
+// (moved to avatarUtils)
 
 /* Tiny inline Google "G" logo */
 function GoogleG({ className = "" }: { className?: string }) {
@@ -55,7 +30,7 @@ function GoogleG({ className = "" }: { className?: string }) {
 
 export function ExpandableLicensedCard({ professional, expanded, onToggle }: ExpandableLicensedCardProps) {
   const initials = getInitials(professional.name);
-  const colorClass = avatarColor(professional.name);
+  const gradientClass = avatarGradientClass(professional.name);
   const hasRating = typeof professional.rating === "number" && !Number.isNaN(professional.rating);
 
   return (
@@ -72,10 +47,12 @@ export function ExpandableLicensedCard({ professional, expanded, onToggle }: Exp
             <img
               src={professional.photoUrl}
               alt={professional.name}
-              className="h-[44px] w-[44px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
+              className="h-[55px] w-[44px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
             />
           ) : (
-            <div className={`flex h-[44px] w-[44px] flex-shrink-0 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${colorClass} text-sm font-semibold`}>
+            <div
+              className={`flex h-[55px] w-[44px] flex-shrink-0 items-center justify-center rounded-xl border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`}
+            >
               {initials}
             </div>
           )}
