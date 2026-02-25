@@ -4,6 +4,7 @@ LOG="/Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search_output.log"
 PID_FILE="/Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search.pid"
 PROGRESS="/Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search_progress.json"
 SCRIPT="/Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search_all.py"
+PAUSE_FILE="/Users/Clawdbot/clawd/Relays/data/outscraper/targeted_search.paused"
 
 PID=$(cat "$PID_FILE" 2>/dev/null)
 IS_RUNNING=$(ps aux | grep "targeted_search_all.py" | grep -v grep | wc -l | tr -d ' ')
@@ -28,6 +29,12 @@ if [ "$IS_RUNNING" = "0" ]; then
     # Check last few lines of log for errors
     echo "Last 5 log lines:"
     tail -5 "$LOG" 2>/dev/null
+
+    # If paused, do NOT restart.
+    if [ -f "$PAUSE_FILE" ]; then
+        echo "STATUS: PAUSED (no auto-restart)"
+        exit 0
+    fi
     
     # Check if it completed successfully
     if tail -3 "$LOG" 2>/dev/null | grep -q "FINISHED"; then
