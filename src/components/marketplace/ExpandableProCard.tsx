@@ -91,7 +91,7 @@ export function ExpandableProCard({ pro, expanded, onToggle }: ExpandableProCard
         <div className="flex items-start gap-3">
           <div className="relative flex-shrink-0">
             {/* Taller headshot for marketplace scanability */}
-            <Avatar src={pro.headshotUrl} alt={pro.name} width={72} height={96} rounded="lg" />
+            <Avatar src={pro.headshotUrl} alt={pro.name} width={72} height={96} rounded="md" />
 
             {pro.introVideoUrl && (
               <button
