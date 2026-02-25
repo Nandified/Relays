@@ -42,6 +42,20 @@ async function updateOneWithRetry(sb, id, patch, attempt = 1) {
     const { error } = await sb.from("licensed_professionals").update(patch).eq("id", id);
     if (!error) return;
 
+    // If google_place_id is already taken (we have Google-only rows), fail soft:
+    // apply enrichment without google_place_id.
+    if (
+      error.code === "23505" &&
+      /google_place_id/i.test(String(error.details || "") + String(error.message || "")) &&
+      patch &&
+      Object.prototype.hasOwnProperty.call(patch, "google_place_id")
+    ) {
+      const { google_place_id, ...rest } = patch;
+      const { error: e2 } = await sb.from("licensed_professionals").update(rest).eq("id", id);
+      if (!e2) return;
+      // fall through to retry logic
+    }
+
     const msg = String(error.message || "");
     const retryable = error.code === "429" || /timeout|temporar|rate|socket|fetch failed/i.test(msg);
     if (!retryable || attempt >= 8) throw error;
@@ -111,6 +125,7 @@ async function main() {
         rating: typeof e.rating === "number" ? e.rating : null,
         review_count: typeof e.reviewCount === "number" ? e.reviewCount : null,
         photo_url: e.photoUrl ?? null,
+        google_place_id: typeof e.googlePlaceId === "string" ? e.googlePlaceId.trim() || null : null,
       };
     });
 
@@ -124,8 +139,40 @@ async function main() {
     if (existErr) throw existErr;
 
     const existingIds = new Set((existing ?? []).map((r) => r.id));
-    const toUpdate = batch.filter((r) => existingIds.has(r.id));
+    let toUpdate = batch.filter((r) => existingIds.has(r.id));
     const skipped = batch.length - toUpdate.length;
+
+    // Avoid google_place_id uniqueness conflicts (we inserted Google-only rows earlier).
+    // If a google_place_id is already in use by another row, we skip setting it here (but still apply other enrichment fields).
+    const gpIds = Array.from(
+      new Set(
+        toUpdate
+          .map((r) => (typeof r.google_place_id === "string" ? r.google_place_id.trim() : ""))
+          .filter(Boolean)
+      )
+    );
+
+    if (gpIds.length > 0) {
+      const { data: gpRows, error: gpErr } = await sb
+        .from("licensed_professionals")
+        .select("id,google_place_id")
+        .in("google_place_id", gpIds);
+      if (gpErr) throw gpErr;
+
+      const used = new Map(); // gpId -> id
+      for (const r of gpRows ?? []) {
+        if (r.google_place_id) used.set(String(r.google_place_id), String(r.id));
+      }
+
+      toUpdate = toUpdate.map((r) => {
+        const gp = typeof r.google_place_id === "string" ? r.google_place_id.trim() : "";
+        const owner = gp ? used.get(gp) : null;
+        if (gp && owner && owner !== r.id) {
+          return { ...r, google_place_id: null };
+        }
+        return r;
+      });
+    }
 
     if (toUpdate.length > 0) {
       // Use UPDATE (not UPSERT) to guarantee we never INSERT incomplete rows.

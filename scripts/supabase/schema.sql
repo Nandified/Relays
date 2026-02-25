@@ -21,8 +21,13 @@ create table if not exists public.licensed_professionals (
   rating numeric,
   review_count int,
   photo_url text,
+  google_place_id text,
   source text not null default 'license'
 );
+
+create unique index if not exists idx_lp_google_place_id_unique
+  on public.licensed_professionals (google_place_id)
+  where google_place_id is not null;
 
 create index if not exists idx_lp_name_trgm on public.licensed_professionals using gin (name gin_trgm_ops);
 create index if not exists idx_lp_company_trgm on public.licensed_professionals using gin (company gin_trgm_ops);
