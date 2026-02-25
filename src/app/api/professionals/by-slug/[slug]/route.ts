@@ -24,27 +24,40 @@ export async function GET(
   try {
     const sb = createServerSupabaseClient();
 
-    // 1) Try DB slug match (legacy)
-    const { data: rows, error } = await sb
+    const selectCols =
+      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
+
+    // 1) FAST PATH: allow lookups by DB id (idfpr_..., google_...)
+    const { data: byId, error: eId } = await sb
       .from("licensed_professionals")
-      .select(
-        "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
-      )
-      .or(`slug.eq.${slug},slug.ilike.${slug}-%`)
-      .limit(5);
+      .select(selectCols)
+      .eq("id", slug)
+      .limit(1);
+    if (eId) throw eId;
 
-    if (error) throw error;
+    let data = (byId ?? [])[0] ?? null;
 
-    let data = (rows ?? [])[0] ?? null;
+    // 2) Try DB slug match (legacy)
+    if (!data) {
+      const { data: rows, error } = await sb
+        .from("licensed_professionals")
+        .select(selectCols)
+        .or(`slug.eq.${slug},slug.ilike.${slug}-%`)
+        .limit(5);
 
-    // 2) Try pretty slug (name-city-state)
+      if (error) throw error;
+
+      data = (rows ?? [])[0] ?? null;
+    }
+
+    // 3) Try pretty slug (name-city-state)
     if (!data) {
       const parsed = parsePrettySlug(slug);
       if (parsed?.name && parsed?.city && parsed?.state) {
         const { data: rows2, error: error2 } = await sb
           .from("licensed_professionals")
           .select(
-            "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+            selectCols
           )
           .ilike("name", `%${parsed.name}%`)
           .ilike("city", `%${parsed.city}%`)

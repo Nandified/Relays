@@ -51,19 +51,29 @@ export default async function ProProfilePage({
 
   // 2) Unclaimed license database professionals (Supabase)
   const sb = createServerSupabaseClient();
-  // Note: DB slugs currently include extra suffixes (city/license #).
-  // We support legacy/short slugs by falling back to prefix match.
-  // 2a) Try matching DB slug directly (legacy)
-  const { data: rows } = await sb
-    .from("licensed_professionals")
-    .select(
-      "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id"
-    )
-    // Support fast lookups by id (e.g. idfpr_123, google_<placeId>)
-    .or(`id.eq.${slug},slug.eq.${slug},slug.ilike.${slug}-%`)
-    .limit(5);
 
-  let data = (rows ?? [])[0] ?? null;
+  const selectCols =
+    "id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
+
+  // 2a) FAST PATH: if the URL param is actually a DB id (idfpr_..., google_...), resolve by primary key.
+  // Avoid PostgREST `.or(...)` parsing edge cases.
+  const { data: byId } = await sb
+    .from("licensed_professionals")
+    .select(selectCols)
+    .eq("id", slug)
+    .limit(1);
+
+  let data = (byId ?? [])[0] ?? null;
+
+  // 2b) Try matching DB slug directly (legacy)
+  if (!data) {
+    const { data: rows } = await sb
+      .from("licensed_professionals")
+      .select(selectCols)
+      .or(`slug.eq.${slug},slug.ilike.${slug}-%`)
+      .limit(5);
+    data = (rows ?? [])[0] ?? null;
+  }
 
   // 2b) If the incoming slug is our pretty slug (name-city-state), resolve via fields.
   if (!data) {
