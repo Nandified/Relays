@@ -21,6 +21,11 @@ This is the running log of product/engineering changes made in the Relays app re
 - Commits:
   - `141ee70` — Use publicId in pro profile links for faster loads
 
+#### 1b) Homepage typeahead dropdown height
+- Increased dropdown max height so “Browse all professionals →” is visible without scrolling.
+- Commit:
+  - `77f4cbb` — Increase typeahead dropdown height so 'Browse all' is visible
+
 #### 2) Homepage dropdown stacking (z-index)
 - Issue: homepage typeahead dropdown was rendering behind the logo strip/banner section.
 - Fix: adjust stacking context so the hero section sits above the logo strip; raise dropdown z-index when active.
@@ -51,6 +56,15 @@ This is the running log of product/engineering changes made in the Relays app re
 - Commits:
   - `567352c` — Typeahead: fetch more + re-rank to prefer name matches
   - `020700e` — Typeahead: server-side name prefix preference (typeahead=1)
+
+#### 6) Marketplace improvements
+- Smoother search bar glow (no hard cutoff)
+- Strict zip option when zip+query are present (no global fallback)
+- Infinite scroll loading instead of “Show more results” button
+- Generic empty-state copy (removed “in Illinois”)
+- Commits:
+  - `dfc8f5f` — Marketplace: smoother glow, strict zip option, infinite scroll loading
+  - `59d49d4` — Marketplace empty-state: remove 'in Illinois'
 
 ### Supabase-related context (what supports this)
 - Trigram indexes for fast `ILIKE` search on `licensed_professionals`:
