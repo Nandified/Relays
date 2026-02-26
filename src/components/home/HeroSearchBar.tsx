@@ -239,8 +239,13 @@ export function HeroSearchBar() {
 
   const showAnimatedPlaceholder = !isOpen && query.length === 0 && !showPills;
 
+  const overlayActive = isOpen && (showSuggestions || showChipDropdown || showPills);
+
   return (
-    <div ref={containerRef} className="relative mx-auto w-full max-w-lg">
+    <div
+      ref={containerRef}
+      className={`relative mx-auto w-full max-w-lg ${overlayActive ? "z-[80]" : "z-10"}`}
+    >
       {/* Glow backdrop */}
       <div
         className={`absolute -inset-2 bg-gradient-to-r from-blue-500/20 via-blue-400/10 to-indigo-500/20 blur-xl transition-opacity duration-500 rounded-[28px] ${
@@ -352,7 +357,7 @@ export function HeroSearchBar() {
       {/* Dropdown — chip selector (when no text typed) */}
       {showChipDropdown && (
         <div
-          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative z-50 mt-2 rounded-2xl border border-black/[0.12] dark:border-white/[0.12] bg-black/[0.05] dark:bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
+          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative z-[90] mt-2 rounded-2xl border border-black/[0.12] dark:border-white/[0.12] bg-black/[0.05] dark:bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
           style={{ animation: "dropdownFadeIn 0.15s ease-out" }}
         >
           {/* Top glass highlight */}
@@ -401,7 +406,7 @@ export function HeroSearchBar() {
           onSelectLicensed={handleSelectLicensed}
           onSeeAll={handleSeeAll}
           visible={showSuggestions}
-          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative mt-2"
+          className="sm:absolute sm:left-0 sm:right-0 sm:top-full relative mt-2 z-[90]"
         />
       )}
 
