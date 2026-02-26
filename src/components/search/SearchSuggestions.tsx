@@ -5,6 +5,7 @@ import Image from "next/image";
 import { mockPros } from "@/lib/mock-data";
 import { searchPlacesByText, type PlacesResult } from "@/lib/google-places";
 import { type Pro, type UnclaimedProfessional } from "@/lib/types";
+import { avatarGradientClass, getInitials } from "@/components/marketplace/avatarUtils";
 
 /* ── Types ─────────────────────────────────────────────────────── */
 
@@ -373,34 +374,67 @@ export function SearchSuggestions({
             {matchedLicensed.map((prof, i) => {
               const globalIndex = matchedPros.length + i;
               const isActive = activeIndex === globalIndex;
-              const initials = prof.name
-                .split(/[\s,]+/)
-                .filter(Boolean)
-                .slice(0, 2)
-                .map((w) => w[0]?.toUpperCase() ?? "")
-                .join("");
+              const initials = getInitials(prof.name);
+              const gradientClass = avatarGradientClass(prof.name);
+
+              const showRating =
+                typeof prof.rating === "number" &&
+                !Number.isNaN(prof.rating) &&
+                typeof prof.reviewCount === "number" &&
+                prof.reviewCount > 0;
+
               return (
                 <button
                   key={prof.id}
                   data-suggestion-item
                   onClick={() => onSelectLicensed?.(prof)}
-                  className={`
-                    w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
-                    ${isActive ? "bg-black/[0.08] dark:bg-white/[0.08]" : "hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}
-                  `}
+                  className={
+                    `w-full flex items-start gap-3 px-3 py-2.5 text-left transition-colors ` +
+                    (isActive
+                      ? "bg-black/[0.08] dark:bg-white/[0.08]"
+                      : "hover:bg-black/[0.05] dark:hover:bg-white/[0.05]")
+                  }
                 >
-                  {/* Initials avatar */}
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-semibold text-slate-600 dark:text-slate-400">
-                    {initials}
-                  </div>
+                  {/* Avatar — photo if enriched, else initials (match Marketplace) */}
+                  {prof.photoUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={prof.photoUrl}
+                      alt={prof.name}
+                      className="mt-0.5 h-[52px] w-[42px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
+                    />
+                  ) : (
+                    <div
+                      className={
+                        `mt-0.5 flex h-[52px] w-[42px] flex-shrink-0 items-center justify-center rounded-xl ` +
+                        `border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} ` +
+                        `text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`
+                      }
+                    >
+                      {initials}
+                    </div>
+                  )}
+
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{prof.name}</span>
-                      <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 px-1.5 py-0 text-[9px] font-medium text-emerald-600 dark:text-emerald-400/80">
-                        Licensed
-                      </span>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="min-w-0 flex items-center gap-2">
+                        <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{prof.name}</span>
+                        <span className="flex-shrink-0 inline-flex items-center gap-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 px-1.5 py-0 text-[9px] font-medium text-emerald-600 dark:text-emerald-400/80">
+                          Licensed
+                        </span>
+                      </div>
+
+                      {showRating && (
+                        <span className="flex-shrink-0 inline-flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
+                          <svg width="11" height="11" fill="#f59e0b" viewBox="0 0 20 20">
+                            <path d="M10 1l2.39 4.84L18 6.71l-4 3.9.94 5.49L10 13.63 5.06 16.1 6 10.61l-4-3.9 5.61-.87z" />
+                          </svg>
+                          {(prof.rating ?? 0).toFixed(1)}
+                        </span>
+                      )}
                     </div>
+
                     <div className="truncate text-xs text-slate-600 dark:text-slate-400">
                       {prof.category}
                       {prof.officeName ? ` · ${prof.officeName}` : ""}

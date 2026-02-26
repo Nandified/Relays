@@ -398,7 +398,6 @@ export function HeroSearchBar() {
           zip={zip}
           categories={activeCategoryArray.length > 0 ? activeCategoryArray : undefined}
           onSelectPro={handleSelectPro}
-          // no Google Places suggestions on homepage
           onSelectLicensed={handleSelectLicensed}
           onSeeAll={handleSeeAll}
           visible={showSuggestions}
