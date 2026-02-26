@@ -20,6 +20,8 @@ interface SearchSuggestionsProps {
   visible: boolean;
   className?: string;
   maxResults?: number;
+  /** How many licensed records to fetch before local re-ranking (defaults to 25). */
+  fetchLimit?: number;
 }
 
 /* ── Category emoji map ────────────────────────────────────────── */
@@ -59,9 +61,33 @@ export function SearchSuggestions({
   visible,
   className = "",
   maxResults = 4,
+  fetchLimit = 25,
 }: SearchSuggestionsProps) {
   const [matchedPros, setMatchedPros] = React.useState<Pro[]>([]);
   const [matchedLicensed, setMatchedLicensed] = React.useState<UnclaimedProfessional[]>([]);
+
+  const scoreLicensed = React.useCallback((p: UnclaimedProfessional, qRaw: string) => {
+    const q = qRaw.trim().toLowerCase();
+    if (!q) return 0;
+
+    const name = (p.name ?? "").toLowerCase();
+    const company = (p.company ?? "").toLowerCase();
+    const office = (p.officeName ?? "").toLowerCase();
+
+    const tokens = name.split(/[^a-z0-9]+/g).filter(Boolean);
+
+    // Strong preference for name matches (what users expect)
+    if (name === q) return 1200;
+    if (name.startsWith(q)) return 1000;
+    if (tokens.includes(q)) return 900;
+    if (name.includes(q)) return 700;
+
+    // Secondary: company/office
+    if (office.startsWith(q) || company.startsWith(q)) return 400;
+    if (office.includes(q) || company.includes(q)) return 250;
+
+    return 0;
+  }, []);
   const [matchedPlaces, setMatchedPlaces] = React.useState<PlacesResult[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [placesLoading, setPlacesLoading] = React.useState(false);
@@ -126,11 +152,17 @@ export function SearchSuggestions({
       }
 
       // Licensed professionals (API) + in-memory cache
-      const cacheKey = JSON.stringify({ q: qRaw, zip: zip?.trim() ?? "", cat: categories?.[0] ?? "", limit: maxResults });
+      // Fetch more than we display, then locally re-rank to prefer name matches.
+      const cacheKey = JSON.stringify({ q: qRaw, zip: zip?.trim() ?? "", cat: categories?.[0] ?? "", fetchLimit });
       const cached = licenseCacheRef.current.get(cacheKey);
       if (cached) {
+        const ranked = [...cached]
+          .map((p) => ({ p, s: scoreLicensed(p, qRaw) }))
+          .sort((a, b) => b.s - a.s)
+          .map((x) => x.p);
+
         setMatchedPros(proResults.slice(0, maxResults));
-        setMatchedLicensed(cached.slice(0, maxResults));
+        setMatchedLicensed(ranked.slice(0, maxResults));
         setLoading(false);
         return;
       }
@@ -139,7 +171,7 @@ export function SearchSuggestions({
       licenseAbortRef.current = licenseController;
       let licenseResults: UnclaimedProfessional[] = [];
       try {
-        const params = new URLSearchParams({ q: qRaw, limit: String(maxResults) });
+        const params = new URLSearchParams({ q: qRaw, limit: String(fetchLimit) });
         if (categories && categories.length > 0 && !categories.includes("All")) {
           params.set("category", categories[0]);
         }
@@ -153,7 +185,14 @@ export function SearchSuggestions({
         if (res.ok) {
           const data = await res.json();
           licenseResults = data.data ?? [];
-          licenseCacheRef.current.set(cacheKey, licenseResults);
+          // Re-rank to prefer name matches over incidental matches.
+          const ranked = [...licenseResults]
+            .map((p: UnclaimedProfessional) => ({ p, s: scoreLicensed(p, qRaw) }))
+            .sort((a, b) => b.s - a.s)
+            .map((x) => x.p);
+
+          licenseCacheRef.current.set(cacheKey, ranked);
+          licenseResults = ranked;
         }
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") return;
