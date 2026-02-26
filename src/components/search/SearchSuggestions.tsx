@@ -13,7 +13,7 @@ interface SearchSuggestionsProps {
   zip?: string;
   categories?: string[];
   onSelectPro: (pro: Pro) => void;
-  onSelectPlace: (place: PlacesResult) => void;
+  onSelectPlace?: (place: PlacesResult) => void;
   onSelectLicensed?: (professional: UnclaimedProfessional) => void;
   onSeeAll?: (query: string) => void;
   visible: boolean;
@@ -74,14 +74,14 @@ export function SearchSuggestions({
   const placesCacheRef = React.useRef(new Map<string, PlacesResult[]>());
 
   // Total items for keyboard nav
-  const totalItems = matchedPros.length + matchedLicensed.length + matchedPlaces.length + (onSeeAll && query.trim() ? 1 : 0);
+  const totalItems = matchedPros.length + matchedLicensed.length + (onSelectPlace ? matchedPlaces.length : 0) + (onSeeAll && query.trim() ? 1 : 0);
 
   // Debounced search (fast: local pros + licensed)
   React.useEffect(() => {
     if (!visible || !query.trim()) {
       setMatchedPros([]);
       setMatchedLicensed([]);
-      setMatchedPlaces([]);
+      if (onSelectPlace) setMatchedPlaces([]);
       setActiveIndex(-1);
       setLoading(false);
       setPlacesLoading(false);
@@ -171,6 +171,11 @@ export function SearchSuggestions({
 
   // Slower search (Google Places) — run after licensed results so the dropdown feels instant.
   React.useEffect(() => {
+    if (!onSelectPlace) {
+      setMatchedPlaces([]);
+      setPlacesLoading(false);
+      return;
+    }
     if (!visible || !query.trim()) return;
 
     if (placesDebounceRef.current) clearTimeout(placesDebounceRef.current);
@@ -240,7 +245,7 @@ export function SearchSuggestions({
         } else if (activeIndex < matchedPros.length + matchedLicensed.length) {
           const prof = matchedLicensed[activeIndex - matchedPros.length];
           if (onSelectLicensed) onSelectLicensed(prof);
-        } else if (activeIndex < matchedPros.length + matchedLicensed.length + matchedPlaces.length) {
+        } else if (onSelectPlace && activeIndex < matchedPros.length + matchedLicensed.length + matchedPlaces.length) {
           onSelectPlace(matchedPlaces[activeIndex - matchedPros.length - matchedLicensed.length]);
         } else if (onSeeAll) {
           onSeeAll(query);
@@ -409,7 +414,7 @@ export function SearchSuggestions({
         )}
 
         {/* Google Places section */}
-        {!loading && matchedPlaces.length > 0 && (
+        {onSelectPlace && !loading && matchedPlaces.length > 0 && (
           <div className="py-1.5">
             {/* Divider if previous sections exist */}
             {(matchedPros.length > 0 || matchedLicensed.length > 0) && (
@@ -434,7 +439,7 @@ export function SearchSuggestions({
                 <button
                   key={place.placeId}
                   data-suggestion-item
-                  onClick={() => onSelectPlace(place)}
+                  onClick={() => onSelectPlace?.(place)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors
                     ${isActive ? "bg-black/[0.08] dark:bg-white/[0.08]" : "hover:bg-black/[0.05] dark:hover:bg-white/[0.05]"}

@@ -4,7 +4,6 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { SearchSuggestions } from "@/components/search/SearchSuggestions";
 import { type Pro, type UnclaimedProfessional } from "@/lib/types";
-import { type PlacesResult } from "@/lib/google-places";
 
 const PLACEHOLDER_SERVICES = [
   "Realtor",
@@ -215,10 +214,7 @@ export function HeroSearchBar() {
     router.push(`/pros/${pro.slug}`);
   }
 
-  function handleSelectPlace(place: PlacesResult) {
-    setIsOpen(false);
-    router.push(`/marketplace?placeId=${place.placeId}`);
-  }
+  // NOTE: Homepage search should be Relays DB only (no Google Places suggestions).
 
   function handleSelectLicensed(professional: UnclaimedProfessional) {
     setIsOpen(false);
@@ -402,7 +398,7 @@ export function HeroSearchBar() {
           zip={zip}
           categories={activeCategoryArray.length > 0 ? activeCategoryArray : undefined}
           onSelectPro={handleSelectPro}
-          onSelectPlace={handleSelectPlace}
+          // no Google Places suggestions on homepage
           onSelectLicensed={handleSelectLicensed}
           onSeeAll={handleSeeAll}
           visible={showSuggestions}
