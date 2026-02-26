@@ -401,14 +401,14 @@ export function SearchSuggestions({
                     <img
                       src={prof.photoUrl}
                       alt={prof.name}
-                      className="mt-0.5 h-[52px] w-[42px] flex-shrink-0 rounded-xl border border-[var(--border)] object-cover"
+                      className="mt-0.5 h-[65px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
                     />
                   ) : (
                     <div
                       className={
-                        `mt-0.5 flex h-[52px] w-[42px] flex-shrink-0 items-center justify-center rounded-xl ` +
+                        `mt-0.5 flex h-[65px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl ` +
                         `border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} ` +
-                        `text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`
+                        `text-base font-bold tracking-tight text-slate-900 dark:text-slate-50`
                       }
                     >
                       {initials}
