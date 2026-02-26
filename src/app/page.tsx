@@ -160,7 +160,7 @@ export default function HomePage() {
     <>
       <main>
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section className="relative mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-24 md:pb-28">
+        <section className="relative z-20 mx-auto max-w-6xl px-4 pt-16 pb-20 md:pt-24 md:pb-28">
           {/* Subtle hero glow orb */}
           <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-[radial-gradient(ellipse,rgba(59,130,246,0.08),transparent_70%)] animate-float-breathe" />
 
@@ -195,7 +195,7 @@ export default function HomePage() {
         </section>
 
         {/* ── Logo strip / carousel ─────────────────────────── */}
-        <section className="relative">
+        <section className="relative z-0">
           {/* Soft blue glow to match the hero accent */}
           <div className="pointer-events-none absolute inset-x-0 -top-10 h-32 bg-[radial-gradient(ellipse,rgba(59,130,246,0.10),transparent_70%)]" />
 
