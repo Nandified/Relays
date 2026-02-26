@@ -401,14 +401,14 @@ export function SearchSuggestions({
                     <img
                       src={prof.photoUrl}
                       alt={prof.name}
-                      className="mt-0.5 h-[65px] w-[52px] flex-shrink-0 rounded-2xl border border-[var(--border)] object-cover"
+                      className="mt-0.5 h-[56px] w-[44px] flex-shrink-0 rounded-lg border border-[var(--border)] object-cover"
                     />
                   ) : (
                     <div
                       className={
-                        `mt-0.5 flex h-[65px] w-[52px] flex-shrink-0 items-center justify-center rounded-2xl ` +
+                        `mt-0.5 flex h-[56px] w-[44px] flex-shrink-0 items-center justify-center rounded-lg ` +
                         `border border-black/[0.08] dark:border-white/[0.08] bg-gradient-to-br ${gradientClass} ` +
-                        `text-base font-bold tracking-tight text-slate-900 dark:text-slate-50`
+                        `text-sm font-bold tracking-tight text-slate-900 dark:text-slate-50`
                       }
                     >
                       {initials}
@@ -435,9 +435,14 @@ export function SearchSuggestions({
                       )}
                     </div>
 
+                    {prof.officeName || (prof.company && prof.company !== prof.name) ? (
+                      <div className="truncate text-xs text-slate-600 dark:text-slate-400">
+                        {prof.officeName || prof.company}
+                      </div>
+                    ) : null}
+
                     <div className="truncate text-xs text-slate-600 dark:text-slate-400">
                       {prof.category}
-                      {prof.officeName ? ` · ${prof.officeName}` : ""}
                       {prof.city ? ` · ${prof.city}, ${prof.state}` : ""}
                     </div>
                   </div>
