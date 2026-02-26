@@ -328,7 +328,7 @@ export function SearchSuggestions({
       {/* Top glass highlight */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
 
-      <div className="relative max-h-[360px] overflow-y-auto">
+      <div className="relative max-h-[440px] overflow-y-auto">
         {/* Loading state */}
         {loading && (
           <div className="py-2">
