@@ -204,7 +204,9 @@ function MarketplaceContent() {
 
   // Handlers
   const handleSearchSelectLicensed = React.useCallback((professional: UnclaimedProfessional) => {
-    router.push(`/pros/${professional.slug}`);
+    // Prefer opaque publicId for fast lookup + to avoid leaking license identifiers.
+    const target = professional.publicId || professional.id || professional.slug;
+    router.push(`/pros/${target}`);
   }, [router]);
 
   const handleMobileToggle = React.useCallback((id: string) => {

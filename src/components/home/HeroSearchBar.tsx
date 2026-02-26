@@ -222,7 +222,9 @@ export function HeroSearchBar() {
 
   function handleSelectLicensed(professional: UnclaimedProfessional) {
     setIsOpen(false);
-    router.push(`/pros/${professional.slug}`);
+    // Prefer opaque publicId for fast lookup + to avoid leaking license identifiers.
+    const target = professional.publicId || professional.id || professional.slug;
+    router.push(`/pros/${target}`);
   }
 
   function handleSeeAll(q: string) {
