@@ -42,6 +42,7 @@ function MarketplaceContent() {
 
   // License data state
   const [licensedData, setLicensedData] = React.useState<UnclaimedProfessional[]>([]);
+  const loadMoreRef = React.useRef<HTMLDivElement | null>(null);
   const [licensedTotal, setLicensedTotal] = React.useState(0);
   const [licensedLoading, setLicensedLoading] = React.useState(false);
   const [licensedOffset, setLicensedOffset] = React.useState(0);
@@ -100,6 +101,8 @@ function MarketplaceContent() {
       if (query.trim()) params.set("q", query.trim());
       if (categoryFilter && categoryFilter !== "All") params.set("category", categoryFilter);
       if (zip.trim()) params.set("zip", zip.trim());
+      // When user explicitly entered a zip + query, keep results in that zip (no global fallback).
+      if (zip.trim() && query.trim()) params.set("strictZip", "1");
       params.set("limit", String(LICENSE_PAGE_SIZE));
       params.set("offset", String(offset));
 
@@ -160,6 +163,26 @@ function MarketplaceContent() {
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, categoryFilter, zip, hasActiveFilter]);
+
+  // Auto-load next page when user scrolls near the bottom (infinite scroll)
+  React.useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el) return;
+    if (!licensedHasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting) return;
+        if (licensedLoading) return;
+        fetchLicensed(false);
+      },
+      { root: null, rootMargin: "600px 0px", threshold: 0 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [licensedHasMore, licensedLoading, fetchLicensed]);
 
   const filteredPros = React.useMemo(() => {
     let results = [...mockPros];
@@ -372,20 +395,17 @@ function MarketplaceContent() {
             {/* Licensed professional data loading */}
             {licensedLoading && <LicensedLoadingShimmer />}
 
-            {/* Show more button */}
-            {licensedHasMore && !licensedLoading && (
-              <div className="py-4 text-center">
-                <button
-                  onClick={() => fetchLicensed(false)}
-                  className="inline-flex items-center gap-2 rounded-full border border-black/[0.1] dark:border-white/[0.1] bg-black/[0.04] dark:bg-white/[0.04] backdrop-blur-lg px-6 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-black/[0.08] dark:hover:bg-white/[0.08] hover:border-black/[0.15] dark:border-white/[0.15] hover:text-slate-900 dark:hover:text-slate-100 transition-all"
-                >
-                  Show more results
-                  <span className="text-xs text-slate-600 dark:text-slate-400">
+            {/* Infinite scroll sentinel */}
+            {licensedHasMore && (
+              <div ref={loadMoreRef} className="py-6 text-center">
+                <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] dark:border-white/[0.08] bg-black/[0.03] dark:bg-white/[0.03] backdrop-blur-lg px-5 py-2 text-sm text-slate-600 dark:text-slate-400">
+                  {licensedLoading ? "Loading more…" : "Scroll to load more"}
+                  <span className="text-xs">
                     {licensedTotal > 0
                       ? `(${licensedData.length} of ${licensedTotal.toLocaleString()})`
                       : `(${licensedData.length} loaded)`}
                   </span>
-                </button>
+                </div>
               </div>
             )}
 

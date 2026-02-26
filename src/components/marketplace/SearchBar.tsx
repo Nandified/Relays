@@ -47,10 +47,10 @@ export function SearchBar({
   }, [onZipChange]);
 
   return (
-    <div ref={containerRef} className="relative group">
+    <div ref={containerRef} className="relative group overflow-visible">
       {/* Liquid Glass glow backdrop */}
       <div
-        className={`absolute -inset-2 bg-gradient-to-r from-blue-500/20 via-blue-400/10 to-indigo-500/20 blur-xl transition-opacity duration-500 rounded-[28px] ${
+        className={`absolute -inset-3 bg-gradient-to-r from-blue-500/18 via-blue-400/10 to-indigo-500/18 blur-2xl transition-opacity duration-500 rounded-full ${
           focused ? "opacity-100" : "opacity-40"
         }`}
       />

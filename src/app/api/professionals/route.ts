@@ -34,6 +34,7 @@ export async function GET(request: NextRequest) {
 
   const debug = sp.get("debug") === "1";
   const typeahead = sp.get("typeahead") === "1";
+  const strictZip = sp.get("strictZip") === "1";
 
   try {
     const sb = createServerSupabaseClient();
@@ -157,13 +158,13 @@ export async function GET(request: NextRequest) {
       hasMore = data.length > limit;
       data = data.slice(0, limit);
     } else if (q && zip) {
-      // Prefer local matches first, but fall back to global results to avoid empty searches.
+      // Prefer local matches first. Optionally keep results strictly within the zip.
       const { data: d1, error: e1 } = await build(true).range(offset, pageEnd);
       if (e1) throw e1;
       data = d1 ?? [];
 
-      // If local results are insufficient, merge in global results.
-      if (data.length < limit + 1) {
+      // If local results are insufficient, merge in global results (unless strictZip is enabled).
+      if (!strictZip && data.length < limit + 1) {
         const { data: d2, error: e2 } = await build(false).range(offset, pageEnd);
         if (e2) throw e2;
 
