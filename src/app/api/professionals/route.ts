@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
   const pageEnd = offset + limit; // inclusive end for range() (fetches limit+1 rows)
 
   const debug = sp.get("debug") === "1";
+  const typeahead = sp.get("typeahead") === "1";
 
   try {
     const sb = createServerSupabaseClient();
@@ -87,7 +88,75 @@ export async function GET(request: NextRequest) {
     let hasMore = false;
     let total: number | null = null; // we avoid COUNT(*) by default; reserved for future
 
-    if (q && zip) {
+    // Typeahead mode: prefer prefix name matches first (big-tech autocomplete behavior).
+    // Avoid expensive COUNT(*) and keep queries index-friendly where possible.
+    if (typeahead && q) {
+      const escapedQ = q.replace(/,/g, " ").trim();
+
+      const prefixQuery = (useZip: boolean) => {
+        let qb = sb
+          .from("licensed_professionals")
+          .select(
+            "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
+          );
+
+        if (category && category !== "All") qb = qb.eq("category", category);
+
+        if (useZip && zip) {
+          const z = zip.trim();
+          if (/^\d{5}$/.test(z)) qb = qb.eq("zip", z);
+          else qb = qb.like("zip", `${z}%`);
+        }
+
+        // Prefix match on name only.
+        qb = qb.ilike("name", `${escapedQ}%`);
+
+        return qb.order("name", { ascending: true });
+      };
+
+      const containsQuery = (useZip: boolean) => build(useZip);
+
+      // 1) Prefix local then prefix global
+      const merged: any[] = [];
+      const seen = new Set<string>();
+      const take = (rows: any[] | null | undefined) => {
+        for (const r of rows ?? []) {
+          if (!seen.has(r.id)) {
+            merged.push(r);
+            seen.add(r.id);
+          }
+          if (merged.length >= limit + 1) break;
+        }
+      };
+
+      // Prefer local prefix if zip provided, else prefix global
+      if (zip) {
+        const { data: p1, error: e1 } = await prefixQuery(true).range(offset, pageEnd);
+        if (e1) throw e1;
+        take(p1);
+
+        if (merged.length < limit + 1) {
+          const { data: p2, error: e2 } = await prefixQuery(false).range(offset, pageEnd);
+          if (e2) throw e2;
+          take(p2);
+        }
+      } else {
+        const { data: p, error: e } = await prefixQuery(false).range(offset, pageEnd);
+        if (e) throw e;
+        take(p);
+      }
+
+      // 2) Fill remainder with contains (existing OR query) — local first if zip present.
+      if (merged.length < limit + 1) {
+        const { data: c1, error: ce1 } = await containsQuery(!!zip).range(offset, pageEnd);
+        if (ce1) throw ce1;
+        take(c1);
+      }
+
+      data = merged;
+      hasMore = data.length > limit;
+      data = data.slice(0, limit);
+    } else if (q && zip) {
       // Prefer local matches first, but fall back to global results to avoid empty searches.
       const { data: d1, error: e1 } = await build(true).range(offset, pageEnd);
       if (e1) throw e1;

@@ -171,7 +171,7 @@ export function SearchSuggestions({
       licenseAbortRef.current = licenseController;
       let licenseResults: UnclaimedProfessional[] = [];
       try {
-        const params = new URLSearchParams({ q: qRaw, limit: String(fetchLimit) });
+        const params = new URLSearchParams({ q: qRaw, limit: String(fetchLimit), typeahead: "1" });
         if (categories && categories.length > 0 && !categories.includes("All")) {
           params.set("category", categories[0]);
         }
