@@ -417,7 +417,7 @@ function MarketplaceContent() {
                   <span className="font-medium text-slate-700 dark:text-slate-300">
                     {totalProfessionals > 0 ? `${totalProfessionals.toLocaleString()}` : "thousands of"}
                   </span>{" "}
-                  licensed professionals in Illinois
+                  licensed professionals
                 </p>
               </div>
             )}
