@@ -42,7 +42,7 @@ This is the running log of product/engineering changes made in the Relays app re
   - `95cd163` — Homepage search: DB-only suggestions + marketplace-style avatars/ratings
 
 #### 4) Homepage typeahead UI: avatar + rating alignment
-- Iterated to match Marketplace styling (4:5-ish portrait tile, subtle rounding, photo if enriched else gradient initials).
+- Iterated to match Marketplace styling (portrait tile, subtle rounding, photo if enriched else gradient initials).
 - Added an extra info row (office/company) to balance the row.
 - Commits:
   - `738ef11` — Match homepage typeahead avatar size/radius to Marketplace
@@ -52,7 +52,7 @@ This is the running log of product/engineering changes made in the Relays app re
 - Problem: alphabetical `ILIKE` results + small limit can surface odd matches and miss many better ones.
 - Fixes:
   - Client-side: fetch more (25) then re-rank to prefer name matches.
-  - Server-side (typeahead-only): new `typeahead=1` parameter makes API prefer `name ILIKE '<q>%` (prefix) first, then fills remainder with normal contains search.
+  - Server-side (typeahead-only): `typeahead=1` makes API prefer `name ILIKE '<q>%'` (prefix) first, then fills remainder with normal contains search.
 - Commits:
   - `567352c` — Typeahead: fetch more + re-rank to prefer name matches
   - `020700e` — Typeahead: server-side name prefix preference (typeahead=1)
