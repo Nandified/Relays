@@ -30,10 +30,12 @@ export function Avatar({
 }: AvatarProps) {
   const [failed, setFailed] = React.useState(false);
 
+  // Keep this aligned with Tailwind naming expectations.
+  // (Previously these were much rounder than the label implied.)
   const roundedMap = {
-    md: "rounded-xl",
-    lg: "rounded-2xl",
-    xl: "rounded-3xl",
+    md: "rounded-md",
+    lg: "rounded-lg",
+    xl: "rounded-xl",
     full: "rounded-full",
   } as const;
 
