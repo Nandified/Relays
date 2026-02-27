@@ -46,11 +46,11 @@ export function FilterChips({
   return (
     <div className="space-y-3">
       {/* Category chips */}
-      <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+      <div className="flex flex-wrap gap-2">
         <button
           onClick={() => onSelect(null)}
           className={`
-            flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all
+            rounded-full px-3.5 py-1.5 text-sm font-medium transition-all
             ${selected === null && (!selectedCategories || selectedCategories.length === 0)
               ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
               : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-600 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
@@ -64,7 +64,7 @@ export function FilterChips({
             key={cat}
             onClick={() => onSelect(selected === cat ? null : cat)}
             className={`
-              flex-shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap
+              rounded-full px-3.5 py-1.5 text-sm font-medium transition-all whitespace-nowrap
               ${isActive(cat)
                 ? "bg-[var(--accent)] text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]"
                 : "bg-[var(--bg-card)] border border-[var(--border)] text-slate-600 dark:text-slate-400 hover:border-[var(--border-hover)] hover:text-slate-700 dark:hover:text-slate-300"
