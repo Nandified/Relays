@@ -66,6 +66,11 @@ This is the running log of product/engineering changes made in the Relays app re
   - `dfc8f5f` — Marketplace: smoother glow, strict zip option, infinite scroll loading
   - `59d49d4` — Marketplace empty-state: remove 'in Illinois'
 
+#### 7) Avatar rounding consistency
+- Fixed `Avatar` component rounding presets (previously `md` mapped to a very rounded class, making photos look more curved than initials).
+- Commit:
+  - `460bd05` — Fix Avatar rounding presets to match Tailwind naming
+
 ### Supabase-related context (what supports this)
 - Trigram indexes for fast `ILIKE` search on `licensed_professionals`:
   - `supabase/migrations/20260224094700_add_trgm_indexes_for_search.sql`
