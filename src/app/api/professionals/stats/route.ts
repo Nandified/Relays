@@ -16,8 +16,9 @@ export async function GET() {
       byCategory: {},
       lastLoaded: new Date().toISOString(),
     });
-  } catch (err: any) {
-    console.error("[/api/professionals/stats] error:", err?.message ?? err);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[/api/professionals/stats] error:", msg);
     return NextResponse.json({
       total: 0,
       byCategory: {},

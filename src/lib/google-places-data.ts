@@ -178,8 +178,9 @@ function loadAllGoogleProfessionals(): UnclaimedProfessional[] {
       };
 
       // Attach source metadata (not shown to consumers, but useful for internal routing).
-      (prof as any).source = "google";
-      (prof as any).googlePlaceId = placeId;
+      const profWithSource = prof as (typeof prof & { source?: string; googlePlaceId?: string });
+      profWithSource.source = "google";
+      profWithSource.googlePlaceId = placeId;
 
       byId.set(placeId, prof);
       bySlug.set(prof.slug, prof);

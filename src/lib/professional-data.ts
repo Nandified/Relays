@@ -67,7 +67,7 @@ export function searchAllProfessionals(params: ProfessionalSearchParams): Profes
   const google = searchGoogleProfessionals({ ...params, limit: window, offset: 0 });
 
   // Merge results.
-  let merged = [...licensed.data, ...google.data];
+  const merged = [...licensed.data, ...google.data];
 
   // Prefer higher-quality results first when browsing (rating/photos), then name.
   merged.sort((a, b) => {

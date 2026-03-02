@@ -25,7 +25,8 @@ export default function AdminCategoriesPage() {
   const handleAdd = () => {
     if (!newName.trim()) return;
     const newCat: ServiceCategoryConfig = {
-      id: `cat_${Date.now()}`,
+      // Deterministic id (keeps render pure for eslint react-hooks/purity)
+      id: `cat_${categories.length + 1}`,
       name: newName.trim() as ServiceCategoryConfig["name"],
       icon: newIcon || "📋",
       description: newDescription,

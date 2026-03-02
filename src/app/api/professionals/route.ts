@@ -85,9 +85,34 @@ export async function GET(request: NextRequest) {
       return qb.order("name", { ascending: true });
     };
 
-    let data: any[] = [];
+    type LicensedRow = {
+      id: string;
+      public_id?: string | null;
+      slug?: string | null;
+      name?: string | null;
+      license_number?: string | null;
+      license_type?: string | null;
+      company?: string | null;
+      office_name?: string | null;
+      city?: string | null;
+      state?: string | null;
+      zip?: string | null;
+      county?: string | null;
+      licensed_since?: string | null;
+      expires?: string | null;
+      disciplined?: boolean | null;
+      category?: string | null;
+      phone?: string | null;
+      email?: string | null;
+      website?: string | null;
+      rating?: number | null;
+      review_count?: number | null;
+      photo_url?: string | null;
+    };
+
+    let data: LicensedRow[] = [];
     let hasMore = false;
-    let total: number | null = null; // we avoid COUNT(*) by default; reserved for future
+    const total: number | null = null; // we avoid COUNT(*) by default; reserved for future
 
     // Typeahead mode: prefer prefix name matches first (big-tech autocomplete behavior).
     // Avoid expensive COUNT(*) and keep queries index-friendly where possible.
@@ -118,9 +143,9 @@ export async function GET(request: NextRequest) {
       const containsQuery = (useZip: boolean) => build(useZip);
 
       // 1) Prefix local then prefix global
-      const merged: any[] = [];
+      const merged: LicensedRow[] = [];
       const seen = new Set<string>();
-      const take = (rows: any[] | null | undefined) => {
+      const take = (rows: LicensedRow[] | null | undefined) => {
         for (const r of rows ?? []) {
           if (!seen.has(r.id)) {
             merged.push(r);
@@ -169,7 +194,7 @@ export async function GET(request: NextRequest) {
         if (e2) throw e2;
 
         // Merge + de-dupe by id
-        const seen = new Set((data ?? []).map((r: any) => r.id));
+        const seen = new Set((data ?? []).map((r) => r.id));
         for (const r of d2 ?? []) {
           if (!seen.has(r.id)) {
             data.push(r);
@@ -191,7 +216,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Map DB fields to API contract expected by UI
-    const mapped = (data ?? []).map((p: any) => ({
+    const mapped = (data ?? []).map((p) => ({
       id: p.id,
       publicId: p.public_id ?? null,
       // Use a nicer SEO/share slug (no license #). We still resolve legacy DB slugs server-side.
@@ -236,9 +261,11 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch (err: any) {
+  } catch (err: unknown) {
     // Fail soft in production UI; log for Vercel
-    console.error("[/api/professionals] error:", err?.message ?? err);
+    const message = err instanceof Error ? err.message : String(err);
+    const name = err instanceof Error ? err.name : null;
+    console.error("[/api/professionals] error:", message);
 
     if (debug) {
       return NextResponse.json({
@@ -248,8 +275,8 @@ export async function GET(request: NextRequest) {
         limit,
         offset,
         debug: {
-          message: err?.message ?? String(err),
-          name: err?.name ?? null,
+          message,
+          name,
         },
       });
     }

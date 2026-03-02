@@ -24,6 +24,13 @@ function formatTimeAgo(timestamp: string): string {
   return `${days}d ago`;
 }
 
+function getDeterministicSeconds(id: string): number {
+  // Stable "random-looking" number between 5-19 seconds based on id
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  return 5 + (hash % 15);
+}
+
 const statusBadge: Record<VerificationRequest["status"], { variant: "warning" | "success" | "danger" | "accent"; label: string }> = {
   pending: { variant: "warning", label: "Pending Review" },
   approved: { variant: "success", label: "Approved" },
@@ -305,7 +312,7 @@ export default function VerificationPage() {
                   <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                     <div className="h-1 w-1 rounded-full bg-slate-200 dark:bg-slate-700" />
                     {ver.autoVerified ? (
-                      <>AI auto-verified in {Math.floor(Math.random() * 15 + 5)}s · {ver.reviewedAt ? formatDate(ver.reviewedAt) : ""}</>
+                      <>AI auto-verified in {getDeterministicSeconds(ver.id)}s · {ver.reviewedAt ? formatDate(ver.reviewedAt) : ""}</>
                     ) : (
                       <>Reviewed by {ver.reviewedBy} · {ver.reviewedAt ? formatDate(ver.reviewedAt) : ""}</>
                     )}

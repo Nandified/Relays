@@ -48,8 +48,9 @@ export async function GET(
     };
 
     return NextResponse.json(professional);
-  } catch (err: any) {
-    console.error("[/api/professionals/[id]] error:", err?.message ?? err);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[/api/professionals/[id]] error:", msg);
     return NextResponse.json({ error: "Professional not found" }, { status: 404 });
   }
 }

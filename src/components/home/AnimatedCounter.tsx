@@ -22,12 +22,8 @@ function parseNumericValue(value: string): { prefix: string; number: number; suf
 }
 
 function formatNumber(n: number, hasComma: boolean, isFloat: boolean): string {
-  if (isFloat) {
-    return n.toFixed(1);
-  }
-  if (hasComma) {
-    return Math.round(n).toLocaleString("en-US");
-  }
+  if (isFloat) return n.toFixed(1);
+  if (hasComma) return Math.round(n).toLocaleString("en-US");
   return Math.round(n).toString();
 }
 
@@ -36,26 +32,7 @@ export function AnimatedCounter({ value, label }: AnimatedCounterProps) {
   const [displayValue, setDisplayValue] = React.useState(value);
   const hasAnimated = React.useRef(false);
 
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          observer.unobserve(el);
-          animateValue();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  });
-
-  function animateValue() {
+  const animateValue = React.useCallback(() => {
     const { prefix, number, suffix, hasComma } = parseNumericValue(value);
     if (number === 0) {
       setDisplayValue(value);
@@ -76,15 +53,31 @@ export function AnimatedCounter({ value, label }: AnimatedCounterProps) {
 
       setDisplayValue(`${prefix}${formatNumber(current, hasComma, isFloat)}${suffix}`);
 
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        setDisplayValue(value);
-      }
+      if (progress < 1) requestAnimationFrame(update);
+      else setDisplayValue(value);
     }
 
     requestAnimationFrame(update);
-  }
+  }, [value]);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          observer.unobserve(el);
+          animateValue();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [animateValue]);
 
   return (
     <div ref={ref} className="text-center">

@@ -55,7 +55,33 @@ export default async function ProProfilePage({
   const selectCols =
     "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url,google_place_id";
 
-  let data: any = null;
+  type LicensedRow = {
+    id: string;
+    public_id?: string | null;
+    slug: string;
+    name: string;
+    license_number?: string | null;
+    license_type?: string | null;
+    company?: string | null;
+    office_name?: string | null;
+    city?: string | null;
+    state?: string | null;
+    zip?: string | null;
+    county?: string | null;
+    licensed_since?: string | null;
+    expires?: string | null;
+    disciplined?: boolean | null;
+    category: string;
+    phone?: string | null;
+    email?: string | null;
+    website?: string | null;
+    rating?: number | null;
+    review_count?: number | null;
+    photo_url?: string | null;
+    google_place_id?: string | null;
+  };
+
+  let data: LicensedRow | null = null;
 
   // 2a) FAST PATH: if the URL param is a UUID, treat it as public_id.
   const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(slug);

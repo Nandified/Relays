@@ -16,6 +16,21 @@ function formatDate(date: string): string {
   return new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
+function SortIcon({ active, dir }: { active: boolean; dir: "asc" | "desc" }) {
+  if (!active) {
+    return (
+      <svg width="10" height="10" viewBox="0 0 10 10" className="text-slate-700">
+        <path d="M5 2L8 5H2z M5 8L2 5H8z" fill="currentColor" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" className="text-violet-400">
+      {dir === "asc" ? <path d="M5 2L8 5H2z" fill="currentColor" /> : <path d="M5 8L2 5H8z" fill="currentColor" />}
+    </svg>
+  );
+}
+
 export default function AdminProsPage() {
   const [pros, setPros] = React.useState(mockAdminProList);
   const [search, setSearch] = React.useState("");
@@ -120,14 +135,8 @@ export default function AdminProsPage() {
     { id: "unclaimed", label: "Unclaimed", count: pros.filter(p => !p.claimed).length },
   ];
 
-  const SortIcon = ({ field }: { field: string }) => {
-    if (sortField !== field) return <svg width="10" height="10" viewBox="0 0 10 10" className="text-slate-700"><path d="M5 2L8 5H2z M5 8L2 5H8z" fill="currentColor" /></svg>;
-    return (
-      <svg width="10" height="10" viewBox="0 0 10 10" className="text-violet-400">
-        {sortDir === "asc" ? <path d="M5 2L8 5H2z" fill="currentColor" /> : <path d="M5 8L2 5H8z" fill="currentColor" />}
-      </svg>
-    );
-  };
+  // (SortIcon moved outside component to satisfy eslint react-hooks/static-components)
+
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -224,17 +233,17 @@ export default function AdminProsPage() {
               />
             </div>
             <button onClick={() => handleSort("name")} className="flex items-center gap-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
-              Professional <SortIcon field="name" />
+              Professional <SortIcon active={sortField === "name"} dir={sortDir} />
             </button>
             <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Category</div>
             <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Location</div>
             <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Status</div>
             <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide">Verified</div>
             <button onClick={() => handleSort("rating")} className="flex items-center gap-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
-              Rating <SortIcon field="rating" />
+              Rating <SortIcon active={sortField === "rating"} dir={sortDir} />
             </button>
             <button onClick={() => handleSort("joined")} className="flex items-center gap-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
-              Joined <SortIcon field="joined" />
+              Joined <SortIcon active={sortField === "joined"} dir={sortDir} />
             </button>
           </div>
 

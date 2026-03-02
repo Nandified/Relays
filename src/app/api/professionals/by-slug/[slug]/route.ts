@@ -114,7 +114,7 @@ export async function GET(
 
     const professional = {
       id: data.id,
-      publicId: (data as any).public_id ?? null,
+      publicId: (data as { public_id?: string | null }).public_id ?? null,
       slug: data.slug,
       name: data.name,
       licenseNumber: data.license_number ?? "",
@@ -140,8 +140,9 @@ export async function GET(
     };
 
     return NextResponse.json(professional);
-  } catch (err: any) {
-    console.error("[/api/professionals/by-slug] error:", err?.message ?? err);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[/api/professionals/by-slug] error:", msg);
     return NextResponse.json({ error: "Professional not found" }, { status: 404 });
   }
 }
