@@ -1,0 +1,43 @@
+List,Section,Task,Done
+LIST 0 — Decisions / Setup (Blockers),,Confirm soft-wall rules (exact triggers),FALSE
+LIST 0 — Decisions / Setup (Blockers),,Set canonical authed route = `/app`,FALSE
+LIST 0 — Decisions / Setup (Blockers),,Add redirects/aliases,FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Home (`/`),Hero CTAs + search (already present — verify polish),FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Home (`/`),"Homepage search → marketplace state transfer (query, zip, category)",FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Home (`/`),“How it works” section (3 steps),FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Home (`/`),"Footer + standard links (pricing, support, terms, privacy)",FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Marketplace (`/marketplace`),Search supports: name / company / profession + zip (looks implemented — validate),FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Marketplace (`/marketplace`),Filters/chips: category + Verified Only + Accepting Clients (validate behavior),FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Marketplace (`/marketplace`),Mobile UX: inline expand card details (per feedback) (validate/finish),FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Marketplace (`/marketplace`),“View Full Profile” always works + preserves back link,FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Pro profile (public) (`/pros/[slug]`),Ensure licensed/unclaimed profiles resolve reliably (UUID public_id path),FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Pro profile (public) (`/pros/[slug]`),Soft CTA: “Are you [Name]? Claim this profile →”,FALSE
+LIST 1 — MVP‑1 Public Acquisition Loop (Must ship),Pro profile (public) (`/pros/[slug]`),Hide sensitive license IDs from consumer view (per spec),FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Auth (minimal but real),Magic link + OAuth verified end-to-end,FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Auth (minimal but real),Post-auth redirect works (back to intended action),FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Request intake (soft-walled),`/request` or `/requests/new` (pick one canonical),FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Request intake (soft-walled),Stepper: category → location → details → confirm,FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Request intake (soft-walled),Confirmation page + next steps,FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Consumer app area (`/app`),`/app` landing = “What’s pending / what’s next” (Hard Rule #3),FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Consumer app area (`/app`),`/app/requests` list (real data),FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Consumer app area (`/app`),`/app/requests/[id]` detail + status timeline (real data),FALSE
+LIST 2 — MVP‑2 Consumer Request Flow + `/app` (Core product),Consumer app area (`/app`),Ability to “Add to Team” (requires auth; persists),FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Claim flow (from `CLAIM-FLOW.md`),`/api/claim` endpoint (server-side verification),FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Claim flow (from `CLAIM-FLOW.md`),Claim UI flow (multi-step),FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Claim flow (from `CLAIM-FLOW.md`),Primary verification: license number matches profile,FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Claim flow (from `CLAIM-FLOW.md`),Optional secondary ID fields by category (MLS/NMLS/ARDC/etc),FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Claim flow (from `CLAIM-FLOW.md`),Rate limiting + audit log (`claim_attempts`),FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Claim flow (from `CLAIM-FLOW.md`),Post-claim: pro can edit profile + gets verified badge,FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Pro onboarding + pro area,`/pro/onboarding` flow (currently redirects to login — finish),FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Pro onboarding + pro area,"`/pro/profile` editor (bio, photo, service areas, booking link, etc.)",FALSE
+LIST 3 — MVP‑3 Pro Claim + Pro Onboarding (Supply-side unlock),Pro onboarding + pro area,`/pro/requests` inbox (at least shell + demo if matching not built),FALSE
+LIST 4 — Monetization + Share Links (Pricing must map to reality),,Implement “Curated groups (share links)” creation + limits per tier,FALSE
+LIST 4 — Monetization + Share Links (Pricing must map to reality),,Share page route(s) (`/u/...` or whatever we standardize),FALSE
+LIST 4 — Monetization + Share Links (Pricing must map to reality),,"Tier gating (Free=1, Pro=3, Pro+=30/seat, etc. per `docs/PRICING.md`)",FALSE
+LIST 4 — Monetization + Share Links (Pricing must map to reality),,Upgrade flow stub (Stripe later; for now gating + UI is fine),FALSE
+LIST 5 — Operationalization (Post‑MVP),,Matching (manual → rules),FALSE
+LIST 5 — Operationalization (Post‑MVP),,Messaging,FALSE
+LIST 5 — Operationalization (Post‑MVP),,Scheduling (date-first rule),FALSE
+LIST 5 — Operationalization (Post‑MVP),,Payments,FALSE
+LIST 5 — Operationalization (Post‑MVP),,Reviews end-to-end,FALSE
+LIST 5 — Operationalization (Post‑MVP),,Admin dispute tools for claims,FALSE

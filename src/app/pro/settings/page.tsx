@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { Badge } from "@/components/ui/Badge";
 import { getCalendarConnectionsForPro, getAvailabilityRulesForPro } from "@/lib/mock-data";
+import { useTheme, type ThemeMode } from "@/components/theme/ThemeProvider";
 
 /* ── Toggle Component ────────────────────────────────────────── */
 
@@ -149,6 +150,9 @@ export default function ProSettingsPage() {
   const [connectModal, setConnectModal] = React.useState<string | null>(null);
   const [connectStep, setConnectStep] = React.useState<"auth" | "success">("auth");
 
+  // Theme
+  const { theme, setTheme } = useTheme();
+
   // Delete modal
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = React.useState("");
@@ -200,6 +204,41 @@ export default function ProSettingsPage() {
               <Badge key={area} variant="outline">{area}</Badge>
             ))}
           </div>
+        </div>
+      </SettingsSection>
+
+      {/* ── Appearance ── */}
+      <SettingsSection title="Appearance" description="Customize how Relays looks for you">
+        <div>
+          <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3">Theme</h3>
+          <div className="flex gap-2 flex-wrap">
+            {([
+              ["system", "System", "☀️🌙"],
+              ["light", "Light", "☀️"],
+              ["dark", "Dark", "🌙"],
+            ] as const).map(([val, label, icon]) => (
+              <button
+                key={val}
+                onClick={() => setTheme(val as ThemeMode)}
+                className={
+                  `flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all border ` +
+                  (theme === val
+                    ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                    : "bg-[var(--bg-card)] text-slate-600 dark:text-slate-400 border-[var(--border)] hover:border-[var(--border-hover)]")
+                }
+              >
+                <span>{icon}</span>
+                {label}
+              </button>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+            {theme === "system"
+              ? "Follows your device's appearance settings"
+              : theme === "light"
+              ? "Always use light mode"
+              : "Always use dark mode"}
+          </p>
         </div>
       </SettingsSection>
 
