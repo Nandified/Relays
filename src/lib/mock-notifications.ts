@@ -68,7 +68,7 @@ export const mockNotifications: Notification[] = [
     type: "review_received",
     title: "New 5-star review!",
     body: "Morgan Davis left a 5-star review: \"Incredible experience from start to finish. The Relays team made everything seamless.\"",
-    link: "/pro/profile",
+    link: "/pro/reviews", // pro review notifications should go to reviews, not profile editor
     read: true,
     createdAt: daysAgo(3),
   },

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Badge } from "@/components/ui/Badge";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
+import { useAuth } from "@/lib/auth/provider";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
 
 const SPECIALTIES = [
   "First-time Buyers",
@@ -49,6 +51,12 @@ const SOCIAL_PLATFORMS = [
 ] as const;
 
 export default function ProProfileEditPage() {
+  const { state } = useAuth();
+  const usingSupabase = isSupabaseConfigured();
+
+  // Until claim/profile persistence is implemented, keep the pro editor read-only in real (Supabase) mode.
+  const readOnly = usingSupabase && state.status === "authed";
+
   const pro = mockPros[0];
 
   const [name, setName] = React.useState(pro.name);
@@ -76,6 +84,7 @@ export default function ProProfileEditPage() {
   const [videoFileName, setVideoFileName] = React.useState(pro.introVideoUrl ? "intro-video.mp4" : "");
 
   const handleSave = () => {
+    if (readOnly) return;
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -110,8 +119,8 @@ export default function ProProfileEditPage() {
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Edit Profile</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Update your public profile information</p>
         </div>
-        <Button onClick={handleSave}>
-          {saved ? "✓ Saved!" : "Save Changes"}
+        <Button onClick={handleSave} disabled={readOnly} title={readOnly ? "Profile editing will unlock after claim/onboarding is wired to the database" : undefined}>
+          {readOnly ? "Editing Locked" : saved ? "✓ Saved!" : "Save Changes"}
         </Button>
       </div>
 
@@ -363,8 +372,8 @@ export default function ProProfileEditPage() {
       {/* Save */}
       <div className="flex justify-end gap-3">
         <Button variant="secondary">Preview Profile</Button>
-        <Button onClick={handleSave}>
-          {saved ? "✓ Saved!" : "Save Changes"}
+        <Button onClick={handleSave} disabled={readOnly} title={readOnly ? "Profile editing will unlock after claim/onboarding is wired to the database" : undefined}>
+          {readOnly ? "Editing Locked" : saved ? "✓ Saved!" : "Save Changes"}
         </Button>
       </div>
     </div>

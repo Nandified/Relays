@@ -267,6 +267,10 @@ function NotificationRow({
 }) { 
   const href = (() => {
     const link = n.link || "/notifications";
+
+    // Pro-specific routing: keep pros out of consumer journeys and send review events to reviews.
+    if (isPro && n.type === "review_received") return "/pro/reviews";
+
     return isPro ? proLink(link) : link;
   })();
 
