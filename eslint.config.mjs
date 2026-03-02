@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+
+    // Repo-local ignores (generated/non-app code)
+    ".venv/**",
+    "data/**",
+    "scripts/**",
+    "**/playwright/driver/**",
   ]),
 ]);
 
