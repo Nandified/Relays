@@ -44,14 +44,39 @@ const LS_KEY = "relays_fake_session_v1";
 
 /* ── Helper: Supabase User → SessionUser ─────────────────── */
 
-function supabaseUserToSession(user: User): SessionUser {
+async function supabaseUserToSession(user: User): Promise<SessionUser> {
   const meta = user.user_metadata ?? {};
+
+  // Prefer DB-backed profile role (Option B: scalable)
+  let role: UserRole = (meta.role as UserRole) ?? "consumer";
+  let name: string = meta.display_name ?? meta.full_name ?? meta.name ?? user.email?.split("@")[0] ?? "";
+  let avatarUrl: string | null = meta.avatar_url ?? null;
+
+  try {
+    const sb = createClient();
+    if (sb) {
+      const { data } = await sb
+        .from("profiles")
+        .select("role,display_name,avatar_url")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (data) {
+        role = (data.role as UserRole) ?? role;
+        name = data.display_name ?? name;
+        avatarUrl = data.avatar_url ?? avatarUrl;
+      }
+    }
+  } catch {
+    // ignore; fall back to metadata
+  }
+
   return {
     id: user.id,
     email: user.email ?? "",
-    name: meta.display_name ?? meta.full_name ?? meta.name ?? user.email?.split("@")[0] ?? "",
-    role: (meta.role as UserRole) ?? "consumer",
-    avatarUrl: meta.avatar_url ?? null,
+    name,
+    role,
+    avatarUrl,
     proOnboarding: meta.pro_onboarding ?? undefined,
   };
 }
@@ -86,10 +111,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!supabase) return;
 
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
+    supabase.auth.getSession().then(async ({ data: { session: s } }) => {
       if (s?.user) {
         setSession(s);
-        setState({ status: "authed", user: supabaseUserToSession(s.user) });
+        const u = await supabaseUserToSession(s.user);
+        setState({ status: "authed", user: u });
       } else {
         setState({ status: "anon", user: null });
       }
@@ -101,7 +127,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } = supabase.auth.onAuthStateChange((_event, s) => {
       setSession(s);
       if (s?.user) {
-        setState({ status: "authed", user: supabaseUserToSession(s.user) });
+        // async role hydration from DB
+        supabaseUserToSession(s.user).then((u) => {
+          setState({ status: "authed", user: u });
+        });
       } else {
         setState({ status: "anon", user: null });
       }
