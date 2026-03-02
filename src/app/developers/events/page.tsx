@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Card } from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
+// (Input removed; not used)
 import { Badge } from "@/components/ui/Badge";
 import { eventCatalog } from "@/lib/mock-webhook-data";
 import type { EventCategory } from "@/lib/types";

@@ -40,16 +40,7 @@ export async function GET(request: NextRequest) {
     const sb = createServerSupabaseClient();
 
     // NOTE: no COUNT(*) here — it kills perceived performance for search-as-you-type.
-    let query = sb
-      .from("licensed_professionals")
-      .select(
-        "id,public_id,slug,name,license_number,license_type,company,office_name,city,state,zip,county,licensed_since,expires,disciplined,category,phone,email,website,rating,review_count,photo_url"
-      );
-
-    if (category && category !== "All") {
-      query = query.eq("category", category);
-    }
-
+    // (Query builder is created inside `build()` below; keep top-level free of unused vars.)
     const escaped = q ? q.replace(/,/g, " ").trim() : "";
 
     // Build a base query builder function so we can optionally prefer local zip matches

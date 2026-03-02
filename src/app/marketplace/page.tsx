@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { mockPros, serviceCategories } from "@/lib/mock-data";
 import { type UnclaimedProfessional } from "@/lib/types";
 import { ExpandableMarketplaceCard } from "@/components/marketplace/ExpandableMarketplaceCard";
@@ -18,7 +18,7 @@ const LICENSE_PAGE_SIZE = 25;
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  // router removed (unused)
   const initialQuery = searchParams.get("q") ?? "";
   const initialCategories = searchParams.get("categories") ?? "";
   const initialZip = searchParams.get("zip") ?? "";
@@ -226,12 +226,6 @@ function MarketplaceContent() {
   }, [query, categoryFilter, urlCategories, sortBy, verifiedOnly, acceptingOnly]);
 
   // Handlers
-  const handleSearchSelectLicensed = React.useCallback((professional: UnclaimedProfessional) => {
-    // Prefer opaque publicId for fast lookup + to avoid leaking license identifiers.
-    const target = professional.publicId || professional.id || professional.slug;
-    router.push(`/pros/${target}`);
-  }, [router]);
-
   const handleMobileToggle = React.useCallback((id: string) => {
     setMobileExpandedId((prev) => prev === id ? null : id);
   }, []);

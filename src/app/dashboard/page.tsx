@@ -16,7 +16,7 @@ import {
 } from "@/lib/mock-data";
 import { getPendingFollowUps } from "@/lib/mock-reviews";
 import { type Journey, JOURNEY_STAGE_LABELS, JOURNEY_STAGE_ICONS } from "@/lib/types";
-import { computeMoments, getHeroMoment } from "@/lib/moments-engine";
+import { computeMoments } from "@/lib/moments-engine";
 
 function statusBadge(status: Journey["status"]) {
   switch (status) {

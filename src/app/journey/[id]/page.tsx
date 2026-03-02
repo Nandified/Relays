@@ -3,7 +3,7 @@
 import { use, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Card } from "@/components/ui/Card";
+// Card import removed (unused)
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { StageTimeline } from "@/components/journey/StageTimeline";
@@ -14,7 +14,6 @@ import {
   getProById,
   getFilledRoleCount,
   getTotalRoleCount,
-  mockJourneys,
 } from "@/lib/mock-data";
 import {
   type JourneyRole,
@@ -22,7 +21,6 @@ import {
   type JourneyStage,
   type Journey,
   JOURNEY_ROLE_CATEGORIES,
-  JOURNEY_STAGES,
   JOURNEY_STAGE_LABELS,
   JOURNEY_STAGE_ICONS,
 } from "@/lib/types";
@@ -193,7 +191,7 @@ function RecommendedProCard({ pro }: { pro: Pro }) {
 }
 
 /* ── Role Panel ──────────────────────────────────────────────── */
-function RolePanel({ role, index, journeyId }: { role: JourneyRole; index: number; journeyId?: string }) {
+function RolePanel({ role, index }: { role: JourneyRole; index: number }) {
   const meta = roleMeta[role.category];
   const assignedPro = role.assignedProId ? getProById(role.assignedProId) : null;
   const recommendedPros = role.recommendedProIds

@@ -3,7 +3,7 @@
 import { useTheme } from "./ThemeProvider";
 
 export function ThemeToggle() {
-  const { resolvedTheme, setTheme, theme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
   const toggle = () => {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Tabs } from "@/components/ui/Tabs";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { DocumentUpload, formatFileSize } from "@/components/document-upload";
+import { DocumentUpload } from "@/components/document-upload";
 import { DocumentViewerModal } from "@/components/document-viewer-modal";
 import {
   type JourneyDocument,

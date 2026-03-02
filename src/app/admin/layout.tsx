@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth/provider";
 
 const navGroups = [
@@ -89,7 +89,6 @@ const navGroups = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
   const { state } = useAuth();
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
