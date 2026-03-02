@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { mockNotifications } from "@/lib/mock-notifications";
 import { type Notification, type NotificationType } from "@/lib/types";
+import { useAuth } from "@/lib/auth/provider";
 
 /* ── Notification type config ─────────────────────────────────── */
 const typeConfig: Record<NotificationType, { icon: React.ReactNode; color: string; bgColor: string }> = {
@@ -119,7 +120,16 @@ function groupByDate(notifications: Notification[]): { label: string; items: Not
 }
 
 /* ── Main Component ───────────────────────────────────────────── */
+function proLink(link: string): string {
+  // Map consumer journey link → pro journey link
+  if (link.startsWith("/journey/")) return link.replace("/journey/", "/pro/journeys/");
+  return link;
+}
+
 export function NotificationBell() {
+  const { state } = useAuth();
+  const isPro = state.status === "authed" && state.user.role === "pro";
+
   const [open, setOpen] = React.useState(false);
   const [notifications, setNotifications] = React.useState(mockNotifications);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -216,6 +226,7 @@ export function NotificationBell() {
                       notification={notif}
                       onRead={markRead}
                       onClose={() => setOpen(false)}
+                      isPro={isPro}
                     />
                   ))}
                 </div>
@@ -247,16 +258,23 @@ function NotificationRow({
   notification: n,
   onRead,
   onClose,
+  isPro,
 }: {
   notification: Notification;
   onRead: (id: string) => void;
   onClose: () => void;
-}) {
+  isPro: boolean;
+}) { 
+  const href = (() => {
+    const link = n.link || "/notifications";
+    return isPro ? proLink(link) : link;
+  })();
+
   const config = typeConfig[n.type];
 
   return (
     <Link
-      href={n.link || "/notifications"}
+      href={href}
       onClick={() => {
         onRead(n.id);
         onClose();
