@@ -100,7 +100,7 @@ export default function ProJourneysPage() {
           const createdBy = getProById(journey.createdByProId);
 
           return (
-            <Link key={journey.id} href={`/journey/${journey.id}`}>
+            <Link key={journey.id} href={`/pro/journeys/${journey.id}`}>
               <Card hover padding="lg" className="mb-3">
                 <div className="flex items-start gap-4">
                   <MiniProgressRing filled={filled} total={totalCount} />
