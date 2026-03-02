@@ -7,6 +7,33 @@ Rules:
 - Default theme should follow **system** (`prefers-color-scheme`).
 - Note any inconsistencies vs Option B (Apple‑ish v2) hard rules.
 
+**Deployed:** https://relays-psi.vercel.app
+**Audit date:** 2026-03-02
+
+---
+
+## Summary (ranked)
+
+### P0 — Breaks flow / must-fix
+- **Canonical consumer authed route `/app` is 404** (currently missing on deploy).
+- **Auth surface mismatch:** `/dashboard` is the authed landing (redirects to login), but `/settings`, `/requests`, etc appear accessible without auth (verify intended).
+- **Theme/system edge case:** if a user previously set dark mode, then clears localStorage, the `<html class="dark">` can persist until a reload that explicitly sets theme. Recommend: on ThemeProvider init, always apply resolved theme even when `localStorage.theme` is missing (and/or explicitly write `"system"` on first run).
+
+### P1 — Noticeable inconsistencies
+- Settings is extremely content-heavy (demo content) and may not match expected auth gating.
+- Multiple internal areas (org/admin/pro) exist and should be audited for visual consistency once authed.
+
+### P2 — Polish
+- Continue auditing remaining routes with screenshots and note any spacing/typography/card/chip inconsistencies.
+
+---
+
+## Theme verification notes
+- Setting `localStorage.theme = "system"` correctly follows `prefers-color-scheme` and updates the root `dark` class.
+- Manual toggle persists (writes `localStorage.theme = light|dark`).
+
+---
+
 ## How to record each page
 For each route, capture:
 - Route
@@ -17,28 +44,36 @@ For each route, capture:
   - broken states (loading/empty)
   - broken links / auth redirects / 404
 
+---
+
 ## Page inventory
+
 ### Public / Marketing
-- [ ] `/`
-- [ ] `/marketplace`
-- [ ] `/pricing`
-- [ ] `/real-estate-pro`
+- [x] `/`
+  - Notes: looks on-vibe (Option B). Header toggle works.
+- [x] `/marketplace`
+  - Notes: core browse/search present.
+- [x] `/pricing`
+- [x] `/real-estate-pro`
 - [ ] `/about`
 - [ ] `/contact`
 - [ ] `/help`
-- [ ] `/login`
-- [ ] `/signup`
+- [x] `/login` (shows magic link + Google/Apple)
+- [x] `/signup`
 
 ### Profiles
-- [ ] `/pros/<known-slug>` (claimed demo)
+- [x] `/pros/<known-slug>` (claimed demo)
+  - Example tested: `/pros/lisa-hartwell-realtor?back=%2Fmarketplace`
 - [ ] `/pros/<public_id>` (licensed/unclaimed)
 
 ### Consumer / App-ish
-- [ ] `/requests`
-- [ ] `/requests/<id>`
-- [ ] `/documents`
+- [x] `/requests`
+  - Notes: currently accessible without auth; likely demo.
+- [x] `/requests/<id>`
+- [x] `/documents`
 - [ ] `/team`
-- [ ] `/settings`
+- [x] `/settings`
+  - Notes: Theme System/Light/Dark selector present; appears accessible without auth.
 - [ ] `/notifications`
 - [ ] `/messages`
 - [ ] `/messages/<conversationId>`
@@ -77,3 +112,11 @@ For each route, capture:
 - [ ] `/admin/metrics`
 - [ ] `/admin/team`
 - [ ] `/admin/data-import`
+
+---
+
+## Known 404s / redirects (as observed)
+- `/app` → 404
+- `/dashboard` → redirects to `/login?redirect=/dashboard`
+- `/admin` → redirects to `/login?redirect=/admin`
+- `/pro/dashboard` → redirects to `/login?redirect=/pro/dashboard`
